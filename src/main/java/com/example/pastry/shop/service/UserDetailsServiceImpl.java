@@ -13,12 +13,10 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private CustomPasswordEncoder passwordEncoder;
+    private final UsersRepository usersRepository;
 
-    private UsersRepository usersRepository;
-
-    public UserDetailsServiceImpl(CustomPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+    public UserDetailsServiceImpl(CustomPasswordEncoder passwordEncoder, UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
     }
 
 

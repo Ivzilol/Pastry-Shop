@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
+@Table(name = "authority")
 public class Authority implements GrantedAuthority {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,4 +47,6 @@ public class Authority implements GrantedAuthority {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+
 }
