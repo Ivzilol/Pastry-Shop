@@ -38,6 +38,7 @@ public class AuthController {
                             request.getUsername(), request.getPassword()
                     ));
             Users users = (Users) authenticate.getPrincipal();
+            users.setPassword(null);
             return ResponseEntity.ok()
                     .header(
                             HttpHeaders.AUTHORIZATION,
