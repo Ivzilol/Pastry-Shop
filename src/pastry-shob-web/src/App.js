@@ -10,21 +10,23 @@ function App() {
     const [jwt, setJwt] = useLocalState("", "jwt")
 
     useEffect(() => {
-        const requestBody = {
-            "username": "Ivzilol",
-            "password": "asdasd",
+        if (!jwt) {
+            const requestBody = {
+                "username": "Ivzilol",
+                "password": "asdasd",
+            }
+            fetch("api/auth/login", {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                method: "post",
+                body: JSON.stringify(requestBody)
+            }).then(response => Promise.all([response.json(), response.headers]))
+                .then(([body, headers]) => {
+                    setJwt(headers.get("authorization"));
+                    console.log(jwt)
+                });
         }
-        fetch("api/auth/login", {
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "post",
-            body: JSON.stringify(requestBody)
-        }).then(response => Promise.all([response.json(), response.headers]))
-            .then(([body, headers]) => {
-                setJwt(headers.get("authorization"));
-                console.log(jwt)
-            });
     }, []);
 
     return (
