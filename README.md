@@ -1,2 +1,3 @@
 # pastry-shop
-My application which i use for Spring and React
+My application which i use for Spring and React.
+Under construction!
