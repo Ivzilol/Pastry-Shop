@@ -56,7 +56,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Get jwt token and validate
         assert userDetails != null;
-        if (jwtUtil.validateToken(token, userDetails)) {
+        if (!jwtUtil.validateToken(token, userDetails)) {
             chain.doFilter(request, response);
             return;
         }
