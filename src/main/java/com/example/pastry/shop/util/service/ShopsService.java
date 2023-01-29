@@ -1,4 +1,4 @@
-package com.example.pastry.shop.service;
+package com.example.pastry.shop.util.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -15,11 +15,8 @@ public class ShopsService {
 
     private final ShopsRepository shopsRepository;
 
-    private UsersRepository usersRepository;
-
     public ShopsService(ShopsRepository shopsRepository, UsersRepository usersRepository) {
         this.shopsRepository = shopsRepository;
-        this.usersRepository = usersRepository;
     }
 
     public Shops createShop(Users user) {
