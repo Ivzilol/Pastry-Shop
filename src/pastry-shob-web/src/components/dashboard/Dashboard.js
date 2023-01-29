@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../../util/useLocalStorage";
 import {Link} from "react-router-dom";
+import ajax from "../../Services/FetchService";
 
 const Dashboard = () => {
 
@@ -8,32 +9,16 @@ const Dashboard = () => {
     const [shops, setShops] = useState(null);
 
     useEffect(() => {
-        fetch("api/shops", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`
-            },
-            method: "GET",
-        })
-            .then(response => {
-                if (response.status === 200) return response.json();
-            })
+        ajax("api/shops", "GET", jwt)
             .then(shopData => {
+                if (shopData.town === null) shopData.town = "";
+                if (shopData.address === null) shopData.address = "";
                 setShops(shopData);
             })
     }, [])
 
     function createProduct() {
-        fetch("api/shops", {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${jwt}`
-            },
-            method: "POST"
-        })
-            .then(response => {
-                if (response.status === 200) return response.json()
-            })
+        ajax("api/shops", "POST", jwt)
             .then(shop => {
                 window.location.href = `/shops/${shop.id}`;
             });

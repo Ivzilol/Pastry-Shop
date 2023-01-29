@@ -13,6 +13,7 @@ const Login = () => {
             "username": username,
             "password": password,
         }
+
         fetch("api/auth/login", {
             headers: {
                 "Content-Type": "application/json"
