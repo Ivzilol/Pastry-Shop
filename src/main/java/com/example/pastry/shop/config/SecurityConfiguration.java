@@ -5,7 +5,6 @@ import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,7 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 public class SecurityConfiguration {
@@ -55,7 +53,7 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/shops").permitAll()
+//                .requestMatchers(HttpMethod.POST, "/api/shops").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
