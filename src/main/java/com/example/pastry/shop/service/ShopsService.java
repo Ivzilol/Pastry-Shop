@@ -6,6 +6,7 @@ import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -16,8 +17,9 @@ public class ShopsService {
 
     private UsersRepository usersRepository;
 
-    public ShopsService(ShopsRepository shopsRepository) {
+    public ShopsService(ShopsRepository shopsRepository, UsersRepository usersRepository) {
         this.shopsRepository = shopsRepository;
+        this.usersRepository = usersRepository;
     }
 
     public Shops createShop(Users user) {
@@ -32,5 +34,9 @@ public class ShopsService {
 
     public Set<Shops> findByUser(Users user) {
         return shopsRepository.findByUsers(user);
+    }
+
+    public Optional<Shops> findById(Long shopId) {
+        return shopsRepository.findById(shopId);
     }
 }

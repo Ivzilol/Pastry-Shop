@@ -36,7 +36,7 @@ const Dashboard = () => {
             })
             .then(shop => {
                 window.location.href = `/shops/${shop.id}`;
-            })
+            });
     }
 
     return (
