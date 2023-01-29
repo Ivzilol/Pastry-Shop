@@ -36,4 +36,8 @@ public class ShopsService {
     public Optional<Shops> findById(Long shopId) {
         return shopsRepository.findById(shopId);
     }
+
+    public Shops saveShop(Shops shop) {
+        return shopsRepository.save(shop);
+    }
 }

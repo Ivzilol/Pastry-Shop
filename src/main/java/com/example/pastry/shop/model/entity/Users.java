@@ -1,5 +1,6 @@
 package com.example.pastry.shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class Users implements UserDetails {
 
     @Column(nullable = false, name = "last_name")
     private String lastName;
-
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -33,6 +34,10 @@ public class Users implements UserDetails {
 
     @Column(nullable = false)
     private String address;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    private List<Authority> authorities = new ArrayList<>();
 
     public Users() {
     }
@@ -99,9 +104,11 @@ public class Users implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new Authority("user"));
-        return roles;
+        return authorities;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

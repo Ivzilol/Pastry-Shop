@@ -13,7 +13,7 @@ public class Authority implements GrantedAuthority {
 
     private String authority;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Users users;
 
     public Authority() {
