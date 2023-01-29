@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../../util/useLocalStorage";
+import {Link} from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -42,7 +43,11 @@ const Dashboard = () => {
         <div style={{margin: '2em'}}>
             {shops ? (
                 shops.map((shops) => (
-                    <div key={shops.id}>Shops ID: {shops.id}</div>
+                    <div key={shops.id}>
+                        <Link to={`/shops/${shops.id}`}>
+                            Shops ID: {shops.id}
+                        </Link>
+                    </div>
                 ))
             ) : (
                 <></>
