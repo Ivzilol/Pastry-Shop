@@ -23,7 +23,9 @@ const Dashboard = () => {
     }
 
     return (
+
         <div style={{margin: '2em'}}>
+            <Button onClick={() => createProduct()}>Submit New Shop</Button>
             {shops ? (
                 shops.map((shops) => (
                     <div key={shops.id} className="d-grid">
@@ -49,7 +51,7 @@ const Dashboard = () => {
             ) : (
                 <></>
             )}
-            <button onClick={() => createProduct()}>Submit New Shop</button>
+
         </div>
     );
 };
