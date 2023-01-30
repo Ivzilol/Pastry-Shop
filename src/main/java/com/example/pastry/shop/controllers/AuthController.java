@@ -3,6 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.AuthCredentialRequest;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.util.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +11,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.example.pastry.shop.model.enums.UserRoleEnum.user;
 
 @Component
 @RestController
@@ -47,6 +48,18 @@ public class AuthController {
                     .body(users);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    //http://localhost:8080/api/auth/validate?token=something
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestParam String token,
+                                            @AuthenticationPrincipal Users user) {
+        try {
+            Boolean isTokenValid = jwtUtil.validateToken(token, user);
+            return ResponseEntity.ok(isTokenValid);
+        } catch (ExpiredJwtException e) {
+            return ResponseEntity.ok(false);
         }
     }
 }
