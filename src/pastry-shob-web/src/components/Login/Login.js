@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useLocalState} from "../../util/useLocalStorage";
-import {Button, Col, Container, Row, Form} from "react-bootstrap";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 
 const Login = () => {
 
@@ -39,41 +39,65 @@ const Login = () => {
     return (
         <>
             <Container className="mt-sm-5">
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label htmlFor="username" className="fs-3">Username</Form.Label>
-                        <Form.Control
-                            type="email"
-                            id="username"
-                            placeholder="John Doe"
+                <Row className="justify-content-center align-items-center" >
+                    <Col md="8"
+                         lg="6"
+                    >
+                        <Form.Group className="mb-3" controlId="username">
+                            <Form.Label className="fs-3">Username</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="John Doe"
+                                size="lg"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row className="justify-content-center align-items-center">
+                    <Col md="8"
+                         lg="6"
+                    >
+                        <Form.Group className="mb-3" controlId="password">
+                            <Form.Label className="fs-4">Password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="password"
+                                size="lg"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-center align-items-center">
+                    <Col md="8" lg="6" className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between">
+                        <Button
+                            id="submit"
+                            type="button"
                             size="lg"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-
-                                <Form.Label htmlFor="password" className="fs-3">Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    id="password"
-                                    placeholder="password"
-                                    size="lg"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                </Form.Group>
-                                <Button
-                                    className="fs-5, mt-sm-3"
-                                    id="submit"
-                                    type="button"
-                                    onClick={() => sendLoginRequest()}
-                                >
-                                    Login
-                                </Button>
+                            onClick={() => sendLoginRequest()}
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            id="submit"
+                            type="button"
+                            size="lg"
+                            onClick={() => {
+                                window.location.href = "/"
+                            }}
+                        >
+                            Exit
+                        </Button>
+                    </Col>
+                </Row>
             </Container>
         </>
-);
+    );
 };
 
 export default Login;
