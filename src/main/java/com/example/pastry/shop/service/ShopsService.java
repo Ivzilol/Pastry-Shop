@@ -1,4 +1,4 @@
-package com.example.pastry.shop.util.service;
+package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;

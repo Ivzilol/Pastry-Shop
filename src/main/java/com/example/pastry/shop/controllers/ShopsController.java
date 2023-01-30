@@ -2,7 +2,7 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.util.service.ShopsService;
+import com.example.pastry.shop.service.ShopsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
