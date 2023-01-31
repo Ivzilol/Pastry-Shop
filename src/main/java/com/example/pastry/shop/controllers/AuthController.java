@@ -4,8 +4,10 @@ import com.example.pastry.shop.model.dto.AuthCredentialRequest;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,6 +27,9 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     private final JwtUtil jwtUtil;
+
+    @Value("localhost")
+    private String domain;
 
     public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
@@ -61,5 +66,16 @@ public class AuthController {
         } catch (ExpiredJwtException e) {
             return ResponseEntity.ok(false);
         }
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout () {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .domain(domain)
+                .path("/")
+                .maxAge(0)
+                .build();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString()).body("ok");
     }
 }
