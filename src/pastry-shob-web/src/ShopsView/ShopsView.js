@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
+import {Badge, Button, Col, Container, Form, Row} from "react-bootstrap";
 
 const ShopsView = () => {
     const [jwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
-        branch: "",
         town: "",
         address: ""
 
@@ -21,49 +21,66 @@ const ShopsView = () => {
     function saveShop() {
         ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
             .then(shopData => {
-                setShop(shopData);
-            }
-        );
+                    setShop(shopData);
+                }
+            );
     }
 
     useEffect(() => {
         ajax(`/api/shops/${shopId}`, "GET", jwt)
             .then(shopData => {
+                if (shopData.town === null) shopData.town = ""
+                if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
             });
-    }, [])
+    }, [jwt, shopId])
 
 
     return (
-        <div>
-            <h1>Shop {shopId}</h1>
+        <Container className="mt-4">
+            <Row className="d-flex justify-content-center align-items-center">
+                <Col>
+                    <h1>Shop {shopId}</h1>
+                </Col>
+                <Col>
+                    <Badge pill bg="info" style={{fontSize: "20px"}}>
+                        Name: {shop.name}
+                    </Badge>
+                </Col>
+            </Row>
             {shop ? (
                 <>
-                    <h2>Name: {shop.name}</h2>
-                    <h3>
-                        Town: {" "}
-                        <input
-                            type="text"
-                            id="town"
-                            onChange={(e) => updateShop("town", e.target.value)}
-                            value={shop.town}
-                        />
-                    </h3>
-                    <h3>
-                        Address: {" "}
-                        <input
-                            type="text"
-                            id="address"
-                            onChange={(e) =>
-                                updateShop("address", e.target.value)}
-                            value={shop.address}
-                        />
-                    </h3>
-                    <button onClick={() => saveShop()}>Submit Town</button>
+                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                        <Form.Label column sm="2" className="">
+                            Town:
+                        </Form.Label>
+                        <Col sm="10">
+                            <Form.Control
+                                onChange={(e) => updateShop("town", e.target.value)}
+                                value={shop.town}
+                                type="text"
+                                placeholder="Town"
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                        <Form.Label column sm="2" className="">
+                            Address:
+                        </Form.Label>
+                        <Col sm="10">
+                            <Form.Control
+                                onChange={(e) => updateShop("town", e.target.value)}
+                                value={shop.address}
+                                type="text"
+                                placeholder="address"
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Button onClick={() => saveShop()}>Submit Town</Button>
                 </>) : (
                 <></>
             )}
-        </div>
+        </Container>
     );
 };
 
