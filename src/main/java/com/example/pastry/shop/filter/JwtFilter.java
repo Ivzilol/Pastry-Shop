@@ -1,9 +1,11 @@
 package com.example.pastry.shop.filter;
 
+import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -37,25 +42,43 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws ServletException, IOException {
 
 
-        // get authorization header and validate
-        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (!StringUtils.hasText(header) ||
-                (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
+        if (request.getCookies() == null){
             chain.doFilter(request, response);
             return;
         }
-
-        //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]
-        final String token = header.split(" ")[1].trim();
-
-
-        //Get user identity and set it ot the spring security context
+        Optional<Cookie> jwtOpt = Arrays.stream(request.getCookies())
+                .filter(cookie -> "jwt".equals(cookie.getName()))
+                .findAny();
+        if (jwtOpt.isEmpty()) {
+            chain.doFilter(request, response);
+            return;
+        }
+        String token =jwtOpt.get().getValue();
         UserDetails userDetails = usersRepository
                 .findByUsername(jwtUtil.getUsernameFromToken(token))
                 .orElse(null);
 
-        // Get jwt token and validate
-        assert userDetails != null;
+
+
+        // get authorization header and validate
+//        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+//        if (!StringUtils.hasText(header) ||
+//                (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
+//
+//        //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]
+//        final String token = header.split(" ")[1].trim();
+//
+//
+//        //Get user identity and set it ot the spring security context
+//        UserDetails userDetails = usersRepository
+//                .findByUsername(jwtUtil.getUsernameFromToken(token))
+//                .orElse(null);
+//
+//        // Get jwt token and validate
+//        assert userDetails != null;
         if (!jwtUtil.validateToken(token, userDetails)) {
             chain.doFilter(request, response);
             return;
@@ -65,7 +88,8 @@ public class JwtFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
                         userDetails, null,
-                        userDetails.getAuthorities()
+                        userDetails == null ?
+                            List.of() : userDetails.getAuthorities()
                 );
 
         authentication.setDetails(

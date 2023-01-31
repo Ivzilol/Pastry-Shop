@@ -1,30 +1,29 @@
 import React, {useState} from 'react';
-import {useLocalState} from "../util/useLocalStorage";
+import {useUser} from "../UserProvider/UserProvider";
 import {Navigate} from "react-router-dom";
 import ajax from "../Services/FetchService";
 
-const PrivateRoute = ({children}) => {
-
-    const [jwt, setJwt] = useLocalState("", "jwt");
+const PrivateRoute = (props) => {
+    const user = useUser();
     const [isLoading, setIsLoading] = useState(true);
     const [isValid, setIsValid] = useState(null);
+    const { children } = props;
 
-    if (jwt) {
-        ajax(`/api/auth/validate?token=${jwt}`, "GET", jwt)
-            .then(isValid => {
-                setIsValid(isValid);
-                setIsLoading(false);
-            });
+    if (user && user.jwt) {
+        ajax(`/api/auth/validate`, "get", user.jwt).then((isValid) => {
+            setIsValid(isValid);
+            setIsLoading(false);
+        });
     } else {
-        return <Navigate to="/login"/>
+        return <Navigate to="/login" />;
     }
 
     return isLoading ? (
         <div>Loading...</div>
-    ): isValid === true ? (
+    ) : isValid === true ? (
         children
     ) : (
-        <Navigate to="/login"/>
+        <Navigate to="/login" />
     );
 };
 
