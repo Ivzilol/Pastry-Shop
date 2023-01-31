@@ -12,7 +12,7 @@ function App() {
     return (
         <Routes>
             <Route
-                path="/dashboard"
+                path="/shops"
                 element={
                     <PrivateRoute>
                         <Dashboard/>

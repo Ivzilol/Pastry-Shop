@@ -30,7 +30,7 @@ const Login = () => {
         })
             .then(([body, headers]) => {
                 setJwt(headers.get("authorization"));
-                window.location.href = "dashboard"
+                window.location.href = "/"
             }).catch((message) => {
             alert(message)
         });

@@ -1,10 +1,14 @@
 import React from 'react';
+import NavBar from "../NavBar/NavBar";
 
 const Homepage = () => {
     return (
-        <div>
-            <h1>Pastry-Shop HomePage</h1>
-        </div>
+        <>
+            <NavBar/>
+            <div>
+                <h1>Pastry-Shop HomePage</h1>
+            </div>
+        </>
     );
 };
 

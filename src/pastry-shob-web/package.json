@@ -8,11 +8,23 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
+    "jquery": "^3.6.3",
+    "js-cookie": "^3.0.1",
+    "custom-react-step-progress-bar": "^1.0.8",
+    "http-proxy-middleware": "^2.0.2",
+    "jwt-check-expiration": "^1.0.5",
+    "moment": "^2.29.4",
+    "dayjs": "^1.10.7",
+    "js-cookies": "^1.0.4",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
+    "react-step-progress-bar": "^1.0.3",
+    "sass": "^1.49.8",
+    "styled-components": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -38,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16"
   }
 }
