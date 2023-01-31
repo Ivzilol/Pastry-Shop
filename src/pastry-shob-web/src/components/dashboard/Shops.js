@@ -1,25 +1,41 @@
 import React, {useEffect, useState} from 'react';
-import {useLocalState} from "../../util/useLocalStorage";
 import ajax from "../../Services/FetchService";
 import {Button, Card} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import {useUser} from "../../UserProvider/UserProvider";
+import jwt_decode from "jwt-decode";
 
-const Dashboard = () => {
-
-    const [jwt] = useLocalState("", "jwt")
+const Shops = () => {
+    const navigate = useNavigate();
+    const user = useUser();
     const [shops, setShops] = useState(null);
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        ajax("api/shops", "GET", jwt)
-            .then(shopData => {
+        const decodeJwt =jwt_decode(user.jwt);
+        if (userData && shops) {
+            ajax("api/users/" + decodeJwt.sub, "GET", user.jwt)
+                .then((data) => {
+                    setUserData(data)
+                })
+        }
+    }, [user, userData, shops]);
+
+    useEffect(() => {
+        ajax("api/shops", "GET", user.jwt)
+            .then((shopData) => {
                 setShops(shopData);
             });
-    }, [jwt])
+        if (!user.jwt)
+            console.warn("No valid jwt found, redirecting to login page");
+            navigate("/login")
+    });
 
     function createProduct() {
-        ajax("api/shops", "POST", jwt)
-            .then(shop => {
-                window.location.href = `/shops/${shop.id}`;
-            });
+        ajax("api/shops", "POST", user.jwt)
+            .then((shop) => {
+                navigate("/shops");
+            })
     }
 
     return (
@@ -51,9 +67,8 @@ const Dashboard = () => {
             ) : (
                 <></>
             )}
-
         </div>
     );
 };
 
-export default Dashboard;
+export default Shops;

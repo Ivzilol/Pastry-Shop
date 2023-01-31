@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import Dashboard from "./components/dashboard/Dashboard";
+import Shops from "./components/dashboard/Shops";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
@@ -15,7 +15,7 @@ function App() {
                 path="/shops"
                 element={
                     <PrivateRoute>
-                        <Dashboard/>
+                        <Shops/>
                     </PrivateRoute>
                 }/>
             <Route
