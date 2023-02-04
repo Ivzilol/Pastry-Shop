@@ -9,7 +9,6 @@ const ShopsView = () => {
     const [shop, setShop] = useState({
         town: "",
         address: ""
-
     });
 
     function updateShop(prop, value) {
@@ -33,14 +32,14 @@ const ShopsView = () => {
                 if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
             });
-    }, [jwt, shopId])
+    }, [])
 
 
     return (
         <Container className="mt-4">
             <Row className="d-flex justify-content-center align-items-center">
                 <Col>
-                    <h1>Shop {shopId}</h1>
+                    <h1>Shop: {shopId}</h1>
                 </Col>
                 <Col>
                     <Badge pill bg="info" style={{fontSize: "20px"}}>
@@ -69,7 +68,7 @@ const ShopsView = () => {
                         </Form.Label>
                         <Col sm="10">
                             <Form.Control
-                                onChange={(e) => updateShop("town", e.target.value)}
+                                onChange={(e) => updateShop("address", e.target.value)}
                                 value={shop.address}
                                 type="text"
                                 placeholder="address"

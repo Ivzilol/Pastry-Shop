@@ -23,6 +23,8 @@ public class Authority implements GrantedAuthority {
         this.authority = authority;
     }
 
+
+
     public Long getId() {
         return id;
     }

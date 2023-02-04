@@ -25,7 +25,7 @@ public class Users implements UserDetails {
 
     @Column(nullable = false, name = "last_name")
     private String lastName;
-//    @JsonIgnore
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -35,9 +35,10 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private String address;
 
-//    @JsonIgnore
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
-//    private List<Authority> authorities = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    @JsonIgnore
+    private List<Authority> authorities = new ArrayList<>();
 
     public Users() {
     }
@@ -103,11 +104,13 @@ public class Users implements UserDetails {
         this.address = address;
     }
 
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new Authority("user"));
-        return  roles;
+        return  authorities;
     }
 
     @Override
