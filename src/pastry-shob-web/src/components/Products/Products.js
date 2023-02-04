@@ -5,35 +5,28 @@ const Products = () => {
 
     const [jwt, setJwt] = useLocalState("", "jwt");
 
-    useEffect(() => {
-        if (!jwt) {
-            const requestBody = {
-                "username": "Ivzilol",
-                "password": "asdasd",
-            };
 
-            fetch("api/auth/login", {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                method: "post",
-                body: JSON.stringify(requestBody)
-            })
-                .then((response) => Promise.all([response.json(), response.headers]))
-                .then(([body, headers]) => {
-                    setJwt(headers.get("authorization"));
-                });
-        }
-    }, [jwt]);
+    // useEffect(()=> {
+    //     console.log(`JWT is: ${jwt}`)
+    // }, [jwt]);
 
-    useEffect(()=> {
-        console.log(`JWT is: ${jwt}`)
-    }, [jwt]);
+    function createProduct() {
+        fetch("/products", {
+            headers: {
+                "content-type": "application/json",
+                "Authentication": `Bearer ${jwt}`,
+            },
+            method: "POST",
+        }).then(response => {
+            if (response.status === 200) return response.json()
+        }).then(data => {
+            console.log(data);
+        })
+    }
 
     return (
-        <div>
-            <h1>pastry-Shop</h1>
-            <div>Jwt value is: ${jwt}</div>
+        <div style={{margin: "20px"}}>
+           <button onClick={() => createProduct()}>Submit new Product</button>
         </div>
     );
 }

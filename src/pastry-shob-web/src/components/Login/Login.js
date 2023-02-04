@@ -1,35 +1,44 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useUser} from "../../UserProvider/UserProvider";
-import {useNavigate} from "react-router-dom";
+import {useLocalState} from "../../util/useLocalStorage";
 
 const Login = () => {
-    // const user =useUser()
-    const navigate = useNavigate()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] =useState(null);
+    const [jwt, setJwt] = useLocalState("", "jwt");
 
+    function sendLoginRequest() {
+        const requestBody = {
+            "username": username,
+            "password": password,
+        };
 
-
-
-
-    // function sendLoginRequest() {
-    //
-    //     }
-        // ).then((data) => {
-        //     if (data){
-        //         user.setJwt(data)
-        //         navigate("/")
-        //     }
-        // })
+        fetch("api/auth/login", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "post",
+            body: JSON.stringify(requestBody)
+        })
+            .then((response) => {
+                if (response.status === 200)
+                return Promise.all([response.json(), response.headers])
+                else return Promise.reject("Invalid login attempt")
+            })
+            .then(([body, headers]) => {
+                setJwt(headers.get("authorization"));
+                window.location.href = "products";
+            }).catch((message) => {
+                alert(message)
+        });
+    }
 
 
     return (
         <>
             {/*<NavBar/>*/}
             <Container className="mt-sm-5">
-                <Row className="justify-content-center align-items-center" >
+                <Row className="justify-content-center align-items-center">
                     <Col md="8"
                          lg="6"
                     >
@@ -61,17 +70,17 @@ const Login = () => {
                         </Form.Group>
                     </Col>
                 </Row>
-                {errorMessage ? (
-                    <Row className="justify-content-center mb-4">
-                        <Col md="8" lg="6">
-                            <div className="" style={{ color: "red", fontWeight: "bold" }}>
-                                {errorMessage}
-                            </div>
-                        </Col>
-                    </Row>
-                ) : (
-                    <></>
-                )}
+                {/*{errorMessage ? (*/}
+                {/*    <Row className="justify-content-center mb-4">*/}
+                {/*        <Col md="8" lg="6">*/}
+                {/*            <div className="" style={{ color: "red", fontWeight: "bold" }}>*/}
+                {/*                {errorMessage}*/}
+                {/*            </div>*/}
+                {/*        </Col>*/}
+                {/*    </Row>*/}
+                {/*) : (*/}
+                <></>
+                {/*)}*/}
                 <Row className="justify-content-center align-items-center">
                     <Col md="8" lg="6" className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between">
                         <Button
