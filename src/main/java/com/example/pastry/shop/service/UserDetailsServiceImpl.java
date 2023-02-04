@@ -13,17 +13,18 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsersRepository usersRepository;
 
-    public UserDetailsServiceImpl(CustomPasswordEncoder passwordEncoder, UsersRepository usersRepository) {
+    private UsersRepository usersRepository;
+
+    public UserDetailsServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Users> usersOpt = usersRepository.findByUsername(username);
 
-        return usersOpt.orElseThrow(() -> new UsernameNotFoundException("Invalid Credentials"));
+        Optional<Users> userOpt = usersRepository.findByUsername(username);
+        return userOpt.orElseThrow(() -> new UsernameNotFoundException("Invalid Credential"));
     }
 }

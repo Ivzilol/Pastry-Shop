@@ -48,12 +48,13 @@ public class SecurityConfiguration {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http = http.exceptionHandling()
-                .authenticationEntryPoint((request, response, exception) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                .authenticationEntryPoint((request, response, exception) ->
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                         exception.getMessage())).and();
 
-        http.authorizeHttpRequests()
+            http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api").permitAll()
+//                .requestMatchers("/api").permitAll()
 //                .requestMatchers(HttpMethod.POST, "/api/shops").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

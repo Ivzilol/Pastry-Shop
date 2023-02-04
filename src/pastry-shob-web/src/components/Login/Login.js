@@ -4,43 +4,30 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
-    const user =useUser()
+    // const user =useUser()
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] =useState(null);
 
 
-    function sendLoginRequest() {
-        setErrorMessage("");
-        const requestBody = {
-            "username": username,
-            "password": password,
-        }
 
-        fetch("api/auth/login", {
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "post",
-            body: JSON.stringify(requestBody)
-        }).then((response) =>{
-            if (response.status === 200) return response.text()
-            else if (response.status === 401 || response.status === 403) {
-                setErrorMessage("Invalid username ot password")
-            } else {
-                setErrorMessage("Something wrong")
-            }
-        }).then((data) => {
-            if (data){
-                user.setJwt(data)
-                navigate("/")
-            }
-        })
-    }
+
+
+    // function sendLoginRequest() {
+    //
+    //     }
+        // ).then((data) => {
+        //     if (data){
+        //         user.setJwt(data)
+        //         navigate("/")
+        //     }
+        // })
+
 
     return (
         <>
+            {/*<NavBar/>*/}
             <Container className="mt-sm-5">
                 <Row className="justify-content-center align-items-center" >
                     <Col md="8"
@@ -111,6 +98,6 @@ const Login = () => {
             </Container>
         </>
     );
-};
+}
 
 export default Login;

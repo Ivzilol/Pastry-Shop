@@ -4,7 +4,9 @@ import com.example.pastry.shop.model.enums.PaymentMethod;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -21,13 +23,12 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Products> products;
-
     @ManyToOne
     private Users users;
 
+
     public Orders() {
+
     }
 
     public Long getId() {
@@ -54,14 +55,6 @@ public class Orders {
         this.paymentMethod = paymentMethod;
     }
 
-    public List<Products> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Products> products) {
-        this.products = products;
-    }
-
     public Users getUsers() {
         return users;
     }
@@ -69,4 +62,5 @@ public class Orders {
     public void setUsers(Users users) {
         this.users = users;
     }
+
 }

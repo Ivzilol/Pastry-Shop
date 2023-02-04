@@ -2,6 +2,9 @@ package com.example.pastry.shop.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "shops")
 public class Shops {
@@ -22,7 +25,10 @@ public class Shops {
     @ManyToOne(optional = false)
     private Users users;
 
+
+
     public Shops() {
+
     }
 
     public Long getId() {
@@ -64,4 +70,6 @@ public class Shops {
     public void setUsers(Users users) {
         this.users = users;
     }
+
+
 }

@@ -41,44 +41,25 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
 
+         //get authorization header and validate
+        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (!StringUtils.hasText(header) ||
+                (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-        if (request.getCookies() == null){
-            chain.doFilter(request, response);
-            return;
-        }
-        Optional<Cookie> jwtOpt = Arrays.stream(request.getCookies())
-                .filter(cookie -> "jwt".equals(cookie.getName()))
-                .findAny();
-        if (jwtOpt.isEmpty()) {
-            chain.doFilter(request, response);
-            return;
-        }
-        String token =jwtOpt.get().getValue();
+        //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]
+        final String token = header.split(" ")[1].trim();
+
+
+        //Get user identity and set it ot the spring security context
         UserDetails userDetails = usersRepository
                 .findByUsername(jwtUtil.getUsernameFromToken(token))
                 .orElse(null);
 
-
-
-        // get authorization header and validate
-//        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-//        if (!StringUtils.hasText(header) ||
-//                (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
-//
-//        //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]
-//        final String token = header.split(" ")[1].trim();
-//
-//
-//        //Get user identity and set it ot the spring security context
-//        UserDetails userDetails = usersRepository
-//                .findByUsername(jwtUtil.getUsernameFromToken(token))
-//                .orElse(null);
-//
-//        // Get jwt token and validate
-//        assert userDetails != null;
+        // Get jwt token and validate
+        assert userDetails != null;
         if (!jwtUtil.validateToken(token, userDetails)) {
             chain.doFilter(request, response);
             return;
@@ -87,7 +68,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
-                        userDetails, null,
+                        userDetails,    null,
                         userDetails == null ?
                             List.of() : userDetails.getAuthorities()
                 );

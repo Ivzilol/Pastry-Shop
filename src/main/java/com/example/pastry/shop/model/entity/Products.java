@@ -4,7 +4,10 @@ import com.example.pastry.shop.model.enums.Categories;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -33,10 +36,15 @@ public class Products {
 
     private String comments;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Shops> shops;
+    @ManyToMany
+    private Set<Shops> shops;
+
+    @ManyToMany
+    private Set<Orders> orders;
 
     public Products() {
+        this.shops = new HashSet<>();
+        this.orders = new HashSet<>();
     }
 
     public Long getId() {
@@ -79,11 +87,11 @@ public class Products {
         this.imageUrl = imageUrl;
     }
 
-    public List<Shops> getShops() {
+    public Set<Shops> getShops() {
         return shops;
     }
 
-    public void setShops(List<Shops> shops) {
+    public void setShops(Set<Shops> shops) {
         this.shops = shops;
     }
 
@@ -109,5 +117,13 @@ public class Products {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public Set<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
     }
 }
