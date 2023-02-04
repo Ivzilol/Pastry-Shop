@@ -11,10 +11,10 @@ const Products = () => {
     // }, [jwt]);
 
     function createProduct() {
-        fetch("/products", {
+        fetch("api/products", {
             headers: {
                 "content-type": "application/json",
-                "Authentication": `Bearer ${jwt}`,
+                "Authorization": `Bearer ${jwt}`,
             },
             method: "POST",
         }).then(response => {

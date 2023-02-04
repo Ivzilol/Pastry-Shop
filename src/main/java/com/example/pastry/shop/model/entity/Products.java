@@ -36,15 +36,11 @@ public class Products {
 
     private String comments;
 
-    @ManyToMany
-    private Set<Shops> shops;
-
-    @ManyToMany
-    private Set<Orders> orders;
+    @ManyToOne(optional = false)
+    private Shops shops;
 
     public Products() {
-        this.shops = new HashSet<>();
-        this.orders = new HashSet<>();
+
     }
 
     public Long getId() {
@@ -87,14 +83,6 @@ public class Products {
         this.imageUrl = imageUrl;
     }
 
-    public Set<Shops> getShops() {
-        return shops;
-    }
-
-    public void setShops(Set<Shops> shops) {
-        this.shops = shops;
-    }
-
     public int getLikes() {
         return likes;
     }
@@ -119,11 +107,11 @@ public class Products {
         this.comments = comments;
     }
 
-    public Set<Orders> getOrders() {
-        return orders;
+    public Shops getShops() {
+        return shops;
     }
 
-    public void setOrders(Set<Orders> orders) {
-        this.orders = orders;
+    public void setShops(Shops shops) {
+        this.shops = shops;
     }
 }

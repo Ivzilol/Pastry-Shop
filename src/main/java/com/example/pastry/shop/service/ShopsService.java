@@ -29,6 +29,10 @@ public class ShopsService {
         return shopsRepository.save(shop);
     }
 
+    public Optional<Shops> findById (Shops shop) {
+        return shopsRepository.findById(shop.getId());
+    }
+
     public Set<Shops> findByUser(Users user) {
         return shopsRepository.findByUsers(user);
     }

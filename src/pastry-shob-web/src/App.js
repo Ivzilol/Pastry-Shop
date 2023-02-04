@@ -6,6 +6,8 @@ import Products from "./components/Products/Products";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
+import Shops from "./components/dashboard/Shops";
+import ShopsView from "./ShopsView/ShopsView";
 
 function App() {
 
@@ -17,22 +19,22 @@ function App() {
                            <Products/>
                        </PrivateRoute>
                    }/>
-            {/*//     <Route*/}
-            {/*//         path="/shops"*/}
-            {/*//         element={*/}
-            {/*//             <PrivateRoute>*/}
-            {/*//                 <Shops/>*/}
-            {/*//             </PrivateRoute>*/}
-            {/*//         }/>*/}
-            {/*//     <Route*/}
-            {/*//         path="/shops/:id"*/}
-            {/*//         element={*/}
-            {/*//             <PrivateRoute>*/}
-            {/*//                 <ShopsView/>*/}
-            {/*//             </PrivateRoute>*/}
-            {/*//         }/>*/}
-            // <Route path="/" element={<Homepage/>}></Route>
-            // <Route path="/login" element={<Login/>}></Route>
+            <Route
+                path="/shops"
+                element={
+                    <PrivateRoute>
+                        <Shops/>
+                    </PrivateRoute>
+                }/>
+                 <Route
+                    path="/shops/:id"
+                    element={
+                        <PrivateRoute>
+                             <ShopsView/>
+                         </PrivateRoute>
+                     }/>
+             <Route path="/" element={<Homepage/>}></Route>
+             <Route path="/login" element={<Login/>}></Route>
         </Routes>
     );
 }
