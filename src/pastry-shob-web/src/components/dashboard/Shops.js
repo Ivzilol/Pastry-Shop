@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
 import {Button, Card} from "react-bootstrap";
-import {useNavigate} from "react-router-dom";
-import {useUser} from "../../UserProvider/UserProvider";
-import jwt_decode from "jwt-decode";
 import {useLocalState} from "../../util/useLocalStorage";
 
 const Shops = () => {
@@ -12,27 +9,15 @@ const Shops = () => {
     const [shops, setShops] = useState(null);
 
     useEffect(() => {
-        fetch("api/shops", {
-            headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${jwt}`
-            },
-            method: "GET",
-        }).then(response => {
-            if (response.status === 200) return response.json();
-        }).then(shopData => {
+        ajax("api/shops", "GET", jwt)
+        .then(shopData => {
             setShops(shopData);
         })
     }, [])
 
     function createShop() {
-        fetch("api/shops", {
-            headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${jwt}`,
-            },
-            method: "POST",
-        }).then(response => {
+        ajax("api/shops", "POST", jwt, )
+        .then(response => {
             if (response.status === 200) return response.json()
         }).then(shop => {
             window.location.href = `/shops/${shop.id}`
