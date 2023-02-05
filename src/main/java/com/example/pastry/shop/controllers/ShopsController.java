@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.ShopsService;
@@ -39,7 +40,8 @@ public class ShopsController {
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable Long shopId, @AuthenticationPrincipal Users user) {
         Optional<Shops> shopOpt = shopsService.findById(shopId);
-        return ResponseEntity.ok(shopOpt.orElse(new Shops()));
+        ShopResponseDTO response = new ShopResponseDTO(shopOpt.orElse(new Shops()));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{shopId}")

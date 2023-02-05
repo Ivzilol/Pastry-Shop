@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
-import {Dropdown ,Badge, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
+import {Dropdown, Badge, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
 
 const ShopsView = () => {
     const [jwt] = useLocalState("", "jwt")
@@ -10,6 +10,8 @@ const ShopsView = () => {
         town: "",
         address: ""
     });
+
+    const [shopsEnums, setShopsEnums] = useState([]);
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -27,12 +29,18 @@ const ShopsView = () => {
 
     useEffect(() => {
         ajax(`/api/shops/${shopId}`, "GET", jwt)
-            .then(shopData => {
+            .then(shopResponse => {
+                let shopData = shopResponse.shops;
                 if (shopData.town === null) shopData.town = ""
                 if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
+                setShopsEnums(shopResponse.shopsEnums);
             });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        console.log(shopsEnums);
+    }, [shopsEnums]);
 
 
     return (
@@ -60,8 +68,10 @@ const ShopsView = () => {
                                 id="shopName"
                                 variant={'info'}
                             >
-                                {['1','2','3','4','5','6'].map(shopsNumber =>
-                                    <Dropdown.Item eventKey={shopsNumber}>{shopsNumber}</Dropdown.Item>)}
+                                {shopsEnums.map((shopsEnums) =>
+                                    <Dropdown.Item eventKey={shopsEnums.shopName}>
+                                        {shopsEnums.shopName}
+                                    </Dropdown.Item>)}
 
                             </DropdownButton>
                         </Col>

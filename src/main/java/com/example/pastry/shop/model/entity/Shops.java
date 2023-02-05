@@ -16,6 +16,8 @@ public class Shops {
     @Column(nullable = false)
     private String name;
 
+    private Integer number;
+
     @Column(nullable = false)
     private String town;
 
@@ -24,7 +26,6 @@ public class Shops {
 
     @ManyToOne(optional = false)
     private Users users;
-
 
 
     public Shops() {
@@ -71,7 +72,11 @@ public class Shops {
         this.users = users;
     }
 
+    public Integer getNumber() {
+        return number;
+    }
 
-
-
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 }
