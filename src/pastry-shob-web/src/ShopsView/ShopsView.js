@@ -12,6 +12,7 @@ const ShopsView = () => {
     });
 
     const [shopsEnums, setShopsEnums] = useState([]);
+    const [selectShop, setSelectedShop] = useState(null);
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -45,31 +46,38 @@ const ShopsView = () => {
 
     return (
         <Container className="mt-4">
-            <Row className="d-flex justify-content-center align-items-center">
+            <Row className="d-flex justify-content-center align-items-end">
                 <Col>
-                    <h1>Shop: {shopId}</h1>
+                    {selectShop ? (
+                        <h4>Shop: {selectShop}</h4>
+                    ) : (
+                        <></>
+                    )}
                 </Col>
                 <Col>
-                    <Badge pill bg="info" style={{fontSize: "20px"}}>
-                        Name: {shop.name}
-                    </Badge>
+                    {/*<Badge pill bg="info" style={{fontSize: "20px"}}>*/}
+                    {/*    Name: {shop.name}*/}
+                    {/*</Badge>*/}
                 </Col>
             </Row>
             {shop ? (
                 <>
-                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                    <Form.Group as={Row} className="mb-3" controlId="shopName">
                         <Form.Label column sm="2" className="">
                             Shops Number:
                         </Form.Label>
                         <Col sm="10">
                             <DropdownButton
                                 as={ButtonGroup}
-                                title="ShopName"
-                                id="shopName"
                                 variant={'info'}
+                                title={selectShop ? `Shop name ${selectShop}` : "Select an Shop"}
+                                onSelect={(selectedElement) => {
+                                    setSelectedShop(selectedElement);
+                                }}
                             >
                                 {shopsEnums.map((shopsEnums) =>
-                                    <Dropdown.Item eventKey={shopsEnums.shopName}>
+                                    <Dropdown.Item
+                                        eventKey={shopsEnums.shopName}>
                                         {shopsEnums.shopName}
                                     </Dropdown.Item>)}
 
@@ -77,7 +85,7 @@ const ShopsView = () => {
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                    <Form.Group as={Row} className="mb-3" controlId="town">
                         <Form.Label column sm="2" className="">
                             Town:
                         </Form.Label>
@@ -90,7 +98,7 @@ const ShopsView = () => {
                             />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                    <Form.Group as={Row} className="mb-3" controlId="address">
                         <Form.Label column sm="2" className="">
                             Address:
                         </Form.Label>
