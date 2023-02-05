@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
-import {Badge, Button, Col, Container, Form, Row} from "react-bootstrap";
+import {Dropdown ,Badge, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
 
 const ShopsView = () => {
     const [jwt] = useLocalState("", "jwt")
@@ -51,6 +51,24 @@ const ShopsView = () => {
                 <>
                     <Form.Group as={Row} className="mb-3" controlId="shop">
                         <Form.Label column sm="2" className="">
+                            Shops Number:
+                        </Form.Label>
+                        <Col sm="10">
+                            <DropdownButton
+                                as={ButtonGroup}
+                                title="ShopName"
+                                id="shopName"
+                                variant={'info'}
+                            >
+                                {['1','2','3','4','5','6'].map(shopsNumber =>
+                                    <Dropdown.Item eventKey={shopsNumber}>{shopsNumber}</Dropdown.Item>)}
+
+                            </DropdownButton>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} className="mb-3" controlId="shop">
+                        <Form.Label column sm="2" className="">
                             Town:
                         </Form.Label>
                         <Col sm="10">
@@ -76,6 +94,14 @@ const ShopsView = () => {
                         </Col>
                     </Form.Group>
                     <Button onClick={() => saveShop()}>Submit Shop</Button>
+                    <Button
+                        id="submit"
+                        type="button"
+                        onClick={() => {
+                            window.location.href = "/shops";
+                        }}
+                    > Shops
+                    </Button>
                 </>) : (
                 <></>
             )}

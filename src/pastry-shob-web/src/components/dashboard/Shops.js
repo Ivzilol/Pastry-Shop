@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import {Button, Card} from "react-bootstrap";
+import {Button, Card, Col, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 
 const Shops = () => {
@@ -24,20 +24,15 @@ const Shops = () => {
         })
     }
 
-    // return (
-    //     <div style={{margin: "20px"}}>
-    //         <button onClick={() => createProduct()}>Submit new Shop</button>
-    //     </div>
-    // );
-
 
     return (
         <div style={{margin: '2em'}}>
-            <Button onClick={() => createShop()}>Submit New Shop</Button>
+
             {shops ? (
-                shops.map((shops) => (
-                    <div key={shops.id} className="d-grid">
-                        <Card style={{width: '18rem'}}>
+                <Row >
+                    {shops.map((shops) => (
+                    <Col>
+                        <Card key={shops.id} style={{width: '18rem'}}>
                             <Card.Body>
                                 <Card.Title>Name: {shops.name}</Card.Title>
                                 <p><b>Town:</b> {shops.town} </p>
@@ -54,11 +49,14 @@ const Shops = () => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                    </div>
-                ))
+                    </Col>
+                ))}
+                </Row>
+
             ) : (
                 <></>
             )}
+            <Button onClick={() => createShop()}>Submit New Shop</Button>
         </div>
     );
 };
