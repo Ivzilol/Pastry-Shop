@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
-import {Dropdown, Badge, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
+import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
 
 const ShopsView = () => {
     const [jwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
         town: "",
-        address: ""
+        address: "",
+        number: null
     });
 
     const [shopsEnums, setShopsEnums] = useState([]);
-    const [selectShop, setSelectedShop] = useState(null);
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -48,11 +48,9 @@ const ShopsView = () => {
         <Container className="mt-4">
             <Row className="d-flex justify-content-center align-items-end">
                 <Col>
-                    {selectShop ? (
-                        <h4>Shop: {selectShop}</h4>
-                    ) : (
-                        <></>
-                    )}
+                    {shop.number ? <h4>Shop: {shop.number}</h4> : <></>
+
+                    }
                 </Col>
                 <Col>
                     {/*<Badge pill bg="info" style={{fontSize: "20px"}}>*/}
@@ -62,23 +60,27 @@ const ShopsView = () => {
             </Row>
             {shop ? (
                 <>
-                    <Form.Group as={Row} className="mb-3" controlId="shopName">
+                    <Form.Group as={Row} className="mb-3" controlId="shopNumber">
                         <Form.Label column sm="2" className="">
-                            Shops Number:
+                            Shop Number:
                         </Form.Label>
-                        <Col sm="10">
+                        <Col sm="10" md="8" lg="6">
                             <DropdownButton
                                 as={ButtonGroup}
                                 variant={'info'}
-                                title={selectShop ? `Shop name ${selectShop}` : "Select an Shop"}
+                                title={
+                                    shop.number
+                                        ? `Shop ${shop.number}`
+                                        : "Select an Shop"
+                                    }
                                 onSelect={(selectedElement) => {
-                                    setSelectedShop(selectedElement);
+                                    updateShop("number", selectedElement)
                                 }}
                             >
-                                {shopsEnums.map((shopsEnums) =>
+                                {shopsEnums.map((shopsEnum) =>
                                     <Dropdown.Item
-                                        eventKey={shopsEnums.shopName}>
-                                        {shopsEnums.shopName}
+                                        eventKey={shopsEnum.shopNumber}>
+                                        {shopsEnum.shopNumber}
                                     </Dropdown.Item>)}
 
                             </DropdownButton>
