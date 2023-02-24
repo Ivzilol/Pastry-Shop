@@ -30,8 +30,9 @@ const Shops = () => {
                         // <Col>
                         <Card
                             key={shops.id}
-                            style={{width: '18rem'}}>
-                            <Card.Body>
+                            style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
+                            <Card.Body className="d-flex flex-direction row justify-content-space-between"
+                                >
                                 <Card.Title>Name: {shops.name}</Card.Title>
                                 <Badge pill bg="info" style={{fontSize: "1em"}}>
                                     {shops.status}
