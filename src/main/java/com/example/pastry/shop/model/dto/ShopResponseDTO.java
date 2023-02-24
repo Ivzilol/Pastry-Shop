@@ -1,6 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
 import com.example.pastry.shop.model.entity.Shops;
+import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.model.enums.ShopsEnum;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class ShopResponseDTO {
     private Shops shops;
 
     private ShopsEnum[] shopsEnums = ShopsEnum.values();
+
+    private final ShopStatusEnum[] statusEnums = ShopStatusEnum.values();
 
     public ShopResponseDTO(Shops shops) {
         super();
@@ -32,5 +35,9 @@ public class ShopResponseDTO {
 
     public void setShopsEnums(ShopsEnum[] shopsEnums) {
         this.shopsEnums = shopsEnums;
+    }
+
+    public ShopStatusEnum[] getStatusEnums() {
+        return statusEnums;
     }
 }

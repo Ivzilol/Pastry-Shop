@@ -2,9 +2,6 @@ package com.example.pastry.shop.model.entity;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "shops")
 public class Shops {
@@ -17,6 +14,8 @@ public class Shops {
     private String name;
 
     private Integer number;
+
+    private String status;
 
     @Column(nullable = false)
     private String town;
@@ -78,5 +77,13 @@ public class Shops {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

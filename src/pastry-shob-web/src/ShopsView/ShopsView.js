@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
-import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
+import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
 
 const ShopsView = () => {
     const [jwt] = useLocalState("", "jwt")
@@ -9,10 +9,13 @@ const ShopsView = () => {
     const [shop, setShop] = useState({
         town: "",
         address: "",
-        number: null
+        number: null,
+        status: ""
     });
 
     const [shopsEnums, setShopsEnums] = useState([]);
+    const [shopsStatuses, setShopsStatuses] = useState([]);
+
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -21,6 +24,9 @@ const ShopsView = () => {
     }
 
     function saveShop() {
+        if (shop.status === shopsStatuses[0].status) {
+            updateShop("status", shopsStatuses.status)
+        }
         ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
             .then(shopData => {
                     setShop(shopData);
@@ -36,13 +42,10 @@ const ShopsView = () => {
                 if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
                 setShopsEnums(shopResponse.shopsEnums);
+                setShopsStatuses(shopResponse.statusEnums);
+                console.log(shopResponse.statusEnums)
             });
     }, []);
-
-    useEffect(() => {
-        console.log(shopsEnums);
-    }, [shopsEnums]);
-
 
     return (
         <Container className="mt-4">
@@ -53,9 +56,9 @@ const ShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    {/*<Badge pill bg="info" style={{fontSize: "20px"}}>*/}
-                    {/*    Name: {shop.name}*/}
-                    {/*</Badge>*/}
+                    <Badge pill bg="info" style={{fontSize: "20px"}}>
+                        Name: {shop.status}
+                    </Badge>
                 </Col>
             </Row>
             {shop ? (

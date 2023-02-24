@@ -2,7 +2,6 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
-import com.example.pastry.shop.util.CustomPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public UserDetailsServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;

@@ -4,9 +4,6 @@ import com.example.pastry.shop.model.enums.PaymentMethod;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")

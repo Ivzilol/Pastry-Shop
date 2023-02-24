@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class ShopsService {
     public Shops createShop(Users user) {
         Shops shop = new Shops();
         shop.setName("Sladcarnicata na Mama");
+        shop.setStatus(ShopStatusEnum.WORKING.getStatus());
         shop.setTown("Sofia");
         shop.setAddress("str. AlaBala");
         shop.setUsers(user);
