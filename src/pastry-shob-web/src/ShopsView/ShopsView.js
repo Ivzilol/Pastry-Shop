@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
@@ -16,6 +16,7 @@ const ShopsView = () => {
     const [shopsEnums, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
 
+    const prevShopValue = useRef(shop);
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -25,14 +26,26 @@ const ShopsView = () => {
 
     function saveShop() {
         if (shop.status === shopsStatuses[0].status) {
-            updateShop("status", shopsStatuses.status)
+            updateShop("status", shopsStatuses[1].status)
+        } else {
+            persist();
         }
+    }
+
+    function persist () {
         ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
             .then(shopData => {
                     setShop(shopData);
                 }
             );
     }
+
+    useEffect(() => {
+        if (prevShopValue.current.status !== shop.status) {
+            persist();
+        }
+        prevShopValue.current = shop;
+    }, [shop])
 
     useEffect(() => {
         ajax(`/api/shops/${shopId}`, "GET", jwt)
@@ -75,17 +88,17 @@ const ShopsView = () => {
                                     shop.number
                                         ? `Shop ${shop.number}`
                                         : "Select an Shop"
-                                    }
+                                }
                                 onSelect={(selectedElement) => {
                                     updateShop("number", selectedElement)
                                 }}
                             >
-                                {shopsEnums.map((shopsEnum) =>
+                                {shopsEnums.map((shopsEnum) => (
                                     <Dropdown.Item
+                                        key={shopsEnum.shopNumber}
                                         eventKey={shopsEnum.shopNumber}>
                                         {shopsEnum.shopNumber}
-                                    </Dropdown.Item>)}
-
+                                    </Dropdown.Item>))}
                             </DropdownButton>
                         </Col>
                     </Form.Group>

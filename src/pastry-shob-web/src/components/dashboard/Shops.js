@@ -1,40 +1,41 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Badge, Button, Card, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 
 const Shops = () => {
 
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const [jwt] = useLocalState("", "jwt");
     const [shops, setShops] = useState(null);
 
     useEffect(() => {
         ajax("api/shops", "GET", jwt)
-        .then(shopData => {
-            setShops(shopData);
-        })
-    }, [])
+            .then(shopData => {
+                setShops(shopData);
+            })
+    }, [jwt])
 
     function createShop() {
-        ajax("api/shops", "POST", jwt, )
-        .then(response => {
-            if (response.status === 200) return response.json()
-        }).then(shop => {
+        ajax("api/shops", "POST", jwt).then((shop) => {
             window.location.href = `/shops/${shop.id}`
-        })
+        });
     }
 
 
     return (
         <div style={{margin: '2em'}}>
-
             {shops ? (
-                <Row >
+                <Row>
                     {shops.map((shops) => (
-                    <Col>
-                        <Card key={shops.id} style={{width: '18rem'}}>
+                        // <Col>
+                        <Card
+                            key={shops.id}
+                            style={{width: '18rem'}}>
                             <Card.Body>
                                 <Card.Title>Name: {shops.name}</Card.Title>
+                                <Badge pill bg="info" style={{fontSize: "1em"}}>
+                                    {shops.status}
+                                </Badge>
                                 <p><b>Town:</b> {shops.town} </p>
                                 <p><b>Address:</b> {shops.address} </p>
                                 <Card.Text>
@@ -49,8 +50,8 @@ const Shops = () => {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                    </Col>
-                ))}
+                        // </Col>
+                    ))}
                 </Row>
 
             ) : (
