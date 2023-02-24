@@ -24,6 +24,7 @@ public class ShopsService {
         Shops shop = new Shops();
         shop.setName("Sladcarnicata na Mama");
         shop.setStatus(ShopStatusEnum.WORKING.getStatus());
+        shop.setNumber(findNextShopToSubmit(user));
         shop.setTown("Sofia");
         shop.setAddress("str. AlaBala");
         shop.setUsers(user);
@@ -31,7 +32,28 @@ public class ShopsService {
         return shopsRepository.save(shop);
     }
 
-    public Optional<Shops> findById (Shops shop) {
+    private Integer findNextShopToSubmit(Users user) {
+        Set<Shops> shopsByUser = shopsRepository.findByUsers(user);
+        if (shopsByUser == null) {
+            return 1;
+        }
+        Optional<Integer> nextShopNumber = shopsByUser.stream()
+                .sorted((s1, s2) -> {
+                    if (s1.getNumber() == null)
+                        return 1;
+                    if (s2.getNumber() == null)
+                        return 1;
+                    return s2.getNumber().compareTo(s1.getNumber());
+                })
+                .map(shop -> {
+                    if (shop.getNumber() == null) return 1;
+                    return shop.getNumber() + 1;
+                })
+                .findFirst();
+        return nextShopNumber.orElse(1);
+    }
+
+    public Optional<Shops> findById(Shops shop) {
         return shopsRepository.findById(shop.getId());
     }
 

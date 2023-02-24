@@ -32,11 +32,14 @@ const Shops = () => {
                             key={shops.id}
                             style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
                             <Card.Body className="d-flex flex-direction row justify-content-space-between"
-                                >
+                            >
+                                <Card.Title>Number: {shops.number}</Card.Title>
                                 <Card.Title>Name: {shops.name}</Card.Title>
-                                <Badge pill bg="info" style={{fontSize: "1em"}}>
-                                    {shops.status}
-                                </Badge>
+                                <div className="badge" style={{width: '50%'}}>
+                                    <Badge pill bg="info" style={{fontSize: "1em"}}>
+                                        {shops.status}
+                                    </Badge>
+                                </div>
                                 <p><b>Town:</b> {shops.town} </p>
                                 <p><b>Address:</b> {shops.address} </p>
                                 <Card.Text>

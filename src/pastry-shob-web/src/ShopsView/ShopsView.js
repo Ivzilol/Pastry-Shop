@@ -32,7 +32,7 @@ const ShopsView = () => {
         }
     }
 
-    function persist () {
+    function persist() {
         ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
             .then(shopData => {
                     setShop(shopData);
@@ -129,15 +129,19 @@ const ShopsView = () => {
                             />
                         </Col>
                     </Form.Group>
-                    <Button onClick={() => saveShop()}>Submit Shop</Button>
-                    <Button
-                        id="submit"
-                        type="button"
-                        onClick={() => {
-                            window.location.href = "/shops";
-                        }}
-                    > Shops
-                    </Button>
+                    <div className="buttons">
+                        <Button
+                            style={{marginRight: '10px'}}
+                            onClick={() => saveShop()}>Submit Shop</Button>
+                        <Button
+                            id="submit"
+                            type="button"
+                            onClick={() => {
+                                window.location.href = "/shops";
+                            }}
+                        > Shops
+                        </Button>
+                    </div>
                 </>) : (
                 <></>
             )}
