@@ -26,6 +26,8 @@ public class Shops {
     @ManyToOne(optional = false)
     private Users users;
 
+    @ManyToOne
+    private Users moderator;
 
     public Shops() {
 
@@ -85,5 +87,13 @@ public class Shops {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Users getModerator() {
+        return moderator;
+    }
+
+    public void setModerator(Users moderator) {
+        this.moderator = moderator;
     }
 }

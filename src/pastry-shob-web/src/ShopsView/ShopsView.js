@@ -56,7 +56,6 @@ const ShopsView = () => {
                 setShop(shopData);
                 setShopsEnums(shopResponse.shopsEnums);
                 setShopsStatuses(shopResponse.statusEnums);
-                console.log(shopResponse.statusEnums)
             });
     }, []);
 

@@ -1,0 +1,23 @@
+.shop-wrapper {
+    border: 2px solid black;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.d-flex {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.shop-wrapper-title {
+    text-align: center;
+    background-color: red;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+#root > div > div:nth-child(3) > div {
+    border: none;
+}

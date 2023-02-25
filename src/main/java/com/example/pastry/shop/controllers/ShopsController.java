@@ -3,7 +3,10 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.service.ShopsService;
+import com.example.pastry.shop.service.UserService;
+import com.example.pastry.shop.util.AuthorityUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -20,8 +23,11 @@ public class ShopsController {
 
     private final ShopsService shopsService;
 
-    public ShopsController(ShopsService productService) {
+    private final UserService userService;
+
+    public ShopsController(ShopsService productService, UserService userService) {
         this.shopsService = productService;
+        this.userService = userService;
     }
 
     @PostMapping("")
@@ -48,6 +54,14 @@ public class ShopsController {
     public ResponseEntity<?> updateShop(@PathVariable Long shopId,
                                         @RequestBody Shops shop,
                                         @AuthenticationPrincipal Users user) {
+        // add moderator in this shop if it must be changed
+        if (shop.getModerator() != null) {
+            Users moderator = shop.getModerator();
+            moderator = userService.findUserByUsername(moderator.getUsername()).orElse(new Users());
+            if (AuthorityUtil.hasRole(AuthorityEnum.moderator.name(), moderator)) {
+                shop.setModerator(moderator);
+            }
+        }
         Shops updateShop = shopsService.saveShop(shop);
         return ResponseEntity.ok(updateShop);
     }
