@@ -21,3 +21,17 @@
 #root > div > div:nth-child(3) > div {
     border: none;
 }
+
+.shop-wrapper {
+    margin-top: 10px;
+}
+
+.shop-wrapper-title-updated {
+    text-align: center;
+    background-color: blue;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+
+}

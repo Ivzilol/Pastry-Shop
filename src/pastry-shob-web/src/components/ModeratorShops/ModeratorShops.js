@@ -40,9 +40,10 @@ const ModeratorShops = () => {
             </Row>
             <div className="shop-wrapper need-update">
                 <div className="shop-wrapper-title h3">Waiting Update!</div>
-                {shops ? (
+                {shops && shops.filter((shops) => shops.status === 'non-working').length > 0
+                    ? (
                     <Row>
-                        {shops.map((shops) => (
+                        {shops.filter(shops => shops.status === 'non-working').map((shops) => (
                             // <Col>
                             <Card
                                 key={shops.id}
@@ -75,10 +76,50 @@ const ModeratorShops = () => {
                     </Row>
 
                 ) : (
-                    <></>
+                    <div>No shops for Update</div>
                 )}
             </div>
-            {/*<div className="shop-wrapper updated"></div>*/}
+            <div className="shop-wrapper updated">
+                <div className="shop-wrapper-title-updated h3">Updated</div>
+                {shops && shops.filter((shops) => shops.status === 'Working').length > 0
+                    ? (
+                    <Row>
+                        {shops.filter(shops => shops.status === 'Working').map((shops) => (
+                            // <Col>
+                            <Card
+                                key={shops.id}
+                                style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
+                                <Card.Body className="d-flex flex-direction row justify-content-space-between"
+                                >
+                                    <Card.Title>Number: {shops.number}</Card.Title>
+                                    <Card.Title>Name: {shops.name}</Card.Title>
+                                    <div className="badge" style={{width: '50%'}}>
+                                        <Badge pill bg="info" style={{fontSize: "1em"}}>
+                                            {shops.status}
+                                        </Badge>
+                                    </div>
+                                    <p><b>Town:</b> {shops.town} </p>
+                                    <p><b>Address:</b> {shops.address} </p>
+                                    <Card.Text>
+                                        <Button
+                                            id="submit"
+                                            type="button"
+                                            onClick={() => {
+                                                changeShop(shops);
+                                            }}
+                                        > Change
+                                        </Button>
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                            // </Col>
+                        ))}
+                    </Row>
+
+                ) : (
+                        <div>Not Have Working</div>
+                )}
+            </div>
 
             <Row>
                 <Col>
