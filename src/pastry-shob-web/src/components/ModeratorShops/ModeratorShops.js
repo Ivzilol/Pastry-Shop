@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import {Badge, Button, Card, Col, Row} from "react-bootstrap";
+import {Badge, Button, Card, Col, Container, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 
-const Shops = () => {
+const ModeratorShops = () => {
 
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [shops, setShops] = useState(null);
@@ -14,16 +14,13 @@ const Shops = () => {
                 setShops(shopData);
             })
     }, [jwt])
-
-    function createShop() {
-        ajax("api/shops", "POST", jwt).then((shop) => {
-            window.location.href = `/shops/${shop.id}`
-        });
-    }
-
-
     return (
-        <div style={{margin: '2em'}}>
+        <Container style={{margin: '2em'}}>
+            <Row>
+                <Col>
+                    <h1>Moderator</h1>
+                </Col>
+            </Row>
             {shops ? (
                 <Row>
                     {shops.map((shops) => (
@@ -61,11 +58,6 @@ const Shops = () => {
             ) : (
                 <></>
             )}
-            <Button
-                style={{
-                    marginTop: '10px'
-                }}
-                onClick={() => createShop()}>Submit New Shop</Button>
             <Row>
                 <Col>
                     <button
@@ -86,8 +78,8 @@ const Shops = () => {
                     </button>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 };
 
-export default Shops;
+export default ModeratorShops;

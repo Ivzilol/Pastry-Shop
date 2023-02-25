@@ -4,7 +4,7 @@ import ajax from "../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
 
 const ShopsView = () => {
-    const [jwt] = useLocalState("", "jwt")
+    const [jwt, setJwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
         town: "",

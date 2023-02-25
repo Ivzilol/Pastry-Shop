@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Routes} from "react-router-dom";
 import Products from "./components/Products/Products";
@@ -8,8 +8,24 @@ import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
 import Shops from "./components/dashboard/Shops";
 import ShopsView from "./ShopsView/ShopsView";
+import {useLocalState} from "./util/useLocalStorage";
+import jwt_decode from 'jwt-decode'
+import ModeratorShops from "./components/ModeratorShops/ModeratorShops";
 
 function App() {
+    const [jwt, setJwt] = useLocalState("", "jwt");
+
+
+    const [roles, setRoles] = useState(getRolesFromJWT());
+
+    function getRolesFromJWT() {
+        if (jwt) {
+            const decodeJwt = jwt_decode(jwt);
+            return decodeJwt.authorities;
+        }
+        return [];
+
+    }
 
     return (
         <Routes>
@@ -22,19 +38,25 @@ function App() {
             <Route
                 path="/shops"
                 element={
+                    roles.find((role) => role === 'moderator') ? (
+                        <PrivateRoute>
+                            <ModeratorShops/>
+                        </PrivateRoute>
+                    ) : (
+                        <PrivateRoute>
+                            <Shops/>
+                        </PrivateRoute>
+                    )
+                }/>
+            <Route
+                path="/shops/:id"
+                element={
                     <PrivateRoute>
-                        <Shops/>
+                        <ShopsView/>
                     </PrivateRoute>
                 }/>
-                 <Route
-                    path="/shops/:id"
-                    element={
-                        <PrivateRoute>
-                             <ShopsView/>
-                         </PrivateRoute>
-                     }/>
-             <Route path="/" element={<Homepage/>}></Route>
-             <Route path="/login" element={<Login/>}></Route>
+            <Route path="/" element={<Homepage/>}></Route>
+            <Route path="/login" element={<Login/>}></Route>
         </Routes>
     );
 }
