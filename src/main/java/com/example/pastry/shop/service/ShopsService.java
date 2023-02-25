@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.repository.UsersRepository;
@@ -53,12 +54,16 @@ public class ShopsService {
         return nextShopNumber.orElse(1);
     }
 
-    public Optional<Shops> findById(Shops shop) {
-        return shopsRepository.findById(shop.getId());
-    }
-
     public Set<Shops> findByUser(Users user) {
-        return shopsRepository.findByUsers(user);
+        //load shops if are you moderator
+        boolean isModerator = user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.moderator.name().equals(auth.getAuthority()));
+        if (isModerator) {
+            return shopsRepository.findByModerator(user);
+        } else {
+            // load shops if are you user
+            return shopsRepository.findByUsers(user);
+        }
     }
 
     public Optional<Shops> findById(Long shopId) {

@@ -1,6 +1,6 @@
 package com.example.pastry.shop.model.entity;
 
-import com.example.pastry.shop.model.enums.UserRoleEnum;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +13,7 @@ public class UserRole {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRoleEnum userRole;
+    private AuthorityEnum userRole;
 
     public UserRole() {
     }
@@ -26,11 +26,11 @@ public class UserRole {
         this.id = id;
     }
 
-    public UserRoleEnum getUserRole() {
+    public AuthorityEnum getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRoleEnum userRole) {
+    public void setUserRole(AuthorityEnum userRole) {
         this.userRole = userRole;
     }
 }
