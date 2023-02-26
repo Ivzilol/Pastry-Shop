@@ -11,6 +11,7 @@ import ShopsView from "./ShopsView/ShopsView";
 import {useLocalState} from "./util/useLocalStorage";
 import jwt_decode from 'jwt-decode'
 import ModeratorShops from "./components/ModeratorShops/ModeratorShops";
+import ModeratorShopsView from "./components/ModeratorShopsView/ModeratorShopsView";
 
 function App() {
     const [jwt, setJwt] = useLocalState("", "jwt");
@@ -51,9 +52,15 @@ function App() {
             <Route
                 path="/shops/:id"
                 element={
-                    <PrivateRoute>
-                        <ShopsView/>
-                    </PrivateRoute>
+                    roles.find((role) => role === 'moderator')
+                        ?
+                        <PrivateRoute>
+                            <ModeratorShopsView/>
+                        </PrivateRoute>
+                        :
+                        <PrivateRoute>
+                            <ShopsView/>
+                        </PrivateRoute>
                 }/>
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>

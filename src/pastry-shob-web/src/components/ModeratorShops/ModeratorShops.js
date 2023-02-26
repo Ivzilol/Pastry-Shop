@@ -9,6 +9,10 @@ const ModeratorShops = () => {
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [shops, setShops] = useState(null);
 
+    function updateShop(shop) {
+        window.location.href = `/shops/${shop.id}`;
+    }
+
     function changeShop(shop) {
         const decodeJwt = jwt_decode(jwt);
         shop.moderator = {
@@ -43,28 +47,28 @@ const ModeratorShops = () => {
                 {shops && shops.filter((shops) => shops.status === 'non-working').length > 0
                     ? (
                     <Row>
-                        {shops.filter(shops => shops.status === 'non-working').map((shops) => (
+                        {shops.filter(shop => shop.status === 'non-working').map((shop) => (
                             // <Col>
                             <Card
                                 key={shops.id}
                                 style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
                                 <Card.Body className="d-flex flex-direction row justify-content-space-between"
                                 >
-                                    <Card.Title>Number: {shops.number}</Card.Title>
-                                    <Card.Title>Name: {shops.name}</Card.Title>
+                                    <Card.Title>Number: {shop.number}</Card.Title>
+                                    <Card.Title>Name: {shop.name}</Card.Title>
                                     <div className="badge" style={{width: '50%'}}>
                                         <Badge pill bg="info" style={{fontSize: "1em"}}>
-                                            {shops.status}
+                                            {shop.status}
                                         </Badge>
                                     </div>
-                                    <p><b>Town:</b> {shops.town} </p>
-                                    <p><b>Address:</b> {shops.address} </p>
+                                    <p><b>Town:</b> {shop.town} </p>
+                                    <p><b>Address:</b> {shop.address} </p>
                                     <Card.Text>
                                         <Button
                                             id="submit"
                                             type="button"
                                             onClick={() => {
-                                                changeShop(shops);
+                                                updateShop(shop);
                                             }}
                                         > Change
                                         </Button>

@@ -33,5 +33,9 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 10px;
+}
 
+#root > div > div.d-flex.justify-content-center.align-items-end.row {
+    border: none;
+    margin-bottom: 10px;
 }
