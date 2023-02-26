@@ -18,7 +18,7 @@ const Shops = () => {
 
     function createShop() {
         ajax("api/shops", "POST", jwt).then((shop) => {
-            navigate(`/shops/${shop.id}`)
+            window.location.href = `/shops/${shop.id}`
         });
     }
 
@@ -46,7 +46,7 @@ const Shops = () => {
                                         id="submit"
                                         type="button"
                                         onClick={() => {
-                                            navigate(`/shops/${shops.id}`);
+                                            window.location.href = `/shops/${shops.id}`;
                                         }}
                                     > Edit
                                     </Button>

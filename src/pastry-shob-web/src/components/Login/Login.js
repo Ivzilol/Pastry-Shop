@@ -28,7 +28,7 @@ const Login = () => {
             })
             .then(([body, headers]) => {
                 setJwt(headers.get("authorization"));
-                window.location.href = "shops";
+                window.location.href = "/shops";
             }).catch((message) => {
                 alert(message)
         });

@@ -14,7 +14,7 @@ public interface ShopsRepository extends JpaRepository<Shops, Long> {
     Set<Shops> findByUsers(Users user);
 
     @Query("select s from Shops as s " +
-            "where (s.status = 'non-working' or s.moderator.id = s.moderator.id)" +
+            "where s.status = 'non-working'" +
             "or s.moderator = :moderator" )
     Set<Shops> findByModerator(Users moderator);
 }
