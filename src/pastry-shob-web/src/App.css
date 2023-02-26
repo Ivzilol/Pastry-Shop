@@ -39,3 +39,8 @@
     border: none;
     margin-bottom: 10px;
 }
+
+.badge-status {
+    width: 100px;
+    height: 22px;
+}

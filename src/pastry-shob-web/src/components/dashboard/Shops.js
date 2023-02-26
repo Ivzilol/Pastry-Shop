@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
 import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
+import StatusBadge from "../StatusBadge/StatusBadge";
 
 const Shops = () => {
 
@@ -36,9 +37,7 @@ const Shops = () => {
                                 <Card.Title>Number: {shops.number}</Card.Title>
                                 <Card.Title>Name: {shops.name}</Card.Title>
                                 <div className="badge" style={{width: '50%'}}>
-                                    <Badge pill bg="info" style={{fontSize: "1em"}}>
-                                        {shops.status}
-                                    </Badge>
+                                    <StatusBadge text={shops.status} />
                                 </div>
                                 <p><b>Town:</b> {shops.town} </p>
                                 <p><b>Address:</b> {shops.address} </p>

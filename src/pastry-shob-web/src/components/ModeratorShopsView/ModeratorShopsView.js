@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import ajax  from "../../Services/FetchService";
 import {Button, Col, Container, Form, Row, Badge} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
+import StatusBadge from "../StatusBadge/StatusBadge";
+import shops from "../dashboard/Shops";
 
 const ModeratorShopsView = () => {
     const [jwt, setJwt] = useLocalState("", "jwt")
@@ -68,9 +70,7 @@ const ModeratorShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    <Badge pill bg="info" style={{fontSize: "20px"}}>
-                        Status: {shop.status}
-                    </Badge>
+                    <StatusBadge text={shops.status} />
                 </Col>
             </Row>
             {shop ? (
