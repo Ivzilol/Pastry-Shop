@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ajax  from "../../Services/FetchService";
-import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, Badge} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 
 const ModeratorShopsView = () => {
@@ -24,9 +24,9 @@ const ModeratorShopsView = () => {
         setShop(newShop);
     }
 
-    function saveShop() {
-        if (shop.status === shopsStatuses[0].status) {
-            updateShop("status", shopsStatuses[1].status)
+    function saveShop(status) {
+        if (status && shop.status !== status) {
+            updateShop("status", status)
         } else {
             persist();
         }
@@ -69,7 +69,7 @@ const ModeratorShopsView = () => {
                 </Col>
                 <Col>
                     <Badge pill bg="info" style={{fontSize: "20px"}}>
-                        Name: {shop.status}
+                        Status: {shop.status}
                     </Badge>
                 </Col>
             </Row>
@@ -84,6 +84,7 @@ const ModeratorShopsView = () => {
                                 onChange={(e) => updateShop("town", e.target.value)}
                                 value={shop.town}
                                 type="text"
+                                readOnly
                                 placeholder="Town"
                             />
                         </Col>
@@ -97,6 +98,7 @@ const ModeratorShopsView = () => {
                                 onChange={(e) => updateShop("address", e.target.value)}
                                 value={shop.address}
                                 type="text"
+                                readOnly
                                 placeholder="address"
                             />
                         </Col>
@@ -104,7 +106,9 @@ const ModeratorShopsView = () => {
                     <div className="buttons">
                         <Button
                             style={{marginRight: '10px'}}
-                            onClick={() => saveShop()}>Change Shop</Button>
+                            onClick={() => saveShop(shopsStatuses[0].status)}>
+                            Change Shop
+                        </Button>
                         <Button
                             id="submit"
                             type="button"
