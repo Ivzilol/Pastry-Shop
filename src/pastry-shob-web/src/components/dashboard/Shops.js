@@ -4,20 +4,23 @@ import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../../UserProvider/UserProvider";
 const Shops = () => {
 
-    const [jwt, setJwt] = useLocalState("", "jwt");
+    const user = useUser();
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
+
     useEffect(() => {
-        ajax("api/shops", "GET", jwt)
+        ajax("api/shops", "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
-            })
-    }, [jwt])
+            });
+        if (!user.jwt) navigate("/login");
+    }, [user.jwt])
 
     function createShop() {
-        ajax("api/shops", "POST", jwt).then((shop) => {
+        ajax("api/shops", "POST", user.jwt).then((shop) => {
             window.location.href = `/shops/${shop.id}`
         });
     }
@@ -79,7 +82,7 @@ const Shops = () => {
                             color: 'white'
                         }}
                         onClick={() => {
-                            setJwt(null);
+                            user.setJwt(null);
                             navigate('/login')
                         }}>Logout
                     </button>

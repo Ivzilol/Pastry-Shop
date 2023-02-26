@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useLocalState} from "../../util/useLocalStorage";
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../../UserProvider/UserProvider";
 
 const Login = () => {
+    const user = useUser();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [jwt, setJwt] = useLocalState("", "jwt");
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (user.jwt) navigate("/shops")
+    }, [user])
+
     function sendLoginRequest() {
         const requestBody = {
             "username": username,
@@ -27,8 +32,7 @@ const Login = () => {
                 else return Promise.reject("Invalid login attempt")
             })
             .then(([body, headers]) => {
-                setJwt(headers.get("authorization"));
-                window.location.href = "/shops";
+                user.setJwt(headers.get("authorization"))
             }).catch((message) => {
                 alert(message)
         });

@@ -1,28 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import {Badge, Button, Card, Col, Container, Row} from "react-bootstrap";
-import {useLocalState} from "../../util/useLocalStorage";
+import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import jwt_decode from "jwt-decode";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../../UserProvider/UserProvider";
 
 const ModeratorShops = () => {
-
-    const [jwt, setJwt] = useLocalState("", "jwt");
-    const [shops, setShops] = useState(null);
     let navigate = useNavigate();
+    const user = useUser();
+    const [shops, setShops] = useState(null);
+
+    useEffect(() => {
+        if(!user.jwt) navigate("/login");
+    })
+
     function updateShop(shop) {
          window.location.href = `/shops/${shop.id}`;
     }
 
     function changeShop(shop) {
-        const decodeJwt = jwt_decode(jwt);
+        const decodeJwt = jwt_decode(user.jwt);
         shop.moderator = {
             username: decodeJwt.sub,
         };
         // Todo: don't hardcode this status
         shop.status = "Working";
-        ajax(`/api/shops/${shop.id}`, "PUT", jwt, shop)
+        ajax(`/api/shops/${shop.id}`, "PUT", user.jwt, shop)
             .then(updateShop => {
                 const shopsCopy = [...shops];
                 const s = shopsCopy.findIndex(s => s.id === updateShop.id);
@@ -32,11 +36,11 @@ const ModeratorShops = () => {
     }
 
     useEffect(() => {
-        ajax("api/shops", "GET", jwt)
+        ajax("api/shops", "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
             })
-    }, [jwt])
+    }, [user.jwt])
     return (
         <Container style={{margin: '2em'}}>
             <Row>
@@ -137,7 +141,7 @@ const ModeratorShops = () => {
                             color: 'white'
                         }}
                         onClick={() => {
-                            setJwt(null);
+                            user.setJwt(null);
                             navigate('/login')
                         }}>Logout
                     </button>
