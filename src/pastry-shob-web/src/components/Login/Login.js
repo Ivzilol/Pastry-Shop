@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [jwt, setJwt] = useLocalState("", "jwt");
-
+    let navigate = useNavigate();
     function sendLoginRequest() {
         const requestBody = {
             "username": username,
@@ -97,7 +98,7 @@ const Login = () => {
                             type="button"
                             size="lg"
                             onClick={() => {
-                                window.location.href = "/"
+                                navigate("/")
                             }}
                         >
                             Exit

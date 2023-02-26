@@ -4,14 +4,15 @@ import {Badge, Button, Card, Col, Container, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import jwt_decode from "jwt-decode";
 import StatusBadge from "../StatusBadge/StatusBadge";
+import {useNavigate} from "react-router-dom";
 
 const ModeratorShops = () => {
 
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [shops, setShops] = useState(null);
-
+    let navigate = useNavigate();
     function updateShop(shop) {
-        window.location.href = `/shops/${shop.id}`;
+        navigate(`/shops/${shop.id}`);
     }
 
     function changeShop(shop) {
@@ -87,26 +88,26 @@ const ModeratorShops = () => {
                 {shops && shops.filter((shops) => shops.status === 'Working').length > 0
                     ? (
                     <Row>
-                        {shops.filter(shops => shops.status === 'Working').map((shop) => (
+                        {shops.filter(shops => shops.status === 'Working').map((shops) => (
                             // <Col>
                             <Card
-                                key={shop.id}
+                                key={shops.id}
                                 style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
                                 <Card.Body className="d-flex flex-direction row justify-content-space-between"
                                 >
-                                    <Card.Title>Number: {shop.number}</Card.Title>
-                                    <Card.Title>Name: {shop.name}</Card.Title>
+                                    <Card.Title>Number: {shops.number}</Card.Title>
+                                    <Card.Title>Name: {shops.name}</Card.Title>
                                     <div className="badge" style={{width: '50%'}}>
-                                        <StatusBadge text={shop.status} />
+                                        <StatusBadge text={shops.status} />
                                     </div>
-                                    <p><b>Town:</b> {shop.town} </p>
-                                    <p><b>Address:</b> {shop.address} </p>
+                                    <p><b>Town:</b> {shops.town} </p>
+                                    <p><b>Address:</b> {shops.address} </p>
                                     <Card.Text>
                                         <Button
                                             id="submit"
                                             type="button"
                                             onClick={() => {
-                                                changeShop(shop);
+                                                changeShop(shops);
                                             }}
                                         > Change
                                         </Button>
@@ -137,7 +138,7 @@ const ModeratorShops = () => {
                         }}
                         onClick={() => {
                             setJwt(null);
-                            window.location.href = '/login'
+                            navigate('/login')
                         }}>Logout
                     </button>
                 </Col>

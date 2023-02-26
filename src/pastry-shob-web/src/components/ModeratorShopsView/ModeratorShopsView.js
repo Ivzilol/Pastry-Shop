@@ -4,10 +4,12 @@ import {Button, Col, Container, Form, Row, Badge} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import shops from "../dashboard/Shops";
+import {useNavigate} from "react-router-dom";
 
 const ModeratorShopsView = () => {
     const [jwt, setJwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
+    let navigate = useNavigate();
     const [shop, setShop] = useState({
         town: "",
         address: "",
@@ -32,6 +34,7 @@ const ModeratorShopsView = () => {
         } else {
             persist();
         }
+        window.location.href = "/shops";
     }
 
     function persist() {
@@ -70,7 +73,7 @@ const ModeratorShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    <StatusBadge text={shops.status} />
+                    <StatusBadge text={shop.status} />
                 </Col>
             </Row>
             {shop ? (
@@ -113,7 +116,7 @@ const ModeratorShopsView = () => {
                             id="submit"
                             type="button"
                             onClick={() => {
-                                window.location.href = "/shops";
+                                navigate("/shops");
                             }}
                         > Shops
                         </Button>

@@ -2,8 +2,11 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
+import StatusBadge from "../components/StatusBadge/StatusBadge";
+import {useNavigate} from "react-router-dom";
 
 const ShopsView = () => {
+    let navigate = useNavigate();
     const [jwt, setJwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
@@ -68,9 +71,7 @@ const ShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    <Badge pill bg="info" style={{fontSize: "20px"}}>
-                        Name: {shop.status}
-                    </Badge>
+                    <StatusBadge text={shop.status} />
                 </Col>
             </Row>
             {shop ? (

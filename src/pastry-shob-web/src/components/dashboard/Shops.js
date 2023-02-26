@@ -3,12 +3,12 @@ import ajax from "../../Services/FetchService";
 import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
-
+import {useNavigate} from "react-router-dom";
 const Shops = () => {
 
     const [jwt, setJwt] = useLocalState("", "jwt");
     const [shops, setShops] = useState(null);
-
+    let navigate = useNavigate();
     useEffect(() => {
         ajax("api/shops", "GET", jwt)
             .then(shopData => {
@@ -18,7 +18,7 @@ const Shops = () => {
 
     function createShop() {
         ajax("api/shops", "POST", jwt).then((shop) => {
-            window.location.href = `/shops/${shop.id}`
+            navigate(`/shops/${shop.id}`)
         });
     }
 
@@ -46,7 +46,7 @@ const Shops = () => {
                                         id="submit"
                                         type="button"
                                         onClick={() => {
-                                            window.location.href = `/shops/${shops.id}`;
+                                            navigate(`/shops/${shops.id}`);
                                         }}
                                     > Edit
                                     </Button>
@@ -80,7 +80,7 @@ const Shops = () => {
                         }}
                         onClick={() => {
                             setJwt(null);
-                            window.location.href = '/login'
+                            navigate('/login')
                         }}>Logout
                     </button>
                 </Col>
