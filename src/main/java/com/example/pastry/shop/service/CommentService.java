@@ -9,12 +9,14 @@ import com.example.pastry.shop.repository.ShopsRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CommentService {
 
-    private CommentRepository commentRepository;
-    private ShopsRepository shopsRepository;
+    private final CommentRepository commentRepository;
+    private final ShopsRepository shopsRepository;
 
     public CommentService(CommentRepository commentRepository, ShopsRepository shopsRepository) {
         this.commentRepository = commentRepository;
@@ -31,5 +33,10 @@ public class CommentService {
         comment.setCreatedDate(LocalDateTime.now());
 
         return commentRepository.save(comment);
+    }
+
+    public Set<Comment> getCommentsByShopId(Long shopId) {
+        Set<Comment> comments = commentRepository.findByShopId(shopId);
+        return comments;
     }
 }

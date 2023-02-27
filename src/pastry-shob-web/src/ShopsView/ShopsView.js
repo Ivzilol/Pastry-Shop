@@ -10,7 +10,6 @@ const ShopsView = () => {
     let navigate = useNavigate();
     const user = useUser();
     const {shopId} = useParams()
-    console.log('shopId', shopId)
     // const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
         town: "",
@@ -32,13 +31,13 @@ const ShopsView = () => {
 
     function submitComment () {
         ajax('/api/comments', 'POST', user.jwt, comment).then(comment => {
-            console.log(comment);
         })
     }
 
     useEffect(() => {
-        console.log(comment);
-    }, [comment])
+        ajax(`/api/comments?shopId=${shopId}`, 'GET', user.jwt, null)
+            .then(comments => console.log(comments));
+    }, [])
 
     function updateComment (value) {
         const commentCopy = {...comment}
