@@ -4,10 +4,11 @@ import ajax from "../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
 import StatusBadge from "../components/StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
+import {useUser} from "../UserProvider/UserProvider";
 
 const ShopsView = () => {
     let navigate = useNavigate();
-    const [jwt, setJwt] = useLocalState("", "jwt")
+    const user = useUser();
     const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
         town: "",
@@ -19,7 +20,29 @@ const ShopsView = () => {
     const [shopsEnums, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
 
+    const [comment, setComment] = useState({
+        text: "",
+        shop: shopId,
+        user: user.jwt,
+    });
+
     const prevShopValue = useRef(shop);
+
+    function submitComment () {
+        ajax('api/comments', 'POST', user.jwt, comment).then(data => {
+            console.log(data);
+        })
+    }
+
+    useEffect(() => {
+        console.log(comment);
+    }, [comment])
+
+    function updateComment (value) {
+        const commentCopy = {...comment}
+        commentCopy.text = value;
+        setComment(commentCopy);
+    }
 
     function updateShop(prop, value) {
         const newShop = {...shop}
@@ -36,7 +59,7 @@ const ShopsView = () => {
     }
 
     function persist() {
-        ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
+        ajax(`/api/shops/${shopId}`, "PUT", user.jwt, shop)
             .then(shopData => {
                     setShop(shopData);
                 }
@@ -51,7 +74,7 @@ const ShopsView = () => {
     }, [shop])
 
     useEffect(() => {
-        ajax(`/api/shops/${shopId}`, "GET", jwt)
+        ajax(`/api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
                 let shopData = shopResponse.shops;
                 if (shopData.town === null) shopData.town = ""
@@ -142,7 +165,19 @@ const ShopsView = () => {
                         > Shops
                         </Button>
                     </div>
-                </>) : (
+                    <div className="comments">
+                        <textarea
+                        onChange={(e) =>  updateComment(e.target.value)}
+                        >
+
+                        </textarea>
+                        <Button
+                        onClick={() => submitComment()}
+                        >Post Comment
+                        </Button>
+                    </div>
+                </>
+            ) : (
                 <></>
             )}
         </Container>

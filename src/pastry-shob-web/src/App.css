@@ -44,3 +44,13 @@
     width: 100px;
     height: 22px;
 }
+
+.comments{
+    margin-top: 30px;
+}
+
+.comments textarea {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 100%;
+}

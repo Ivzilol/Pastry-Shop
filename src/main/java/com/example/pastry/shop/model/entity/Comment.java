@@ -15,12 +15,13 @@ public class Comment {
     @Column
     private LocalDateTime createdDate;
 
+    @Column(columnDefinition = "TEXT")
+    private String text;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users createdBy;
 
-    @Column(columnDefinition = "TEXT")
-    private String text;
     @ManyToOne
     private Shops shops;
 
