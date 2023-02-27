@@ -28,7 +28,12 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
-    @PutMapping("")
+    @PutMapping("{commentId}")
+    public ResponseEntity<Comment> updateComment(@RequestBody CommentDto commentDto,
+                                                 @AuthenticationPrincipal Users user) {
+        Comment comment = commentService.save(commentDto, user);
+        return ResponseEntity.ok(comment);
+    }
 
     @GetMapping("")
     public ResponseEntity<Set<Comment>> getCommentsByShop(@RequestParam Long shopId ) {

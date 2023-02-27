@@ -1,6 +1,11 @@
 import React from 'react';
+import {useUser} from "../../UserProvider/UserProvider";
+import jwt_decode from 'jwt-decode'
 
 const Comment = (props) => {
+    const user = useUser();
+    const decodingJwt = jwt_decode(user.jwt);
+
     const {
         id,
         createdBy,
@@ -12,18 +17,24 @@ const Comment = (props) => {
         <div className="comments">
             <div className="comments-view-comment">
                 <strong>{createdBy.username}:
-                    <span
-                        onClick={() => emitEditComment(id)}
-                        className="comments-edit"
-                    >
+                    {
+                        decodingJwt.sub === createdBy.username ?
+                            <>
+                                <span
+                                    onClick={() => emitEditComment(id)}
+                                    className="comments-edit"
+                                >
                         Edit
                     </span>
-                    <span
-                        onClick={() => emitDeleteComment(id)}
-                        className="comments-delete"
-                    >
+                                <span
+                                    onClick={() => emitDeleteComment(id)}
+                                    className="comments-delete"
+                                >
                         Delete
-                    </span>
+                    </span></>
+                            :
+                            <></>
+                    }
                 </strong>
                 <p>{text}</p>
             </div>
