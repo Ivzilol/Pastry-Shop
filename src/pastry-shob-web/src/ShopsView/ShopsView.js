@@ -3,13 +3,15 @@ import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
 import StatusBadge from "../components/StatusBadge/StatusBadge";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../UserProvider/UserProvider";
 
 const ShopsView = () => {
     let navigate = useNavigate();
     const user = useUser();
-    const shopId = window.location.href.split("/shops/")[1];
+    const {shopId} = useParams()
+    console.log('shopId', shopId)
+    // const shopId = window.location.href.split("/shops/")[1];
     const [shop, setShop] = useState({
         town: "",
         address: "",
@@ -22,15 +24,15 @@ const ShopsView = () => {
 
     const [comment, setComment] = useState({
         text: "",
-        shop: shopId,
+        shopId: shopId !== null ? parseInt(shopId) : null,
         user: user.jwt,
     });
 
     const prevShopValue = useRef(shop);
 
     function submitComment () {
-        ajax('api/comments', 'POST', user.jwt, comment).then(data => {
-            console.log(data);
+        ajax('/api/comments', 'POST', user.jwt, comment).then(comment => {
+            console.log(comment);
         })
     }
 

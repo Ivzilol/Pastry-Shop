@@ -1,5 +1,6 @@
 package com.example.pastry.shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private Users createdBy;
 
+    @JsonIgnore
     @ManyToOne
     private Shops shops;
 

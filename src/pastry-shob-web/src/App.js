@@ -54,7 +54,7 @@ function App() {
                         )
                     }/>
                 <Route
-                    path="/shops/:id"
+                    path="/shops/:shopId"
                     element={
                         roles.find((role) => role === 'moderator')
                             ?
