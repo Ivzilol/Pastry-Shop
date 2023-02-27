@@ -5,6 +5,7 @@ import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import shops from "../dashboard/Shops";
 import {useNavigate} from "react-router-dom";
+import CommentContainer from "../CommentContainer/CommentContainer";
 
 const ModeratorShopsView = () => {
     const [jwt, setJwt] = useLocalState("", "jwt")
@@ -121,7 +122,9 @@ const ModeratorShopsView = () => {
                         > Shops
                         </Button>
                     </div>
-                </>) : (
+                    <CommentContainer shopsId={shopId}/>
+                </>
+            ) : (
                 <></>
             )}
         </Container>

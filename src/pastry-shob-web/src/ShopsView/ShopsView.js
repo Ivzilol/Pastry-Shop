@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useLocalState} from "../util/useLocalStorage";
 import ajax from "../Services/FetchService";
-import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row, Badge} from "react-bootstrap";
+import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
 import StatusBadge from "../components/StatusBadge/StatusBadge";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../UserProvider/UserProvider";
@@ -21,17 +20,18 @@ const ShopsView = () => {
 
     const [shopsEnums, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
+    const prevShopValue = useRef(shop);
+
     const emptyComment = {
         id: null,
         text: "",
         shopId: shopId !== null ? parseInt(shopId) : null,
         user: user.jwt,
     }
-    const [comment, setComment] = useState(emptyComment);
 
+    const [comment, setComment] = useState(emptyComment);
     const [comments, setComments] = useState([]);
 
-    const prevShopValue = useRef(shop);
 
     function handleEditComment (commentId) {
         const index = comments.findIndex(comment => comment.id === commentId);
