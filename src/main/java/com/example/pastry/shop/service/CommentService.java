@@ -27,11 +27,13 @@ public class CommentService {
         Comment comment = new Comment();
         Shops shopId = shopsRepository.getById(commentDto.getShopId());
 
+        comment.setId(commentDto.getId());
         comment.setText(commentDto.getText());
         comment.setCreatedBy(user);
         comment.setShops(shopId);
-        comment.setCreatedDate(LocalDateTime.now());
-
+        if (comment.getId() == null) {
+            comment.setCreatedDate(LocalDateTime.now());
+        }
         return commentRepository.save(comment);
     }
 

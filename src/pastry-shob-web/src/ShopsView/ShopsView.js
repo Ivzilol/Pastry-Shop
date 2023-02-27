@@ -21,13 +21,13 @@ const ShopsView = () => {
 
     const [shopsEnums, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
-
-    const [comment, setComment] = useState({
+    const emptyComment = {
         id: null,
         text: "",
         shopId: shopId !== null ? parseInt(shopId) : null,
         user: user.jwt,
-    });
+    }
+    const [comment, setComment] = useState(emptyComment);
 
     const [comments, setComments] = useState([]);
 
@@ -50,19 +50,19 @@ const ShopsView = () => {
 
     function submitComment() {
         if (comment.id) {
-            ajax("/api/comments", "PUT", user.jwt, comment).then(d => {
+            ajax(`/api/comments/${comment.id}`, "PUT", user.jwt, comment).then(d => {
                 const commentsCopy = [...comments]
                 const index = commentsCopy.findIndex(comment => comment.id === d.id);
                 commentsCopy[index] = d;
                 setComments(commentsCopy);
-                setComment("");
+                setComment(emptyComment);
             })
         } else {
             ajax('/api/comments', 'POST', user.jwt, comment).then(d => {
                 const commentsCopy = [...comments]
                 commentsCopy.push(d);
                 setComments(commentsCopy);
-                setComment("");
+                setComment(emptyComment);
             });
         }
     }

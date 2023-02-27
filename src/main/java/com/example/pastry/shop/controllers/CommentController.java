@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -28,7 +27,12 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
-    @PutMapping("")
+    @PutMapping("{commentId}")
+    public ResponseEntity<Comment> updateComment(@RequestBody CommentDto commentDto,
+                                                 @AuthenticationPrincipal Users user) {
+        Comment comment = commentService.save(commentDto, user);
+        return ResponseEntity.ok(comment);
+    }
 
     @GetMapping("")
     public ResponseEntity<Set<Comment>> getCommentsByShop(@RequestParam Long shopId ) {

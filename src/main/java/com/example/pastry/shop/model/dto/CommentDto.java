@@ -1,6 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
 public class CommentDto {
+    private Long id;
     private Long shopId;
     private String text;
     private String user;
@@ -30,6 +31,14 @@ public class CommentDto {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
