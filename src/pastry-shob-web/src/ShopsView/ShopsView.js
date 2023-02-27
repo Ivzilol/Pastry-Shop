@@ -27,16 +27,26 @@ const ShopsView = () => {
         user: user.jwt,
     });
 
+    const [comments, setComments] = useState([]);
+
     const prevShopValue = useRef(shop);
 
     function submitComment () {
-        ajax('/api/comments', 'POST', user.jwt, comment).then(comment => {
+        ajax('/api/comments', 'POST', user.jwt, comment).then(commentData => {
+            const commentsCopy = [...comments]
+            commentsCopy.push(commentData);
+            setComments(commentsCopy);
         })
     }
 
     useEffect(() => {
-        ajax(`/api/comments?shopId=${shopId}`, 'GET', user.jwt, null)
-            .then(comments => console.log(comments));
+        ajax(`/api/comments?shopId=${shopId}`,
+            'GET',
+            user.jwt,
+            null)
+            .then(commentsData => {
+                setComments(commentsData)
+            });
     }, [])
 
     function updateComment (value) {
@@ -170,12 +180,17 @@ const ShopsView = () => {
                         <textarea
                         onChange={(e) =>  updateComment(e.target.value)}
                         >
-
                         </textarea>
                         <Button
                         onClick={() => submitComment()}
                         >Post Comment
                         </Button>
+                    </div>
+                    <div className="comments-view">
+                        {comments.map(currentComment => <div className="comments-view-comment">
+                            <strong>{currentComment.createdBy.username}: </strong>
+                            {currentComment.text}
+                        </div>)}
                     </div>
                 </>
             ) : (

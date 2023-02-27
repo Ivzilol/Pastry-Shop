@@ -36,7 +36,6 @@ public class CommentService {
     }
 
     public Set<Comment> getCommentsByShopId(Long shopId) {
-        Set<Comment> comments = commentRepository.findByShopId(shopId);
-        return comments;
+        return commentRepository.findByShopId(shopId);
     }
 }
