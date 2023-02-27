@@ -28,6 +28,8 @@ public class CommentController {
         return ResponseEntity.ok(comment);
     }
 
+    @PutMapping("")
+
     @GetMapping("")
     public ResponseEntity<Set<Comment>> getCommentsByShop(@RequestParam Long shopId ) {
         Set<Comment> comments = commentService.getCommentsByShopId(shopId);

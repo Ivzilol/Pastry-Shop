@@ -46,7 +46,8 @@
 }
 
 .comments{
-    margin-top: 30px;
+    margin-top: 10px;
+
 }
 
 .comments textarea {
@@ -57,4 +58,32 @@
 
 .comments-view {
     margin-top: 20px;
+}
+
+.comments-view-comment {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    width: 40%;
+    border: 2px solid black;
+    padding: 10px 0 10px 10px;
+    border-radius: 10px;
+    background-color: #f6f8fa;
+    margin-top: 0;
+}
+
+.comments-edit {
+    cursor: pointer;
+    margin-left: 20px;
+    color: blue;
+    font-size: 15px;
+    pointer-events: all;
+}
+
+.comments-delete {
+    cursor: pointer;
+    margin-left: 20px;
+    color: red;
+    font-size: 15px;
+    pointer-events: all;
 }

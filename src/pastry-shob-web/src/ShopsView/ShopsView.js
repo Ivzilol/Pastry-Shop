@@ -5,6 +5,7 @@ import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row
 import StatusBadge from "../components/StatusBadge/StatusBadge";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../UserProvider/UserProvider";
+import Comment from "../components/Comment/Comment";
 
 const ShopsView = () => {
     let navigate = useNavigate();
@@ -22,6 +23,7 @@ const ShopsView = () => {
     const [shopsStatuses, setShopsStatuses] = useState([]);
 
     const [comment, setComment] = useState({
+        id: null,
         text: "",
         shopId: shopId !== null ? parseInt(shopId) : null,
         user: user.jwt,
@@ -31,12 +33,38 @@ const ShopsView = () => {
 
     const prevShopValue = useRef(shop);
 
-    function submitComment () {
-        ajax('/api/comments', 'POST', user.jwt, comment).then(commentData => {
-            const commentsCopy = [...comments]
-            commentsCopy.push(commentData);
-            setComments(commentsCopy);
-        })
+    function handleEditComment (commentId) {
+        const index = comments.findIndex(comment => comment.id === commentId);
+        const commentCopy = {
+            id: comments[index].id,
+            text: comments[index].text,
+            shopId: shopId !== null ? parseInt(shopId) : null,
+            user: user.jwt,
+        }
+        setComment(commentCopy);
+    }
+
+    function handleDeleteComment(commentId) {
+        console.log('Delete ', comment )
+    }
+
+    function submitComment() {
+        if (comment.id) {
+            ajax("/api/comments", "PUT", user.jwt, comment).then(d => {
+                const commentsCopy = [...comments]
+                const index = commentsCopy.findIndex(comment => comment.id === d.id);
+                commentsCopy[index] = d;
+                setComments(commentsCopy);
+                setComment("");
+            })
+        } else {
+            ajax('/api/comments', 'POST', user.jwt, comment).then(d => {
+                const commentsCopy = [...comments]
+                commentsCopy.push(d);
+                setComments(commentsCopy);
+                setComment("");
+            });
+        }
     }
 
     useEffect(() => {
@@ -49,7 +77,7 @@ const ShopsView = () => {
             });
     }, [])
 
-    function updateComment (value) {
+    function updateComment(value) {
         const commentCopy = {...comment}
         commentCopy.text = value;
         setComment(commentCopy);
@@ -105,7 +133,7 @@ const ShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    <StatusBadge text={shop.status} />
+                    <StatusBadge text={shop.status}/>
                 </Col>
             </Row>
             {shop ? (
@@ -178,19 +206,25 @@ const ShopsView = () => {
                     </div>
                     <div className="comments">
                         <textarea
-                        onChange={(e) =>  updateComment(e.target.value)}
+                            onChange={(e) => updateComment(e.target.value)}
+                            value={comment.text}
                         >
                         </textarea>
                         <Button
-                        onClick={() => submitComment()}
+                            onClick={() => submitComment()}
                         >Post Comment
                         </Button>
                     </div>
                     <div className="comments-view">
-                        {comments.map(currentComment => <div className="comments-view-comment">
-                            <strong>{currentComment.createdBy.username}: </strong>
-                            {currentComment.text}
-                        </div>)}
+                        {comments.map(currentComment => (
+                            <Comment
+                                createdBy={currentComment.createdBy}
+                                text={currentComment.text}
+                                emitDeleteComment={handleDeleteComment}
+                                emitEditComment={handleEditComment}
+                                id={currentComment.id}
+                            />
+                        ))}
                     </div>
                 </>
             ) : (
