@@ -54,8 +54,7 @@ public class SecurityConfiguration {
 
             http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api").permitAll()
-//                .requestMatchers(HttpMethod.POST, "/api/shops").permitAll()
+                .requestMatchers("/api/users/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
