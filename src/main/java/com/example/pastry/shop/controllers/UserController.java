@@ -1,8 +1,13 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.UserDTO;
+import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +27,10 @@ public class UserController {
         this.jwtUtil = jwtUtil;
     }
 
+    @PostMapping("/register")
+    private ResponseEntity<?> createUse(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+        userService.createUser(userRegistrationDTO);
+    }
 
-//    @PostMapping("/register")
-//    private ResponseEntity<?>createUser(@RequestBody UserDTO userDTO) {
-//            userService.createUserUser(userDTO);
-//    }
 
 }

@@ -98,5 +98,9 @@
 }
 
 .register .register-form  input {
-    background-color: blue;
+    background-color: #f6f8fa;
+}
+
+.register .register-form  button {
+    margin-top: 10px;
 }
