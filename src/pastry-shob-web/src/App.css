@@ -89,6 +89,9 @@
 }
 .register {
     padding: 10px 300px;
+    background-image: url("http://alfa.kachi-snimka.info/vij2021.php?id=bwy1677681744l.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .register .register-form {
     display: flex;

@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private ResponseEntity<?> createUse(@RequestBody UserRegistrationDTO userRegistrationDTO) {
+    private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
 
         userService.createUser(userRegistrationDTO);
         try {

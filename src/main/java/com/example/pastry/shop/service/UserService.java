@@ -16,9 +16,9 @@ public class UserService {
 
     private final UsersRepository usersRepository;
 
-    private CustomPasswordEncoder customPasswordEncoder;
+    private final CustomPasswordEncoder customPasswordEncoder;
 
-    private AuthorityRepository authorityRepository;
+    private final AuthorityRepository authorityRepository;
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository) {
         this.usersRepository = usersRepository;
