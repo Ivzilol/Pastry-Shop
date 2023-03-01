@@ -87,3 +87,16 @@
     font-size: 15px;
     pointer-events: all;
 }
+.register {
+    padding: 10px 300px;
+}
+.register .register-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.register .register-form  input {
+    background-color: blue;
+}

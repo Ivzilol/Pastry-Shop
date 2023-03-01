@@ -12,6 +12,7 @@ import jwt_decode from 'jwt-decode'
 import ModeratorShops from "./components/ModeratorShops/ModeratorShops";
 import ModeratorShopsView from "./components/ModeratorShopsView/ModeratorShopsView";
 import {useUser} from "./UserProvider/UserProvider";
+import Register from "./components/Register/Register";
 
 function App() {
     // const [jwt, setJwt] = useLocalState("", "jwt");
@@ -68,6 +69,7 @@ function App() {
                     }/>
                 <Route path="/" element={<Homepage/>}></Route>
                 <Route path="/login" element={<Login/>}></Route>
+                <Route path="/register" element={<Register/>}></Route>
             </Routes>
     );
 }
