@@ -1,9 +1,8 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle, faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
-
 
 
 const Register = () => {
@@ -50,6 +49,7 @@ const Register = () => {
                 alert(message);
             });
     }
+
     const [error, setError] = useState({
         username: '',
         password: '',
@@ -155,7 +155,7 @@ const Register = () => {
                     onBlur={validateUsername}
                 />
                 {error.username &&
-                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle} /> {error.username}</span>
+                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
                 }
 
                 <label form="password">Password</label>
@@ -169,7 +169,7 @@ const Register = () => {
                     onBlur={validatePassword}
                 />
                 {error.password &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.password}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
                 }
                 <label form="firstName">First Name</label>
                 <input
@@ -182,7 +182,7 @@ const Register = () => {
                     onBlur={validateFirstName}
                 />
                 {error.firstName &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.firstName}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
                 }
                 <label form="lastName">Last Name</label>
                 <input
@@ -195,7 +195,7 @@ const Register = () => {
                     onBlur={validateLastName}
                 />
                 {error.lastName &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.lastName}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
                 }
                 <label form="email">Email</label>
                 <input
@@ -208,7 +208,7 @@ const Register = () => {
                     onBlur={validateEmail}
                 />
                 {error.email &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.email}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
                 }
                 <label form="address">Address</label>
                 <input
@@ -221,7 +221,7 @@ const Register = () => {
                     onBlur={validateAddress}
                 />
                 {error.address &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.address}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
                 }
                 <button
                     id="submit"

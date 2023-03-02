@@ -10,7 +10,7 @@ const Login = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (user.jwt) navigate("/shops")
+        if (user.jwt) navigate("/")
     }, [user])
 
     function sendLoginRequest() {

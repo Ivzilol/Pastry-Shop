@@ -142,3 +142,22 @@
     border-radius: 10px;
     padding: 3px 10px;
 }
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #faf3eb;
+    padding: 10px 90px;
+}
+
+.nav .nav-home a{
+    text-decoration: none;
+    padding: 10px 90px;
+    color: #ef7d00;
+}
+
+.main-title {
+    text-align: center;
+    color: #ef7d00;
+}
