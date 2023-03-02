@@ -4,8 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle, faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
 
-const USER_REGEX = /^[a-zA-z][a-zA-z0-9-_]{3.23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8.24}$/;
+
 
 const Register = () => {
 
@@ -156,7 +155,7 @@ const Register = () => {
                     onBlur={validateUsername}
                 />
                 {error.username &&
-                    <span id="validate-username">{error.username}</span>
+                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle} /> {error.username}</span>
                 }
 
                 <label form="password">Password</label>
@@ -170,7 +169,7 @@ const Register = () => {
                     onBlur={validatePassword}
                 />
                 {error.password &&
-                    <span id="validate-username">{error.password}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.password}</span>
                 }
                 <label form="firstName">First Name</label>
                 <input
@@ -183,7 +182,7 @@ const Register = () => {
                     onBlur={validateFirstName}
                 />
                 {error.firstName &&
-                    <span id="validate-username">{error.firstName}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.firstName}</span>
                 }
                 <label form="lastName">Last Name</label>
                 <input
@@ -196,7 +195,7 @@ const Register = () => {
                     onBlur={validateLastName}
                 />
                 {error.lastName &&
-                    <span id="validate-username">{error.lastName}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.lastName}</span>
                 }
                 <label form="email">Email</label>
                 <input
@@ -209,7 +208,7 @@ const Register = () => {
                     onBlur={validateEmail}
                 />
                 {error.email &&
-                    <span id="validate-username">{error.email}</span>
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.email}</span>
                 }
                 <label form="address">Address</label>
                 <input
@@ -221,8 +220,8 @@ const Register = () => {
                     onChange={(e) => setAddress(e.target.value)}
                     onBlur={validateAddress}
                 />
-                {error.email &&
-                    <span id="validate-username">{error.email}</span>
+                {error.address &&
+                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle} /> {error.address}</span>
                 }
                 <button
                     id="submit"
