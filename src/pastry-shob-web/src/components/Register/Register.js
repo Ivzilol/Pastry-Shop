@@ -51,84 +51,114 @@ const Register = () => {
                 alert(message);
             });
     }
+    const [error, setError] = useState({
+        username: '',
+        password: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+    })
 
-    const userRef = useRef();
-    const errRef = useRef();
+    const validateUsername = (e) => {
+        const username = e.target.value;
+        let errorMessage = ''
+        if (username.length < 3) {
+            errorMessage = 'Username must be longer form 3 characters';
+        } else if (username.length > 20) {
+            errorMessage = 'Username must be in short from 20 characters';
+        }
+        setError(state => ({
+            ...state,
+            username: errorMessage,
+        }));
+    }
 
-    const [userReg, setUserReg] = useState('');
-    const [validName, setValidName] = useState(false);
-    const [userFocus, setUserFocus] = useState(false);
+    const validatePassword = (e) => {
+        const password = e.target.value;
+        let errorMessage = ''
+        if (password.length < 3) {
+            errorMessage = 'Password must be longer form 3 characters';
+        } else if (password.length > 20) {
+            errorMessage = 'Password must be in short from 20 characters';
+        }
+        setError(state => ({
+            ...state,
+            password: errorMessage,
+        }));
+    }
 
-    const [pwd, setPwd] = useState('');
-    const [validPwd, setValidPwd] = useState(false);
-    const [pwdFocus, setPwdFocus] = useState(false);
+    const validateFirstName = (e) => {
+        const firstName = e.target.value;
+        let errorMessage = ''
+        if (firstName.length < 1) {
+            errorMessage = 'First Name it can not be empty';
+        }
+        setError(state => ({
+            ...state,
+            firstName: errorMessage,
+        }));
+    }
 
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    const validateLastName = (e) => {
+        const lastName = e.target.value;
+        let errorMessage = ''
+        if (lastName.length < 1) {
+            errorMessage = 'Last Name it can not be empty';
+        }
+        setError(state => ({
+            ...state,
+            lastName: errorMessage,
+        }));
+    }
 
+    const validateEmail = (e) => {
+        const email = e.target.value;
+        let errorMessage = ''
+        if (email.length < 1) {
+            errorMessage = 'Email it can not be empty';
+        }
+        setError(state => ({
+            ...state,
+            email: errorMessage,
+        }));
+    }
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, [])
-
-    useEffect(() => {
-        const result = USER_REGEX.test(userReg);
-        console.log(result);
-        console.log(userReg);
-        setValidName(result);
-    }, [userReg]);
-
-    useEffect(() => {
-        const result = PWD_REGEX.test(pwd);
-        console.log(result);
-        console.log(pwd);
-        console.log(result);
-        setPwd(pwd);
-    }, [pwd]);
-
-    useEffect(() => {
-        setErrMsg('');
-
-    }, [userReg, pwd]);
+    const validateAddress = (e) => {
+        const address = e.target.value;
+        let errorMessage = ''
+        if (address.length < 1) {
+            errorMessage = 'Address it can not be empty';
+        }
+        setError(state => ({
+            ...state,
+            address: errorMessage,
+        }));
+    }
 
 
     return (
         <section className="register">
             <article className="register-form">
-                {/*<p ref={errRef} className={errMsg ? "errmsg" :*/}
-                {/*    "offscreen"} aria-live="assertive">{errMsg}</p>*/}
                 <h1>Register</h1>
                 <label
                     htmlFor="username"
                 >Username
-                    {/*<span className={validName ? "is-valid" : "visually-hidden"}>*/}
-                    {/*    <FontAwesomeIcon icon={faCheck}/>*/}
-                    {/*</span>*/}
-                    {/*<span className={validName || !userReg ? "is-valid" : "visually-hidden"}>*/}
-                    {/*    <FontAwesomeIcon icon={faTimes}/>*/}
-                    {/*</span>*/}
                 </label>
                 <input
                     type="text"
                     id="username"
-                    ref={userRef}
                     autoComplete="off"
                     name="username"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    required
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnote"
-                    onFocus={() => setUserFocus(true)}
-                    onBlur={() => setUserFocus(false)}
+                    onBlur={validateUsername}
                 />
-                {/*<p id="uidnote" className={userFocus && userReg &&*/}
-                {/*!validName ? "instructions" : "offscreen"}>*/}
-                {/*    <FontAwesomeIcon icon={faInfoCircle}/>*/}
-                {/*    3 to 20 characters.<br/>*/}
-                {/*    Must Begin with a letter.<br/>*/}
-                {/*</p>*/}
+                {error.username &&
+                    <span id="validate-username">{error.username}</span>
+                }
+
                 <label form="password">Password</label>
                 <input
                     type="text"
@@ -137,7 +167,11 @@ const Register = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onBlur={validatePassword}
                 />
+                {error.password &&
+                    <span id="validate-username">{error.password}</span>
+                }
                 <label form="firstName">First Name</label>
                 <input
                     type="text"
@@ -146,7 +180,11 @@ const Register = () => {
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    onBlur={validateFirstName}
                 />
+                {error.firstName &&
+                    <span id="validate-username">{error.firstName}</span>
+                }
                 <label form="lastName">Last Name</label>
                 <input
                     type="text"
@@ -155,7 +193,11 @@ const Register = () => {
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                    onBlur={validateLastName}
                 />
+                {error.lastName &&
+                    <span id="validate-username">{error.lastName}</span>
+                }
                 <label form="email">Email</label>
                 <input
                     type="email"
@@ -164,7 +206,11 @@ const Register = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onBlur={validateEmail}
                 />
+                {error.email &&
+                    <span id="validate-username">{error.email}</span>
+                }
                 <label form="address">Address</label>
                 <input
                     type="text"
@@ -173,7 +219,11 @@ const Register = () => {
                     placeholder="Address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
+                    onBlur={validateAddress}
                 />
+                {error.email &&
+                    <span id="validate-username">{error.email}</span>
+                }
                 <button
                     id="submit"
                     type="button"

@@ -89,7 +89,7 @@
 }
 .register {
     padding: 10px 300px;
-    height: 600px;
+    height: 700px;
     background-image:
             url(
             "http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg");
@@ -133,4 +133,12 @@
     width: 150px;
     background: none;
     color: white;
+}
+
+#validate-username {
+    margin-top: 10px;
+    color: red;
+    background-color: black;
+    border-radius: 10px;
+    padding: 3px 10px;
 }
