@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle, faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {Navbar} from "react-bootstrap";
+import NavBar from "../NavBar/NavBar";
 
 
 const Register = () => {
@@ -17,7 +19,7 @@ const Register = () => {
     const [address, setAddress] = useState("");
 
     useEffect(() => {
-        if (user.jwt) navigate("/shops");
+        if (user.jwt) navigate("/");
     }, [user]);
 
     function createAndLoginUser() {
@@ -29,7 +31,7 @@ const Register = () => {
             email: email,
             address: address,
         }
-        console.log(requestBody);
+
         fetch("api/users/register", {
             headers: {
                 "Content-Type": "application/json",
@@ -137,101 +139,105 @@ const Register = () => {
 
 
     return (
-        <section className="register">
-            <article className="register-form">
-                <h1>Register</h1>
-                <label
-                    htmlFor="username"
-                >Username
-                </label>
-                <input
-                    type="text"
-                    id="username"
-                    autoComplete="off"
-                    name="username"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    onBlur={validateUsername}
-                />
-                {error.username &&
-                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
-                }
+        <>
+            <NavBar/>
+            <section className="register">
+                <article className="register-form">
+                    <h1>Register</h1>
+                    <label
+                        htmlFor="username"
+                    >Username
+                    </label>
+                    <input
+                        type="text"
+                        id="username"
+                        autoComplete="off"
+                        name="username"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        onBlur={validateUsername}
+                    />
+                    {error.username &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
+                    }
 
-                <label form="password">Password</label>
-                <input
-                    type="text"
-                    id="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onBlur={validatePassword}
-                />
-                {error.password &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
-                }
-                <label form="firstName">First Name</label>
-                <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    onBlur={validateFirstName}
-                />
-                {error.firstName &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
-                }
-                <label form="lastName">Last Name</label>
-                <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    onBlur={validateLastName}
-                />
-                {error.lastName &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
-                }
-                <label form="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onBlur={validateEmail}
-                />
-                {error.email &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
-                }
-                <label form="address">Address</label>
-                <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    placeholder="Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    onBlur={validateAddress}
-                />
-                {error.address &&
-                    <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
-                }
-                <button
-                    id="submit"
-                    type="button"
-                    onClick={() => createAndLoginUser()}
-                >
-                    Register
-                </button>
-            </article>
-        </section>
+                    <label form="password">Password</label>
+                    <input
+                        type="text"
+                        id="password"
+                        name="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onBlur={validatePassword}
+                    />
+                    {error.password &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
+                    }
+                    <label form="firstName">First Name</label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        name="firstName"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        onBlur={validateFirstName}
+                    />
+                    {error.firstName &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
+                    }
+                    <label form="lastName">Last Name</label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        onBlur={validateLastName}
+                    />
+                    {error.lastName &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
+                    }
+                    <label form="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onBlur={validateEmail}
+                    />
+                    {error.email &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
+                    }
+                    <label form="address">Address</label>
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        placeholder="Address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        onBlur={validateAddress}
+                    />
+                    {error.address &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
+                    }
+                    <button
+                        id="submit"
+                        type="button"
+                        onClick={() => createAndLoginUser()
+                    }
+                    >
+                        Register
+                    </button>
+                </article>
+            </section>
+        </>
     )
 }
 

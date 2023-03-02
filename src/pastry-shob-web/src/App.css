@@ -161,3 +161,18 @@
     text-align: center;
     color: #ef7d00;
 }
+
+.nav-button {
+    margin: 0 20px;
+    padding: 5px;
+    width: 120px;
+    border-radius: 20px;
+    border: 2px solid #ef7d00;
+    background: none;
+}
+
+.nav .nav-home a {
+    text-decoration: none;
+    padding: 10px 90px;
+    color: #ef7d00;
+}

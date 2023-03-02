@@ -36,15 +36,14 @@ function NavBar() {
             Logout
           </button>
                 ) : pathname !== "/login" ? (
-                    <buton
-                        variant="primary"
+                    <button
                         className="nav-button"
                         onClick={() => {
                             navigate("/login");
                         }}
                     >
                         Login
-                    </buton>
+                    </button>
                 ) : (
                     <></>
                 )}
@@ -73,6 +72,33 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
+
+                {user && user.jwt ? (
+                    <button
+                        className="nav-button"
+                        onClick={() => {
+                            navigate("/shops");
+                        }}
+                    >
+                        Products
+                    </button>
+                ) : (
+                    <></>
+                )}
+
+                {user && user.jwt ? (
+                    <button
+                        className="nav-button"
+                        onClick={() => {
+                            navigate("/shops");
+                        }}
+                    >
+                        Order
+                    </button>
+                ) : (
+                    <></>
+                )}
+
             </div>
         </section>
     )

@@ -102,10 +102,10 @@ const Login = () => {
                             type="button"
                             size="lg"
                             onClick={() => {
-                                navigate("/")
+                                navigate("/register")
                             }}
                         >
-                            Exit
+                            Register
                         </Button>
                     </Col>
                 </Row>
