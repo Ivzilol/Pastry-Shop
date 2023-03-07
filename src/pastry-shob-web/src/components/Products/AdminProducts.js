@@ -8,7 +8,7 @@ const AdminProducts = () => {
     const [categories, setCategories] = useState("");
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
-    const [shopId, setShopId] = useState(0);
+    const [shopName, setShopName] = useState("");
 
     function createProduct() {
         const requestBody = {
@@ -16,7 +16,7 @@ const AdminProducts = () => {
             categories: categories,
             description: description,
             imageUrl: imageUrl,
-            shopId: shopId,
+            shopName: shopName,
         }
         fetch("api/products/admin", {
             headers: {
@@ -63,7 +63,7 @@ const AdminProducts = () => {
                         name="categories"
                         placeholder="Categories"
                         value={categories}
-                        onChange={(e) => e.target.value}
+                        onChange={(e) => setCategories(e.target.value)}
                     />
                     <label className="description">Description</label>
                     <input
@@ -72,7 +72,7 @@ const AdminProducts = () => {
                         name="description"
                         placeholder="Description"
                         value={description}
-                        onChange={(e) => e.target.value}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <label className="imageUrl">Image</label>
                     <input
@@ -81,17 +81,24 @@ const AdminProducts = () => {
                     name="imageUrl"
                     placeholder="Image"
                     value={imageUrl}
-                    onChange={(e) => e.target.value}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     />
-                    <label className="ShopId">Shop Id</label>
+                    <label className="shopName">Shop Name</label>
                     <input
-                    type="number"
+                    type="text"
                     id="ShopId"
                     name="ShopId"
-                    placeholder="Shop ID"
-                    value={shopId}
-                    onChange={(e) => e.target.valueAsNumber}
+                    placeholder="Shop Name"
+                    value={shopName}
+                    onChange={(e) => setShopName(e.target.value)}
                     />
+                    <button
+                        id="submit-product"
+                        type="button"
+                        onClick={() => createProduct()}
+                    >
+                    Create Product
+                    </button>
                 </article>
             </section>
         </>

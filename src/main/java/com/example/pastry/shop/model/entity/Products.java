@@ -17,8 +17,7 @@ public class Products {
     private BigDecimal price;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Categories categories;
+    private String categories;
 
     @Column(nullable = false)
     private String description;
@@ -55,11 +54,11 @@ public class Products {
         this.price = price;
     }
 
-    public Categories getCategories() {
+    public String getCategories() {
         return categories;
     }
 
-    public void setCategories(Categories categories) {
+    public void setCategories(String categories) {
         this.categories = categories;
     }
 
