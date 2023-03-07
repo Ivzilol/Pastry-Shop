@@ -30,6 +30,7 @@ public class CreateProductDTO {
         this.name = name;
     }
 
+
     public BigDecimal getPrice() {
         return price;
     }

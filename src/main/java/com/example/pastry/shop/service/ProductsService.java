@@ -25,15 +25,15 @@ public class ProductsService {
     }
 
     public Products createProduct(CreateProductDTO productDTO) {
-       Products newProduct = new Products();
-       newProduct.setName(productDTO.getName());
-       newProduct.setPrice(productDTO.getPrice());
-       newProduct.setDescription(productDTO.getDescription());
-       newProduct.setCategories(productDTO.getCategories());
-       newProduct.setImageUrl(productDTO.getImageUrl());
-       Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getShopName());
-       newProduct.setShops(shop.get());
-       productRepository.save(newProduct);
+        Products newProduct = new Products();
+        newProduct.setName(productDTO.getName());
+        newProduct.setPrice(productDTO.getPrice());
+        newProduct.setDescription(productDTO.getDescription());
+        newProduct.setCategories(productDTO.getCategories());
+        newProduct.setImageUrl(productDTO.getImageUrl());
+        Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getShopName());
+        newProduct.setShops(shop.get());
+        productRepository.save(newProduct);
         return newProduct;
     }
 }
