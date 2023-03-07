@@ -5,5 +5,6 @@ public enum Categories {
     cake,
     sweets,
     cakes,
-    pies
+    pies,
+    pie
 }

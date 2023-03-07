@@ -14,11 +14,13 @@ public class Products {
     private Long id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private BigDecimal price;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Categories categories;
+    private String categories;
 
     @Column(nullable = false)
     private String description;
@@ -55,11 +57,11 @@ public class Products {
         this.price = price;
     }
 
-    public Categories getCategories() {
+    public String getCategories() {
         return categories;
     }
 
-    public void setCategories(Categories categories) {
+    public void setCategories(String categories) {
         this.categories = categories;
     }
 
@@ -109,5 +111,13 @@ public class Products {
 
     public void setShops(Shops shops) {
         this.shops = shops;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

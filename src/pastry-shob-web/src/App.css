@@ -177,3 +177,40 @@
     padding: 10px 90px;
     color: #ef7d00;
 }
+
+.products .products-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.products-form input {
+    border-radius: 20px;
+    width: 400px;
+    border: 2px solid black;
+    margin: 5px;
+    background: none;
+}
+
+.products-form button {
+    border-radius: 20px;
+    margin-top: 5px;
+    width: 200px;
+    background: none;
+}
+
+.products {
+    height: 600px;
+    background-image:
+            url(
+            "https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-content: center;
+}
+
+.products-form input::placeholder {
+    color: white;
+    padding-left: 10px;
+}

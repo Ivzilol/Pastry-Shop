@@ -1,15 +1,13 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
-import com.example.pastry.shop.model.enums.Categories;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ProductsService {
@@ -26,13 +24,16 @@ public class ProductsService {
         this.shopsService = shopsService;
     }
 
-    public Products createProduct(Shops shop) {
-        Products product = new Products();
-        product.setCategories(Categories.pies);
-        product.setDescription("Vkusna banic");
-        product.setImageUrl("https://gradcontent.com/lib/400x296/nai-balgarska-banica.JPG");
-        product.setPrice(new BigDecimal("20.00"));
-        Optional<Shops> shopId = shopsRepository.findById(product.getId());
-        return productRepository.save(product);
+    public Products createProduct(CreateProductDTO productDTO) {
+       Products newProduct = new Products();
+       newProduct.setName(productDTO.getName());
+       newProduct.setPrice(productDTO.getPrice());
+       newProduct.setDescription(productDTO.getDescription());
+       newProduct.setCategories(productDTO.getCategories());
+       newProduct.setImageUrl(productDTO.getImageUrl());
+       Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getShopName());
+       newProduct.setShops(shop.get());
+       productRepository.save(newProduct);
+        return newProduct;
     }
 }

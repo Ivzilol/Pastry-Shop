@@ -28,6 +28,7 @@ public class SecurityConfiguration {
         this.encoder = encoder;
         this.jwtFilter = jwtFilter;
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -50,11 +51,12 @@ public class SecurityConfiguration {
         http = http.exceptionHandling()
                 .authenticationEntryPoint((request, response, exception) ->
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                        exception.getMessage())).and();
+                                exception.getMessage())).and();
 
-            http.authorizeHttpRequests()
+        http.authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/users/**").permitAll()
+                .requestMatchers("/api/products/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
