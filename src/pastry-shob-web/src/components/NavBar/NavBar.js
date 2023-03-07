@@ -22,7 +22,7 @@ function NavBar() {
     return (
         <section className="nav">
             <article className="nav-home">
-                <a href="/">Сладкарницата на Мама</a>
+                <a href="/">Сладкарницата ......</a>
             </article>
             <div>
                 {user && user.jwt ? (
@@ -47,14 +47,14 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
-
+                {/*Todo: put moderator*/}
                 {authorities &&
                 authorities.filter((auth) => auth === "ROLE_INSTRUCTOR").length > 0 ? (
                     <Link
                         className="ms-5 ms-md-5 me-md-5 link"
                         to="/instructors/dashboard"
                     >
-                        Instructors
+                        Moderator
                     </Link>
                 ) : (
                     <></>
@@ -77,7 +77,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/shops");
+                            navigate("/products");
                         }}
                     >
                         Products
@@ -90,7 +90,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/shops");
+                            navigate("/orders");
                         }}
                     >
                         Order

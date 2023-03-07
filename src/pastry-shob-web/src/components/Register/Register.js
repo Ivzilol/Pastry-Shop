@@ -2,8 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInfoCircle, faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
-import {Navbar} from "react-bootstrap";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../NavBar/NavBar";
 
 
@@ -37,7 +36,7 @@ const Register = () => {
                 "Content-Type": "application/json",
             },
             method: "POST",
-            body: JSON.stringify(requestBody),
+                body: JSON.stringify(requestBody),
         })
             .then((response) => {
                 if (response.status === 200)

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
+import NavBar from "../NavBar/NavBar";
 
 const Login = () => {
     const user = useUser();
@@ -41,7 +42,7 @@ const Login = () => {
 
     return (
         <>
-            {/*<NavBar/>*/}
+            <NavBar/>
             <Container className="mt-sm-5">
                 <Row className="justify-content-center align-items-center">
                     <Col md="8"
