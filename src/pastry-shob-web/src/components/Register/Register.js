@@ -36,7 +36,7 @@ const Register = () => {
                 "Content-Type": "application/json",
             },
             method: "POST",
-                body: JSON.stringify(requestBody),
+                    body: JSON.stringify(requestBody),
         })
             .then((response) => {
                 if (response.status === 200)

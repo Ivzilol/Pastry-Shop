@@ -6,7 +6,7 @@ import Products from "./components/Products/Products";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
-import Shops from "./components/dashboard/Shops";
+import Shops from "./components/shops/Shops";
 import ShopsView from "./ShopsView/ShopsView";
 import jwt_decode from 'jwt-decode'
 import ModeratorShops from "./components/ModeratorShops/ModeratorShops";
