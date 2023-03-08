@@ -1,9 +1,10 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useState} from "react";
 import NavBar from "../NavBar/NavBar";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
-const AdminProducts = () => {
-    const user = useUser();
+const CreateProductAdmin = () => {
+    useUser();
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [categories, setCategories] = useState("");
@@ -20,7 +21,7 @@ const AdminProducts = () => {
             imageUrl: imageUrl,
             shopName: shopName,
         }
-        fetch("api/products/admin", {
+        fetch("/api/products/create/admin", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -41,7 +42,7 @@ const AdminProducts = () => {
 
     return (
         <>
-            <NavBar/>
+            <NavBarAdmin/>
             <section className="products">
                 <article className="products-form">
                     <h1>Add Product</h1>
@@ -116,4 +117,4 @@ const AdminProducts = () => {
     );
 }
 
-export default AdminProducts;
+export default CreateProductAdmin;

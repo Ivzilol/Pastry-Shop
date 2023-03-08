@@ -7,7 +7,7 @@ import {useUser} from "../UserProvider/UserProvider";
 import Comment from "../components/Comment/Comment";
 
 const ShopsView = () => {
-    let navigate = useNavigate();
+    useNavigate();
     const user = useUser();
     const {shopId} = useParams()
     // const shopId = window.location.href.split("/shops/")[1];
