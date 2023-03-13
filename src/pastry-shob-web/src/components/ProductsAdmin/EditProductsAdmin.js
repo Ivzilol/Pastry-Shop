@@ -20,8 +20,6 @@ const EditProductsAdmin = () => {
     useEffect(() => {
         ajax(`/api/products/${productId}`, "GET", user.jwt)
             .then(productResponse => {
-
-
             })
     })
 

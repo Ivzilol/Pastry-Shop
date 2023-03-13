@@ -3,11 +3,14 @@ package com.example.pastry.shop.service;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
+import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductsService {
@@ -35,5 +38,15 @@ public class ProductsService {
         newProduct.setShops(shop.get());
         productRepository.save(newProduct);
         return newProduct;
+    }
+
+    public Set<Products> findByUser(Users user) {
+        boolean isAdmin = user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+        if (isAdmin) {
+            return productRepository.findByAdmin(user);
+        } else {
+            return null;
+        }
     }
 }

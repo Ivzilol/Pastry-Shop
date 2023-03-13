@@ -5,6 +5,7 @@ import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 const Shops = () => {
 
     const user = useUser();
@@ -27,7 +28,9 @@ const Shops = () => {
 
 
     return (
+
         <div style={{margin: '2em'}}>
+            <NavBarAdmin/>
             {shops ? (
                 <Row>
                     {shops.map((shops) => (
