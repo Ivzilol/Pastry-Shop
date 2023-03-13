@@ -4,10 +4,6 @@ import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.model.enums.ShopsEnum;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class ShopResponseDTO {
 
     private Shops shops;

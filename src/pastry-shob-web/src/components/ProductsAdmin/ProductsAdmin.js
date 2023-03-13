@@ -13,6 +13,7 @@ const ProductsAdmin = () => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
+                console.log(productsData);
             });
 
         if (!user.jwt) navigate("/login")

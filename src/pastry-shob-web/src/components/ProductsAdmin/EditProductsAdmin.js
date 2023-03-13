@@ -20,11 +20,33 @@ const EditProductsAdmin = () => {
     useEffect(() => {
         ajax(`/api/products/${productId}`, "GET", user.jwt)
             .then(productResponse => {
+                setProduct(productResponse);
             })
-    })
+    }, []);
+
+    function updateProduct(prop, value) {
+
+    }
 
     return (
-        <div></div>
+        <main>
+            <section className="products-edit">
+                {product ? (
+                    <>
+                        <article className="products-edit-container">
+                            <h5 className="products-edit-item">Name Product</h5>
+                            <input
+                                // onChange={(e ) => updateProduct("nameProduct", e.target.value)}
+                                value={product.nameProduct}
+                                type="text"
+                            />
+                        </article>
+                    </>
+                ) : (
+                    <></>
+                )}
+            </section>
+        </main>
     );
 }
 

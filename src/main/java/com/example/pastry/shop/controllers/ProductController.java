@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -27,8 +28,14 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getShops(@AuthenticationPrincipal Users user) {
+    public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
         Set<Products> shopById = productsService.findByUser(user);
         return ResponseEntity.ok(shopById);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<?> getProduct(@PathVariable Long productId) {
+        Optional<Products> productOpt = productsService.findById(productId);
+        return ResponseEntity.ok(productOpt);
     }
 }

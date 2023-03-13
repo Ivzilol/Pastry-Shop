@@ -49,6 +49,7 @@ function App() {
                             </PrivateRoute>
                         )
                    }/>
+
             <Route path="/products/create"
                    element={
                        roles.find((role) => role === 'admin') ? (
@@ -61,7 +62,7 @@ function App() {
                            </PrivateRoute>
                        )
                    }/>
-            <Route path="/products/:productId/edit"
+            <Route path="/products/:productId"
                    element={
                        roles.find((role) => role === 'admin') ? (
                            <PrivateRoute>
