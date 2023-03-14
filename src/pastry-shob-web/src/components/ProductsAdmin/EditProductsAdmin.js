@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 
@@ -7,18 +7,41 @@ const EditProductsAdmin = () => {
 
     const user = useUser();
     const {productId} = useParams();
+    const navigate = useNavigate();
+    const [product, setProduct] = useState({
+            name: "",
+            price: null,
+            categories: "",
+            description: "",
+            imageUrl: ""
+        }
+    );
 
-    const [product, setProduct] = useState(null)
 
     useEffect(() => {
         ajax(`/api/products/${productId}`, "GET", user.jwt)
-            .then(productResponse => {
-                setProduct(productResponse);
+            .then(productData => {
+                setProduct(productData);
             })
     }, []);
 
-    function updateProduct(prop, value) {
+    function saveProduct() {
+        persist();
+        navigate("/products");
+    }
 
+    function updateProduct(prop, value) {
+        const newProduct = {...product}
+        newProduct[prop] = value;
+        setProduct(newProduct);
+    }
+
+    function persist() {
+        ajax(`/api/products/${productId}`, "PUT", user.jwt, product)
+            .then(productData => {
+                setProduct(productData);
+                console.log(productData);
+            })
     }
 
     return (
@@ -67,6 +90,21 @@ const EditProductsAdmin = () => {
                                 id="imageUrl"
                                 type="text"
                             />
+                            <div className="products-edit-button">
+                                <button
+                                    type="submit"
+                                    onClick={() => saveProduct()
+
+                                }
+                                >Edit Shop
+                                </button>
+                            </div>
+                            <div className="products-edit-button">
+                                <button
+                                    type="submit"
+                                    onClick={() => navigate("/products")}>Products
+                                </button>
+                            </div>
                         </article>
                     </>
                 ) : (

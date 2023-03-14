@@ -37,6 +37,9 @@ public class Products {
     @ManyToOne(optional = false)
     private Shops shops;
 
+    @ManyToOne
+    public Users admin;
+
     public Products() {
 
     }
@@ -119,5 +122,13 @@ public class Products {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Users getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Users admin) {
+        this.admin = admin;
     }
 }

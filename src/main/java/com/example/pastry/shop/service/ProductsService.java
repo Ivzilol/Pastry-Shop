@@ -53,4 +53,8 @@ public class ProductsService {
     public Optional<Products> findById(Long productId) {
         return productRepository.findById(productId);
     }
+
+    public Products saveProduct(Products product) {
+        return this.productRepository.save(product);
+    }
 }

@@ -19,7 +19,7 @@ const CreateProductAdmin = () => {
             categories: categories,
             description: description,
             imageUrl: imageUrl,
-            shopName: shopName,
+                shopName: shopName,
         }
         fetch("/api/products/create/admin", {
             headers: {
