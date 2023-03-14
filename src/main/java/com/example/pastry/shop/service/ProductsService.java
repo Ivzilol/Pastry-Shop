@@ -19,12 +19,9 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    private ShopsService shopsService;
-
-    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, ShopsService shopsService) {
+    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
-        this.shopsService = shopsService;
     }
 
     public Products createProduct(CreateProductDTO productDTO) {

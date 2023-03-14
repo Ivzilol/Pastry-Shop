@@ -19,7 +19,7 @@ const ProductsUser = () => {
     }, [user.jwt]);
 
     return (
-        <main>
+        <main className="products-users">
             <NavBar/>
             {products ? (
                 <article className="products-container">
@@ -28,12 +28,12 @@ const ProductsUser = () => {
                             className="products-container-items"
                             key={product.id}
                         >
+                            <p className="products-container-item-title">Product shopName: {product.shops.name}</p>
                             <p className="products-container-item">Product name: {product.name}</p>
                             <p className="products-container-item">Product price: {product.price}</p>
-                            <p className="products-container-item">Product categories: {product.categories}</p>
                             <p className="products-container-item">Product description: {product.description}</p>
                             <img className="product-img" src={product.imageUrl} alt="new"/>
-                            <p className="products-container-item">Product shopName: {product.shops.name}</p>
+
                             <div className="products-container-item-button">
                                 <div>
                                     <button>
