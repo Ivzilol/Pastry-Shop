@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
+import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

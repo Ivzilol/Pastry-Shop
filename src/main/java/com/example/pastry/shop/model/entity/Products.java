@@ -42,9 +42,6 @@ public class Products {
     @ManyToOne
     public Users admin;
 
-    @ManyToMany
-    public Set<Users> user;
-
     public Products() {
 
     }
@@ -136,5 +133,4 @@ public class Products {
     public void setAdmin(Users admin) {
         this.admin = admin;
     }
-
 }
