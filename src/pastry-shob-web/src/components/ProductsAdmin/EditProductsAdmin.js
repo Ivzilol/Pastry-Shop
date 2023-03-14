@@ -2,6 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
+import dayjs from "dayjs";
 
 const EditProductsAdmin = () => {
 
@@ -43,6 +44,14 @@ const EditProductsAdmin = () => {
                 console.log(productData);
             })
     }
+
+    function DeleteProducts() {
+        ajax(`/api/products/${productId}`, "DELETE", user.jwt)
+            .then((msq) => {
+                navigate("/products")
+            });
+    }
+
 
     return (
         <main>
@@ -103,6 +112,15 @@ const EditProductsAdmin = () => {
                                 <button
                                     type="submit"
                                     onClick={() => navigate("/products")}>Products
+                                </button>
+                            </div>
+                            <div className="products-container-item-button">
+                                <button
+                                    id="submit"
+                                    type="button"
+                                    onClick={DeleteProducts}
+                                >
+                                    Delete
                                 </button>
                             </div>
                         </article>

@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.service.ProductsService;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.AuthorityUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +60,16 @@ public class ProductController {
         }
         Products updateProduct = productsService.saveProduct(product);
         return ResponseEntity.ok(updateProduct);
+    }
 
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
+        try {
+            productsService.delete(productId);
+            return ResponseEntity.ok("Product Delete");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

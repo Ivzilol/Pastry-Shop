@@ -39,4 +39,6 @@ public class CommentController {
         Set<Comment> comments = commentService.getCommentsByShopId(shopId);
         return ResponseEntity.ok(comments);
     }
+
+
 }

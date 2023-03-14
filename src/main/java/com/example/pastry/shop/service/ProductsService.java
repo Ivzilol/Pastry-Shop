@@ -57,4 +57,8 @@ public class ProductsService {
     public Products saveProduct(Products product) {
         return this.productRepository.save(product);
     }
+
+    public void delete(Long productId) {
+        productRepository.deleteById(productId);
+    }
 }
