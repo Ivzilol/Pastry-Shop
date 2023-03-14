@@ -15,7 +15,7 @@ import {useUser} from "./UserProvider/UserProvider";
 import Register from "./components/Register/Register";
 import CreateProductAdmin from "./components/ProductsAdmin/CreateProductAdmin";
 import EditProductsAdmin from "./components/ProductsAdmin/EditProductsAdmin";
-import ProductsUser from "./components/ProductsUser/ProductsUser";
+import ProductsUser from "./components/ProductsAdmin/ProductsUser";
 
 function App() {
     // const [jwt, setJwt] = useLocalState("", "jwt");

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -39,6 +40,12 @@ public class Users implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     @JsonIgnore
     private List<Authority> authorities = new ArrayList<>();
+
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(name = "products",
+//            joinColumns = @JoinColumn(name = "fk_user"),
+//            inverseJoinColumns = @JoinColumn(name = "fk_product"))
+//    private Set<Products> products;
 
     public Users() {
     }

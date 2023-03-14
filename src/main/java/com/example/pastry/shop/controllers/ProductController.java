@@ -36,8 +36,8 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
-        Set<Products> shopById = productsService.findByUser(user);
-        return ResponseEntity.ok(shopById);
+        Set<Products> productById = productsService.findByUser(user);
+        return ResponseEntity.ok(productById);
     }
 
     @GetMapping("/{productId}")

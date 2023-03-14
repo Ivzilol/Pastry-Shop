@@ -46,7 +46,7 @@ public class ProductsService {
         if (isAdmin) {
             return productRepository.findByAdmin(user);
         } else {
-            return null;
+            return productRepository.findByUser(user);
         }
     }
 

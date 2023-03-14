@@ -2,8 +2,10 @@ package com.example.pastry.shop.model.entity;
 
 import com.example.pastry.shop.model.enums.Categories;
 import jakarta.persistence.*;
+import org.apache.catalina.User;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -39,6 +41,9 @@ public class Products {
 
     @ManyToOne
     public Users admin;
+
+    @ManyToMany
+    public Set<Users> user;
 
     public Products() {
 
@@ -131,4 +136,5 @@ public class Products {
     public void setAdmin(Users admin) {
         this.admin = admin;
     }
+
 }

@@ -12,4 +12,7 @@ import java.util.Set;
 public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products AS p")
     Set<Products> findByAdmin(Users user);
+
+    @Query("select p from Products AS p")
+    Set<Products> findByUser(Users user);
 }

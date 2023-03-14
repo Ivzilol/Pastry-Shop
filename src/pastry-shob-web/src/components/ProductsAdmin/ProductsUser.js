@@ -1,10 +1,10 @@
-import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 
-const ProductsAdmin = () => {
+const ProductsUser = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
@@ -19,8 +19,8 @@ const ProductsAdmin = () => {
     }, [user.jwt]);
 
     return (
-        <section className="products-all">
-            <NavBarAdmin/>
+        <main>
+            <NavBar/>
             {products ? (
                 <article className="products-container">
                     {products.map((product) => (
@@ -35,15 +35,11 @@ const ProductsAdmin = () => {
                             <img className="product-img" src={product.imageUrl} alt="new"/>
                             <p className="products-container-item">Product shopName: {product.shops.name}</p>
                             <div className="products-container-item-button">
-                                <button
-                                    id="submit"
-                                    type="button"
-                                    onClick={() => {
-                                        window.location.href = `/products/${product.id}`
-                                    }}
-                                >
-                                    Edit
-                                </button>
+                                <div>
+                                    <button>
+                                        Order Product
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -51,8 +47,7 @@ const ProductsAdmin = () => {
             ) : (
                 <></>
             )}
-        </section>
+        </main>
     )
 }
-
-export default ProductsAdmin;
+export default ProductsUser;
