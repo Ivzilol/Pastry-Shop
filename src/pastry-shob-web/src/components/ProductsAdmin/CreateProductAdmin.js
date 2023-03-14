@@ -1,10 +1,11 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useState} from "react";
-import NavBar from "../NavBar/NavBar";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import {useNavigate} from "react-router-dom";
 
 const CreateProductAdmin = () => {
     useUser();
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [categories, setCategories] = useState("");
@@ -29,10 +30,9 @@ const CreateProductAdmin = () => {
             body: JSON.stringify(requestBody),
         })
             .then((response) => {
-                console.log(requestBody);
                 if (response.status === 200)
                     return Promise.all([response.json(), response.headers]);
-                else return Promise.reject("Invalid product")
+                else return Promise.reject("Invalid product");
             })
             .catch((message) => {
                 alert(message)

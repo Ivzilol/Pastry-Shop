@@ -2,7 +2,6 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
-import dayjs from "dayjs";
 
 const EditProductsAdmin = () => {
 
@@ -47,7 +46,7 @@ const EditProductsAdmin = () => {
 
     function DeleteProducts() {
         ajax(`/api/products/${productId}`, "DELETE", user.jwt)
-            .then((msq) => {
+            .then(() => {
                 navigate("/products")
             });
     }
