@@ -104,13 +104,14 @@ const EditProductsAdmin = () => {
                                     onClick={() => saveProduct()
 
                                 }
-                                >Edit Shop
+                                >Edit Product
                                 </button>
                             </div>
                             <div className="products-edit-button">
                                 <button
                                     type="submit"
-                                    onClick={() => navigate("/products")}>Products
+                                    onClick={() => navigate("/products")}>
+                                    Products
                                 </button>
                             </div>
                             <div className="products-container-item-button">

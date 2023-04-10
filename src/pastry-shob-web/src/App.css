@@ -246,11 +246,40 @@
     padding: 5px;
 }
 
+#root > main > section > article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .products-container-item-button button {
     padding: 7px;
     width: 150px;
     border: none;
     background-color: aqua;
     border-radius: 20px;
+}
+
+#root > main > section > article > div:nth-child(11) > button {
+
+    margin-top: 10px;
+    padding: 7px;
+    width: 150px;
+    border: none;
+    background-color: aqua;
+    border-radius: 20px;
+}
+
+#root > main > section > article > div:nth-child(12) > button {
+    margin-top: 10px;
+    padding: 7px;
+    width: 150px;
+    border: none;
+    background-color: aqua;
+    border-radius: 20px;
+}
+
+#root > div > div.comments > textarea {
+    color: black;
 }
 
