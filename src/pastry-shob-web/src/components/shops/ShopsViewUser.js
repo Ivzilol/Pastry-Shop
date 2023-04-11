@@ -16,7 +16,6 @@ const ShopsViewUser = () => {
         ajax("api/shops", "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
-                console.log(shopData);
             });
         if (!user.jwt) navigate("/login");
     }, [user.jwt]);
