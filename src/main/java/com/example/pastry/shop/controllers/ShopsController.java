@@ -56,10 +56,10 @@ public class ShopsController {
                                         @AuthenticationPrincipal Users user) {
         // add moderator in this shop if it must be changed
         if (shop.getAdmin() != null) {
-            Users moderator = shop.getAdmin();
-            moderator = userService.findUserByUsername(moderator.getUsername()).orElse(new Users());
-            if (AuthorityUtil.hasRole(AuthorityEnum.moderator.name(), moderator)) {
-                shop.setAdmin(moderator);
+            Users admin = shop.getAdmin();
+            admin = userService.findUserByUsername(admin.getUsername()).orElse(new Users());
+            if (AuthorityUtil.hasRole(AuthorityEnum.admin.name(), admin)) {
+                shop.setAdmin(admin);
             }
         }
         Shops updateShop = shopsService.saveShop(shop);

@@ -44,7 +44,7 @@ const ShopsView = () => {
         setComment(commentCopy);
     }
 
-    function handleDeleteComment(commentId) {
+    function handleDeleteComment() {
         console.log('Delete ', comment )
     }
 
@@ -192,9 +192,9 @@ const ShopsView = () => {
                         </Col>
                     </Form.Group>
                     <div className="buttons">
-                        <Button
-                            style={{marginRight: '10px'}}
-                            onClick={() => saveShop()}>Submit Shop</Button>
+                        {/*<Button*/}
+                        {/*    style={{marginRight: '10px'}}*/}
+                        {/*    onClick={() => saveShop()}>Submit Shop</Button>*/}
                         <Button
                             id="submit"
                             type="button"

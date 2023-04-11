@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import ajax  from "../../Services/FetchService";
-import {Button, Col, Container, Form, Row, Badge} from "react-bootstrap";
+import ajax from "../../Services/FetchService";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
-import shops from "../shops/ShopsViewAdmin";
 import {useNavigate} from "react-router-dom";
 import CommentContainer from "../CommentContainer/CommentContainer";
 
@@ -74,7 +73,7 @@ const ModeratorShopsView = () => {
                     }
                 </Col>
                 <Col>
-                    <StatusBadge text={shop.status} />
+                    <StatusBadge text={shop.status}/>
                 </Col>
             </Row>
             {shop ? (
