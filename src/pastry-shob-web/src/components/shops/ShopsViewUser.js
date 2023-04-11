@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import {useUser} from "../../UserProvider/UserProvider";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import {Button, Card, Col, Row} from "react-bootstrap";
 import StatusBadge from "../StatusBadge/StatusBadge";
-import {useNavigate} from "react-router-dom";
-import {useUser} from "../../UserProvider/UserProvider";
-import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
-const Shops = () => {
+
+const ShopsViewUser = () => {
 
     const user = useUser();
     const [shops, setShops] = useState(null);
@@ -15,16 +16,10 @@ const Shops = () => {
         ajax("api/shops", "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
+                console.log(shopData);
             });
         if (!user.jwt) navigate("/login");
-    }, [user.jwt])
-
-    function createShop() {
-        ajax("api/shops", "POST", user.jwt).then((shop) => {
-            window.location.href = `/shops/${shop.id}`
-        });
-    }
-
+    }, [user.jwt]);
 
     return (
 
@@ -46,30 +41,14 @@ const Shops = () => {
                                 </div>
                                 <p><b>Town:</b> {shops.town} </p>
                                 <p><b>Address:</b> {shops.address} </p>
-                                <Card.Text>
-                                    <Button
-                                        id="submit"
-                                        type="button"
-                                        onClick={() => {
-                                            window.location.href = `/shops/${shops.id}`;
-                                        }}
-                                    > Edit
-                                    </Button>
-                                </Card.Text>
                             </Card.Body>
                         </Card>
                         // </Col>
                     ))}
                 </Row>
-
             ) : (
                 <></>
             )}
-            <Button
-                style={{
-                    marginTop: '10px'
-                }}
-                onClick={() => createShop()}>Submit New Shop</Button>
             <Row>
                 <Col>
                     <button
@@ -92,6 +71,6 @@ const Shops = () => {
             </Row>
         </div>
     );
-};
+}
 
-export default Shops;
+export default ShopsViewUser;

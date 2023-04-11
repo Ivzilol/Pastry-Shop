@@ -6,19 +6,19 @@ import ProductsAdmin from "./components/ProductsAdmin/ProductsAdmin";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
-import Shops from "./components/shops/Shops";
+import ShopsViewAdmin from "./components/shops/ShopsViewAdmin";
 import ShopsView from "./ShopsView/ShopsView";
 import jwt_decode from 'jwt-decode'
-import ModeratorShops from "./components/ModeratorShops/ModeratorShops";
+import AdminShops from "./components/ModeratorShops/ModeratorShops";
 import ModeratorShopsView from "./components/ModeratorShopsView/ModeratorShopsView";
 import {useUser} from "./UserProvider/UserProvider";
 import Register from "./components/Register/Register";
 import CreateProductAdmin from "./components/ProductsAdmin/CreateProductAdmin";
 import EditProductsAdmin from "./components/ProductsAdmin/EditProductsAdmin";
 import ProductsUser from "./components/ProductsAdmin/ProductsUser";
+import ShopsViewUser from "./components/shops/ShopsViewUser";
 
 function App() {
-    // const [jwt, setJwt] = useLocalState("", "jwt");
     const user = useUser();
     const [roles, setRoles] = useState(getRolesFromJWT());
 
@@ -78,14 +78,14 @@ function App() {
             <Route
                 path="/shops"
                 element={
-                    roles.find((role) => role === 'moderator') ? (
+                    roles.find((role) => role === 'admin') ? (
                         <PrivateRoute>
-                            <ModeratorShops/>
+                            <ShopsViewAdmin/>
                         </PrivateRoute>
 
                     ) : (
                         <PrivateRoute>
-                            <Shops/>
+                            <ShopsViewUser/>
                         </PrivateRoute>
                     )
                 }/>

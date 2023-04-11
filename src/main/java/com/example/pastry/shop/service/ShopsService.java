@@ -56,14 +56,15 @@ public class ShopsService {
 
     public Set<Shops> findByUser(Users user) {
         //load shops if are you moderator
-        boolean isModerator = user.getAuthorities()
-                .stream().anyMatch(auth -> AuthorityEnum.moderator.name().equals(auth.getAuthority()));
-        if (isModerator) {
-            return shopsRepository.findByModerator(user);
+        boolean isAdmin = user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+        if (isAdmin) {
+            return shopsRepository.findByAdmin(user);
         } else {
             // load shops if are you user
             return shopsRepository.findByUsers(user);
         }
+
     }
 
     public Optional<Shops> findById(Long shopId) {

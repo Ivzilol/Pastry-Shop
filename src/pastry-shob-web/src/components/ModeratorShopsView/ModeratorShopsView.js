@@ -3,7 +3,7 @@ import ajax  from "../../Services/FetchService";
 import {Button, Col, Container, Form, Row, Badge} from "react-bootstrap";
 import {useLocalState} from "../../util/useLocalStorage";
 import StatusBadge from "../StatusBadge/StatusBadge";
-import shops from "../shops/Shops";
+import shops from "../shops/ShopsViewAdmin";
 import {useNavigate} from "react-router-dom";
 import CommentContainer from "../CommentContainer/CommentContainer";
 

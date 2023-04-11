@@ -40,7 +40,6 @@ const EditProductsAdmin = () => {
         ajax(`/api/products/${productId}`, "PUT", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
-                console.log(productData);
             })
     }
 

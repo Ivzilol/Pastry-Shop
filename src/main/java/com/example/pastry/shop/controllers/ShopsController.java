@@ -31,7 +31,7 @@ public class ShopsController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createProduct(@AuthenticationPrincipal Users user) {
+    public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
         Shops newShop = shopsService.createShop(user);
 
         return ResponseEntity.ok(newShop);
@@ -55,11 +55,11 @@ public class ShopsController {
                                         @RequestBody Shops shop,
                                         @AuthenticationPrincipal Users user) {
         // add moderator in this shop if it must be changed
-        if (shop.getModerator() != null) {
-            Users moderator = shop.getModerator();
+        if (shop.getAdmin() != null) {
+            Users moderator = shop.getAdmin();
             moderator = userService.findUserByUsername(moderator.getUsername()).orElse(new Users());
             if (AuthorityUtil.hasRole(AuthorityEnum.moderator.name(), moderator)) {
-                shop.setModerator(moderator);
+                shop.setAdmin(moderator);
             }
         }
         Shops updateShop = shopsService.saveShop(shop);

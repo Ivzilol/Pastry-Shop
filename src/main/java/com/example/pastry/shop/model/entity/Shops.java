@@ -27,7 +27,7 @@ public class Shops {
     private Users users;
 
     @ManyToOne
-    private Users moderator;
+    private Users admin;
 
     public Shops() {
 
@@ -89,11 +89,11 @@ public class Shops {
         this.status = status;
     }
 
-    public Users getModerator() {
-        return moderator;
+    public Users getAdmin() {
+        return admin;
     }
 
-    public void setModerator(Users moderator) {
-        this.moderator = moderator;
+    public void setAdmin(Users moderator) {
+        this.admin = moderator;
     }
 }
