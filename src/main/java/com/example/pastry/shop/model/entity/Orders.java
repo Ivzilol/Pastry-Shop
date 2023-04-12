@@ -1,9 +1,17 @@
 package com.example.pastry.shop.model.entity;
 
 import com.example.pastry.shop.model.enums.PaymentMethod;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -13,19 +21,45 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private BigDecimal price;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateCreated;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
+    private String status;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "pk.order")
+    @Valid
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
     @ManyToOne
     private Users users;
 
+    @Transient
+    public Double getTotalOrderPrice() {
+        double sum = 0;
+        List<OrderProduct> orderProducts = getOrderProducts();
+        for (OrderProduct op : orderProducts) {
+            sum += op.getTotalPrice();
+        }
+        return sum;
+    }
+
+    @Transient
+    public int getNumberOfProducts() {
+        return this.orderProducts.size();
+    }
+
 
     public Orders() {
 
+    }
+
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 
     public Long getId() {
@@ -36,20 +70,20 @@ public class Orders {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public LocalDate getDateCreated() {
+        return dateCreated;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Users getUsers() {
@@ -60,4 +94,16 @@ public class Orders {
         this.users = users;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Orders orders = (Orders) o;
+        return Objects.equals(id, orders.id) && Objects.equals(dateCreated, orders.dateCreated) && Objects.equals(status, orders.status) && Objects.equals(orderProducts, orders.orderProducts) && Objects.equals(users, orders.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dateCreated, status, orderProducts, users);
+    }
 }

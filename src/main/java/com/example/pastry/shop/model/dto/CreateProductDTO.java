@@ -9,7 +9,7 @@ public class CreateProductDTO {
     @NotNull
     private String name;
     @NotNull
-    private BigDecimal price;
+    private Double price;
     @NotNull
     private String Categories;
     @NotNull
@@ -31,11 +31,11 @@ public class CreateProductDTO {
     }
 
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
