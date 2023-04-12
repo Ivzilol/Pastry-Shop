@@ -2,7 +2,7 @@ import './App.css';
 import React, {useEffect, useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Routes} from "react-router-dom";
-import ProductsAdmin from "./components/ProductsAdmin/ProductsAdmin";
+import ProductsAdmin from "./components/Products/ProductsAdmin";
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
@@ -13,9 +13,9 @@ import AdminShops from "./components/ModeratorShops/ModeratorShops";
 import ModeratorShopsView from "./components/ModeratorShopsView/ModeratorShopsView";
 import {useUser} from "./UserProvider/UserProvider";
 import Register from "./components/Register/Register";
-import CreateProductAdmin from "./components/ProductsAdmin/CreateProductAdmin";
-import EditProductsAdmin from "./components/ProductsAdmin/EditProductsAdmin";
-import ProductsUser from "./components/ProductsAdmin/ProductsUser";
+import CreateProductAdmin from "./components/Products/CreateProductAdmin";
+import EditProductsAdmin from "./components/Products/EditProductsAdmin";
+import ProductsUser from "./components/Products/ProductsUser";
 import ShopsViewUser from "./components/shops/ShopsViewUser";
 
 function App() {
