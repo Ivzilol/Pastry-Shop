@@ -1,12 +1,11 @@
 import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 
 const ProductsUser = () => {
     const user = useUser()
-    const {productId} = useParams();
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
     const [product, setProduct] = useState({
@@ -44,8 +43,7 @@ const ProductsUser = () => {
     }
 
     function orderProducts(id) {
-        ajax(`/api/orders/${id}`, "POST", user.jwt, product
-        )
+        ajax(`/api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData)
                 console.log(productData);
