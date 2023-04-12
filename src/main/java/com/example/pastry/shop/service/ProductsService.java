@@ -59,4 +59,9 @@ public class ProductsService {
     public void delete(Long productId) {
         productRepository.deleteById(productId);
     }
+
+    public Iterable<Products> getAllProducts() {
+        return productRepository.findAll();
+    }
+
 }
