@@ -29,6 +29,14 @@ const UserOrders = () => {
         window.location.reload();
     }
 
+    function confirmOrder() {
+        ajax(`/api/orders`, "PATCH", user.jwt, {
+            status : "confirmed"
+        })
+            .then(() =>
+            refreshPage())
+    }
+
     return (
 
         <main className="orders-user">
@@ -54,7 +62,9 @@ const UserOrders = () => {
                         </div>
                     ))}
                     <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
-                    <button>Confirm order</button>
+                    <button
+                    onClick={() => confirmOrder()}
+                    >Confirm order</button>
                 </article>
             ) : (
                 <></>

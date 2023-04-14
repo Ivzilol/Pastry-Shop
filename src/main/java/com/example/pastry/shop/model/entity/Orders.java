@@ -21,13 +21,10 @@ public class Orders {
 
     private Double price;
 
-
     private String productName;
 
     @ManyToOne
     private Users users;
-
-
 
 
     public Orders() {
