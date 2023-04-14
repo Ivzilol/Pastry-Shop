@@ -47,7 +47,7 @@ public class OrderService {
         boolean isUser = user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
         if (isUser) {
-            return ordersRepository.findByUserId(user);
+            return ordersRepository.findByUsers(user);
         } else {
             return null;
         }

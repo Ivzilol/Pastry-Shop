@@ -10,6 +10,6 @@ import java.util.Set;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
-    @Query("select o from Orders as o")
-    Set<Orders> findByUserId(Users user);
+
+    Set<Orders> findByUsers(Users user);
 }
