@@ -1,6 +1,5 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.OrderDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.OrderService;
@@ -34,5 +33,11 @@ public class OrdersController {
     public ResponseEntity<?> getOrdersByUser(@AuthenticationPrincipal Users user) {
         Set<Orders> ordersById = orderService.findByUser(user);
         return ResponseEntity.ok(ordersById);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProductFromOrders(@PathVariable Long id) {
+        this.orderService.removeProduct(id);
+        return (ResponseEntity<?>) ResponseEntity.ok();
     }
 }

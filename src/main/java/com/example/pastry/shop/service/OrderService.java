@@ -52,4 +52,9 @@ public class OrderService {
             return null;
         }
     }
+
+    public void removeProduct(Long id) {
+        Optional<Orders> byId = this.ordersRepository.findById(id);
+        this.ordersRepository.delete(byId.get());
+    }
 }

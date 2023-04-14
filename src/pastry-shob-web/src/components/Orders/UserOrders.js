@@ -17,12 +17,16 @@ const UserOrders = () => {
         if (!user.jwt) navigate('/login')
     }, [user.jwt]);
 
-
+    function removeProductFromOrder(id) {
+        ajax(`/api/orders/${id}`, "DELETE", user.jwt)
+            .then(() => {
+                alert("Remove Product from orders")
+            })
+    }
 
     return (
         <main className="orders-user">
             {products ? (
-
                 <article className="orders-container">
                     {products.map((product) => (
                         <div className="orders-container-items"
@@ -34,6 +38,9 @@ const UserOrders = () => {
                             <p className="orders-container-items-name">
                                 Product Price: {product.price}
                             </p>
+                            <button
+                            onClick={() => removeProductFromOrder(product.id)}
+                            >Remove Product</button>
                             <p className="getAllPrice">{allPrice += product.price}</p>
                         </div>
                     ))}
