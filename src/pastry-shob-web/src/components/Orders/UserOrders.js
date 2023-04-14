@@ -7,6 +7,7 @@ const UserOrders = () => {
     const user = useUser();
     let navigate = useNavigate();
     const [products, setProducts] = useState(null);
+    let allPrice = 0;
 
     useEffect(() => {
         ajax('api/orders', "GET", user.jwt)
@@ -16,9 +17,12 @@ const UserOrders = () => {
         if (!user.jwt) navigate('/login')
     }, [user.jwt]);
 
+
+
     return (
         <main className="orders-user">
             {products ? (
+
                 <article className="orders-container">
                     {products.map((product) => (
                         <div className="orders-container-items"
@@ -28,10 +32,12 @@ const UserOrders = () => {
                                Product Name: {product.productName}
                             </p>
                             <p className="orders-container-items-name">
-                                Product Name: {product.price}
+                                Product Price: {product.price}
                             </p>
+                            <p className="getAllPrice">{allPrice += product.price}</p>
                         </div>
                     ))}
+                    <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
                 </article>
             ) : (
                 <></>
