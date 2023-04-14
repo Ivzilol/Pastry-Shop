@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrdersController {
@@ -26,5 +28,11 @@ public class OrdersController {
         Orders createOrder = this.orderService.createOrder(id, user);
         return ResponseEntity.ok(createOrder);
 
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getOrdersByUser(@AuthenticationPrincipal Users user) {
+        Set<Orders> ordersById = orderService.findByUser(user);
+        return ResponseEntity.ok(ordersById);
     }
 }

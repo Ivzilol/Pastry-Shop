@@ -25,7 +25,7 @@ const UserOrders = () => {
                         key={product.id}
                         >
                             <p className="orders-container-items-name">
-                               Product Name: {product.name}
+                               Product Name: {product.productName}
                             </p>
                             <p className="orders-container-items-name">
                                 Product Name: {product.price}

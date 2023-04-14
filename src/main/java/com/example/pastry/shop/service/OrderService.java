@@ -3,6 +3,7 @@ package com.example.pastry.shop.service;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.model.enums.PaymentMethod;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class OrderService {
@@ -39,5 +41,15 @@ public class OrderService {
         newOrder.setProductName(product.get().getName());
         ordersRepository.save(newOrder);
         return newOrder;
+    }
+
+    public Set<Orders> findByUser(Users user) {
+        boolean isUser = user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
+        if (isUser) {
+            return ordersRepository.findByUserId(user);
+        } else {
+            return null;
+        }
     }
 }
