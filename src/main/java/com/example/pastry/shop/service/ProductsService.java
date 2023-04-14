@@ -60,8 +60,4 @@ public class ProductsService {
         productRepository.deleteById(productId);
     }
 
-    public Iterable<Products> getAllProducts() {
-        return productRepository.findAll();
-    }
-
 }
