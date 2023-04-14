@@ -2,6 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 
 const UserOrders = () => {
     const user = useUser();
@@ -20,12 +21,18 @@ const UserOrders = () => {
     function removeProductFromOrder(id) {
         ajax(`/api/orders/${id}`, "DELETE", user.jwt)
             .then(() => {
-                alert("Remove Product from orders")
+                refreshPage()
             })
     }
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     return (
+
         <main className="orders-user">
+            <NavBar/>
             {products ? (
                 <article className="orders-container">
                     {products.map((product) => (
@@ -39,12 +46,15 @@ const UserOrders = () => {
                                 Product Price: {product.price}
                             </p>
                             <button
-                            onClick={() => removeProductFromOrder(product.id)}
+                            onClick={() => removeProductFromOrder(product.id)
+                            }
+
                             >Remove Product</button>
                             <p className="getAllPrice">{allPrice += product.price}</p>
                         </div>
                     ))}
                     <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
+                    <button>Confirm order</button>
                 </article>
             ) : (
                 <></>
