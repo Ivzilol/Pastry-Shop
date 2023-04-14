@@ -23,8 +23,8 @@ public class OrdersController {
     public ResponseEntity<?> createOrder(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
 
-    Orders createOrder = this.orderService.createOrder(id, user);
-    return ResponseEntity.ok(createOrder);
+        Orders createOrder = this.orderService.createOrder(id, user);
+        return ResponseEntity.ok(createOrder);
 
     }
 }

@@ -17,6 +17,7 @@ import CreateProductAdmin from "./components/Products/CreateProductAdmin";
 import EditProductsAdmin from "./components/Products/EditProductsAdmin";
 import ProductsUser from "./components/Products/ProductsUser";
 import ShopsViewUser from "./components/shops/ShopsViewUser";
+import UserOrders from "./components/Orders/UserOrders";
 
 function App() {
     const user = useUser();
@@ -39,15 +40,15 @@ function App() {
         <Routes>
             <Route path="/products"
                    element={
-                        roles.find((role) => role === 'admin') ? (
-                            <PrivateRoute>
-                                <ProductsAdmin/>
-                            </PrivateRoute>
-                        ) : (
-                            <PrivateRoute>
-                                <ProductsUser/>
-                            </PrivateRoute>
-                        )
+                       roles.find((role) => role === 'admin') ? (
+                           <PrivateRoute>
+                               <ProductsAdmin/>
+                           </PrivateRoute>
+                       ) : (
+                           <PrivateRoute>
+                               <ProductsUser/>
+                           </PrivateRoute>
+                       )
                    }/>
 
             <Route path="/products/create"
@@ -102,6 +103,18 @@ function App() {
                             <ShopsView/>
                         </PrivateRoute>
                 }/>
+            <Route path="/orders"
+                   element={
+                       roles.find((role) => role === 'admin')
+                           ?
+                           <PrivateRoute>
+
+                           </PrivateRoute>
+                           :
+                           <PrivateRoute>
+                               <UserOrders/>
+                           </PrivateRoute>
+                   }/>
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>

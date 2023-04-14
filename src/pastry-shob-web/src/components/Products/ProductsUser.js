@@ -34,13 +34,15 @@ const ProductsUser = () => {
             });
 
     }
+
     function orderProducts(id) {
         ajax(`/api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
-                setProduct(productData)
+                setProduct(productData);
+                alert("Successfully add the product to your cart")
             })
-    }
 
+    }
     return (
         <main className="products-users">
             <NavBar/>
@@ -63,7 +65,8 @@ const ProductsUser = () => {
                                 className="product-img" src={product.imageUrl} alt="new"
                             />
 
-                            <div className="products-container-item-button">
+                            <div className="products-container-item-button"
+                            >
                                 <div>
                                     <button
                                         id="submit"
