@@ -36,6 +36,10 @@ const ProductsUser = () => {
 
     }
 
+    function saveOrders() {
+        orderProducts();
+    }
+
     function getProduct(prop, value) {
         const currentProduct = {...product}
         currentProduct[prop] = value
@@ -79,7 +83,7 @@ const ProductsUser = () => {
                                         type="button"
                                         onClick={() => {
                                             orderProduct(product.id);
-                                            orderProducts(product.id)
+                                            orderProducts(product.id);
                                         }}
                                     >
                                         Order Product

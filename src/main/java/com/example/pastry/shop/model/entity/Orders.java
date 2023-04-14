@@ -2,16 +2,9 @@ package com.example.pastry.shop.model.entity;
 
 import com.example.pastry.shop.model.enums.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "orders")
@@ -26,40 +19,19 @@ public class Orders {
 
     private String status;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "pk.order")
-    @Valid
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    private Double price;
+
+
+    private String productName;
 
     @ManyToOne
     private Users users;
 
-    @Transient
-    public Double getTotalOrderPrice() {
-        double sum = 0;
-        List<OrderProduct> orderProducts = getOrderProducts();
-        for (OrderProduct op : orderProducts) {
-            sum += op.getTotalPrice();
-        }
-        return sum;
-    }
 
-    @Transient
-    public int getNumberOfProducts() {
-        return this.orderProducts.size();
-    }
 
 
     public Orders() {
 
-    }
-
-    public List<OrderProduct> getOrderProducts() {
-        return orderProducts;
-    }
-
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
-        this.orderProducts = orderProducts;
     }
 
     public Long getId() {
@@ -94,16 +66,19 @@ public class Orders {
         this.users = users;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Orders orders = (Orders) o;
-        return Objects.equals(id, orders.id) && Objects.equals(dateCreated, orders.dateCreated) && Objects.equals(status, orders.status) && Objects.equals(orderProducts, orders.orderProducts) && Objects.equals(users, orders.users);
+    public Double getPrice() {
+        return price;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dateCreated, status, orderProducts, users);
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

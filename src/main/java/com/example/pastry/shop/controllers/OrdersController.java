@@ -1,21 +1,30 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.entity.OrderProduct;
+import com.example.pastry.shop.model.dto.OrderDTO;
 import com.example.pastry.shop.model.entity.Orders;
+import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrdersController {
 
 
-    @PostMapping("/{id}")
-    public ResponseEntity<?> createOrder(@PathVariable Long id) {
-        List<OrderProduct> formDto;
+    private final OrderService orderService;
 
-        return ResponseEntity.ok(id);
+    public OrdersController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> createOrder(@PathVariable Long id,
+                                         @AuthenticationPrincipal Users user) {
+
+    Orders createOrder = this.orderService.createOrder(id, user);
+    return ResponseEntity.ok(createOrder);
+
     }
 }
