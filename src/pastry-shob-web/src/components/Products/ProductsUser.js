@@ -31,26 +31,13 @@ const ProductsUser = () => {
         ajax(`/api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
-                console.log(productData);
             });
 
     }
-
-    function saveOrders() {
-        orderProducts();
-    }
-
-    function getProduct(prop, value) {
-        const currentProduct = {...product}
-        currentProduct[prop] = value
-        setProduct(currentProduct);
-    }
-
     function orderProducts(id) {
         ajax(`/api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData)
-                console.log(productData);
             })
     }
 

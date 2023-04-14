@@ -28,10 +28,6 @@ public class OrderService {
     }
 
 
-    public Orders saveOrder(Orders order) {
-        return this.ordersRepository.save(order);
-    }
-
     public Orders createOrder(Long id, Users user) {
         Orders newOrder = new Orders();
         newOrder.setDateCreated(LocalDate.now());
