@@ -17,11 +17,9 @@ public class OrdersController {
 
 
     private final OrderService orderService;
-    private final OrdersRepository ordersRepository;
 
-    public OrdersController(OrderService orderService, OrdersRepository ordersRepository) {
+    public OrdersController(OrderService orderService) {
         this.orderService = orderService;
-        this.ordersRepository = ordersRepository;
     }
 
 

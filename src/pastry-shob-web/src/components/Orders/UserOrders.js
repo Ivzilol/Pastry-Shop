@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import button from "bootstrap/js/src/button";
 
 const UserOrders = () => {
     const user = useUser();
@@ -31,40 +32,60 @@ const UserOrders = () => {
 
     function confirmOrder() {
         ajax(`/api/orders`, "PATCH", user.jwt, {
-            status : "confirmed"
+            status: "confirmed"
         })
             .then(() =>
-            refreshPage())
+                refreshPage())
     }
 
     return (
-
         <main className="orders-user">
             <NavBar/>
             {products ? (
                 <article className="orders-container">
                     {products.map((product) => (
                         <div className="orders-container-items"
-                        key={product.id}
+                             key={product.id}
                         >
                             <p className="orders-container-items-name">
-                               Product Name: {product.productName}
+                                Product Name: {product.productName}
                             </p>
                             <p className="orders-container-items-name">
                                 Product Price: {product.price}
                             </p>
-                            <button
-                            onClick={() => removeProductFromOrder(product.id)
+                            {product.status === 'newOrder'
+                                ?
+                                <button
+                                    onClick={() => removeProductFromOrder(product.id)
+                                    }
+                                >Remove Product
+                                </button>
+                                :
+                                <></>
                             }
-
-                            >Remove Product</button>
                             <p className="getAllPrice">{allPrice += product.price}</p>
                         </div>
                     ))}
-                    <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
-                    <button
-                    onClick={() => confirmOrder()}
-                    >Confirm order</button>
+                </article>
+            ) : (
+                <></>
+            )}
+            {products ? (
+                <article>
+                    {products.map((product) => (
+                        <div>
+                            <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
+                            {product.status === 'newOrder'
+                                ?
+                                <button
+                                    onClick={() => confirmOrder()}
+                                >Confirm order
+                                </button>
+                                :
+                                <></>
+                            }
+                        </div>
+                    ))}
                 </article>
             ) : (
                 <></>
