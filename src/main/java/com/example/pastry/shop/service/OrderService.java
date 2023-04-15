@@ -61,7 +61,11 @@ public class OrderService {
 
 
     public Orders updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-
-        return null;
+        Set<Orders> byUsers = this.ordersRepository.findByUsers(user);
+        for (Orders currentOrder : byUsers) {
+            currentOrder.setStatus(ordersStatusDTO.getStatus());
+            this.ordersRepository.save(currentOrder);
+        }
+        return (Orders) byUsers;
     }
 }
