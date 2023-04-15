@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.OrdersRepository;
@@ -45,5 +46,10 @@ public class OrdersController {
         return (ResponseEntity<?>) ResponseEntity.ok();
     }
 
-
+    @PatchMapping("")
+    public ResponseEntity<Orders> updateStatusOrder(@RequestBody OrdersStatusDTO ordersStatusDTO,
+                                                    @AuthenticationPrincipal Users user) {
+        Orders orders = this.orderService.updateStatus(ordersStatusDTO, user);
+        return ResponseEntity.ok(orders);
+    }
 }

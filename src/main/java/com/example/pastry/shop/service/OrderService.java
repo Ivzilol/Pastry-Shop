@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
@@ -59,4 +60,8 @@ public class OrderService {
     }
 
 
+    public Orders updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
+
+        return null;
+    }
 }
