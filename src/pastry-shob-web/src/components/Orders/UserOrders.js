@@ -34,9 +34,21 @@ const UserOrders = () => {
         ajax(`/api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
+            .then(() => {
+                confirm()
+            })
             .then(() =>
                 refreshPage())
+
     }
+
+    function confirm() {
+        statusConfirm = false;
+    }
+
+    let statusConfirm = true;
+
+    console.log(statusConfirm);
 
     return (
         <main className="orders-user">
@@ -44,6 +56,7 @@ const UserOrders = () => {
             {products ? (
                 <article className="orders-container">
                     {products.map((product) => (
+
                         <div className="orders-container-items"
                              key={product.id}
                         >
@@ -73,7 +86,7 @@ const UserOrders = () => {
             {products ? (
                 <article>
                     {products.map((product) => (
-                        <div>
+                        <div key={product.id}>
                             <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
                             {product.status === 'newOrder'
                                 ?
@@ -85,7 +98,8 @@ const UserOrders = () => {
                                 <></>
                             }
                         </div>
-                    ))}
+                    ))
+                    }
                 </article>
             ) : (
                 <></>
