@@ -3,7 +3,6 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
