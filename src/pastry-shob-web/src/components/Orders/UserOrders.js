@@ -30,25 +30,18 @@ const UserOrders = () => {
         window.location.reload();
     }
 
-    function confirmOrder() {
+    function confirmOrder(e) {
         ajax(`/api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
-            .then(() => {
-                confirm()
-            })
-            .then(() =>
-                refreshPage())
-
+            // .then(() =>
+                // refreshPage())
+        selectors.confirmedButton.disabled = true
     }
 
-    function confirm() {
-        statusConfirm = false;
+    const selectors = {
+        confirmedButton: document.querySelector('.confirmed-order-button')
     }
-
-    let statusConfirm = true;
-
-    console.log(statusConfirm);
 
     return (
         <main className="orders-user">
@@ -83,27 +76,12 @@ const UserOrders = () => {
             ) : (
                 <></>
             )}
-            {products ? (
-                <article>
-                    {products.map((product) => (
-                        <div key={product.id}>
-                            <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
-                            {product.status === 'newOrder'
-                                ?
-                                <button
-                                    onClick={() => confirmOrder()}
-                                >Confirm order
-                                </button>
-                                :
-                                <></>
-                            }
-                        </div>
-                    ))
-                    }
-                </article>
-            ) : (
-                <></>
-            )}
+            <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
+            <button
+                className="confirmed-order-button"
+                onClick={(e) => confirmOrder()}
+            >Confirm order
+            </button>
         </main>
     )
 }
