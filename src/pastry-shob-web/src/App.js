@@ -18,6 +18,7 @@ import EditProductsAdmin from "./components/Products/EditProductsAdmin";
 import ProductsUser from "./components/Products/ProductsUser";
 import ShopsViewUser from "./components/shops/ShopsViewUser";
 import UserOrders from "./components/Orders/UserOrders";
+import AdminOrders from "./components/Orders/AdminOrders";
 
 function App() {
     const user = useUser();
@@ -108,7 +109,7 @@ function App() {
                        roles.find((role) => role === 'admin')
                            ?
                            <PrivateRoute>
-
+                               <AdminOrders/>
                            </PrivateRoute>
                            :
                            <PrivateRoute>

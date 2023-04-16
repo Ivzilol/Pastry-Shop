@@ -34,14 +34,12 @@ const UserOrders = () => {
         ajax(`/api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
-            // .then(() =>
-                // refreshPage())
-        selectors.confirmedButton.disabled = true
+            .then(() =>
+                refreshPage())
+        alert("Successful confirm your order");
     }
 
-    const selectors = {
-        confirmedButton: document.querySelector('.confirmed-order-button')
-    }
+
 
     return (
         <main className="orders-user">
@@ -79,7 +77,7 @@ const UserOrders = () => {
             <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
             <button
                 className="confirmed-order-button"
-                onClick={(e) => confirmOrder()}
+                onClick={() => confirmOrder()}
             >Confirm order
             </button>
         </main>
