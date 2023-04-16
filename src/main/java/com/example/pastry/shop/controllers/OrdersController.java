@@ -50,4 +50,10 @@ public class OrdersController {
         Orders orders = this.orderService.updateStatus(ordersStatusDTO, user);
         return ResponseEntity.ok(orders);
     }
+
+    @GetMapping("/admin")
+    public ResponseEntity<?> getAllConfirmedOrders(@AuthenticationPrincipal Users user) {
+        Set<Orders> confirmedOrders = this.orderService.findByStatus(user);
+        return ResponseEntity.ok(confirmedOrders);
+    }
 }

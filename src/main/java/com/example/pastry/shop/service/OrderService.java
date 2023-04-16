@@ -45,13 +45,17 @@ public class OrderService {
     }
 
     public Set<Orders> findByUser(Users user) {
-        boolean isUser = user.getAuthorities()
-                .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
+        boolean isUser = isUser(user);
         if (isUser) {
             return ordersRepository.findByUsers(user);
         } else {
             return null;
         }
+    }
+
+    private static boolean isUser(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
     }
 
     public void removeProduct(Long id) {
@@ -67,5 +71,19 @@ public class OrderService {
             this.ordersRepository.save(currentOrder);
         }
         return (Orders) byUsers;
+    }
+
+    public Set<Orders> findByStatus(Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            return this.ordersRepository.findByStatus();
+        } else {
+            return null;
+        }
+    }
+
+    private static boolean isAdmin(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
 }
