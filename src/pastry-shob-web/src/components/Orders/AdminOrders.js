@@ -17,21 +17,30 @@ const AdminOrders = () => {
     }, [user.jwt])
 
 
-    return(
+    return (
         <main className="orders-admin">
             <NavBar/>
             {orders ? (
                 <article className="orders-admin-container">
                     {orders.map((order) => (
                         <div className="orders-admin-container-items"
-                            key={order.id}
+                             key={order.id}
                         >
-                            <p className="orders-admin-container-items-name">
-                                Product Name: {order.productName}
-                            </p>
-                            <p className="orders-admin-container-items-name">
-                                Product Price: {order.price}
-                            </p>
+                            <h4>User name: {order.users.username}</h4>
+                            {orders ? (
+                                <div key={order.users.id}>
+                                    {orders.map((userOrder) =>
+                                    userOrder.users.username === order.users.username
+                                        ?
+                                        <p>Product name: {userOrder.productName}</p>
+                                        :
+                                        <></>
+                                    )}
+                                </div>
+
+                            ) : (
+                                <></>
+                            )}
                         </div>
                     ))}
                 </article>
