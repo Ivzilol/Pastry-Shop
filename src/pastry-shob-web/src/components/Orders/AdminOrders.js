@@ -8,7 +8,7 @@ const AdminOrders = () => {
     const user = useUser();
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
-
+    let currentUser;
     useEffect(() => {
         ajax('/api/orders/admin', "GET", user.jwt)
             .then(ordersData => {
@@ -17,7 +17,10 @@ const AdminOrders = () => {
         if (!user.jwt) navigate('/login')
     }, [user.jwt])
 
-    let currentUser;
+
+    function startProcessingOrder(id) {
+        ajax(`/api/orders/admin/${id}`, "POST", user.jwt)
+    }
 
     return (
         <main className="orders-admin">
@@ -41,16 +44,14 @@ const AdminOrders = () => {
                                                         <div className="orders-admin-container-p.name">Product
                                                             name: {userOrder.productName}</div>
                                                         <div className="orders-admin-container-p.price"> Price:
-                                                            ${userOrder.price}</div>
+                                                             {userOrder.price}</div>
                                                         <div className="orders-admin-container-address">Address:
-                                                            ${userOrder.users.address}</div>
+                                                             {userOrder.users.address}</div>
                                                     </div>
-
                                                     :
                                                     <></>
                                             )}
                                             <button
-
                                             >Make order in Progress</button>
                                         </div>
                                     ) : (
