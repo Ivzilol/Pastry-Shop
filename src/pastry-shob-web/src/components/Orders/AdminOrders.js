@@ -17,6 +17,7 @@ const AdminOrders = () => {
         if (!user.jwt) navigate('/login')
     }, [user.jwt])
 
+    let currentUser;
 
     return (
         <main className="orders-admin">
@@ -24,25 +25,41 @@ const AdminOrders = () => {
             {orders ? (
                 <article className="orders-admin-container">
                     {orders.map((order) => (
-                        <div className="orders-admin-container-items"
-                             key={order.id}
-                        >
-                            <h4>User name: {order.users.username}</h4>
-                            {orders ? (
-                                <div key={order.users.id}>
-                                    {orders.map((userOrder) =>
-                                    userOrder.users.username === order.users.username
-                                        ?
-                                        <p>Product name: {userOrder.productName}</p>
-                                        :
+                        currentUser !== order.users.username
+                            ?
+                            <div>{currentUser = order.users.username}
+                                <div className="orders-admin-container-items"
+                                     key={order.id}
+                                >
+                                    <h4>User name: {order.users.username}</h4>
+                                    {orders ? (
+                                        <div key={order.users.id}>
+                                            {orders.map((userOrder) =>
+                                                userOrder.users.username === order.users.username
+                                                    ?
+                                                    <div className="orders-admin-container-items-userOrder">
+                                                        <div className="orders-admin-container-p.name">Product
+                                                            name: {userOrder.productName}</div>
+                                                        <div className="orders-admin-container-p.price"> Price:
+                                                            ${userOrder.price}</div>
+                                                        <div className="orders-admin-container-address">Address:
+                                                            ${userOrder.users.address}</div>
+                                                    </div>
+
+                                                    :
+                                                    <></>
+                                            )}
+                                            <button
+
+                                            >Make order in Progress</button>
+                                        </div>
+                                    ) : (
                                         <></>
                                     )}
                                 </div>
-
-                            ) : (
-                                <></>
-                            )}
-                        </div>
+                            </div>
+                            :
+                            <></>
                     ))}
                 </article>
             ) : (
