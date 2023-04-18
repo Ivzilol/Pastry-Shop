@@ -8,6 +8,7 @@ const AdminOrders = () => {
     const user = useUser();
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
+
     useEffect(() => {
         ajax('/api/orders/admin', "GET", user.jwt)
             .then(ordersData => {
