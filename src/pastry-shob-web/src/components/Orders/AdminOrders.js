@@ -9,6 +9,9 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
     let currentUser;
+
+
+
     useEffect(() => {
         ajax('/api/orders/admin', "GET", user.jwt)
             .then(ordersData => {
@@ -17,9 +20,18 @@ const AdminOrders = () => {
         if (!user.jwt) navigate('/login')
     }, [user.jwt])
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
 
     function startProcessingOrder(id) {
-        ajax(`/api/orders/admin/${id}`, "POST", user.jwt)
+        ajax(`/api/orders/admin/${id}`, "POST", user.jwt, {
+            id: id
+        })
+            .then(() => {
+                refreshPage()
+            })
     }
 
     return (
@@ -52,6 +64,7 @@ const AdminOrders = () => {
                                                     <></>
                                             )}
                                             <button
+                                                onClick={() => startProcessingOrder(order.users.id)}
                                             >Make order in Progress</button>
                                         </div>
                                     ) : (

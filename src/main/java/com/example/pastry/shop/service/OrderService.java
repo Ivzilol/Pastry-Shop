@@ -5,7 +5,6 @@ import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
-import com.example.pastry.shop.model.enums.PaymentMethod;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
@@ -85,5 +84,9 @@ public class OrderService {
     private static boolean isAdmin(Users user) {
         return user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+    }
+
+    public Set<Orders> findByUsersId(Long id) {
+        return null;
     }
 }
