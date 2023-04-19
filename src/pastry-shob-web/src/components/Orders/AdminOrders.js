@@ -56,11 +56,13 @@ const AdminOrders = () => {
                                                         <div className="orders-admin-container-p.name">Product
                                                             name: {userOrder.productName}</div>
                                                         <div className="orders-admin-container-p.price"> Price: {userOrder.price}</div>
-                                                        <div className="orders-admin-container-address">Address: {userOrder.users.address}</div>
+
                                                     </div>
                                                     :
                                                     <></>
                                             )}
+                                            <div className="orders-admin-container-address"
+                                            >Address: {order.users.address}</div>
                                             <button
                                                 onClick={() => startProcessingOrder(order.users.id)}
                                             >Make order in Progress</button>
