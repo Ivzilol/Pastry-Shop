@@ -26,8 +26,12 @@ public class OrdersProcessing {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfDispatch;
 
+    @Column(name = "key_order")
+    private int keyOrder;
+
     @ManyToOne
     private Users user;
+
 
     public OrdersProcessing() {
     }
@@ -78,5 +82,13 @@ public class OrdersProcessing {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public int getKeyOrder() {
+        return keyOrder;
+    }
+
+    public void setKeyOrder(int keyOrder) {
+        this.keyOrder = keyOrder;
     }
 }

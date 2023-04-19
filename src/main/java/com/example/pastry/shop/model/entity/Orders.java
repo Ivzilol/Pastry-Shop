@@ -1,6 +1,5 @@
 package com.example.pastry.shop.model.entity;
 
-import com.example.pastry.shop.model.enums.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -23,10 +22,10 @@ public class Orders {
 
     private String productName;
 
+    @Column(name = "key_order_product")
+    private int keyOrderProduct;
     @ManyToOne
     private Users users;
-
-
 
     public Orders() {
 
@@ -80,4 +79,11 @@ public class Orders {
         this.productName = productName;
     }
 
+    public int getKeyOrderProduct() {
+        return keyOrderProduct;
+    }
+
+    public void setKeyOrderProduct(int keyOrderProduct) {
+        this.keyOrderProduct = keyOrderProduct;
+    }
 }

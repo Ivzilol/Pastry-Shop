@@ -27,6 +27,8 @@ public class OrderService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
+    private int keyProductOrder = 0;
+
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
@@ -72,8 +74,10 @@ public class OrderService {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user);
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
+            currentOrder.setKeyOrderProduct(keyProductOrder + 1);
             this.ordersRepository.save(currentOrder);
         }
+        this.keyProductOrder += 1;
         return (Orders) byUsers;
     }
 

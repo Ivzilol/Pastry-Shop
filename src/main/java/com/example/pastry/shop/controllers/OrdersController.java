@@ -8,7 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -58,6 +61,6 @@ public class OrdersController {
     @PostMapping("/admin/{id}")
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id) {
         Set<Orders> currentOrders = this.orderService.findByUsersId(id);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return ResponseEntity.ok(currentOrders);
     }
 }
