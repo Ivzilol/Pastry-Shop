@@ -60,4 +60,11 @@ public class ProductsService {
         productRepository.deleteById(productId);
     }
 
+    public CreateProductDTO findByName(String name) {
+        Products product = productRepository.findByName(name);
+        if (product == null) {
+            return null;
+        }
+        return null;
+    }
 }

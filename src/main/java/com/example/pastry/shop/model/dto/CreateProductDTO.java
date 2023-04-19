@@ -1,5 +1,6 @@
 package com.example.pastry.shop.model.dto;
 
+import com.example.pastry.shop.validation.annotation.UniqueProductName;
 import com.unboundid.util.NotNull;
 
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 public class CreateProductDTO {
 
     @NotNull
+    @UniqueProductName
     private String name;
     @NotNull
     private Double price;
