@@ -107,6 +107,12 @@ public class OrderService {
         ordersProcessing.setUser(user.get());
         ordersProcessing.setStatusOrder("sent");
         ordersProcessing.setDateOfDispatch(LocalDate.now());
+        Set<Orders> keyOrdersAll = this.ordersRepository.findByUsers_Id(id);
+        int keyOrders = 0;
+        for (Orders currentOrder : keyOrdersAll) {
+            keyOrders = currentOrder.getKeyOrderProduct();
+        }
+        ordersProcessing.setKeyOrder(keyOrders);
         this.ordersProcessingRepository.save(ordersProcessing);
         return byUsers_id;
     }
