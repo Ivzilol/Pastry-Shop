@@ -2,9 +2,11 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
+import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
+import com.example.pastry.shop.repository.OrdersProcessingRepository;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
@@ -23,10 +25,13 @@ public class OrderService {
 
     private final ProductRepository productRepository;
 
-    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository) {
+    private final OrdersProcessingRepository ordersProcessingRepository;
+
+    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productRepository = productRepository;
+        this.ordersProcessingRepository = ordersProcessingRepository;
     }
 
 
@@ -87,6 +92,18 @@ public class OrderService {
     }
 
     public Set<Orders> findByUsersId(Long id) {
-        return null;
+        OrdersProcessing ordersProcessing = new OrdersProcessing();
+        Set<Orders> byUsers_id = this.ordersRepository.findByUsers_Id(id);
+        double totalPrice = 0;
+        for (Orders currentOrder : byUsers_id) {
+            totalPrice += currentOrder.getPrice();
+        }
+        ordersProcessing.setTotalPrice(totalPrice);
+        Optional<Users> user = this.usersRepository.findById(id);
+        ordersProcessing.setUser(user.get());
+        ordersProcessing.setStatusOrder("sent");
+        ordersProcessing.setDateOfDispatch(LocalDate.now());
+        this.ordersProcessingRepository.save(ordersProcessing);
+        return byUsers_id;
     }
 }

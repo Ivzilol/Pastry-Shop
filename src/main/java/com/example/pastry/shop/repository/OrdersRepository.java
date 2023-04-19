@@ -16,4 +16,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders as o" +
             " where o.status = 'confirmed'")
     Set<Orders> findByStatus();
+
+    Set<Orders> findByUsers_Id(Long id);
+
 }

@@ -19,15 +19,15 @@ public class OrdersProcessing {
     @Column(name = "status_order", nullable = false)
     private String statusOrder;
 
-    @Column(nullable = false, name = "date_of_receipt")
+    @Column(name = "date_of_receipt")
     @JsonFormat (pattern = "dd/MM/yyyy")
     private LocalDate dateOfReceipt;
-
+    @Column(nullable = false, name = "date_of_dispatch")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfDispatch;
 
     @ManyToOne
-    private Orders orders;
+    private Users user;
 
     public OrdersProcessing() {
     }
@@ -72,11 +72,11 @@ public class OrdersProcessing {
         this.dateOfDispatch = dateOfDispatch;
     }
 
-    public Orders getOrders() {
-        return orders;
+    public Users getUser() {
+        return user;
     }
 
-    public void setOrders(Orders orders) {
-        this.orders = orders;
+    public void setUser(Users user) {
+        this.user = user;
     }
 }
