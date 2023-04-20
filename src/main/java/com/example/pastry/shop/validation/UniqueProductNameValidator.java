@@ -16,6 +16,6 @@ public class UniqueProductNameValidator implements ConstraintValidator<UniquePro
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        return this.productsService.findByName(value) == null;
+        return this.productsService.findByName(value).isEmpty();
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -16,5 +17,5 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products AS p")
     Set<Products> findByUser(Users user);
 
-    Products findByName(String name);
+    Optional<Products> findByName(String name);
 }
