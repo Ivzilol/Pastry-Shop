@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
 @Table(name = "orders")
 public class Orders {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +25,15 @@ public class Orders {
 
     private String productName;
 
-    @Column(name = "key_order_product")
-    private int keyOrderProduct;
+    @Column(name = "key_order_product", unique = true)
+    private Long keyOrderProduct;
     @ManyToOne
     private Users users;
 
     public Orders() {
 
     }
+
 
     public Long getId() {
         return id;
@@ -79,11 +83,11 @@ public class Orders {
         this.productName = productName;
     }
 
-    public int getKeyOrderProduct() {
+    public Long getKeyOrderProduct() {
         return keyOrderProduct;
     }
 
-    public void setKeyOrderProduct(int keyOrderProduct) {
+    public void setKeyOrderProduct(Long keyOrderProduct) {
         this.keyOrderProduct = keyOrderProduct;
     }
 }

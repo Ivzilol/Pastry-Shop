@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class OrderService {
@@ -27,7 +28,9 @@ public class OrderService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
-    private int keyProductOrder = 0;
+    private Long keyProductOrder = keyOrderProduct();
+
+    private final static AtomicLong subIdCounter = new AtomicLong(System.nanoTime());
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
@@ -35,6 +38,7 @@ public class OrderService {
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
     }
+
 
 
     public Orders createOrder(Long id, Users user) {
@@ -72,12 +76,21 @@ public class OrderService {
 
     public Orders updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user);
+        Set<Orders> lastKey = this.ordersRepository.findAllOrders();
+        Long mostBigKey = 0L;
+        for (Orders order : lastKey) {
+            if (order.getKeyOrderProduct() == null) {
+                continue;
+            }
+            if (order.getKeyOrderProduct() > mostBigKey) {
+                mostBigKey = order.getKeyOrderProduct();
+            }
+        }
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
-            currentOrder.setKeyOrderProduct(keyProductOrder + 1);
+            currentOrder.setKeyOrderProduct(mostBigKey + 1);
             this.ordersRepository.save(currentOrder);
         }
-        this.keyProductOrder += 1;
         return (Orders) byUsers;
     }
 
@@ -108,12 +121,18 @@ public class OrderService {
         ordersProcessing.setStatusOrder("sent");
         ordersProcessing.setDateOfDispatch(LocalDate.now());
         Set<Orders> keyOrdersAll = this.ordersRepository.findByUsers_Id(id);
-        int keyOrders = 0;
+        Long keyOrders = 0L;
         for (Orders currentOrder : keyOrdersAll) {
             keyOrders = currentOrder.getKeyOrderProduct();
         }
         ordersProcessing.setKeyOrder(keyOrders);
         this.ordersProcessingRepository.save(ordersProcessing);
         return byUsers_id;
+    }
+
+
+    private Long keyOrderProduct() {
+        this.keyProductOrder = subIdCounter.incrementAndGet();
+        return this.keyProductOrder;
     }
 }

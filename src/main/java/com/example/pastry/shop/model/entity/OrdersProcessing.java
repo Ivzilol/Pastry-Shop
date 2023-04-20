@@ -27,7 +27,7 @@ public class OrdersProcessing {
     private LocalDate dateOfDispatch;
 
     @Column(name = "key_order")
-    private int keyOrder;
+    private Long keyOrder;
 
     @ManyToOne
     private Users user;
@@ -84,11 +84,11 @@ public class OrdersProcessing {
         this.user = user;
     }
 
-    public int getKeyOrder() {
+    public Long getKeyOrder() {
         return keyOrder;
     }
 
-    public void setKeyOrder(int keyOrder) {
+    public void setKeyOrder(Long keyOrder) {
         this.keyOrder = keyOrder;
     }
 }
