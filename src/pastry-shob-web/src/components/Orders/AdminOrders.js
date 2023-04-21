@@ -101,15 +101,19 @@ const AdminOrders = () => {
                     <h2>Orders in process of delivery</h2>
                     <ul className="confirmed-orders-list">
                         {sentOrders ? (
-                            <div className="confirmed-orders-list-container">
+                            <div className="confirmed-orders-list-container"
+                                id={sentOrders.id}>
                                 {sentOrders.map((sendOrders) => (
-                                    <div className="confirmed-orders-list-container-details">
+                                    <div className="confirmed-orders-list-container-details"
+                                        id={sendOrders.id}
+                                    >
                                         <h5>Recipient: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
                                         <p>Address: {sendOrders.user.address}</p>
-                                        <p>Total Price = {sendOrders.totalPrice} lv.</p>
+                                        <p>Total Price: {Number(sendOrders.totalPrice).toFixed(2)} lv.</p>
+                                        <button>Confirm Delivery</button>
                                     </div>
-
                                 ))}
+
                             </div>
                         ) : (
                             <></>

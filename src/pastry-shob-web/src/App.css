@@ -294,10 +294,12 @@
 
 .unconfirmed-orders {
     width: 50%;
+    background-color: red;
 }
 
 .confirmed-orders {
     width: 50%;
+    background-color: blue;
 }
 
 .orderKey {
