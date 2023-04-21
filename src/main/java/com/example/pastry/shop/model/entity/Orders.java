@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Orders {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
@@ -39,7 +40,6 @@ public class OrderService {
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
     }
-
 
 
     public Orders createOrder(Long id, Users user) {
@@ -140,5 +140,15 @@ public class OrderService {
             this.ordersRepository.save(currentOrder);
         }
         return (Orders) orders;
+    }
+
+
+    public OrdersProcessing updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
+        Set<OrdersProcessing> orders = this.ordersProcessingRepository.findOrderById(id);
+        for (OrdersProcessing currentOrder : orders) {
+            currentOrder.setStatusOrder(orderStatusDeliveryAdmin.getStatus());
+            this.ordersProcessingRepository.save(currentOrder);
+        }
+        return (OrdersProcessing) orders;
     }
 }

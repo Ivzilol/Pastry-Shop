@@ -13,4 +13,6 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
     @Query("select o from OrdersProcessing as o" +
             " where o.statusOrder = 'sent'")
     Set<OrdersProcessing> findByStatus();
+
+    Set<OrdersProcessing> findOrderById(Long id);
 }

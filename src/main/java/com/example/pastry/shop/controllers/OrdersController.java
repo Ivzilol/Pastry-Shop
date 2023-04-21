@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
@@ -78,6 +79,13 @@ public class OrdersController {
     public ResponseEntity<Orders> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                         @PathVariable Long id) {
         Orders order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
+        return ResponseEntity.ok(order);
+    }
+
+    @PatchMapping("/admin/delivery/{id}")
+    public ResponseEntity<OrdersProcessing> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
+                                                                  @PathVariable Long id) {
+        OrdersProcessing order = this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
         return ResponseEntity.ok(order);
     }
 }

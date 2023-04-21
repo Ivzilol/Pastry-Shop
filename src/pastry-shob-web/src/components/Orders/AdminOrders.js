@@ -54,6 +54,15 @@ const AdminOrders = () => {
                 refreshPage())
     }
 
+    function confirmOrderDelivery(id) {
+        ajax(`/api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
+            status: "delivery"
+        })
+            .then(() => {
+                refreshPage()
+            })
+    }
+
     return (
         <main className="orders-admin">
             <NavBar/>
@@ -121,7 +130,9 @@ const AdminOrders = () => {
                                         <h5>Recipient: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
                                         <p>Address: {sendOrders.user.address}</p>
                                         <p>Total Price: {Number(sendOrders.totalPrice).toFixed(2)} lv.</p>
-                                        <button>Confirm Delivery</button>
+                                        <button
+                                        onClick={() => confirmOrderDelivery(sendOrders.id)}
+                                        >Confirm Delivery</button>
                                     </div>
                                 ))}
 

@@ -1,11 +1,14 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
+import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.OrdersProcessingRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -31,4 +34,7 @@ public class OrderProcessingService {
         return user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
+
+
+
 }
