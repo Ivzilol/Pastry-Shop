@@ -29,7 +29,9 @@ const AdminOrders = () => {
     function startProcessingOrder(id) {
         ajax(`/api/orders/admin/${id}`, "POST", user.jwt, {
             id: id
-        })
+        }).then(() =>
+            confirmOrder(id)
+        )
             .then(() => {
                 refreshPage()
             })
@@ -42,6 +44,15 @@ const AdminOrders = () => {
             });
         if (!user.jwt) navigate("/login")
     }, [user.jwt])
+
+
+    function confirmOrder(id) {
+        ajax(`/api/orders/${id}`, "PATCH", user.jwt, {
+            status: "sent"
+        })
+            .then(() =>
+                refreshPage())
+    }
 
     return (
         <main className="orders-admin">

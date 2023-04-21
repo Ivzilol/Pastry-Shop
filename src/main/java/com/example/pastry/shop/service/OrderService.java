@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
@@ -116,8 +117,6 @@ public class OrderService {
             totalPrice += currentOrder.getPrice();
         }
         ordersProcessing.setTotalPrice(totalPrice);
-//        Optional<Users> currentUser = this.usersRepository.findById(id);
-//        ordersProcessing.setUser(currentUser.get());
         Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
         ordersProcessing.setUser(currentUser.get());
         ordersProcessing.setStatusOrder("sent");
@@ -132,5 +131,14 @@ public class OrderService {
     private Long keyOrderProduct() {
         this.keyProductOrder = subIdCounter.incrementAndGet();
         return this.keyProductOrder;
+    }
+
+    public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) {
+        Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
+        for (Orders currentOrder : orders) {
+            currentOrder.setStatus(orderStatusSendAdmin.getStatus());
+            this.ordersRepository.save(currentOrder);
+        }
+        return (Orders) orders;
     }
 }
