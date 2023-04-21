@@ -9,7 +9,7 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
     let currentUser;
-
+    let currentKeyOrder;
 
 
     useEffect(() => {
@@ -35,14 +35,34 @@ const AdminOrders = () => {
     }
 
     return (
-
         <main className="orders-admin">
             <NavBar/>
             <section className="admin-bord-section">
                 <article className="unconfirmed-orders">
                     <h2>Orders in processing</h2>
                     <ul className="unconfirmed-orders-list">
+                        {orders ? (
+                            <div className="keyOrder"
+                                key={orders.id}>
+                                {orders.map((order) => (
+                                    currentKeyOrder !== order.keyOrderProduct
+                                        ?
+                                        <div className="admin-bord-section-details"
+                                            id={order.keyOrderProduct}
+                                        >{currentKeyOrder = order.keyOrderProduct}
+                                            <h5>Username: {order.users.username}</h5>
+                                            <p>Product: {order.productName}</p>
+                                            <p>Price: {order.price}</p>
+                                            <p>Address: {order.users.address}</p>
+                                        </div>
+                                        :
+                                        <></>
+                                ))}
+                            </div>
 
+                        ) : (
+                            <>No Orders</>
+                        )}
                     </ul>
                 </article>
                 <article className="confirmed-orders">
