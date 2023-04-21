@@ -289,8 +289,15 @@
 
 .admin-bord-section {
     display: flex;
-    align-items: center;
     justify-content: space-around;
+}
+
+.unconfirmed-orders {
+    width: 50%;
+}
+
+.confirmed-orders {
+    width: 50%;
 }
 
 .orderKey {

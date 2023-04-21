@@ -73,7 +73,9 @@ const AdminOrders = () => {
                                                 ) :
                                                 <></>
                                             }
-                                            <button>Send Order</button>
+                                            <button
+                                            onClick={() => startProcessingOrder(order.keyOrderProduct)}
+                                            >Send Order</button>
                                         </div>
                                         :
                                         <></>
@@ -86,7 +88,7 @@ const AdminOrders = () => {
                     </ul>
                 </article>
                 <article className="confirmed-orders">
-                    <h2>Confirmed orders</h2>
+                    <h2>Orders in process of delivery</h2>
                     <ul className="confirmed-orders-list">
 
                     </ul>

@@ -108,26 +108,24 @@ public class OrderService {
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
 
-    public Set<Orders> findByUsersId(Long id) {
+    public Set<Orders> findByUsersId(Long id, Users user) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
-        Set<Orders> byUsers_id = this.ordersRepository.findByUsers_Id(id);
+        Set<Orders> byOrderKey = this.ordersRepository.findByKeyOrderProduct(id);
         double totalPrice = 0;
-        for (Orders currentOrder : byUsers_id) {
+        for (Orders currentOrder : byOrderKey) {
             totalPrice += currentOrder.getPrice();
         }
         ordersProcessing.setTotalPrice(totalPrice);
-        Optional<Users> user = this.usersRepository.findById(id);
-        ordersProcessing.setUser(user.get());
+//        Optional<Users> currentUser = this.usersRepository.findById(id);
+//        ordersProcessing.setUser(currentUser.get());
+        Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
+        ordersProcessing.setUser(currentUser.get());
         ordersProcessing.setStatusOrder("sent");
         ordersProcessing.setDateOfDispatch(LocalDate.now());
         Set<Orders> keyOrdersAll = this.ordersRepository.findByUsers_Id(id);
-        Long keyOrders = 0L;
-        for (Orders currentOrder : keyOrdersAll) {
-            keyOrders = currentOrder.getKeyOrderProduct();
-        }
-        ordersProcessing.setKeyOrder(keyOrders);
+        ordersProcessing.setKeyOrder(id);
         this.ordersProcessingRepository.save(ordersProcessing);
-        return byUsers_id;
+        return byOrderKey;
     }
 
 
