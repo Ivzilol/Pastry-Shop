@@ -3,12 +3,12 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import button from "bootstrap/js/src/button";
 
 const AdminOrders = () => {
     const user = useUser();
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
-    let currentUser;
     let currentKeyOrder;
 
 
@@ -43,17 +43,37 @@ const AdminOrders = () => {
                     <ul className="unconfirmed-orders-list">
                         {orders ? (
                             <div className="keyOrder"
-                                key={orders.id}>
+                                 key={orders.keyOrderProduct}>
                                 {orders.map((order) => (
                                     currentKeyOrder !== order.keyOrderProduct
                                         ?
                                         <div className="admin-bord-section-details"
-                                            id={order.keyOrderProduct}
-                                        >{currentKeyOrder = order.keyOrderProduct}
+                                             id={order.keyOrderProduct}
+                                        >
+                                            <div className="orderKey">
+                                                {currentKeyOrder = order.keyOrderProduct}
+                                            </div>
                                             <h5>Username: {order.users.username}</h5>
-                                            <p>Product: {order.productName}</p>
-                                            <p>Price: {order.price}</p>
                                             <p>Address: {order.users.address}</p>
+                                            {orders ? (
+                                                    <div className="orders-details-product"
+                                                         key={orders.keyOrderProduct}
+                                                    >
+                                                        {orders.map((orderDetails) =>
+                                                            order.keyOrderProduct === orderDetails.keyOrderProduct
+                                                                ?
+                                                                <div>
+                                                                    <p>Product: {orderDetails.productName}</p>
+                                                                    <p>Price: {orderDetails.price}</p>
+                                                                </div>
+                                                                :
+                                                                <></>
+                                                        )}
+                                                    </div>
+                                                ) :
+                                                <></>
+                                            }
+                                            <button>Send Order</button>
                                         </div>
                                         :
                                         <></>
