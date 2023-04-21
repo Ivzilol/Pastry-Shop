@@ -2,7 +2,9 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
+import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.service.OrderProcessingService;
 import com.example.pastry.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,8 +19,11 @@ public class OrdersController {
 
     private final OrderService orderService;
 
-    public OrdersController(OrderService orderService) {
+    private final OrderProcessingService orderProcessingService;
+
+    public OrdersController(OrderService orderService, OrderProcessingService orderProcessingService) {
         this.orderService = orderService;
+        this.orderProcessingService = orderProcessingService;
     }
 
 
@@ -60,5 +65,11 @@ public class OrdersController {
                                                     @AuthenticationPrincipal Users user) {
         Set<Orders> currentOrders = this.orderService.findByUsersId(id, user);
         return ResponseEntity.ok(currentOrders);
+    }
+
+    @GetMapping("/admin/send")
+    public ResponseEntity<?> getAllSendOrders(@AuthenticationPrincipal Users user) {
+        Set<OrdersProcessing> sendOrders = this.orderProcessingService.findByStatus(user);
+        return ResponseEntity.ok(sendOrders);
     }
 }

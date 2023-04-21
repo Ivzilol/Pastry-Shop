@@ -10,6 +10,7 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState(null);
     let navigate = useNavigate();
     let currentKeyOrder;
+    const [sentOrders, setSendOrders] = useState(null);
 
 
     useEffect(() => {
@@ -33,6 +34,14 @@ const AdminOrders = () => {
                 refreshPage()
             })
     }
+
+    useEffect(() => {
+        ajax("/api/orders/admin/send", "GET", user.jwt)
+            .then(ordersData => {
+                setSendOrders(ordersData);
+            });
+        if (!user.jwt) navigate("/login")
+    }, [user.jwt])
 
     return (
         <main className="orders-admin">
@@ -74,8 +83,9 @@ const AdminOrders = () => {
                                                 <></>
                                             }
                                             <button
-                                            onClick={() => startProcessingOrder(order.keyOrderProduct)}
-                                            >Send Order</button>
+                                                onClick={() => startProcessingOrder(order.keyOrderProduct)}
+                                            >Send Order
+                                            </button>
                                         </div>
                                         :
                                         <></>
@@ -90,58 +100,26 @@ const AdminOrders = () => {
                 <article className="confirmed-orders">
                     <h2>Orders in process of delivery</h2>
                     <ul className="confirmed-orders-list">
+                        {sentOrders ? (
+                            <div className="confirmed-orders-list-container">
+                                {sentOrders.map((sendOrders) => (
+                                    <div className="confirmed-orders-list-container-details">
+                                        <h5>Recipient: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
+                                        <p>Address: {sendOrders.user.address}</p>
+                                        <p>Total Price = {sendOrders.totalPrice} lv.</p>
+                                    </div>
 
+                                ))}
+                            </div>
+                        ) : (
+                            <></>
+                        )}
                     </ul>
                 </article>
             </section>
         </main>
 
 
-        // <main className="orders-admin">
-        //     <NavBar/>
-        //     {orders ? (
-        //         <article className="orders-admin-container">
-        //             {orders.map((order) => (
-        //                 currentUser !== order.users.username
-        //                     ?
-        //                     <div>{currentUser = order.users.username}
-        //                         <div className="orders-admin-container-items"
-        //                              key={order.id}
-        //                         >
-        //                             <h4>User name: {order.users.username}</h4>
-        //                             {orders ? (
-        //                                 <div key={order.users.id}>
-        //                                     {orders.map((userOrder) =>
-        //                                         userOrder.users.username === order.users.username
-        //                                             ?
-        //                                             <div className="orders-admin-container-items-userOrder">
-        //                                                 <div className="orders-admin-container-p.name">Product
-        //                                                     name: {userOrder.productName}</div>
-        //                                                 <div className="orders-admin-container-p.price"> Price: {userOrder.price}</div>
-        //
-        //                                             </div>
-        //                                             :
-        //                                             <></>
-        //                                     )}
-        //                                     <div className="orders-admin-container-address"
-        //                                     >Address: {order.users.address}</div>
-        //                                     <button
-        //                                         onClick={() => startProcessingOrder(order.users.id)}
-        //                                     >Make order in Progress</button>
-        //                                 </div>
-        //                             ) : (
-        //                                 <></>
-        //                             )}
-        //                         </div>
-        //                     </div>
-        //                     :
-        //                     <></>
-        //             ))}
-        //         </article>
-        //     ) : (
-        //         <h4>No Orders for processing</h4>
-        //     )}
-        // </main>
     )
 }
 export default AdminOrders;
