@@ -35,51 +35,71 @@ const AdminOrders = () => {
     }
 
     return (
+
         <main className="orders-admin">
             <NavBar/>
-            {orders ? (
-                <article className="orders-admin-container">
-                    {orders.map((order) => (
-                        currentUser !== order.users.username
-                            ?
-                            <div>{currentUser = order.users.username}
-                                <div className="orders-admin-container-items"
-                                     key={order.id}
-                                >
-                                    <h4>User name: {order.users.username}</h4>
-                                    {orders ? (
-                                        <div key={order.users.id}>
-                                            {orders.map((userOrder) =>
-                                                userOrder.users.username === order.users.username
-                                                    ?
-                                                    <div className="orders-admin-container-items-userOrder">
-                                                        <div className="orders-admin-container-p.name">Product
-                                                            name: {userOrder.productName}</div>
-                                                        <div className="orders-admin-container-p.price"> Price: {userOrder.price}</div>
+            <section className="admin-bord-section">
+                <article className="unconfirmed-orders">
+                    <h2>Orders in processing</h2>
+                    <ul className="unconfirmed-orders-list">
 
-                                                    </div>
-                                                    :
-                                                    <></>
-                                            )}
-                                            <div className="orders-admin-container-address"
-                                            >Address: {order.users.address}</div>
-                                            <button
-                                                onClick={() => startProcessingOrder(order.users.id)}
-                                            >Make order in Progress</button>
-                                        </div>
-                                    ) : (
-                                        <></>
-                                    )}
-                                </div>
-                            </div>
-                            :
-                            <></>
-                    ))}
+                    </ul>
                 </article>
-            ) : (
-                <h4>No Orders for processing</h4>
-            )}
+                <article className="confirmed-orders">
+                    <h2>Confirmed orders</h2>
+                    <ul className="confirmed-orders-list">
+
+                    </ul>
+                </article>
+            </section>
         </main>
+
+
+        // <main className="orders-admin">
+        //     <NavBar/>
+        //     {orders ? (
+        //         <article className="orders-admin-container">
+        //             {orders.map((order) => (
+        //                 currentUser !== order.users.username
+        //                     ?
+        //                     <div>{currentUser = order.users.username}
+        //                         <div className="orders-admin-container-items"
+        //                              key={order.id}
+        //                         >
+        //                             <h4>User name: {order.users.username}</h4>
+        //                             {orders ? (
+        //                                 <div key={order.users.id}>
+        //                                     {orders.map((userOrder) =>
+        //                                         userOrder.users.username === order.users.username
+        //                                             ?
+        //                                             <div className="orders-admin-container-items-userOrder">
+        //                                                 <div className="orders-admin-container-p.name">Product
+        //                                                     name: {userOrder.productName}</div>
+        //                                                 <div className="orders-admin-container-p.price"> Price: {userOrder.price}</div>
+        //
+        //                                             </div>
+        //                                             :
+        //                                             <></>
+        //                                     )}
+        //                                     <div className="orders-admin-container-address"
+        //                                     >Address: {order.users.address}</div>
+        //                                     <button
+        //                                         onClick={() => startProcessingOrder(order.users.id)}
+        //                                     >Make order in Progress</button>
+        //                                 </div>
+        //                             ) : (
+        //                                 <></>
+        //                             )}
+        //                         </div>
+        //                     </div>
+        //                     :
+        //                     <></>
+        //             ))}
+        //         </article>
+        //     ) : (
+        //         <h4>No Orders for processing</h4>
+        //     )}
+        // </main>
     )
 }
 export default AdminOrders;

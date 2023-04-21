@@ -287,3 +287,8 @@
     display: none;
 }
 
+.admin-bord-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
