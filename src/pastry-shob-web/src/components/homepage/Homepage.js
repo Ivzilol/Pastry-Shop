@@ -12,6 +12,7 @@ const Homepage = () => {
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState(null);
 
 
     useEffect(() => {
@@ -22,12 +23,21 @@ const Homepage = () => {
         if (!user.jwt) navigate("/login")
     }, [user.jwt]);
 
-    const handleClickOpenProductDetails = () => {
+    const handleClickOpenProductDetails = (id) => {
         setOpen(true);
+        getCurrentProduct();
     }
 
     const handleClickCloseProductDetails = () => {
         setOpen(false);
+    }
+
+    function getCurrentProduct(id) {
+        ajax(`/api/products/${id}`, "GET", user.jwt)
+            .then(productData => {
+                setCurrentProduct(productData);
+            })
+
     }
 
     return (
@@ -45,15 +55,30 @@ const Homepage = () => {
                             className="home-page-container-items"
                             key={product.id}
                         >
-                            <a onClick={handleClickOpenProductDetails}
+                            <a onClick={() => handleClickOpenProductDetails(product.id)}
                                type="submit"
                                target="_blank"
                                rel="noreferrer"
                             >
                                 <img className="home-page-container-item-img" src={product.imageUrl} alt="new"/>
                             </a>
-                            <Dialog open={open} onClose={handleClickCloseProductDetails}>
-
+                            <Dialog classes="product-details"
+                                open={open} onClose={handleClickCloseProductDetails}>
+                                <section
+                                    className="product-details"
+                                    key={product.id}>
+                                    <div>
+                                        {currentProduct ? (
+                                            <div className="product-details-selected-product">
+                                                {currentProduct.map(currentProduct => (
+                                                    <p>{currentProduct.price}</p>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </div>
+                                </section>
                             </Dialog>
                             <p className="home-page-container-item"
                             >{product.name}</p>

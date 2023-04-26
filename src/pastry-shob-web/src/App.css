@@ -323,3 +323,9 @@
     height: 200px;
     border-radius: 20px;
 }
+
+
+.product-details-title{
+    font-size: 50px;
+    text-align: end;
+}
