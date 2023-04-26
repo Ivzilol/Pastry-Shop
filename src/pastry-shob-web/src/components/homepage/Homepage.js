@@ -38,9 +38,9 @@ const Homepage = () => {
                                     className="home-page-container-item-img" src={product.imageUrl} alt="new"
                                 />
                                 <p className="home-page-container-item"
-                                >Product name: {product.name}</p>
+                                >{product.name}</p>
                                 <p className="home-page-container-item"
-                                >Product price: {product.price}</p>
+                                >Цена: {product.price}</p>
                             </div>
                         ))}
                     </article>
