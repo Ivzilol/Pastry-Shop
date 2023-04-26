@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 import StatusBadge from "../StatusBadge/StatusBadge";
 
 const ShopsViewUser = () => {
