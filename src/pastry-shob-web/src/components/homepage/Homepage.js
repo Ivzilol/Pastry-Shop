@@ -34,18 +34,13 @@ const Homepage = () => {
                                 className="home-page-container-items"
                                 key={product.id}
                             >
-                                <p className="home-page-container-items-title"
-                                >Product shopName: {product.shops.name}</p>
+                                <img
+                                    className="home-page-container-item-img" src={product.imageUrl} alt="new"
+                                />
                                 <p className="home-page-container-item"
                                 >Product name: {product.name}</p>
                                 <p className="home-page-container-item"
                                 >Product price: {product.price}</p>
-                                <p className="home-page-container-item"
-                                >Product description: {product.description}</p>
-                                <img
-                                    className="home-page-container-item-img" src={product.imageUrl} alt="new"
-                                />
-
                             </div>
                         ))}
                     </article>
