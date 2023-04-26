@@ -329,3 +329,17 @@
     font-size: 50px;
     text-align: end;
 }
+
+.product-details-selected-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+.product-details-selected-product-img {
+    width: 200px;
+    height: 200px;
+}

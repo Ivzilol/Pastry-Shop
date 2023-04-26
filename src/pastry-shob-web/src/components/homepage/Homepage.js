@@ -23,12 +23,12 @@ const Homepage = () => {
         if (!user.jwt) navigate("/login")
     }, [user.jwt]);
 
-    const handleClickOpenProductDetails = (id) => {
+    function handleClickOpenProductDetails(id) {
         setOpen(true);
-        getCurrentProduct();
+        getCurrentProduct(id);
     }
 
-    const handleClickCloseProductDetails = () => {
+    function handleClickCloseProductDetails() {
         setOpen(false);
     }
 
@@ -36,8 +36,7 @@ const Homepage = () => {
         ajax(`/api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setCurrentProduct(productData);
-            })
-
+            });
     }
 
     return (
@@ -49,20 +48,20 @@ const Homepage = () => {
             <h4 className="home-page-most-ordered-title">Most ordered products!</h4>
             {products ? (
                 <article className="home-page-container">
-
                     {products.map((product) => (
                         <div
                             className="home-page-container-items"
                             key={product.id}
                         >
                             <a onClick={() => handleClickOpenProductDetails(product.id)}
+                               id="submit"
                                type="submit"
                                target="_blank"
                                rel="noreferrer"
                             >
                                 <img className="home-page-container-item-img" src={product.imageUrl} alt="new"/>
                             </a>
-                            <Dialog classes="product-details"
+                            <Dialog
                                 open={open} onClose={handleClickCloseProductDetails}>
                                 <section
                                     className="product-details"
@@ -70,9 +69,11 @@ const Homepage = () => {
                                     <div>
                                         {currentProduct ? (
                                             <div className="product-details-selected-product">
-                                                {currentProduct.map(currentProduct => (
-                                                    <p>{currentProduct.price}</p>
-                                                ))}
+                                                <img className="product-details-selected-product-img" src={currentProduct.imageUrl} alt="new"/>
+                                                <h4>{currentProduct.name}</h4>
+                                                <p>Cena: {currentProduct.price}</p>
+                                                <p>{currentProduct.description}</p>
+
                                             </div>
                                         ) : (
                                             <></>
@@ -84,7 +85,6 @@ const Homepage = () => {
                             >{product.name}</p>
                             <p className="home-page-container-item"
                             >Цена: {product.price}</p>
-
                         </div>
                     ))}
                 </article>

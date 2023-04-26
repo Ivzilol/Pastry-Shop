@@ -23,4 +23,8 @@ public class HomeService {
         mostTwoOrderedProducts.add(mostOrderedProducts.get(1));
         return mostTwoOrderedProducts;
     }
+
+    public Products findCurrentProduct(Long id) {
+        return this.productRepository.findProductById(id);
+    }
 }
