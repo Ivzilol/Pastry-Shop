@@ -42,6 +42,9 @@ public class Products {
     @ManyToOne
     public Users admin;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Users> userLikes;
+
     public Products() {
 
     }
@@ -132,5 +135,13 @@ public class Products {
 
     public void setAdmin(Users admin) {
         this.admin = admin;
+    }
+
+    public Set<Users> getUserLikes() {
+        return userLikes;
+    }
+
+    public void setUserLikes(Set<Users> userLikes) {
+        this.userLikes = userLikes;
     }
 }

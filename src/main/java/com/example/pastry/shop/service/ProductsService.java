@@ -20,9 +20,12 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository) {
+    private final UsersRepository usersRepository;
+
+    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, UsersRepository usersRepository) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
+        this.usersRepository = usersRepository;
     }
 
     public Products createProduct(CreateProductDTO productDTO) {
@@ -62,5 +65,9 @@ public class ProductsService {
 
     public Optional<Products> findByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    public Products likeProduct(Long id, Users user) {
+        return null;
     }
 }

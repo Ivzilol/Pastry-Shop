@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     Set<Products> findByUser(Users user);
 
     Optional<Products> findByName(String name);
+
+    Products findProductById(Long id);
 }
