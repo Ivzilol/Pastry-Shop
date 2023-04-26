@@ -72,4 +72,10 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> likeProduct(@PathVariable Long id
+                                         ) {
+        return null;
+    }
 }

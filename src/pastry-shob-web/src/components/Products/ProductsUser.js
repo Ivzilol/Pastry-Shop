@@ -43,6 +43,13 @@ const ProductsUser = () => {
             })
 
     }
+
+    function likeProduct(id) {
+        ajax(`/api/products/${id}`, "PATCH", user.jwt, {
+            like: 1
+        })
+            .then()
+    }
     return (
         <main className="products-users">
             <NavBar/>
@@ -67,7 +74,7 @@ const ProductsUser = () => {
 
                             <div className="products-container-item-button"
                             >
-                                <div>
+                                <div className="products-container-item-button-container">
                                     <button
                                         id="submit"
                                         type="button"
@@ -78,6 +85,11 @@ const ProductsUser = () => {
                                     >
                                         Order Product
                                     </button>
+                                    <button
+                                    id="submit"
+                                    type="button"
+                                    onClick={() => likeProduct(product.id)}
+                                    >Like product </button>
                                 </div>
                             </div>
                         </div>
