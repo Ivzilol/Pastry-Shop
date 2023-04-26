@@ -305,3 +305,17 @@
 .orderKey {
     display: none;
 }
+
+.home-page-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+.home-page-container-item-img {
+    width: 400px;
+    height: 400px;
+    border-radius: 20px;
+}
