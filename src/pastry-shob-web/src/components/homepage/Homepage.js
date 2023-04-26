@@ -25,31 +25,33 @@ const Homepage = () => {
             <div className="main-title">
                 <h1>Сладкарницата на Мама</h1>
             </div>
-            {products ? (
-                <article className="home-page-container">
-                    {products.map((product) => (
-                        <div
-                            className="home-page-container-items"
-                            key={product.id}
-                        >
-                            <p className="home-page-container-items-title"
-                            >Product shopName: {product.shops.name}</p>
-                            <p className="home-page-container-item"
-                            >Product name: {product.name}</p>
-                            <p className="home-page-container-item"
-                            >Product price: {product.price}</p>
-                            <p className="home-page-container-item"
-                            >Product description: {product.description}</p>
-                            <img
-                                className="home-page-container-item-img" src={product.imageUrl} alt="new"
-                            />
+            <h4 className="home-page-most-ordered-title">Most ordered products!</h4>
+                {products ? (
+                    <article className="home-page-container">
 
-                        </div>
-                    ))}
-                </article>
-            ) : (
-                <></>
-            )}
+                        {products.map((product) => (
+                            <div
+                                className="home-page-container-items"
+                                key={product.id}
+                            >
+                                <p className="home-page-container-items-title"
+                                >Product shopName: {product.shops.name}</p>
+                                <p className="home-page-container-item"
+                                >Product name: {product.name}</p>
+                                <p className="home-page-container-item"
+                                >Product price: {product.price}</p>
+                                <p className="home-page-container-item"
+                                >Product description: {product.description}</p>
+                                <img
+                                    className="home-page-container-item-img" src={product.imageUrl} alt="new"
+                                />
+
+                            </div>
+                        ))}
+                    </article>
+                ) : (
+                    <></>
+                )}
         </main>
     );
 };
