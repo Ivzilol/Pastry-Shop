@@ -41,8 +41,8 @@ public class Users implements UserDetails {
     @JsonIgnore
     private List<Authority> authorities = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "userLikes", fetch = FetchType.EAGER)
-    private Set<Products> likeProducts;
+//    @ManyToMany(mappedBy = "userLikes", fetch = FetchType.EAGER)
+//    private Set<Products> likeProducts;
 
     public Users() {
     }
@@ -137,11 +137,11 @@ public class Users implements UserDetails {
         return true;
     }
 
-    public Set<Products> getLikeProducts() {
-        return likeProducts;
-    }
-
-    public void setLikeProducts(Set<Products> likeProducts) {
-        this.likeProducts = likeProducts;
-    }
+//    public Set<Products> getLikeProducts() {
+//        return likeProducts;
+//    }
+//
+//    public void setLikeProducts(Set<Products> likeProducts) {
+//        this.likeProducts = likeProducts;
+//    }
 }

@@ -24,8 +24,6 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-//    @Value("localhost")
-//    private String domain;
 
     public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
@@ -63,15 +61,4 @@ public class AuthController {
             return ResponseEntity.ok(false);
         }
     }
-
-//    @GetMapping("/logout")
-//    public ResponseEntity<?> logout () {
-//        ResponseCookie cookie = ResponseCookie.from("jwt", "")
-//                .domain(domain)
-//                .path("/")
-//                .maxAge(0)
-//                .build();
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.SET_COOKIE, cookie.toString()).body("ok");
-//    }
 }

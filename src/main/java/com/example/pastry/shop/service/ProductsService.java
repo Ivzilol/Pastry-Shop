@@ -42,13 +42,22 @@ public class ProductsService {
     }
 
     public Set<Products> findByUser(Users user) {
-        boolean isAdmin = user.getAuthorities()
-                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+        boolean isAdmin = isAdmin(user);
         if (isAdmin) {
             return productRepository.findByAdmin(user);
         } else {
             return productRepository.findByUser(user);
         }
+    }
+
+    private static boolean isAdmin(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+    }
+
+    private static boolean isUser(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
     }
 
     public Optional<Products> findById(Long productId) {
@@ -67,7 +76,16 @@ public class ProductsService {
         return productRepository.findByName(name);
     }
 
-    public Products likeProduct(Long id, Users user) {
-        return null;
-    }
+//    public Products likeProduct(Long id, Users user) {
+//        Products product = this.productRepository.findProductById(id);
+//        boolean isUser = isUser(user);
+//        if (isUser) {
+//            product.getUserLikes().add(user);
+//            product.setLikes(product.getLikes() + 1);
+//            this.productRepository.save(product);
+//            return product;
+//        } else {
+//            return null;
+//        }
+//    }
 }

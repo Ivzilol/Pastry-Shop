@@ -48,6 +48,8 @@ public class OrderService {
         Optional<Users> byUsername = this.usersRepository.findByUsername(user.getUsername());
         newOrder.setUsers(byUsername.get());
         Optional<Products> product = productRepository.findById(id);
+        Products productIncreaseNumberOrders = this.productRepository.findProductById(id);
+        productIncreaseNumberOrders.setNumberOrders(productIncreaseNumberOrders.getNumberOrders() + 1);
         newOrder.setStatus("newOrder");
         newOrder.setPrice(product.get().getPrice());
         newOrder.setProductName(product.get().getName());
