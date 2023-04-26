@@ -21,6 +21,8 @@ public class HomeService {
         List<Products> mostTwoOrderedProducts = new ArrayList<>();
         mostTwoOrderedProducts.add(mostOrderedProducts.get(0));
         mostTwoOrderedProducts.add(mostOrderedProducts.get(1));
+        mostTwoOrderedProducts.add(mostOrderedProducts.get(2));
+        mostTwoOrderedProducts.add(mostOrderedProducts.get(3));
         return mostTwoOrderedProducts;
     }
 

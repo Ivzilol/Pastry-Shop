@@ -3,8 +3,8 @@ import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
-import {ModalDialog} from "react-bootstrap";
 import {Dialog} from "@mui/material";
+
 
 const Homepage = () => {
 
@@ -39,6 +39,9 @@ const Homepage = () => {
             });
     }
 
+
+
+
     return (
         <main className="home-page">
             <NavBar/>
@@ -71,9 +74,11 @@ const Homepage = () => {
                                             <div className="product-details-selected-product">
                                                 <img className="product-details-selected-product-img" src={currentProduct.imageUrl} alt="new"/>
                                                 <h4>{currentProduct.name}</h4>
-                                                <p>Cena: {currentProduct.price}</p>
+                                                <p>Цена: {currentProduct.price} лв.</p>
                                                 <p>{currentProduct.description}</p>
-
+                                                <button
+                                                className="product-details-selected-product-button"
+                                                >Order</button>
                                             </div>
                                         ) : (
                                             <></>

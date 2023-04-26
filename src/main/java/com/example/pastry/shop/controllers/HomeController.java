@@ -26,9 +26,9 @@ public class HomeController {
         return ResponseEntity.ok(mostOrderedProducts);
     }
 
-    @GetMapping("/api/products/{id}")
-    public ResponseEntity<?> getCurrentProduct(@PathVariable Long id) {
-        Products product = this.homeService.findCurrentProduct(id);
-        return ResponseEntity.ok(product);
-    }
+//    @GetMapping("/api/products/{id}")
+//    public ResponseEntity<?> getCurrentProduct(@PathVariable Long id) {
+//        Products product = this.homeService.findCurrentProduct(id);
+//        return ResponseEntity.ok(product);
+//    }
  }

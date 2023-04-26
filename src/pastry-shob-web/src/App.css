@@ -334,12 +334,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: white;
 }
 
-
-
 .product-details-selected-product-img {
-    width: 200px;
-    height: 200px;
+    text-align: end;
+    width: 300px;
+    height: 300px;
+}
+
+.product-details-selected-product-button {
+    margin-top: 10px;
+    padding: 7px;
+    width: 150px;
+    border: none;
+    background-color: aqua;
+    border-radius: 20px;
 }
