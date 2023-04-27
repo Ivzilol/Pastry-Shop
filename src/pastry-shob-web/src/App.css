@@ -354,3 +354,25 @@
     background-color: aqua;
     border-radius: 20px;
 }
+
+.close {
+    color: black;
+    text-decoration: none;
+    align-self: end;
+    margin-right: 10px;
+}
+
+.container-img {
+    position: relative;
+}
+
+.home-page-container-item-img {
+    display: block;
+}
+
+.home-page-container-item-current-icon {
+    position: absolute;
+    bottom: 90px;
+    left: 90px;
+    color: white;
+}

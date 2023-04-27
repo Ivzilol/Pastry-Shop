@@ -4,6 +4,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
+import {FaSearch} from 'react-icons/fa';
 
 
 const Homepage = () => {
@@ -64,13 +65,18 @@ const Homepage = () => {
                             className="home-page-container-items"
                             key={product.id}
                         >
-                            <a onClick={() => handleClickOpenProductDetails(product.id)}
+                            <a className="container-img"
+                                onClick={() => handleClickOpenProductDetails(product.id)}
                                id="submit"
                                type="submit"
                                target="_blank"
                                rel="noreferrer"
                             >
-                                <img className="home-page-container-item-img" src={product.imageUrl} alt="new"/>
+                                <img className="home-page-container-item-img" src={product.imageUrl} alt="new"
+                                />
+                                <FaSearch
+                                    className="home-page-container-item-current-icon"
+                                />
                             </a>
                             <Dialog
                                 open={open} onClose={handleClickCloseProductDetails}>
