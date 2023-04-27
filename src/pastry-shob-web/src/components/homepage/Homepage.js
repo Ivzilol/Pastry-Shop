@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
+import VisibilitySensor from 'react-visibility-sensor';
+import {isVisible} from "bootstrap/js/src/util";
 
 
 const Homepage = () => {
@@ -15,7 +17,6 @@ const Homepage = () => {
     const [open, setOpen] = useState(false);
     const [currentProduct, setCurrentProduct] = useState(null);
     const [product, setProduct] = useState(null);
-
 
     useEffect(() => {
         ajax("api/", "GET", user.jwt)
@@ -41,7 +42,6 @@ const Homepage = () => {
             });
     }
 
-
     function orderProducts(id) {
         ajax(`/api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
@@ -66,7 +66,7 @@ const Homepage = () => {
                             key={product.id}
                         >
                             <a className="container-img"
-                                onClick={() => handleClickOpenProductDetails(product.id)}
+                               onClick={() => handleClickOpenProductDetails(product.id)}
                                id="submit"
                                type="submit"
                                target="_blank"
@@ -78,6 +78,7 @@ const Homepage = () => {
                                     className="home-page-container-item-current-icon"
                                 />
                             </a>
+
                             <Dialog
                                 open={open} onClose={handleClickCloseProductDetails}>
                                 <section
