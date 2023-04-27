@@ -13,6 +13,7 @@ const Homepage = () => {
     let navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [currentProduct, setCurrentProduct] = useState(null);
+    const [product, setProduct] = useState(null);
 
 
     useEffect(() => {
@@ -40,7 +41,14 @@ const Homepage = () => {
     }
 
 
+    function orderProducts(id) {
+        ajax(`/api/orders/${id}`, "POST", user.jwt, product)
+            .then(productData => {
+                setProduct(productData);
+                alert("Successfully add the product to your cart")
+            })
 
+    }
 
     return (
         <main className="home-page">
@@ -78,6 +86,9 @@ const Homepage = () => {
                                                 <p>{currentProduct.description}</p>
                                                 <button
                                                 className="product-details-selected-product-button"
+                                                id="submit"
+                                                type="button"
+                                                onClick={() => orderProducts(currentProduct.id)}
                                                 >Order</button>
                                             </div>
                                         ) : (
