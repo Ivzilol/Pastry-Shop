@@ -80,16 +80,24 @@ const Homepage = () => {
                                     <div>
                                         {currentProduct ? (
                                             <div className="product-details-selected-product">
-                                                <img className="product-details-selected-product-img" src={currentProduct.imageUrl} alt="new"/>
+                                                <a className="close"
+                                                   onClick={handleClickCloseProductDetails}
+                                                   id="submit"
+                                                   type="submit"
+                                                >X
+                                                </a>
+                                                <img className="product-details-selected-product-img"
+                                                     src={currentProduct.imageUrl} alt="new"/>
                                                 <h4>{currentProduct.name}</h4>
                                                 <p>Цена: {currentProduct.price} лв.</p>
                                                 <p>{currentProduct.description}</p>
                                                 <button
-                                                className="product-details-selected-product-button"
-                                                id="submit"
-                                                type="button"
-                                                onClick={() => orderProducts(currentProduct.id)}
-                                                >Order</button>
+                                                    className="product-details-selected-product-button"
+                                                    id="submit"
+                                                    type="button"
+                                                    onClick={() => orderProducts(currentProduct.id)}
+                                                >Order
+                                                </button>
                                             </div>
                                         ) : (
                                             <></>
