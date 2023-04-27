@@ -432,3 +432,39 @@
 .not-login-user {
     text-align: center;
 }
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 10px;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    padding: 30px 30px;
+}
+
+.footer-first, .footer-second, .footer-third, .footer-four {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.footer-first-title {
+    text-decoration: none;
+    color: white;
+    padding-bottom: 10px;
+    font-size: 20px;
+
+}
+
+.footer-first-item {
+    text-decoration: none;
+    color: #b8b5ad;
+    padding-bottom: 10px;
+}
+
+.footer-four {
+    align-items: start;
+    margin-top: -65px;
+}

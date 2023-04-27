@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
+import Footer from "../Footer/Footer";
 
 
 const Homepage = () => {
@@ -213,6 +214,7 @@ const Homepage = () => {
             ) : (
                 <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
             )}
+            <Footer/>
         </main>
     );
 };
