@@ -22,7 +22,7 @@ function NavBar() {
     return (
         <section className="nav">
             <article className="nav-home">
-                <a href="/">Сладкарницата ......</a>
+                <a href="/">СЛАДКАРНИЦАТА НА МАМА</a>
             </article>
             <div>
                 {user && user.jwt ? (

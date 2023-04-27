@@ -1,12 +1,10 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
-import VisibilitySensor from 'react-visibility-sensor';
-import {isVisible} from "bootstrap/js/src/util";
 
 
 const Homepage = () => {
@@ -51,13 +49,28 @@ const Homepage = () => {
 
     }
 
+    function toLogin() {
+        navigate("/login");
+    }
+
     return (
         <main className="home-page">
             <NavBar/>
-            <div className="main-title">
-                <h1>Сладкарницата на Мама</h1>
-            </div>
-            <h4 className="home-page-most-ordered-title">Most ordered products!</h4>
+            <section className="home-page-first"
+            onClick={toLogin}
+            >
+                <div className="home-page-first-left">
+                        <img className="home-page-first-left-picture" src="http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg" alt="img"/>
+                </div>
+                <div className="home-page-first-right">
+                    <h6>РЪЧНО ПРИГОТВЕНИ ДОМАШНИ ВКУСОТИИ</h6>
+                    <h1>ЗА ВСЕКИ ВКУС</h1>
+                    <p>изберете от любимите си домашни вкусотии</p>
+                    <p>поръчайте онлайн с доставка до вашия дом</p>
+                </div>
+            </section>
+            <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
+            <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
             {products ? (
                 <article className="home-page-container">
                     {products.map((product) => (

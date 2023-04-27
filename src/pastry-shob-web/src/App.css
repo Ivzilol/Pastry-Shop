@@ -314,8 +314,16 @@
 }
 
 .home-page-most-ordered-title {
+    font-size: 40px;
+    font-style: italic;
     text-align: center;
     margin: 20px 0;
+}
+
+.home-page-most-ordered-description {
+    text-align: center;
+    margin: 20px 0;
+    color: #cdc1c1;
 }
 
 .home-page-container-item-img {
@@ -375,4 +383,48 @@
     bottom: 90px;
     left: 90px;
     color: white;
+}
+
+.home-page-container {
+    border: 2px solid #ef7d00;
+    padding: 20px 0;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+.home-page-first {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 500px;
+    margin: 20px 0;
+    background-color: #e592b9;
+
+}
+
+.home-page-first-left {
+    width: 50%;
+    height: 500px;
+    align-items: start;
+}
+
+.home-page-first-left-picture {
+    width: auto;
+    height: 500px;
+}
+
+.home-page-first-right {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.home-page-first-right h6 {
+    color: white;
+}
+
+.home-page-first-right p {
+    color: white;
+    padding: 0;
+    margin: 0;
 }
