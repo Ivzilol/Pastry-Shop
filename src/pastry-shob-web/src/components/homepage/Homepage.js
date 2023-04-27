@@ -22,7 +22,7 @@ const Homepage = () => {
             .then(productsData => {
                 setProducts(productsData);
             });
-        if (!user.jwt) navigate("/login")
+
     }, [user.jwt]);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Homepage = () => {
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
             });
-        if (!user.jwt) navigate("/login")
+
     }, [user.jwt]);
 
     function handleClickOpenProductDetails(id) {
@@ -82,7 +82,7 @@ const Homepage = () => {
             </section>
             <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
             <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
-            {products ? (
+            {products && user.jwt ? (
                 <article className="home-page-container">
                     {products.map((product) => (
                         <div
@@ -148,7 +148,7 @@ const Homepage = () => {
                 <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
             )}
             <h4 className="home-page-most-ordered-title">ПРЕПОРЪЧАНИ ПРОДУКТИ!</h4>
-            {recommendedProducts ? (
+            {recommendedProducts && user.jwt ? (
                 <article className="home-page-container">
                     {recommendedProducts.map((recommendedProduct) => (
                         <div
@@ -211,7 +211,7 @@ const Homepage = () => {
                     ))}
                 </article>
             ) : (
-                <></>
+                <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
             )}
         </main>
     );
