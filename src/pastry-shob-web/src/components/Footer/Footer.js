@@ -33,6 +33,8 @@ const Footer = () => {
                     <a className="footer-first-item" href="/">Email: ivailoali@gmail.com</a>
                 </article>
             </section>
+            <hr className="footer-line"/>
+            <p className="footer-author">© 2023 Ivaylo Alichkov All Rights Reserved.</p>
         </footer>
     )
 }
