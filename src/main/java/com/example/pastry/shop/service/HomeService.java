@@ -18,15 +18,21 @@ public class HomeService {
 
     public List<Products> findMostOrderedProducts() {
         List<Products> mostOrderedProducts = this.productRepository.findMostOrderedProducts();
-        List<Products> mostTwoOrderedProducts = new ArrayList<>();
-        mostTwoOrderedProducts.add(mostOrderedProducts.get(0));
-        mostTwoOrderedProducts.add(mostOrderedProducts.get(1));
-        mostTwoOrderedProducts.add(mostOrderedProducts.get(2));
-        mostTwoOrderedProducts.add(mostOrderedProducts.get(3));
-        return mostTwoOrderedProducts;
+        List<Products> mostFourOrderedProducts = new ArrayList<>();
+        mostFourOrderedProducts.add(mostOrderedProducts.get(0));
+        mostFourOrderedProducts.add(mostOrderedProducts.get(1));
+        mostFourOrderedProducts.add(mostOrderedProducts.get(2));
+        mostFourOrderedProducts.add(mostOrderedProducts.get(3));
+        return mostFourOrderedProducts;
     }
 
-    public Products findCurrentProduct(Long id) {
-        return this.productRepository.findProductById(id);
+    public List<Products> findRecommendedProducts() {
+        List<Products> recommendedProducts = this.productRepository.recommendedProducts();
+        List<Products> fourRecommendedProducts = new ArrayList<>();
+        fourRecommendedProducts.add(recommendedProducts.get(0));
+        fourRecommendedProducts.add(recommendedProducts.get(1));
+        fourRecommendedProducts.add(recommendedProducts.get(2));
+        fourRecommendedProducts.add(recommendedProducts.get(3));
+        return fourRecommendedProducts;
     }
 }

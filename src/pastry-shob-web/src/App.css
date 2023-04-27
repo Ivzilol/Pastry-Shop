@@ -399,7 +399,7 @@
     height: 500px;
     margin: 20px 0;
     background-color: #e592b9;
-
+    cursor: pointer;
 }
 
 .home-page-first-left {
@@ -427,4 +427,8 @@
     color: white;
     padding: 0;
     margin: 0;
+}
+
+.not-login-user {
+    text-align: center;
 }
