@@ -1,6 +1,5 @@
 package com.example.pastry.shop.validation.annotation;
 
-import com.example.pastry.shop.validation.UniqueEmailValidator;
 import com.example.pastry.shop.validation.UniqueProductNameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

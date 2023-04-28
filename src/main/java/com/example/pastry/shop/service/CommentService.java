@@ -9,7 +9,6 @@ import com.example.pastry.shop.repository.ShopsRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Service

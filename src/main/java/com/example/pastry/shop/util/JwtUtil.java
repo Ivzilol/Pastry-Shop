@@ -1,6 +1,5 @@
 package com.example.pastry.shop.util;
 
-import com.example.pastry.shop.model.entity.Authority;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
