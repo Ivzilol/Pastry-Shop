@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, Card, Row} from "react-bootstrap";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
@@ -15,7 +15,6 @@ const ShopsViewAdmin = () => {
         ajax("api/shops", "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
-                console.log(shopData);
             });
         if (!user.jwt) navigate("/login");
     }, [user.jwt])
@@ -71,26 +70,6 @@ const ShopsViewAdmin = () => {
                     marginTop: '10px'
                 }}
                 onClick={() => createShop()}>Submit New Shop</Button>
-            <Row>
-                <Col>
-                    <button
-                        style={{
-                            cursor: 'pointer',
-                            backgroundColor: 'blue',
-                            borderRadius: '10px',
-                            border: 'none',
-                            marginTop: '10px',
-                            width: '150px',
-                            padding: '5px',
-                            color: 'white'
-                        }}
-                        onClick={() => {
-                            user.setJwt(null);
-                            navigate('/login')
-                        }}>Logout
-                    </button>
-                </Col>
-            </Row>
         </div>
     );
 };

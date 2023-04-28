@@ -1,16 +1,14 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ajax from "../../Services/FetchService";
-import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
-import {Card, Col, Row} from "react-bootstrap";
-import StatusBadge from "../StatusBadge/StatusBadge";
 import NavBar from "../NavBar/NavBar";
 
 const ShopsViewUser = () => {
 
     const user = useUser();
     const [shops, setShops] = useState(null);
+    const {shopId} = useParams();
     let navigate = useNavigate();
 
     useEffect(() => {
@@ -20,6 +18,7 @@ const ShopsViewUser = () => {
             });
         if (!user.jwt) navigate("/login");
     }, [user.jwt]);
+
 
     return (
 
@@ -38,6 +37,15 @@ const ShopsViewUser = () => {
                                 <p>Address: {shops.address} </p>
                                 <p>Status: {shops.status}</p>
                             </div>
+                            <button className="shops-view-button"
+                                id="submit"
+                                type="button"
+                                onClick={() => {
+                                    window.location.href = `/shops/${shops.id}`
+                                }}
+                            >
+                                Comments
+                            </button>
                         </article>
                     ))}
                 </section>
