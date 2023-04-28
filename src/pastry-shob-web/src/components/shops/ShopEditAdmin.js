@@ -2,6 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const ShopEditAdmin = () => {
 
@@ -42,46 +43,42 @@ const ShopEditAdmin = () => {
             .then(shopData => {
                 setShop(shopData);
             })
+            navigate("/shops");
     }
 
     return (
         <main className="shop-edit-admin">
+            <NavBarAdmin/>
             {shop ? (
                 <section className="shop-edit-admin-container">
                     {shop ? (
                         <div className="shop-edit-admin-container-items">
                             <article className="shop-edit-admin-container-item">
                                 <h6>Name:</h6>
-                                <label>
                                 <input
                                     onChange={(e) => updateShop("name", e.target.value)}
                                     value={shop.name}
                                     type="text"
                                     name="name"
                                 />
-                                </label>
                             </article>
                             <article className="shop-edit-admin-container-item">
                                 <h6>Town:</h6>
-                                <label>
                                 <input
                                     onChange={(e) => updateShop("town", e.target.value)}
                                     value={shop.town}
                                     type="text"
                                     name="town"
                                 />
-                                </label>
                             </article>
                             <article className="shop-edit-admin-container-item">
                                 <h6>Address:</h6>
-                                <label>
                                 <input
                                     onChange={(e) => updateShop("address", e.target.value)}
                                     value={shop.address}
                                     type="text"
                                     name="address"
                                 />
-                                </label>
                             </article>
                             <section className="shop-edit-admin-container-item-buttons">
                                 <button
@@ -98,7 +95,6 @@ const ShopEditAdmin = () => {
             ) : (
                 <></>
             )}
-
         </main>
     )
 }

@@ -489,3 +489,15 @@ footer {
     text-align: center;
     color: white;
 }
+
+.shop-edit-admin-container-items {
+    text-align: center;
+}
+
+.shop-edit-admin-container-item h6 {
+    margin-top: 10px;
+}
+
+.shop-edit-admin-container-item-buttons {
+    margin-top: 10px;
+}
