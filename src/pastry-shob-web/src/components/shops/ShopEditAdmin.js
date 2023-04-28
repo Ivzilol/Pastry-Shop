@@ -62,7 +62,7 @@ const ShopEditAdmin = () => {
             .then(commentsData => {
                 setAllComments(commentsData);
             })
-    })
+    }, [])
 
 
     function handleEditComment(commentId) {
@@ -76,8 +76,11 @@ const ShopEditAdmin = () => {
         setComment(commentCopy);
     }
 
-    function handleDeleteComment() {
-        console.log('Delete ', comment)
+    function DeleteComment(id) {
+        ajax(`/api/comments/${id}`, "DELETE", user.jwt)
+            .then(() => {
+                navigate("/shops");
+            })
     }
 
     function submitComment() {
@@ -97,7 +100,7 @@ const ShopEditAdmin = () => {
                     commentCopy.push(d);
                     setAllComments(commentCopy);
                     setComment(emptyComment);
-                })
+                });
         }
     }
 
@@ -158,18 +161,26 @@ const ShopEditAdmin = () => {
                 <></>
             )}
             <section className="comments-admin">
-                <textarea
-                    onChange={(e) => updateComment(e.target.value)}
-                    value={comment.text}
+                <input className="comments-admin-input"
+                       onChange={(e) => updateComment(e.target.value)}
+                       value={comment.text}
                 >
-                </textarea>
+                </input>
                 <div className="admin-comments-view">
                     {allComments.map(currentComment => (
-                        <Comment
-                            createdBy={currentComment.createdBy}
-                            text={currentComment.text}
-                            id={currentComment.id}
-                        />
+                        <section className="admin-comments-container"
+                                 key={currentComment.id}
+                        >
+                            <article className="admin-comments-items">
+                                <h6>{currentComment.createdBy.username}</h6>
+                                <p>{currentComment.text}</p>
+                                <button
+                                    onClick={() => DeleteComment(currentComment.id)}
+                                >Delete Comment
+                                </button>
+                            </article>
+
+                        </section>
                     ))}
                 </div>
             </section>

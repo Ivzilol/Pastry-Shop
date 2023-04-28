@@ -46,7 +46,7 @@
     height: 22px;
 }
 
-.comments{
+.comments {
     margin-top: 10px;
 
 }
@@ -88,18 +88,19 @@
     font-size: 15px;
     pointer-events: all;
 }
+
 .register {
     padding: 10px 300px;
     height: 700px;
-    background-image:
-            url(
-            "http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg");
+    background-image: url(
+    "http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     align-content: center;
 
 }
+
 .register .register-form {
     color: white;
     display: flex;
@@ -109,7 +110,7 @@
     align-self: center;
 }
 
-.register .register-form  input {
+.register .register-form input {
     border-radius: 20px;
     padding: 5px;
     width: 400px;
@@ -117,17 +118,17 @@
     border: 1px solid white;
 }
 
-.register .register-form  input::placeholder {
+.register .register-form input::placeholder {
     color: white;
     padding-left: 10px;
 }
 
-.register .register-form  input, select, textarea {
+.register .register-form input, select, textarea {
     color: white;
     padding-left: 10px;
 }
 
-.register .register-form  button {
+.register .register-form button {
     margin-top: 10px;
     border: 1px solid white;
     border-radius: 20px;
@@ -152,7 +153,7 @@
     padding: 10px 90px;
 }
 
-.nav .nav-home a{
+.nav .nav-home a {
     text-decoration: none;
     padding: 10px 90px;
     color: #ef7d00;
@@ -201,9 +202,8 @@
 
 .products {
     height: 600px;
-    background-image:
-            url(
-            "https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg");
+    background-image: url(
+    "https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -333,7 +333,7 @@
 }
 
 
-.product-details-title{
+.product-details-title {
     font-size: 50px;
     text-align: end;
 }
@@ -500,4 +500,25 @@ footer {
 
 .shop-edit-admin-container-item-buttons {
     margin-top: 10px;
+}
+
+
+.comments-admin-input {
+    width: 80%;
+    margin-top: 30px;
+    margin-left: 100px;
+    border-bottom: 3px solid black;
+    border-radius: 20px;
+    height: 100px;
+}
+
+.admin-comments-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #b8b5ad;
+    margin: 20px 200px;
+    border-bottom: 2px solid white;
+    border-radius: 20px;
+
 }
