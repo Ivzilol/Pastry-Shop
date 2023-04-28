@@ -48,8 +48,7 @@ public class ProductController {
 
     @PutMapping("/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
-                                           @RequestBody Products product,
-                                           @AuthenticationPrincipal Users user) {
+                                           @RequestBody Products product) {
         // add admin in this product if it must be changed
         if (product.getAdmin() != null) {
             Users admin = product.getAdmin();
@@ -66,7 +65,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         try {
             productsService.delete(productId);
-            return (ResponseEntity<?>) ResponseEntity.ok();
+            return ResponseEntity.ok("Product Delete");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

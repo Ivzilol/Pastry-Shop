@@ -45,7 +45,7 @@ public class CommentController {
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         try {
             commentService.deleteComment(id);
-            return ResponseEntity.ok("Comment Delete");
+            return (ResponseEntity<?>) ResponseEntity.ok();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
