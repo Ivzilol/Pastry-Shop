@@ -11,10 +11,10 @@ const ModeratorShopsView = () => {
     const shopId = window.location.href.split("/shops/")[1];
     let navigate = useNavigate();
     const [shop, setShop] = useState({
-        town: "",
-        address: "",
-        number: null,
-        status: ""
+            town: "",
+            address: "",
+            number: null,
+            status: ""
     });
 
     const [shopsEnums, setShopsEnums] = useState([]);

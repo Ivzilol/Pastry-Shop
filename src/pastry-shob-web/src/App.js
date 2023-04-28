@@ -19,6 +19,7 @@ import ProductsUser from "./components/Products/ProductsUser";
 import ShopsViewUser from "./components/shops/ShopsViewUser";
 import UserOrders from "./components/Orders/UserOrders";
 import AdminOrders from "./components/Orders/AdminOrders";
+import ShopEditAdmin from "./components/shops/ShopEditAdmin";
 
 function App() {
     const user = useUser();
@@ -94,10 +95,10 @@ function App() {
             <Route
                 path="/shops/:shopId"
                 element={
-                    roles.find((role) => role === 'moderator')
+                    roles.find((role) => role === 'admin')
                         ?
                         <PrivateRoute>
-                            <ModeratorShopsView/>
+                            <ShopEditAdmin/>
                         </PrivateRoute>
                         :
                         <PrivateRoute>
