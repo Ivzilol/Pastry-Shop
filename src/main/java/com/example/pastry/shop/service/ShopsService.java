@@ -2,12 +2,11 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.repository.ShopsRepository;
-import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class ShopsService {
 
     private final ShopsRepository shopsRepository;
 
-    public ShopsService(ShopsRepository shopsRepository, UsersRepository usersRepository) {
+    public ShopsService(ShopsRepository shopsRepository) {
         this.shopsRepository = shopsRepository;
     }
 
@@ -54,18 +53,18 @@ public class ShopsService {
         return nextShopNumber.orElse(1);
     }
 
-    public Set<Shops> findByUser(Users user) {
-        //load shops if are you moderator
-        boolean isAdmin = user.getAuthorities()
-                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
-        if (isAdmin) {
-            return shopsRepository.findByAdmin(user);
-        } else {
-            // load shops if are you user
-            return shopsRepository.findByUsers(user);
-        }
-
-    }
+//    public Set<Shops> findByUser(Users user) {
+//        //load shops if are you moderator
+//        boolean isAdmin = user.getAuthorities()
+//                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+//        if (isAdmin) {
+//            return shopsRepository.findByAdmin(user);
+//        } else {
+//            // load shops if are you user
+//            return shopsRepository.findByUsers(user);
+//        }
+//
+//    }
 
     public Optional<Shops> findById(Long shopId) {
         return shopsRepository.findById(shopId);
@@ -73,5 +72,9 @@ public class ShopsService {
 
     public Shops saveShop(Shops shop) {
         return shopsRepository.save(shop);
+    }
+
+    public List<Shops> findAll() {
+        return this.shopsRepository.findAll();
     }
 }

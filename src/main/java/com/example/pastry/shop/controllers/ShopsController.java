@@ -12,8 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 @RestController
@@ -38,8 +38,8 @@ public class ShopsController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getShop(@AuthenticationPrincipal Users user) {
-        Set<Shops> shopsByUsers = shopsService.findByUser(user);
+    public ResponseEntity<?> getShop() {
+        List<Shops> shopsByUsers = shopsService.findAll();
         return ResponseEntity.ok(shopsByUsers);
     }
 
@@ -52,8 +52,7 @@ public class ShopsController {
 
     @PutMapping("/{shopId}")
     public ResponseEntity<?> updateShop(@PathVariable Long shopId,
-                                        @RequestBody Shops shop,
-                                        @AuthenticationPrincipal Users user) {
+                                        @RequestBody Shops shop) {
         // add moderator in this shop if it must be changed
         if (shop.getAdmin() != null) {
             Users admin = shop.getAdmin();
