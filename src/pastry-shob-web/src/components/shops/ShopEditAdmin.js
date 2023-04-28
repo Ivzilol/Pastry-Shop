@@ -76,11 +76,15 @@ const ShopEditAdmin = () => {
         setComment(commentCopy);
     }
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     function DeleteComment(id) {
         ajax(`/api/comments/${id}`, "DELETE", user.jwt)
             .then(() => {
-                navigate("/shops");
-            })
+                refreshPage();
+            });
     }
 
     function submitComment() {

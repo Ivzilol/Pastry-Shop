@@ -40,4 +40,8 @@ public class CommentService {
     public Set<Comment> getCommentsByShopId(Long shopId) {
         return commentRepository.findByShopId(shopId);
     }
+
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
+    }
 }

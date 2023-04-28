@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.CommentDto;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.CommentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,17 @@ public class CommentController {
     public ResponseEntity<Set<Comment>> getCommentsByShop(@RequestParam Long shopId ) {
         Set<Comment> comments = commentService.getCommentsByShopId(shopId);
         return ResponseEntity.ok(comments);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long id) {
+        try {
+            commentService.deleteComment(id);
+            return ResponseEntity.ok("Comment Delete");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

@@ -66,7 +66,7 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         try {
             productsService.delete(productId);
-            return ResponseEntity.ok("Product Delete");
+            return (ResponseEntity<?>) ResponseEntity.ok();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
