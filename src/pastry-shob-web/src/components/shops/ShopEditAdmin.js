@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import Comment from "../Comment/Comment";
 
 const ShopEditAdmin = () => {
 
@@ -43,7 +44,67 @@ const ShopEditAdmin = () => {
             .then(shopData => {
                 setShop(shopData);
             })
-            navigate("/shops");
+        navigate("/shops");
+    }
+
+    const emptyComment = {
+        id: null,
+        text: "",
+        shopId: shopId !== null ? parseInt(shopId) : null,
+        user: user.jwt
+    }
+
+    const [comment, setComment] = useState(emptyComment);
+    const [allComments, setAllComments] = useState([]);
+
+    useEffect(() => {
+        ajax(`/api/comments?shopId=${shopId}`, "GET", user.jwt)
+            .then(commentsData => {
+                setAllComments(commentsData);
+            })
+    })
+
+
+    function handleEditComment(commentId) {
+        const index = allComments.findIndex(comment => comment.id === commentId);
+        const commentCopy = {
+            id: allComments[index].id,
+            text: allComments[index].text,
+            shopId: shopId !== null ? parseInt(shopId) : null,
+            user: user.jwt
+        }
+        setComment(commentCopy);
+    }
+
+    function handleDeleteComment() {
+        console.log('Delete ', comment)
+    }
+
+    function submitComment() {
+        if (comment.id) {
+            ajax(`/api/comment/${comment.id}`, "PUT", user.jwt, comment)
+                .then(d => {
+                    const commentsCopy = [...allComments];
+                    const index = commentsCopy.findIndex(comment => comment.id === d.id);
+                    commentsCopy[index] = d;
+                    setAllComments(commentsCopy);
+                    setComment(emptyComment);
+                })
+        } else {
+            ajax(`/api/comments`, "POST", user.jwt, comment)
+                .then(d => {
+                    const commentCopy = [...allComments];
+                    commentCopy.push(d);
+                    setAllComments(commentCopy);
+                    setComment(emptyComment);
+                })
+        }
+    }
+
+    function updateComment(value) {
+        const commentCopy = {...comment}
+        commentCopy.text = value
+        setComment(commentCopy);
     }
 
     return (
@@ -84,7 +145,8 @@ const ShopEditAdmin = () => {
                                 <button
                                     type="submit"
                                     onClick={() => editShop()}
-                                >Change Shop</button>
+                                >Change Shop
+                                </button>
                             </section>
                         </div>
 
@@ -95,6 +157,22 @@ const ShopEditAdmin = () => {
             ) : (
                 <></>
             )}
+            <section className="comments-admin">
+                <textarea
+                    onChange={(e) => updateComment(e.target.value)}
+                    value={comment.text}
+                >
+                </textarea>
+                <div className="admin-comments-view">
+                    {allComments.map(currentComment => (
+                        <Comment
+                            createdBy={currentComment.createdBy}
+                            text={currentComment.text}
+                            id={currentComment.id}
+                        />
+                    ))}
+                </div>
+            </section>
         </main>
     )
 }
