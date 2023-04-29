@@ -520,5 +520,13 @@ footer {
     margin: 20px 200px;
     border-bottom: 2px solid white;
     border-radius: 20px;
+}
 
+.user-comments-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-textarea {
+    color: black;
 }

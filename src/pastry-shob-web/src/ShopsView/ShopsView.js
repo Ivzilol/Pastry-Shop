@@ -5,6 +5,7 @@ import StatusBadge from "../components/StatusBadge/StatusBadge";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../UserProvider/UserProvider";
 import Comment from "../components/Comment/Comment";
+import NavBar from "../components/NavBar/NavBar";
 
 const ShopsView = () => {
     useNavigate();
@@ -44,8 +45,15 @@ const ShopsView = () => {
         setComment(commentCopy);
     }
 
-    function handleDeleteComment() {
-        console.log('Delete ', comment )
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function handleDeleteComment(commentId) {
+        ajax(`/api/comments/user/${commentId}`, "DELETE", user.jwt)
+            .then(() => {
+                refreshPage();
+            });
     }
 
     function submitComment() {
@@ -125,87 +133,89 @@ const ShopsView = () => {
     }, []);
 
     return (
-        <Container className="mt-4">
-            <Row className="d-flex justify-content-center align-items-end">
-                <Col>
-                    {shop.number ? <h4>Shop: {shop.number}</h4> : <></>
+        <main className="user-comments-container">
+            <NavBar/>
+            {/*<Row className="d-flex justify-content-center align-items-end">*/}
+            {/*    <Col>*/}
+            {/*        {shop.number ? <h4>Shop: {shop.number}</h4> : <></>*/}
 
-                    }
-                </Col>
-                <Col>
-                    <StatusBadge text={shop.status}/>
-                </Col>
-            </Row>
-            {shop ? (
-                <>
-                    <Form.Group as={Row} className="mb-3" controlId="shopNumber">
-                        <Form.Label column sm="2" className="">
-                            Shop Number:
-                        </Form.Label>
-                        <Col sm="10" md="8" lg="6">
-                            <DropdownButton
-                                as={ButtonGroup}
-                                variant={'info'}
-                                title={
-                                    shop.number
-                                        ? `Shop ${shop.number}`
-                                        : "Select an Shop"
-                                }
-                                onSelect={(selectedElement) => {
-                                    updateShop("number", selectedElement)
-                                }}
-                            >
-                                {shopsEnums.map((shopsEnum) => (
-                                    <Dropdown.Item
-                                        key={shopsEnum.shopNumber}
-                                        eventKey={shopsEnum.shopNumber}>
-                                        {shopsEnum.shopNumber}
-                                    </Dropdown.Item>))}
-                            </DropdownButton>
-                        </Col>
-                    </Form.Group>
+            {/*        }*/}
+            {/*    </Col>*/}
+            {/*    <Col>*/}
+            {/*        <StatusBadge text={shop.status}/>*/}
+            {/*    </Col>*/}
+            {/*</Row>*/}
+            {/*{shop ? (*/}
+            {/*    <>*/}
+                    {/*<Form.Group as={Row} className="mb-3" controlId="shopNumber">*/}
+                    {/*    <Form.Label column sm="2" className="">*/}
+                    {/*        Shop Number:*/}
+                    {/*    </Form.Label>*/}
+                    {/*    <Col sm="10" md="8" lg="6">*/}
+                    {/*        <DropdownButton*/}
+                    {/*            as={ButtonGroup}*/}
+                    {/*            variant={'info'}*/}
+                    {/*            title={*/}
+                    {/*                shop.number*/}
+                    {/*                    ? `Shop ${shop.number}`*/}
+                    {/*                    : "Select an Shop"*/}
+                    {/*            }*/}
+                    {/*            onSelect={(selectedElement) => {*/}
+                    {/*                updateShop("number", selectedElement)*/}
+                    {/*            }}*/}
+                    {/*        >*/}
+                    {/*            {shopsEnums.map((shopsEnum) => (*/}
+                    {/*                <Dropdown.Item*/}
+                    {/*                    key={shopsEnum.shopNumber}*/}
+                    {/*                    eventKey={shopsEnum.shopNumber}>*/}
+                    {/*                    {shopsEnum.shopNumber}*/}
+                    {/*                </Dropdown.Item>))}*/}
+                    {/*        </DropdownButton>*/}
+                    {/*    </Col>*/}
+                    {/*</Form.Group>*/}
 
-                    <Form.Group as={Row} className="mb-3" controlId="town">
-                        <Form.Label column sm="2" className="">
-                            Town:
-                        </Form.Label>
-                        <Col sm="10">
-                            <Form.Control
-                                onChange={(e) => updateShop("town", e.target.value)}
-                                value={shop.town}
-                                type="text"
-                                placeholder="Town"
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="address">
-                        <Form.Label column sm="2" className="">
-                            Address:
-                        </Form.Label>
-                        <Col sm="10">
-                            <Form.Control
-                                onChange={(e) => updateShop("address", e.target.value)}
-                                value={shop.address}
-                                type="text"
-                                placeholder="address"
-                            />
-                        </Col>
-                    </Form.Group>
-                    <div className="buttons">
-                        {/*<Button*/}
-                        {/*    style={{marginRight: '10px'}}*/}
-                        {/*    onClick={() => saveShop()}>Submit Shop</Button>*/}
-                        <Button
-                            id="submit"
-                            type="button"
-                            onClick={() => {
-                                window.location.href = "/shops";
-                            }}
-                        > Shops
-                        </Button>
-                    </div>
+                    {/*<Form.Group as={Row} className="mb-3" controlId="town">*/}
+                    {/*    <Form.Label column sm="2" className="">*/}
+                    {/*        Town:*/}
+                    {/*    </Form.Label>*/}
+                    {/*    <Col sm="10">*/}
+                    {/*        <Form.Control*/}
+                    {/*            onChange={(e) => updateShop("town", e.target.value)}*/}
+                    {/*            value={shop.town}*/}
+                    {/*            type="text"*/}
+                    {/*            placeholder="Town"*/}
+                    {/*        />*/}
+                    {/*    </Col>*/}
+                    {/*</Form.Group>*/}
+                    {/*<Form.Group as={Row} className="mb-3" controlId="address">*/}
+                    {/*    <Form.Label column sm="2" className="">*/}
+                    {/*        Address:*/}
+                    {/*    </Form.Label>*/}
+                    {/*    <Col sm="10">*/}
+                    {/*        <Form.Control*/}
+                    {/*            onChange={(e) => updateShop("address", e.target.value)}*/}
+                    {/*            value={shop.address}*/}
+                    {/*            type="text"*/}
+                    {/*            placeholder="address"*/}
+                    {/*        />*/}
+                    {/*    </Col>*/}
+                    {/*</Form.Group>*/}
+                    {/*<div className="buttons">*/}
+                    {/*    /!*<Button*!/*/}
+                    {/*    /!*    style={{marginRight: '10px'}}*!/*/}
+                    {/*    /!*    onClick={() => saveShop()}>Submit Shop</Button>*!/*/}
+                    {/*    <Button*/}
+                    {/*        id="submit"*/}
+                    {/*        type="button"*/}
+                    {/*        onClick={() => {*/}
+                    {/*            window.location.href = "/shops";*/}
+                    {/*        }}*/}
+                    {/*    > Shops*/}
+                    {/*    </Button>*/}
+                    {/*</div>*/}
                     <div className="comments">
                         <textarea
+                            className="comments-textarea"
                             onChange={(e) => updateComment(e.target.value)}
                             value={comment.text}
                         >
@@ -226,11 +236,11 @@ const ShopsView = () => {
                             />
                         ))}
                     </div>
-                </>
-            ) : (
-                <></>
-            )}
-        </Container>
+            {/*    </>*/}
+            {/*) : (*/}
+            {/*    <></>*/}
+            {/*)}*/}
+        </main>
     );
 };
 
