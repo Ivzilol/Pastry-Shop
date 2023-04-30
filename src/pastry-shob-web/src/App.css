@@ -624,3 +624,26 @@ footer {
     background-color: aqua;
     border-bottom: 2px solid #ef7d00;
 }
+
+.admin-users-container {
+    float: left;
+    display: inline-table;
+    /*width: 45%;*/
+}
+
+table {
+    width: 100%;
+}
+
+.admin-users-container-header {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.admin-users-container-content-tbody {
+    height: auto;
+    overflow-x: auto;
+    margin-top: 0px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
