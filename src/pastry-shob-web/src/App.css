@@ -579,7 +579,31 @@ footer {
     text-align: center;
 }
 
+.shop-art-main-town {
+    text-align: center;
+    color: #ef7d00;
+    font-style: italic;
+}
+
 .shops-view-button {
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    color: #ef7d00;
+    font-style: italic;
+    background-color: aqua;
+    border-bottom: 2px solid #ef7d00;
+}
+
+.comments {
+    align-items: center;
+    margin: 30px 30px 0px 30px;
+}
+
+.user-comments-container-button {
+    margin-left: 530px;
     border-radius: 20px;
     padding: 5px 10px;
     margin-bottom: 10px;

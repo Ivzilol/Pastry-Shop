@@ -3,7 +3,7 @@ const ShopArt = () => {
         <main className="shop-art">
             <section className="shop-art-main">
                 <h1 className="shop-art-main-title">Добре дошли в Сладкарницата на Мама</h1>
-                <h3 className="shop-art-main-title">София</h3>
+                <h3 className="shop-art-main-town">София</h3>
                 <article className="shop-art-first-picture">
                     <div className="shop-art-first-picture-row-one">
                         <div className="shop-art-first-picture-row-one-one">
