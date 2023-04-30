@@ -625,25 +625,46 @@ footer {
     border-bottom: 2px solid #ef7d00;
 }
 
-.admin-users-container {
-    float: left;
-    display: inline-table;
-    /*width: 45%;*/
-}
-
-table {
+.admin-users-table {
+    border-collapse: collapse;
     width: 100%;
 }
 
-.admin-users-container-header {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+.admin-users-container-title {
+    text-align: center;
+    margin: 30px 0;
 }
 
-.admin-users-container-content-tbody {
-    height: auto;
-    overflow-x: auto;
-    margin-top: 0px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.admin-users-table th, .admin-users-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
 }
+
+.admin-users-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.admin-users-table tr:hover {
+    background-color: #ddd;
+}
+
+.admin-users-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.admin-users-table-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-users-table-buttons .delete-button {
+    margin-bottom: 10px;
+}
+
+
+
+

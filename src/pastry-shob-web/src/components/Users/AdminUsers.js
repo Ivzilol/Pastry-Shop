@@ -1,10 +1,10 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 
 const AdminUsers = () => {
     const user = useUser();
-    const [users, setUsers] = useState(null);
+    const [users, setUsers] = useState("");
 
     useEffect(() => {
         ajax("/api/users/admin", "GET", user.jwt)
@@ -15,38 +15,43 @@ const AdminUsers = () => {
     }, [user.jwt])
 
     return (
-        <main className="admin-users-container">
+        <section className="admin-users-container">
+            <h3 className="admin-users-container-title">List Users</h3>
+            <hr/>
             <div className="admin-users-container-header">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                        </tr>
-                    </thead>
+                <table className="admin-users-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                    {users ? (
+                        <>
+                            {users.map(user => (
+                                <tr>
+                                    <td>{user.id}</td>
+                                    <td>{user.username}</td>
+                                    <td>{user.firstName}</td>
+                                    <td>{user.lastName}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.address}</td>
+                                    <td className="admin-users-table-buttons">
+                                        <button className="delete-button">Delete</button>
+                                        <button className="promote-button">Promote</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </table>
             </div>
-            <div className="admin-users-container-content">
-                {users.map(user => (
-                    <tbody className="admin-users-container-content-tbody"
-                    id={user.id}
-                    >
-                        <tr>
-                            <td>{user.id}</td>
-                            <td>{user.username}</td>
-                            <td>{user.firstName}</td>
-                            <td>{user.lastName}</td>
-                            <td>{user.email}</td>
-                            <td>{user.address}</td>
-                        </tr>
-                    </tbody>
-                ))}
-            </div>
-        </main>
+        </section>
     )
 }
 
