@@ -606,9 +606,8 @@ footer {
     border-color: #ef7d00;
     width: auto;
     background-color: white;
-
+    margin-bottom: 10px;
 }
-
 
 .comments-textarea {
     border-bottom: 2px solid #ef7d00;

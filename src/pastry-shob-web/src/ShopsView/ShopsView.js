@@ -7,6 +7,7 @@ import {useUser} from "../UserProvider/UserProvider";
 import Comment from "../components/Comment/Comment";
 import NavBar from "../components/NavBar/NavBar";
 import ShopArt from "../components/ShopArt/ShopArt";
+import Footer from "../components/Footer/Footer";
 
 const ShopsView = () => {
     useNavigate();
@@ -160,6 +161,7 @@ const ShopsView = () => {
                     />
                 ))}
             </div>
+            <Footer/>
         </main>
     );
 };
