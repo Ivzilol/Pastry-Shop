@@ -530,3 +530,19 @@ footer {
 .comments-textarea {
     color: black;
 }
+
+.shop-art {
+    display: flex;
+    justify-content: center;
+}
+
+.shop-art-first-picture {
+    display: flex;
+    text-align: center;
+}
+
+.shop-art-first-picture-row-one-one img {
+    height: 350px;
+    width: 450px;
+
+}

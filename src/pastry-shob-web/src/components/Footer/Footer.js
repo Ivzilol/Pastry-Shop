@@ -34,7 +34,7 @@ const Footer = () => {
                 </article>
             </section>
             <hr className="footer-line"/>
-            <p className="footer-author">© 2023 Ivaylo Alichkov All Rights Reserved.</p>
+            <p className="footer-author">© 2023 Ivaylo Alichkov</p>
         </footer>
     )
 }

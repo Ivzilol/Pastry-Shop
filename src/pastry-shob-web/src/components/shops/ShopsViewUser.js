@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
+import ShopArt from "../ShopArt/ShopArt";
 
 const ShopsViewUser = () => {
 
@@ -24,6 +25,7 @@ const ShopsViewUser = () => {
 
         <main className="shops-view">
             <NavBar/>
+            <ShopArt/>
             {shops ? (
                 <section className="shops-view-container">
                     {shops.map((shops) => (
