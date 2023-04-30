@@ -452,7 +452,7 @@ footer {
     color: white;
     background-color: black;
     border-radius: 20px;
-    padding: 30px 30px 0px;
+    padding: 30px 30px 0;
 }
 
 .footer-first, .footer-second, .footer-third, .footer-four {
@@ -545,8 +545,48 @@ footer {
     text-align: center;
 }
 
-.shop-art-first-picture-row-one-one img {
-    height: 350px;
-    width: 450px;
+.shop-art-main-title {
+    color: #ef7d00;
+    font-style: oblique;
+}
 
+.shop-art-first-picture-row-one-one {
+    margin: 20px 20px;
+    border-bottom: 3px solid #ef7d00;
+    border-radius: 20px;
+}
+
+.shop-art-first-picture-row-one-one img {
+    height: 250px;
+    width: 350px;
+    border-radius: 20px;
+}
+
+.shop-art-first-paragraph {
+    padding-top: 5px;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.shop-art-first-paragraph a {
+    text-decoration: none;
+    color: #ef7d00;
+}
+
+.shops-view-container-comment-title {
+    font-style: italic;
+    color: #ef7d00;
+    text-align: center;
+}
+
+.shops-view-button {
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    color: #ef7d00;
+    font-style: italic;
+    background-color: aqua;
+    border-bottom: 2px solid #ef7d00;
 }

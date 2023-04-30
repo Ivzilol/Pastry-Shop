@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
+import Footer from "../Footer/Footer";
 
 const ShopsViewUser = () => {
 
@@ -32,13 +33,8 @@ const ShopsViewUser = () => {
                         <article
                             key={shops.id}
                             >
-                            <div className="shops-view-container-info"
-                            >
-                                <h4>Name: {shops.name}</h4>
-                                <p>Town: {shops.town} </p>
-                                <p>Address: {shops.address} </p>
-                                <p>Status: {shops.status}</p>
-                            </div>
+                            <h3 className="shops-view-container-comment-title">
+                                Вашето менение е важно за нас</h3>
                             <button className="shops-view-button"
                                 id="submit"
                                 type="button"
@@ -46,7 +42,7 @@ const ShopsViewUser = () => {
                                     window.location.href = `/shops/${shops.id}`
                                 }}
                             >
-                                Comments
+                                Оставете Вашия коментар
                             </button>
                         </article>
                     ))}
@@ -54,6 +50,7 @@ const ShopsViewUser = () => {
             ) : (
                 <></>
             )}
+            <Footer/>
         </main>
     );
 }
