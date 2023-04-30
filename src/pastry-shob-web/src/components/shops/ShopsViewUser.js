@@ -42,7 +42,7 @@ const ShopsViewUser = () => {
                                     window.location.href = `/shops/${shops.id}`
                                 }}
                             >
-                                Оставете Вашия коментар
+                                Напишете Вашия коментар
                             </button>
                         </article>
                     ))}
