@@ -61,4 +61,11 @@ public class UserController {
         List<Users> allUsers = this.userService.findAllUser(user);
         return ResponseEntity.ok(allUsers);
     }
+
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id,
+                                        @AuthenticationPrincipal Users user) {
+        this.userService.deleteUser(id, user);
+        return (ResponseEntity<?>) ResponseEntity.ok();
+    }
 }

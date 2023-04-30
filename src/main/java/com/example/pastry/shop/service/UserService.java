@@ -77,4 +77,11 @@ public class UserService {
         return user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
+
+    public void deleteUser(Long id, Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            this.usersRepository.deleteById(id);
+        }
+    }
 }
