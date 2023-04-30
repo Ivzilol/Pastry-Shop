@@ -4,11 +4,13 @@ import com.example.pastry.shop.model.dto.UserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.util.CustomPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,5 +62,19 @@ public class UserService {
         authority.setAuthority("user");
         authority.setUsers(newUser);
         authorityRepository.save(authority);
+    }
+
+    public List<Users> findAllUser(Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            return this.usersRepository.findAll();
+        } else {
+            return null;
+        }
+    }
+
+    private static boolean isAdmin(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
 }

@@ -2,12 +2,12 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 
-const UsersAdmin = () => {
+const AdminUsers = () => {
     const user = useUser();
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
-        ajax("/api/users", "GET", user.jwt)
+        ajax("/api/users/admin", "GET", user.jwt)
             .then(userData => {
                 setUsers(userData);
             })
@@ -21,4 +21,4 @@ const UsersAdmin = () => {
     )
 }
 
-export default UsersAdmin;
+export default AdminUsers;

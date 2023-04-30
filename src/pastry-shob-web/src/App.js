@@ -19,6 +19,7 @@ import UserOrders from "./components/Orders/UserOrders";
 import AdminOrders from "./components/Orders/AdminOrders";
 import ShopEditAdmin from "./components/shops/ShopEditAdmin";
 import 'typeface-lobster';
+import AdminUsers from "./components/Users/AdminUsers";
 
 function App() {
     const user = useUser();
@@ -121,7 +122,7 @@ function App() {
                        roles.find((role) => role === 'admin')
                            ?
                            <PrivateRoute>
-
+                                <AdminUsers/>
                            </PrivateRoute>
                            :
                            <PrivateRoute>
