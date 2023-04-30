@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 
 const AdminUsers = () => {
@@ -13,6 +13,17 @@ const AdminUsers = () => {
             })
 
     }, [user.jwt])
+
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function deleteUser(id) {
+        ajax(`/api/users/admin/${id}`, "DELETE", user.jwt)
+            .then(() => {
+                refreshPage()
+            })
+    }
 
     return (
         <section className="admin-users-container">
@@ -32,7 +43,7 @@ const AdminUsers = () => {
                     {users ? (
                         <>
                             {users.map(user => (
-                                <tr>
+                                <tr id={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.firstName}</td>
@@ -40,7 +51,9 @@ const AdminUsers = () => {
                                     <td>{user.email}</td>
                                     <td>{user.address}</td>
                                     <td className="admin-users-table-buttons">
-                                        <button className="delete-button">Delete</button>
+                                        <button className="delete-button"
+                                        onClick={() => deleteUser(user.id)}
+                                        >Delete</button>
                                         <button className="promote-button">Promote</button>
                                     </td>
                                 </tr>
