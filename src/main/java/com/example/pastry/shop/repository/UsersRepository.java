@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,4 +20,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " where o.keyOrderProduct = :id" +
             " group by o.keyOrderProduct")
     Optional<Users> findUserBayKey(Long id);
+    @Query("select u from Users as u" +
+            " join Authority as a on u.id = a.users.id" +
+            " where a.authority = 'user'")
+    List<Users> findAllUsers();
 }

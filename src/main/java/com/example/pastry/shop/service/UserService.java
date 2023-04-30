@@ -67,7 +67,7 @@ public class UserService {
     public List<Users> findAllUser(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            return this.usersRepository.findAll();
+            return this.usersRepository.findAllUsers();
         } else {
             return null;
         }
