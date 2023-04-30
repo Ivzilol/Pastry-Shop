@@ -116,6 +116,19 @@ function App() {
                                <UserOrders/>
                            </PrivateRoute>
                    }/>
+            <Route path="/users"
+                   element={
+                       roles.find((role) => role === 'admin')
+                           ?
+                           <PrivateRoute>
+
+                           </PrivateRoute>
+                           :
+                           <PrivateRoute>
+
+                           </PrivateRoute>
+                   }
+            />
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
