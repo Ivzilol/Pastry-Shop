@@ -602,6 +602,17 @@ footer {
     margin: 30px 30px 0px 30px;
 }
 
+.comments-view-comment {
+    border-color: #ef7d00;
+    width: auto;
+    background-color: white;
+
+}
+
+
+.comments-textarea {
+    border-bottom: 2px solid #ef7d00;
+}
 .user-comments-container-button {
     margin-left: 530px;
     border-radius: 20px;
