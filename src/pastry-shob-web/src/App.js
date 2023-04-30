@@ -9,8 +9,6 @@ import PrivateRoute from "./PriviteRoute/PrivateRoute";
 import ShopsViewAdmin from "./components/shops/ShopsViewAdmin";
 import ShopsView from "./ShopsView/ShopsView";
 import jwt_decode from 'jwt-decode'
-import AdminShops from "./components/ModeratorShops/ModeratorShops";
-import ModeratorShopsView from "./components/ModeratorShopsView/ModeratorShopsView";
 import {useUser} from "./UserProvider/UserProvider";
 import Register from "./components/Register/Register";
 import CreateProductAdmin from "./components/Products/CreateProductAdmin";
@@ -20,6 +18,7 @@ import ShopsViewUser from "./components/shops/ShopsViewUser";
 import UserOrders from "./components/Orders/UserOrders";
 import AdminOrders from "./components/Orders/AdminOrders";
 import ShopEditAdmin from "./components/shops/ShopEditAdmin";
+import 'typeface-lobster';
 
 function App() {
     const user = useUser();

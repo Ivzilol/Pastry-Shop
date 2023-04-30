@@ -33,6 +33,8 @@
     "react-visibility-sensor": "^5.1.1",
     "sass": "^1.49.8",
     "styled-components": "^5.3.3",
+    "typeface-lobster": "^1.1.13",
+    "typeface-poppins": "^1.1.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
