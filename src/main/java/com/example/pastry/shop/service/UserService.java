@@ -9,6 +9,7 @@ import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.util.CustomPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,10 +78,12 @@ public class UserService {
         return user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
-
+    @Transactional
     public void deleteUser(Long id, Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
+            Authority authority = this.authorityRepository.findByUsersId(id);
+            this.authorityRepository.deleteById(authority.getId());
             this.usersRepository.deleteById(id);
         }
     }
