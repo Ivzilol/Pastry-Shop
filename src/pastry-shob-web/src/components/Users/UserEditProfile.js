@@ -12,6 +12,7 @@ const UserEditProfile = () => {
         username: "",
         firstName: "",
         lastName: "",
+        password: "",
         email: "",
         address: ""
     });
@@ -31,7 +32,7 @@ const UserEditProfile = () => {
     }
 
     function editProfile() {
-        ajax(`/api/users/edit/${userId}`, "PUT", user.jwt, currentUser)
+        ajax(`/api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
             .then(userData => {
                 setCurrentUser(userData);
             });
@@ -70,6 +71,15 @@ const UserEditProfile = () => {
                                     value={currentUser.lastName}
                                     type="text"
                                     name="lastName"
+                                />
+                            </article>
+                            <article className="user-edit-profile-item">
+                                <h6>New Password:</h6>
+                                <input
+                                    onChange={(e) => updateUser("password", e.target.value)}
+                                    value={currentUser.password}
+                                    type="text"
+                                    name="password"
                                 />
                             </article>
                             <article className="user-edit-profile-item">

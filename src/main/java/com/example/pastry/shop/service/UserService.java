@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
@@ -22,6 +23,7 @@ public class UserService {
     private final CustomPasswordEncoder customPasswordEncoder;
 
     private final AuthorityRepository authorityRepository;
+
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository) {
         this.usersRepository = usersRepository;
@@ -105,7 +107,7 @@ public class UserService {
         return this.usersRepository.findById(id);
     }
 
-    public Users saveUser(Users user) {
-        return this.usersRepository.save(user);
+    public void saveUser(UpdateUserDTO user) {
+
     }
 }

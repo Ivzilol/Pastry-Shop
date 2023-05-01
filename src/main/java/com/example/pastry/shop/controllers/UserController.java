@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.UserService;
@@ -89,10 +90,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/edit/{id}")
+    @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
-                                        @RequestBody Users user){
-        Users updateUser = this.userService.saveUser(user);
-        return ResponseEntity.ok(updateUser);
+                                        @RequestBody UpdateUserDTO updateUserDTO){
+        this.userService.saveUser(updateUserDTO);
+        return (ResponseEntity<?>) ResponseEntity.ok();
     }
 }
