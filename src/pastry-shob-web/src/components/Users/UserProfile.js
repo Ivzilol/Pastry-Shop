@@ -19,11 +19,11 @@ const UserProfile = () => {
 
     return (
         <main className="user-profile">
-            <h3 className="user-profile">Your personal info</h3>
+            <h3 className="user-profile-title">Your personal info</h3>
             {currentUser ? (
                 <section
                     id={currentUser.id}
-                    className="user-profile-container">
+                    className="user-profile-container-items">
                     <h6>Username: {currentUser.username}</h6>
                     <p>First Name: {currentUser.firstName}</p>
                     <p>Last Name: {currentUser.lastName}</p>

@@ -703,6 +703,38 @@ footer {
     margin-top: 20px;
 }
 
+.user-profile {
+    width: auto;
+    height: 600px;
+    background-image: url("https://i.ibb.co/tCYKtJ3/334337114-1108668526920391-6375149307777776532-n.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.user-profile-title {
+    color: white;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.user-profile-container-items {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.user-profile-container-items button {
+    border-radius: 10px;
+    border-color: white;
+    background: none;
+    color: white;
+    width: 150px;
+    margin-top: 20px;
+}
+
 
 
 
