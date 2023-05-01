@@ -104,4 +104,8 @@ public class UserService {
     public Optional<Users> getUserById(Long id) {
         return this.usersRepository.findById(id);
     }
+
+    public Users saveUser(Users user) {
+        return this.usersRepository.save(user);
+    }
 }

@@ -22,7 +22,21 @@ const UserEditProfile = () => {
                 setCurrentUser(userResponse);
             });
         if (!user.jwt) navigate("/login");
-    }, [user.jwt])
+    }, [])
+
+    function updateUser(prop, value) {
+        const newUser = {...currentUser}
+        newUser[prop] = value;
+        setCurrentUser(newUser);
+    }
+
+    function editProfile() {
+        ajax(`/api/users/edit/${userId}`, "PUT", user.jwt, currentUser)
+            .then(userData => {
+                setCurrentUser(userData);
+            });
+        navigate("/users");
+    }
 
     return (
         <main className="user-edit-profile">
@@ -34,6 +48,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Username:</h6>
                                 <input
+                                    onChange={(e) => updateUser("username", e.target.value)}
                                     value={currentUser.username}
                                     type="text"
                                     name="username"
@@ -42,6 +57,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>First Name:</h6>
                                 <input
+                                    onChange={(e) => updateUser("firstName", e.target.value)}
                                     value={currentUser.firstName}
                                     type="text"
                                     name="firstName"
@@ -50,6 +66,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Last Name:</h6>
                                 <input
+                                    onChange={(e) => updateUser("lastName", e.target.value)}
                                     value={currentUser.lastName}
                                     type="text"
                                     name="lastName"
@@ -58,6 +75,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Email:</h6>
                                 <input
+                                    onChange={(e) => updateUser("email", e.target.value)}
                                     value={currentUser.email}
                                     type="text"
                                     name="email"
@@ -66,11 +84,20 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Address:</h6>
                                 <input
+                                    onChange={(e) => updateUser("address", e.target.value)}
                                     value={currentUser.address}
                                     type="text"
                                     name="address"
                                 />
                             </article>
+                            <section>
+                                <button
+                                type="submit"
+                                onClick={() => editProfile()}
+                                >
+                                    Edit Profile
+                                </button>
+                            </section>
                         </div>
                     ) : (
                         <></>

@@ -88,4 +88,11 @@ public class UserController {
         Optional<Users> user = this.userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id,
+                                        @RequestBody Users user){
+        Users updateUser = this.userService.saveUser(user);
+        return ResponseEntity.ok(updateUser);
+    }
 }
