@@ -92,8 +92,9 @@ public class UserController {
 
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
-                                        @RequestBody UpdateUserDTO updateUserDTO){
-        this.userService.saveUser(updateUserDTO);
+                                        @RequestBody UpdateUserDTO updateUserDTO,
+                                        @AuthenticationPrincipal Users user){
+        this.userService.saveUser(updateUserDTO, id, user);
         return (ResponseEntity<?>) ResponseEntity.ok();
     }
 }

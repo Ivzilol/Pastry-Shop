@@ -13,6 +13,7 @@ const UserEditProfile = () => {
         firstName: "",
         lastName: "",
         password: "",
+        newPassword: "",
         email: "",
         address: ""
     });
@@ -74,12 +75,21 @@ const UserEditProfile = () => {
                                 />
                             </article>
                             <article className="user-edit-profile-item">
-                                <h6>New Password:</h6>
+                                <h6>Password:</h6>
                                 <input
                                     onChange={(e) => updateUser("password", e.target.value)}
                                     value={currentUser.password}
-                                    type="text"
+                                    type="password"
                                     name="password"
+                                />
+                            </article>
+                            <article className="user-edit-profile-item">
+                                <h6>New Password:</h6>
+                                <input
+                                    onChange={(e) => updateUser("newPassword", e.target.value)}
+                                    value={currentUser.newPassword}
+                                    type="password"
+                                    name="newPassword"
                                 />
                             </article>
                             <article className="user-edit-profile-item">

@@ -1,7 +1,10 @@
 package com.example.pastry.shop.model.dto;
 
-public class UpdateUserDTO {
+import com.example.pastry.shop.validation.annotation.UniqueEmail;
+import com.example.pastry.shop.validation.annotation.UniqueUsername;
 
+public class UpdateUserDTO {
+    @UniqueUsername
     private String username;
 
     private String firstName;
@@ -10,6 +13,8 @@ public class UpdateUserDTO {
 
     private String password;
 
+    private String newPassword;
+    @UniqueEmail
     private String email;
 
     private String address;
@@ -63,5 +68,13 @@ public class UpdateUserDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

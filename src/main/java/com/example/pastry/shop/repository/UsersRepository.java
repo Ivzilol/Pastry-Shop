@@ -24,4 +24,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " join Authority as a on u.id = a.users.id" +
             " where a.authority = 'user'")
     List<Users> findAllUsers();
+
+    @Query("select u from Users as u" +
+            " where u.id = :id")
+    Users findByUserId(Long id);
 }

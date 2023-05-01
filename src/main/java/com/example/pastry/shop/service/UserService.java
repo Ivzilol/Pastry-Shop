@@ -67,6 +67,25 @@ public class UserService {
         authorityRepository.save(authority);
     }
 
+    public void saveUser(UpdateUserDTO updateUserDTO, Long id, Users user) {
+        Users updateUser = this.usersRepository.findByUserId(id);
+        String encodeOldPassword = customPasswordEncoder
+                .getPasswordEncoder().encode(updateUserDTO.getPassword());
+        if (encodeOldPassword.equals(updateUser.getPassword())) {
+            String encodeNewPassword = customPasswordEncoder
+                    .getPasswordEncoder().encode(updateUserDTO.getNewPassword());
+            updateUser.setPassword(encodeNewPassword);
+            updateUser.setUsername(updateUserDTO.getUsername());
+            updateUser.setFirstName(updateUserDTO.getFirstName());
+            updateUser.setLastName(updateUserDTO.getLastName());
+            updateUser.setEmail(updateUserDTO.getEmail());
+            updateUser.setAddress(updateUserDTO.getAddress());
+            this.usersRepository.save(updateUser);
+        } else {
+            System.out.println("Wrong");
+        }
+    }
+
     public void makeUserAdmin(Long id, Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
@@ -105,9 +124,5 @@ public class UserService {
 
     public Optional<Users> getUserById(Long id) {
         return this.usersRepository.findById(id);
-    }
-
-    public void saveUser(UpdateUserDTO user) {
-
     }
 }
