@@ -1,6 +1,6 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
@@ -10,7 +10,6 @@ const ShopsViewUser = () => {
 
     const user = useUser();
     const [shops, setShops] = useState(null);
-    const {shopId} = useParams();
     let navigate = useNavigate();
 
     useEffect(() => {

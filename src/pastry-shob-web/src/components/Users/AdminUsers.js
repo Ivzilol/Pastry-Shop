@@ -25,6 +25,13 @@ const AdminUsers = () => {
             })
     }
 
+    function promoteUser(id) {
+        ajax(`/api/users/admin/promote/${id}`, "PATCH", user.jwt)
+            .then(() => {
+                refreshPage()
+            })
+    }
+
     return (
         <section className="admin-users-container">
             <h3 className="admin-users-container-title">List Users</h3>
@@ -54,7 +61,9 @@ const AdminUsers = () => {
                                         <button className="delete-button"
                                         onClick={() => deleteUser(user.id)}
                                         >Delete</button>
-                                        <button className="promote-button">Promote</button>
+                                        <button className="promote-button"
+                                        onClick={() => promoteUser(user.id)}
+                                        >Promote</button>
                                     </td>
                                 </tr>
                             ))}
