@@ -65,6 +65,15 @@ public class UserService {
         authorityRepository.save(authority);
     }
 
+    public void makeUserAdmin(Long id, Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            Authority authority = this.authorityRepository.findByUsersId(id);
+            authority.setAuthority("admin");
+            this.authorityRepository.save(authority);
+        }
+    }
+
     public List<Users> findAllUser(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
