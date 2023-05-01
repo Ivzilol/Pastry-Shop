@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -74,5 +75,11 @@ public class UserController {
                                          @AuthenticationPrincipal Users user) {
         this.userService.makeUserAdmin(id, user);
         return (ResponseEntity<?>) ResponseEntity.ok();
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal Users user) {
+        Optional<Users> currentUser = this.userService.getCurrentUser(user);
+        return ResponseEntity.ok(currentUser);
     }
 }

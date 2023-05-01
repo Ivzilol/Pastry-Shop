@@ -96,4 +96,8 @@ public class UserService {
             this.usersRepository.deleteById(id);
         }
     }
+
+    public Optional<Users> getCurrentUser(Users user) {
+        return this.usersRepository.findByUsername(user.getUsername());
+    }
 }

@@ -20,6 +20,7 @@ import AdminOrders from "./components/Orders/AdminOrders";
 import ShopEditAdmin from "./components/shops/ShopEditAdmin";
 import 'typeface-lobster';
 import AdminUsers from "./components/Users/AdminUsers";
+import UserProfile from "./components/Users/UserProfile";
 
 function App() {
     const user = useUser();
@@ -126,7 +127,7 @@ function App() {
                            </PrivateRoute>
                            :
                            <PrivateRoute>
-
+                                <UserProfile/>
                            </PrivateRoute>
                    }
             />
