@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
-import Comment from "../Comment/Comment";
 
 const ShopEditAdmin = () => {
 
