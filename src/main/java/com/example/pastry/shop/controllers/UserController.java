@@ -82,4 +82,10 @@ public class UserController {
         Optional<Users> currentUser = this.userService.getCurrentUser(user);
         return ResponseEntity.ok(currentUser);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id){
+        Optional<Users> user = this.userService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
 }

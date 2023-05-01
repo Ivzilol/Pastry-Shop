@@ -42,7 +42,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>First Name:</h6>
                                 <input
-                                    value={currentUser.username}
+                                    value={currentUser.firstName}
                                     type="text"
                                     name="firstName"
                                 />
@@ -50,7 +50,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Last Name:</h6>
                                 <input
-                                    value={currentUser.username}
+                                    value={currentUser.lastName}
                                     type="text"
                                     name="lastName"
                                 />
@@ -58,7 +58,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Email:</h6>
                                 <input
-                                    value={currentUser.username}
+                                    value={currentUser.email}
                                     type="text"
                                     name="email"
                                 />
@@ -66,7 +66,7 @@ const UserEditProfile = () => {
                             <article className="user-edit-profile-item">
                                 <h6>Address:</h6>
                                 <input
-                                    value={currentUser.username}
+                                    value={currentUser.address}
                                     type="text"
                                     name="address"
                                 />
