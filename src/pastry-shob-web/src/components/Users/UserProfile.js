@@ -28,6 +28,7 @@ const UserProfile = () => {
                     <p>First Name: {currentUser.firstName}</p>
                     <p>Last Name: {currentUser.lastName}</p>
                     <p>Email: {currentUser.email}</p>
+                    <p>Address: {currentUser.address}</p>
                     <button
                     onClick={() => {
                         window.location.href = `/users/${currentUser.id}`;

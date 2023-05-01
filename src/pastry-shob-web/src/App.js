@@ -21,6 +21,7 @@ import ShopEditAdmin from "./components/shops/ShopEditAdmin";
 import 'typeface-lobster';
 import AdminUsers from "./components/Users/AdminUsers";
 import UserProfile from "./components/Users/UserProfile";
+import UserEditProfile from "./components/Users/UserEditProfile";
 
 function App() {
     const user = useUser();
@@ -131,6 +132,7 @@ function App() {
                            </PrivateRoute>
                    }
             />
+            <Route path="/users/:userId" element={<UserEditProfile/>}/>
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
