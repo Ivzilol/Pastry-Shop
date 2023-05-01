@@ -90,7 +90,7 @@ const UserEditProfile = () => {
                                     name="address"
                                 />
                             </article>
-                            <section>
+                            <section className="user-edit-profile-button">
                                 <button
                                 type="submit"
                                 onClick={() => editProfile()}
