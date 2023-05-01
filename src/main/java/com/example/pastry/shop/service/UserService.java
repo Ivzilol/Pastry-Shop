@@ -67,23 +67,16 @@ public class UserService {
         authorityRepository.save(authority);
     }
 
-    public void saveUser(UpdateUserDTO updateUserDTO, Long id, Users user) {
+    public Users saveUser(UpdateUserDTO updateUserDTO, Long id, Users user) {
         Users updateUser = this.usersRepository.findByUserId(id);
-        String encodeOldPassword = customPasswordEncoder
-                .getPasswordEncoder().encode(updateUserDTO.getPassword());
-        if (encodeOldPassword.equals(updateUser.getPassword())) {
-            String encodeNewPassword = customPasswordEncoder
-                    .getPasswordEncoder().encode(updateUserDTO.getNewPassword());
-            updateUser.setPassword(encodeNewPassword);
-            updateUser.setUsername(updateUserDTO.getUsername());
-            updateUser.setFirstName(updateUserDTO.getFirstName());
-            updateUser.setLastName(updateUserDTO.getLastName());
-            updateUser.setEmail(updateUserDTO.getEmail());
-            updateUser.setAddress(updateUserDTO.getAddress());
-            this.usersRepository.save(updateUser);
-        } else {
-            System.out.println("Wrong");
-        }
+        updateUser.setPassword(updateUser.getPassword());
+        updateUser.setUsername(updateUserDTO.getUsername());
+        updateUser.setFirstName(updateUserDTO.getFirstName());
+        updateUser.setLastName(updateUserDTO.getLastName());
+        updateUser.setEmail(updateUserDTO.getEmail());
+        updateUser.setAddress(updateUserDTO.getAddress());
+        this.usersRepository.save(updateUser);
+        return updateUser;
     }
 
     public void makeUserAdmin(Long id, Users user) {
@@ -108,6 +101,7 @@ public class UserService {
         return user.getAuthorities()
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
+
     @Transactional
     public void deleteUser(Long id, Users user) {
         boolean isAdmin = isAdmin(user);

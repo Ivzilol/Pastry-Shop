@@ -94,7 +94,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable Long id,
                                         @RequestBody UpdateUserDTO updateUserDTO,
                                         @AuthenticationPrincipal Users user){
-        this.userService.saveUser(updateUserDTO, id, user);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        Users updateUser = this.userService.saveUser(updateUserDTO, id, user);
+        return ResponseEntity.ok(updateUser);
     }
 }
