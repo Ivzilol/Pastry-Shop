@@ -60,14 +60,12 @@ const ProductsUser = () => {
                             className="products-container-items"
                             key={product.id}
                         >
-                            <p className="products-container-item-title"
-                            >Product shopName: {product.shops.name}</p>
                             <p className="products-container-item"
-                            >Product name: {product.name}</p>
+                            >Продукт: {product.name}</p>
                             <p className="products-container-item"
-                            >Product price: {product.price}</p>
+                            >Цена: {product.price} лв.</p>
                             <p className="products-container-item"
-                            >Product description: {product.description}</p>
+                            >Описание на продукта: {product.description}</p>
                             <img
                                 className="product-img" src={product.imageUrl} alt="new"
                             />
@@ -85,11 +83,11 @@ const ProductsUser = () => {
                                     >
                                         Order Product
                                     </button>
-                                    <button
-                                    id="submit"
-                                    type="button"
-                                    onClick={() => likeProduct(product.id)}
-                                    >Like product </button>
+                                    {/*<button*/}
+                                    {/*id="submit"*/}
+                                    {/*type="button"*/}
+                                    {/*onClick={() => likeProduct(product.id)}*/}
+                                    {/*>Like product </button>*/}
                                 </div>
                             </div>
                         </div>

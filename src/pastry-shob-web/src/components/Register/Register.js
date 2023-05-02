@@ -45,6 +45,7 @@ const Register = () => {
             })
             .then(([body, headers]) => {
                 user.setJwt(user.jwt);
+                navigate("/login")
             })
             .catch((message) => {
                 alert(message);
@@ -163,7 +164,7 @@ const Register = () => {
 
                     <label form="password">Password</label>
                     <input
-                        type="text"
+                        type="password"
                         id="password"
                         name="password"
                         placeholder="Password"

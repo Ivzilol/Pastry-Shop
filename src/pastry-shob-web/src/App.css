@@ -231,8 +231,16 @@ body {
 .products-container-items {
     text-align: center;
     margin-top: 10px;
-    border: 2px solid aqua;
+    border: 2px solid #ef7d00;
     border-radius: 20px;
+
+}
+
+.products-container-item{
+    font-size: 17px;
+    color: #ef7d00;
+    font-style: italic;
+    margin: 10px 0;
 }
 
 .products-container-items .product-img {
