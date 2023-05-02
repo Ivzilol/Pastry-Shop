@@ -743,6 +743,73 @@ footer {
     margin-top: 20px;
 }
 
+.orders-user-title {
+    text-align: center;
+    font-style: italic;
+    color: #ef7d00;
+    margin: 10px 0;
+}
+
+.orders-user-line {
+    color: #ef7d00;
+    border-bottom: 2px solid #ef7d00;
+}
+
+.orders-container-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.orders-container-items-name {
+    font-size: 20px;
+    font-style: italic;
+    color: #ef7d00;
+    margin: 10px 0;
+}
+
+.orders-container-items-button {
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    color: #ef7d00;
+    font-style: italic;
+    background-color: aqua;
+    border-bottom: 2px solid #ef7d00;
+}
+
+.orders-user-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-user-tracker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-user-tracker-title {
+    font-style: italic;
+    color: #ef7d00;
+    margin: 10px 0;
+}
+
+.order-user-tracker-button {
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    color: #ef7d00;
+    font-style: italic;
+    background-color: aqua;
+    border-bottom: 2px solid #ef7d00;
+}
+
 
 
 

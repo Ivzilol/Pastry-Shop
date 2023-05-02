@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class OrderService {
@@ -29,8 +28,6 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     private final OrdersProcessingRepository ordersProcessingRepository;
-
-    private final static AtomicLong subIdCounter = new AtomicLong(System.nanoTime());
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
@@ -127,11 +124,6 @@ public class OrderService {
         return byOrderKey;
     }
 
-
-    private Long keyOrderProduct() {
-        Long keyProductOrder = subIdCounter.incrementAndGet();
-        return keyProductOrder;
-    }
 
     public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) {
         Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);

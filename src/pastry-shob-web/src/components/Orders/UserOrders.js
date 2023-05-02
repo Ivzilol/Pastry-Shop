@@ -43,6 +43,8 @@ const UserOrders = () => {
     return (
         <main className="orders-user">
             <NavBar/>
+            <h2 className="orders-user-title">Вашата поръчка</h2>
+            <hr className="orders-user-line"/>
             {products ? (
                 <article className="orders-container">
                     {products.map((product) => (
@@ -51,17 +53,17 @@ const UserOrders = () => {
                              key={product.id}
                         >
                             <p className="orders-container-items-name">
-                                Product Name: {product.productName}
+                                Име: {product.productName}
                             </p>
                             <p className="orders-container-items-name">
-                                Product Price: {product.price}
+                                Цена: {product.price} лв.
                             </p>
                             {product.status === 'newOrder'
                                 ?
-                                <button
+                                <button className="orders-container-items-button"
                                     onClick={() => removeProductFromOrder(product.id)
                                     }
-                                >Remove Product
+                                >Премахнете продукта
                                 </button>
                                 :
                                 <></>
@@ -75,17 +77,24 @@ const UserOrders = () => {
             )}
             <section>
                 {allPrice > 0 ? (
-                    <div className="">
-                        <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
+                    <div className="orders-user-price">
+                        <h5 className="orders-user-title"
+                        >Обща цена на поръчката: {allPrice.toFixed(2)}</h5>
                         <button
-                            className="confirmed-order-button"
+                            className="orders-container-items-button"
                             onClick={() => confirmOrder()}
-                        >Confirm order
+                        >Потвърди поръчката
                         </button>
                     </div>
                 ) : (
-                    <div>Ако имате недоставени от нас поръчки можете да ги проследите от тук:
-                        <button>Проследи</button></div>
+                    <div className="order-user-tracker">
+                        <h5 className="order-user-tracker-title">
+                            Ако имате недоставени от нас поръчки можете да ги проследите от тук:
+                        </h5>
+                        <button
+                        className="order-user-tracker-button"
+                        >Проследи</button>
+                    </div>
                 )}
             </section>
         </main>
