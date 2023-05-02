@@ -85,7 +85,6 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
-
                 {user && user.jwt ? (
                     <button
                         className="nav-button"
@@ -98,7 +97,18 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
-
+                {user && user.jwt ? (
+                    <button
+                        className="nav-button"
+                        onClick={() => {
+                            navigate("/users");
+                        }}
+                    >
+                        Profile
+                    </button>
+                ) : (
+                    <></>
+                )}
             </div>
         </section>
     )

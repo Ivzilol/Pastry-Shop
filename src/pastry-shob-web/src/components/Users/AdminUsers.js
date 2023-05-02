@@ -1,6 +1,7 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const AdminUsers = () => {
     const user = useUser();
@@ -34,6 +35,7 @@ const AdminUsers = () => {
 
     return (
         <section className="admin-users-container">
+            <NavBarAdmin/>
             <h3 className="admin-users-container-title">List Users</h3>
             <hr/>
             <div className="admin-users-container-header">
