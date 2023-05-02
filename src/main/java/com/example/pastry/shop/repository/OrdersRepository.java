@@ -12,6 +12,10 @@ import java.util.Set;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
+
+    @Query("select o from Orders as o" +
+            " join Users as u on o.users.id = u.id" +
+            " where o.status = 'newOrder'")
     Set<Orders> findByUsers(Users user);
 
     @Query("select o from Orders as o" +

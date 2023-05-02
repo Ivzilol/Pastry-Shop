@@ -2,6 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
+import NavBar from "../NavBar/NavBar";
 
 const UserProfile = () => {
     const user = useUser();
@@ -19,6 +20,7 @@ const UserProfile = () => {
 
     return (
         <main className="user-profile">
+            <NavBar/>
             <h3 className="user-profile-title">Your personal info</h3>
             {currentUser ? (
                 <section
