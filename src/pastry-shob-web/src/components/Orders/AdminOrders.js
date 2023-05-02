@@ -68,7 +68,7 @@ const AdminOrders = () => {
             <NavBar/>
             <section className="admin-bord-section">
                 <article className="unconfirmed-orders">
-                    <h2>Orders in processing</h2>
+                    <h2>Проъчки в процес на приготвяне</h2>
                     <ul className="unconfirmed-orders-list">
                         {orders ? (
                             <div className="keyOrder"
@@ -83,7 +83,7 @@ const AdminOrders = () => {
                                                 {currentKeyOrder = order.keyOrderProduct}
                                             </div>
                                             <h5>Username: {order.users.username}</h5>
-                                            <p>Address: {order.users.address}</p>
+                                            <p>Адрес: {order.users.address}</p>
                                             {orders ? (
                                                     <div className="orders-details-product"
                                                          key={orders.keyOrderProduct}
@@ -92,8 +92,8 @@ const AdminOrders = () => {
                                                             order.keyOrderProduct === orderDetails.keyOrderProduct
                                                                 ?
                                                                 <div>
-                                                                    <p>Product: {orderDetails.productName}</p>
-                                                                    <p>Price: {orderDetails.price}</p>
+                                                                    <p>Продукт: {orderDetails.productName}</p>
+                                                                    <p>Цена: {orderDetails.price} лв.</p>
                                                                 </div>
                                                                 :
                                                                 <></>
@@ -102,10 +102,11 @@ const AdminOrders = () => {
                                                 ) :
                                                 <></>
                                             }
-                                            <button
-                                                onClick={() => startProcessingOrder(order.keyOrderProduct)}
-                                            >Send Order
+                                            <button className="orders-admin-button"
+                                                    onClick={() => startProcessingOrder(order.keyOrderProduct)}
+                                            >Изпрати поръчката
                                             </button>
+                                            <hr className="orders-admin-line"/>
                                         </div>
                                         :
                                         <></>
@@ -118,21 +119,23 @@ const AdminOrders = () => {
                     </ul>
                 </article>
                 <article className="confirmed-orders">
-                    <h2>Orders in process of delivery</h2>
+                    <h2>Поръчки в процес на доставка</h2>
                     <ul className="confirmed-orders-list">
                         {sentOrders ? (
                             <div className="confirmed-orders-list-container"
-                                id={sentOrders.id}>
+                                 id={sentOrders.id}>
                                 {sentOrders.map((sendOrders) => (
                                     <div className="confirmed-orders-list-container-details"
-                                        id={sendOrders.id}
+                                         id={sendOrders.id}
                                     >
-                                        <h5>Recipient: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
-                                        <p>Address: {sendOrders.user.address}</p>
-                                        <p>Total Price: {Number(sendOrders.totalPrice).toFixed(2)} lv.</p>
-                                        <button
-                                        onClick={() => confirmOrderDelivery(sendOrders.id)}
-                                        >Confirm Delivery</button>
+                                        <h5>Получател: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
+                                        <p>Адрес: {sendOrders.user.address}</p>
+                                        <p>Обща цена: {Number(sendOrders.totalPrice).toFixed(2)} лв.</p>
+                                        <button className="orders-admin-button"
+                                                onClick={() => confirmOrderDelivery(sendOrders.id)}
+                                        > Потвърди доставката
+                                        </button>
+                                        <hr className="orders-admin-line"/>
                                     </div>
                                 ))}
 
@@ -144,8 +147,6 @@ const AdminOrders = () => {
                 </article>
             </section>
         </main>
-
-
     )
 }
 export default AdminOrders;
