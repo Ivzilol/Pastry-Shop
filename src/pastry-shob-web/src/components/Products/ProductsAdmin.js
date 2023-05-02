@@ -23,6 +23,13 @@ const ProductsAdmin = () => {
             <NavBarAdmin/>
             {products ? (
                 <article className="products-container">
+                    <button
+                        className="products-container-createButton"
+                        onClick={() => {
+                            window.location.href = `/products/create`
+                        }}
+                    >Create New Product
+                    </button>
                     {products.map((product) => (
                         <div
                             className="products-container-items"

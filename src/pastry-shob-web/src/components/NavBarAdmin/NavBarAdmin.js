@@ -79,7 +79,7 @@ function NavBar() {
                             navigate("/products");
                         }}
                     >
-                       Product
+                       Products
                     </button>
                 ) : (
                     <></>
