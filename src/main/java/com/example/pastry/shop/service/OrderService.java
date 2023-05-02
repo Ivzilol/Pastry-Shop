@@ -30,8 +30,6 @@ public class OrderService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
-    private Long keyProductOrder = keyOrderProduct();
-
     private final static AtomicLong subIdCounter = new AtomicLong(System.nanoTime());
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
@@ -131,8 +129,8 @@ public class OrderService {
 
 
     private Long keyOrderProduct() {
-        this.keyProductOrder = subIdCounter.incrementAndGet();
-        return this.keyProductOrder;
+        Long keyProductOrder = subIdCounter.incrementAndGet();
+        return keyProductOrder;
     }
 
     public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) {

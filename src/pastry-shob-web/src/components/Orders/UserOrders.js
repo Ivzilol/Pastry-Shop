@@ -40,7 +40,6 @@ const UserOrders = () => {
     }
 
 
-
     return (
         <main className="orders-user">
             <NavBar/>
@@ -74,12 +73,20 @@ const UserOrders = () => {
             ) : (
                 <></>
             )}
-            <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
-            <button
-                className="confirmed-order-button"
-                onClick={() => confirmOrder()}
-            >Confirm order
-            </button>
+            <section>
+                {allPrice > 0 ? (
+                    <div className="">
+                        <h5>Тhe total amount of the order: {allPrice.toFixed(2)}</h5>
+                        <button
+                            className="confirmed-order-button"
+                            onClick={() => confirmOrder()}
+                        >Confirm order
+                        </button>
+                    </div>
+                ) : (
+                    <div>Можете да проследите Вашата поръчка от тук: <button>Проследи</button></div>
+                )}
+            </section>
         </main>
     )
 }
