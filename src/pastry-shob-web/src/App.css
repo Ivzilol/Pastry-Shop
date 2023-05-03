@@ -846,6 +846,28 @@ footer {
     justify-content: space-around;
 }
 
+.tracking-in-processing-order {
+    margin: 10px 0;
+    border: #ef7d00;
+    border-bottom: 2px solid #ef7d00;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 17px;
+    font-style: italic;
+    color: #ef7d00;
+}
+
+.tracking-in-send-order {
+    margin: 10px 0;
+    border: #ef7d00;
+    border-bottom: 2px solid #ef7d00;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 17px;
+    font-style: italic;
+    color: #ef7d00;
+}
+
 
 
 

@@ -61,8 +61,8 @@ const UserOrders = () => {
                             {product.status === 'newOrder'
                                 ?
                                 <button className="orders-container-items-button"
-                                    onClick={() => removeProductFromOrder(product.id)
-                                    }
+                                        onClick={() => removeProductFromOrder(product.id)
+                                        }
                                 >Премахнете продукта
                                 </button>
                                 :
@@ -92,9 +92,10 @@ const UserOrders = () => {
                             Ако имате недоставени от нас поръчки можете да ги проследите от тук:
                         </h5>
                         <button
-                        className="order-user-tracker-button"
-                        onClick={() => window.location.href = "/orders/tracking"}
-                        >Проследи</button>
+                            className="order-user-tracker-button"
+                            onClick={() => window.location.href = "/orders/tracking"}
+                        >Проследи
+                        </button>
                     </div>
                 )}
             </section>

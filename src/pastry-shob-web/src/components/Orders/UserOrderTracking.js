@@ -7,6 +7,7 @@ const UserOrderTracking = () => {
 
     const user = useUser();
     const [order, setOrder] = useState(null);
+    let allPrice = 0;
 
     useEffect(() => {
         ajax("/api/orders/tracking", "GET", user.jwt)
@@ -24,7 +25,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-processing-order">
-                            <h4>Вашата поръчка се приготвя</h4>
+                            <h4>В процес на приготвяне</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'confirmed'
                                     ?
@@ -36,10 +37,12 @@ const UserOrderTracking = () => {
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price} лв.</p>
                                         <p>Oт дата: {currentOrder.dateCreated}</p>
+                                        <p className="getAllPrice">{allPrice += currentOrder.price}</p>
                                     </div>
                                     :
                                     <></>
                             ))}
+                            <h4>Обща цена: {allPrice}</h4>
                         </article>
                     ) : (
                         <></>
@@ -50,7 +53,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-send-order">
-                            <h4>Вашата поръчка в процес на доставка</h4>
+                            <h4>В процес на доставка</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'sent'
                                     ?
@@ -59,10 +62,13 @@ const UserOrderTracking = () => {
                                          id={currentOrder.keyOrderProduct}
                                     >
                                         <p>{currentOrder.productName}</p>
+                                        <p>{currentOrder.price}</p>
+                                        <p className="getAllPrice">{allPrice += currentOrder.price}</p>
                                     </div>
                                     :
                                     <></>
                             ))}
+                            <h4>Обща цена: {allPrice}</h4>
                         </article>
                     ) : (
                         <></>
