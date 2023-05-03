@@ -93,6 +93,7 @@ const UserOrders = () => {
                         </h5>
                         <button
                         className="order-user-tracker-button"
+                        onClick={() => window.location.href = "/orders/tracking"}
                         >Проследи</button>
                     </div>
                 )}

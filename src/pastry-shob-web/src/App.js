@@ -22,6 +22,7 @@ import 'typeface-lobster';
 import AdminUsers from "./components/Users/AdminUsers";
 import UserProfile from "./components/Users/UserProfile";
 import UserEditProfile from "./components/Users/UserEditProfile";
+import UserOrderTracking from "./components/Orders/UserOrderTracking";
 
 function App() {
     const user = useUser();
@@ -132,6 +133,7 @@ function App() {
                            </PrivateRoute>
                    }
             />
+            <Route path={"/orders/tracking"} element={<UserOrderTracking/>}/>
             <Route path="/users/:userId" element={<UserEditProfile/>}/>
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
