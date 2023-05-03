@@ -50,7 +50,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-send-order">
-                            <h4>Вапата поръчка в процес на доставка</h4>
+                            <h4>Вашата поръчка в процес на доставка</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'sent'
                                     ?

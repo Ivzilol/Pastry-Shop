@@ -841,6 +841,10 @@ footer {
     border-bottom: 2px solid black;
 }
 
+.tracking-main-section {
+    display: flex;
+    justify-content: space-around;
+}
 
 
 
