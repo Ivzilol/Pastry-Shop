@@ -23,6 +23,7 @@ import AdminUsers from "./components/Users/AdminUsers";
 import UserProfile from "./components/Users/UserProfile";
 import UserEditProfile from "./components/Users/UserEditProfile";
 import UserOrderTracking from "./components/Orders/UserOrderTracking";
+import Author from "./components/Author/Author";
 
 function App() {
     const user = useUser();
@@ -138,6 +139,7 @@ function App() {
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
+            <Route path="/api/author" element={<Author/>}></Route>
         </Routes>
     );
 }

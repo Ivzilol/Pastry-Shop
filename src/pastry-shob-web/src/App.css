@@ -880,6 +880,28 @@ footer {
     color: #ef7d00;
 }
 
+.author-container-items {
+    display: flex;
+    margin: 10px 0;
+
+}
+
+.author-container-img {
+    width: 40%;
+    align-self: center;
+    background-color: black;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.author-container-img img {
+    border-radius: 50%;
+    padding-left: 45px;
+}
+
+.author-container-text {
+    padding-left: 20px;
+}
 
 
 
