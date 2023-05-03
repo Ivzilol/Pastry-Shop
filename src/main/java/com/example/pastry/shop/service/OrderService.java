@@ -141,6 +141,16 @@ public class OrderService {
             currentOrder.setStatusOrder(orderStatusDeliveryAdmin.getStatus());
             this.ordersProcessingRepository.save(currentOrder);
         }
+        Long keyOrder = 0L;
+        for (OrdersProcessing order : orders) {
+            keyOrder = order.getKeyOrder();
+            break;
+        }
+        Set<Orders> ordersForChangeStatus = this.ordersRepository.findByKeyOrderProduct(keyOrder);
+        for (Orders currentOrder : ordersForChangeStatus) {
+            currentOrder.setStatus("delivery");
+            this.ordersRepository.save(currentOrder);
+        }
         return (OrdersProcessing) orders;
     }
 
