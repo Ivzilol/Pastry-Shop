@@ -43,7 +43,7 @@ const UserOrderTracking = () => {
                                     :
                                     <></>
                             ))}
-                            <h4>Обща цена: {allPriceProcessing}</h4>
+                            <h4>Обща цена: {allPriceProcessing.toFixed(2)} лв.</h4>
                         </article>
                     ) : (
                         <></>
@@ -69,7 +69,7 @@ const UserOrderTracking = () => {
                                     :
                                     <></>
                             ))}
-                            <h4>Обща цена: {allPriceSend}</h4>
+                            <h4>Обща цена: {allPriceSend.toFixed(2)} лв.</h4>
                         </article>
                     ) : (
                         <></>

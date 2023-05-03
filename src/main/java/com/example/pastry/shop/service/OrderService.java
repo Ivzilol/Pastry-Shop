@@ -109,10 +109,7 @@ public class OrderService {
     public Set<Orders> findByUsersId(Long id, Users user) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         Set<Orders> byOrderKey = this.ordersRepository.findByKeyOrderProduct(id);
-        double totalPrice = 0;
-        for (Orders currentOrder : byOrderKey) {
-            totalPrice += currentOrder.getPrice();
-        }
+        double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
         ordersProcessing.setTotalPrice(totalPrice);
         Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
         ordersProcessing.setUser(currentUser.get());
