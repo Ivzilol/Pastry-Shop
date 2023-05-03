@@ -88,4 +88,10 @@ public class OrdersController {
         OrdersProcessing order = this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
         return ResponseEntity.ok(order);
     }
+
+    @GetMapping("/tracking")
+    public ResponseEntity<?> getConfirmedOrder(@AuthenticationPrincipal Users user) {
+        Set<Orders> confirmedOrder = this.orderService.trackingByStatus(user);
+        return ResponseEntity.ok(confirmedOrder);
+    }
 }

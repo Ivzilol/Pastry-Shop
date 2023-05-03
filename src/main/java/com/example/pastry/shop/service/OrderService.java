@@ -143,4 +143,9 @@ public class OrderService {
         }
         return (OrdersProcessing) orders;
     }
+
+
+    public Set<Orders> trackingByStatus(Users user) {
+        return this.ordersRepository.findConfirmedOrder(user);
+    }
 }

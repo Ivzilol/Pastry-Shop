@@ -32,5 +32,9 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             " where o.keyOrderProduct = :id")
     Optional<Orders> findUsersId(Long id);
 
-
+    @Query("select o from Orders as o" +
+            " join Users as u on o.users.id = u.id" +
+            " where o.status = 'confirmed'" +
+            " or o.status = 'sent'")
+    Set<Orders> findConfirmedOrder(Users user);
 }
