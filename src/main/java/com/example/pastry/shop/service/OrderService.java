@@ -146,6 +146,7 @@ public class OrderService {
 
 
     public Set<Orders> trackingByStatus(Users user) {
-        return this.ordersRepository.findConfirmedOrder(user);
+        Long id = user.getId();
+        return this.ordersRepository.findConfirmedOrder(id);
     }
 }
