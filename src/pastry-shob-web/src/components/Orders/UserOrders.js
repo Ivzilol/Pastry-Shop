@@ -81,7 +81,7 @@ const UserOrders = () => {
                         <h5 className="orders-user-title"
                         >Обща цена на поръчката: {allPrice.toFixed(2)}</h5>
                         <button
-                            className="orders-container-items-button"
+                            className="orders-container-items-button-confirm"
                             onClick={() => confirmOrder()}
                         >Потвърди поръчката
                         </button>

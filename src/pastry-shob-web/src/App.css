@@ -788,6 +788,18 @@ footer {
     border-bottom: 2px solid #ef7d00;
 }
 
+.orders-container-items-button-confirm {
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    font-style: italic;
+    background-color: red;
+    border-bottom: 2px solid #ef7d00;
+}
+
 .orders-user-price {
     display: flex;
     flex-direction: column;

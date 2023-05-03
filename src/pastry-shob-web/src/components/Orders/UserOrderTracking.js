@@ -7,7 +7,8 @@ const UserOrderTracking = () => {
 
     const user = useUser();
     const [order, setOrder] = useState(null);
-    let allPrice = 0;
+    let allPriceProcessing = 0;
+    let allPriceSend = 0;
 
     useEffect(() => {
         ajax("/api/orders/tracking", "GET", user.jwt)
@@ -37,12 +38,12 @@ const UserOrderTracking = () => {
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price} лв.</p>
                                         <p>Oт дата: {currentOrder.dateCreated}</p>
-                                        <p className="getAllPrice">{allPrice += currentOrder.price}</p>
+                                        <p className="getAllPrice">{allPriceProcessing += currentOrder.price}</p>
                                     </div>
                                     :
                                     <></>
                             ))}
-                            <h4>Обща цена: {allPrice}</h4>
+                            <h4>Обща цена: {allPriceProcessing}</h4>
                         </article>
                     ) : (
                         <></>
@@ -63,12 +64,12 @@ const UserOrderTracking = () => {
                                     >
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price}</p>
-                                        <p className="getAllPrice">{allPrice += currentOrder.price}</p>
+                                        <p className="getAllPrice">{allPriceSend += currentOrder.price}</p>
                                     </div>
                                     :
                                     <></>
                             ))}
-                            <h4>Обща цена: {allPrice}</h4>
+                            <h4>Обща цена: {allPriceSend}</h4>
                         </article>
                     ) : (
                         <></>
