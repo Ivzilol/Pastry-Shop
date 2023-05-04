@@ -8,8 +8,8 @@ public class OrderStatusSendAdmin {
 
     private String status;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateDelivery;
+
+    private String dateDelivery;
 
     public OrderStatusSendAdmin() {
     }
@@ -22,11 +22,11 @@ public class OrderStatusSendAdmin {
         this.status = status;
     }
 
-    public LocalDate getDateDelivery() {
+    public String getDateDelivery() {
         return dateDelivery;
     }
 
-    public void setDateDelivery(LocalDate dateDelivery) {
+    public void setDateDelivery(String dateDelivery) {
         this.dateDelivery = dateDelivery;
     }
 }

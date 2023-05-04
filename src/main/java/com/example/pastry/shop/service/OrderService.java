@@ -123,9 +123,10 @@ public class OrderService {
 
     public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) {
         Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
+        LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
         for (Orders currentOrder : orders) {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
-            currentOrder.setDateOfDelivery(LocalDate.now());
+            currentOrder.setDateOfDelivery(localDate);
             this.ordersRepository.save(currentOrder);
         }
         return (Orders) orders;

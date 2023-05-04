@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 const CreateProductAdmin = () => {
     useUser();
-    const navigate = useNavigate();
+    useNavigate();
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [categories, setCategories] = useState("");

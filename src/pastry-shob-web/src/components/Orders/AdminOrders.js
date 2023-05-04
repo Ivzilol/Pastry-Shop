@@ -30,9 +30,7 @@ const AdminOrders = () => {
     function startProcessingOrder(id, date) {
         ajax(`/api/orders/admin/${id}`, "POST", user.jwt, {
             id: id,
-        }).then(() =>
-            confirmOrder(id, date)
-        )
+        })
             .then(() => {
                 refreshPage()
             })
@@ -47,13 +45,29 @@ const AdminOrders = () => {
     }, [user.jwt])
 
 
-    function confirmOrder(id, date) {
-        ajax(`/api/orders/${id}`, "PATCH", user.jwt, {
+    function confirmOrder(id) {
+        const  requestBody = {
             status: "sent",
-            datetime: date,
+            dateDelivery: dateDelivery
+        }
+        fetch(`/api/orders/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "PATCH",
+            body: JSON.stringify(requestBody)
+
         })
-            .then(() =>
-                refreshPage())
+            .then(() => {
+            });
+
+
+
+        // ajax(`/api/orders/${id}`, "PATCH", user.jwt, {
+        //     status: "sent",
+        //     deliveryDate: dateDelivery
+        // }).then(() =>
+        //         refreshPage())
     }
 
     function confirmOrderDelivery(id) {
@@ -114,7 +128,10 @@ const AdminOrders = () => {
                                                     onChange={(e) => setDateDelivery(e.target.value)}
                                                 />
                                                 <button className="orders-admin-button"
-                                                        onClick={() => startProcessingOrder(order.keyOrderProduct, dateDelivery.toString())}
+                                                        onClick={() => {
+                                                            startProcessingOrder(order.keyOrderProduct)
+                                                            confirmOrder(order.keyOrderProduct)
+                                                        }}
                                                 >Изпрати поръчката
                                                 </button>
                                             </div>

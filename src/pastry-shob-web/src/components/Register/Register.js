@@ -40,7 +40,7 @@ const Register = () => {
                 "Content-Type": "application/json",
             },
             method: "POST",
-                    body: JSON.stringify(requestBody),
+            body: JSON.stringify(requestBody),
         })
             .then((response) => {
                 if (response.status === 200)
@@ -219,7 +219,8 @@ const Register = () => {
                         onBlur={validateConfirmPassword}
                     />
                     {error.confirmPassword &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.confirmPassword}</span>
+                        <span id="validate-username"><FontAwesomeIcon
+                            icon={faInfoCircle}/> {error.confirmPassword}</span>
                     }
                     <label form="firstName">First Name</label>
                     <input
@@ -290,7 +291,7 @@ const Register = () => {
                         id="submit"
                         type="button"
                         onClick={() => createAndLoginUser()
-                    }
+                        }
                     >
                         Register
                     </button>
