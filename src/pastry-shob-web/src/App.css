@@ -103,7 +103,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     align-content: center;
-
+    margin-top: 60px;
 }
 
 .register .register-form {
@@ -230,7 +230,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin: 10px;
+    margin-top: 70px;
 }
 
 .products-container-items {
@@ -580,6 +580,7 @@ footer {
 }
 
 .shop-art-main-title {
+    margin-top: 70px;
     color: #ef7d00;
     font-style: oblique;
 }
@@ -706,6 +707,10 @@ footer {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.user-edit-profile-container {
+    margin-top: 65px;
 }
 
 .user-edit-profile-items {
@@ -872,6 +877,7 @@ footer {
 }
 
 .tracking-main-section {
+    margin-top: 70px;
     display: flex;
     justify-content: space-around;
 }
