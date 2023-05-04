@@ -313,6 +313,7 @@ body {
 }
 
 .admin-bord-section {
+    margin-top: 70px;
     display: flex;
     justify-content: space-around;
 }
@@ -521,6 +522,10 @@ footer {
 .footer-author {
     text-align: center;
     color: white;
+}
+
+.shop-edit-admin-container {
+    margin-top: 70px;
 }
 
 .shop-edit-admin-container-items {
@@ -925,6 +930,7 @@ footer {
     display: flex;
     flex-direction: column;
 }
+
 
 
 
