@@ -51,20 +51,23 @@ public class UserService {
     }
 
     public void createUser(UserRegistrationDTO userRegistrationDTO) {
-        Users newUser = new Users();
-        newUser.setUsername(userRegistrationDTO.getUsername());
-        newUser.setFirstName(userRegistrationDTO.getFirstName());
-        newUser.setLastName(userRegistrationDTO.getLastName());
-        newUser.setAddress(userRegistrationDTO.getAddress());
-        newUser.setEmail(userRegistrationDTO.getEmail());
-        String encodedPassword = customPasswordEncoder
-                .getPasswordEncoder().encode(userRegistrationDTO.getPassword());
-        newUser.setPassword(encodedPassword);
-        usersRepository.save(newUser);
-        Authority authority = new Authority();
-        authority.setAuthority("user");
-        authority.setUsers(newUser);
-        authorityRepository.save(authority);
+        if(userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
+            Users newUser = new Users();
+            newUser.setUsername(userRegistrationDTO.getUsername());
+            newUser.setFirstName(userRegistrationDTO.getFirstName());
+            newUser.setLastName(userRegistrationDTO.getLastName());
+            newUser.setAddress(userRegistrationDTO.getAddress());
+            newUser.setEmail(userRegistrationDTO.getEmail());
+            newUser.setPhoneNumber(userRegistrationDTO.getPhoneNumber());
+            String encodedPassword = customPasswordEncoder
+                    .getPasswordEncoder().encode(userRegistrationDTO.getPassword());
+            newUser.setPassword(encodedPassword);
+            usersRepository.save(newUser);
+            Authority authority = new Authority();
+            authority.setAuthority("user");
+            authority.setUsers(newUser);
+            authorityRepository.save(authority);
+        }
     }
 
     public Users saveUser(UpdateUserDTO updateUserDTO, Long id, Users user) {

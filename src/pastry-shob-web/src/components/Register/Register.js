@@ -12,10 +12,12 @@ const Register = () => {
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
 
     useEffect(() => {
         if (user.jwt) navigate("/");
@@ -25,10 +27,12 @@ const Register = () => {
         const requestBody = {
             username: username,
             password: password,
+            confirmPassword: confirmPassword,
             firstName: firstName,
             lastName: lastName,
             email: email,
             address: address,
+            phoneNumber: phoneNumber
         }
 
         fetch("api/users/register", {
@@ -55,10 +59,12 @@ const Register = () => {
     const [error, setError] = useState({
         username: '',
         password: '',
+        confirmPassword: "",
         email: '',
         firstName: '',
         lastName: '',
         address: '',
+        phoneNumber: ''
     })
 
     const validateUsername = (e) => {
@@ -86,6 +92,20 @@ const Register = () => {
         setError(state => ({
             ...state,
             password: errorMessage,
+        }));
+    }
+
+    const validateConfirmPassword = (e) => {
+        const confirmPassword = e.target.value;
+        let errorMessage = ''
+        if (confirmPassword.length < 3) {
+            errorMessage = 'Password must be longer form 3 characters';
+        } else if (confirmPassword.length > 20) {
+            errorMessage = 'Password must be in short from 20 characters';
+        }
+        setError(state => ({
+            ...state,
+            confirmPassword: errorMessage,
         }));
     }
 
@@ -137,6 +157,18 @@ const Register = () => {
         }));
     }
 
+    const validatePhoneNumber = (e) => {
+        const phoneNumber = e.target.value;
+        let errorMessage = ''
+        if (phoneNumber.length < 1) {
+            errorMessage = 'Phone number it can not be empty';
+        }
+        setError(state => ({
+            ...state,
+            phoneNumber: errorMessage,
+        }));
+    }
+
 
     return (
         <>
@@ -174,6 +206,20 @@ const Register = () => {
                     />
                     {error.password &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
+                    }
+
+                    <label form="confirmPassword">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="ConfirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onBlur={validateConfirmPassword}
+                    />
+                    {error.confirmPassword &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.confirmPassword}</span>
                     }
                     <label form="firstName">First Name</label>
                     <input
@@ -226,6 +272,19 @@ const Register = () => {
                     />
                     {error.address &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
+                    }
+                    <label form="phoneNumber">Phone Number</label>
+                    <input
+                        type="text"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        placeholder="PhoneNumber"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onBlur={validatePhoneNumber}
+                    />
+                    {error.phoneNumber &&
+                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.phoneNumber}</span>
                     }
                     <button
                         id="submit"

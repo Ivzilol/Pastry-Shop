@@ -18,6 +18,10 @@ public class UserRegistrationDTO {
     @NotNull
     private String password;
 
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
+    @NotNull
+    private String confirmPassword;
+
     @UniqueEmail
     @Email(message = "Email cannot be empty")
     @NotBlank(message = "Email cannot be empty")
@@ -31,6 +35,10 @@ public class UserRegistrationDTO {
 
     @NotNull
     private String address;
+
+    @NotNull
+    private String phoneNumber;
+
 
     public UserRegistrationDTO() {
     }
@@ -81,5 +89,21 @@ public class UserRegistrationDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

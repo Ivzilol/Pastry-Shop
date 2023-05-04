@@ -35,7 +35,8 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private String address;
 
-
+    @Column(nullable = false)
+    private String phoneNumber;
 
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
@@ -136,6 +137,14 @@ public class Users implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 //    public Set<Products> getLikeProducts() {
