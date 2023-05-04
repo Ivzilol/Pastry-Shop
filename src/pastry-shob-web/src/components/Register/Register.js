@@ -47,7 +47,7 @@ const Register = () => {
                     return Promise.all([response.json(), response.headers]);
                 else return Promise.reject("Invalid attempt");
             })
-            .then(([body, headers]) => {
+            .then(() => {
                 user.setJwt(user.jwt);
                 navigate("/login")
             })
