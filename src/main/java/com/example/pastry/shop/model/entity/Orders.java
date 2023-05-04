@@ -18,6 +18,9 @@ public class Orders {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateCreated;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dateOfDelivery;
+
     private String status;
 
     private Double price;
@@ -88,5 +91,13 @@ public class Orders {
 
     public void setKeyOrderProduct(Long keyOrderProduct) {
         this.keyOrderProduct = keyOrderProduct;
+    }
+
+    public LocalDate getDateOfDelivery() {
+        return dateOfDelivery;
+    }
+
+    public void setDateOfDelivery(LocalDate dateOfDelivery) {
+        this.dateOfDelivery = dateOfDelivery;
     }
 }

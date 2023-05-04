@@ -902,7 +902,11 @@ footer {
 .author-container-text {
     padding-left: 20px;
     font-style: italic;
+}
 
+.order-admin-input {
+    display: flex;
+    flex-direction: column;
 }
 
 

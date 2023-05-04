@@ -126,6 +126,7 @@ public class OrderService {
         Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
         for (Orders currentOrder : orders) {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
+            currentOrder.setDateOfDelivery(LocalDate.now());
             this.ordersRepository.save(currentOrder);
         }
         return (Orders) orders;

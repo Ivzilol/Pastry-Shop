@@ -11,6 +11,7 @@ const AdminOrders = () => {
     let navigate = useNavigate();
     let currentKeyOrder;
     const [sentOrders, setSendOrders] = useState(null);
+    const [dateDelivery, setDateDelivery] = useState("");
 
 
     useEffect(() => {
@@ -26,11 +27,11 @@ const AdminOrders = () => {
     }
 
 
-    function startProcessingOrder(id) {
+    function startProcessingOrder(id, date) {
         ajax(`/api/orders/admin/${id}`, "POST", user.jwt, {
-            id: id
+            id: id,
         }).then(() =>
-            confirmOrder(id)
+            confirmOrder(id, date)
         )
             .then(() => {
                 refreshPage()
@@ -46,9 +47,10 @@ const AdminOrders = () => {
     }, [user.jwt])
 
 
-    function confirmOrder(id) {
+    function confirmOrder(id, date) {
         ajax(`/api/orders/${id}`, "PATCH", user.jwt, {
-            status: "sent"
+            status: "sent",
+            datetime: date,
         })
             .then(() =>
                 refreshPage())
@@ -102,10 +104,20 @@ const AdminOrders = () => {
                                                 ) :
                                                 <></>
                                             }
-                                            <button className="orders-admin-button"
-                                                    onClick={() => startProcessingOrder(order.keyOrderProduct)}
-                                            >Изпрати поръчката
-                                            </button>
+                                            <div className="order-admin-input">
+                                                <label form="date-delivery">Добави дата на доставка</label>
+                                                <input
+                                                    type="date"
+                                                    id="date-delivery"
+                                                    name="date-delivery"
+                                                    value={dateDelivery}
+                                                    onChange={(e) => setDateDelivery(e.target.value)}
+                                                />
+                                                <button className="orders-admin-button"
+                                                        onClick={() => startProcessingOrder(order.keyOrderProduct, dateDelivery.toString())}
+                                                >Изпрати поръчката
+                                                </button>
+                                            </div>
                                             <hr className="orders-admin-line"/>
                                         </div>
                                         :
