@@ -83,11 +83,11 @@ const ProductsUser = () => {
                                     >
                                         Order Product
                                     </button>
-                                    {/*<button*/}
-                                    {/*id="submit"*/}
-                                    {/*type="button"*/}
-                                    {/*onClick={() => likeProduct(product.id)}*/}
-                                    {/*>Like product </button>*/}
+                                    <button
+                                    id="submit"
+                                    type="button"
+                                    onClick={() => likeProduct(product.id)}
+                                    >Like product </button>
                                 </div>
                             </div>
                         </div>

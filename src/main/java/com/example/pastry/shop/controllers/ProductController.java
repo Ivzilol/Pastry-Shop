@@ -76,6 +76,6 @@ public class ProductController {
 //    public ResponseEntity<?> likeProduct(@PathVariable Long id,
 //                                         @AuthenticationPrincipal Users user) {
 //        Products product = this.productsService.likeProduct(id, user);
-//        return (ResponseEntity<?>) ResponseEntity.ok();
+//        return ResponseEntity.ok(product);
 //    }
 }
