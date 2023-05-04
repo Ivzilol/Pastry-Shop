@@ -106,7 +106,7 @@ public class OrderService {
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
 
-    public Set<Orders> findByUsersId(Long id, Users user) {
+    public Set<Orders> findByUsersId(Long id) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         Set<Orders> byOrderKey = this.ordersRepository.findByKeyOrderProduct(id);
         double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();

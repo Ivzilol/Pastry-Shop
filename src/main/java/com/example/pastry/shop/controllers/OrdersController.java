@@ -65,7 +65,7 @@ public class OrdersController {
     @PostMapping("/admin/{id}")
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id,
                                                   @AuthenticationPrincipal Users user) {
-        Set<Orders> currentOrders = this.orderService.findByUsersId(id, user);
+        Set<Orders> currentOrders = this.orderService.findByUsersId(id);
         return ResponseEntity.ok(currentOrders);
     }
 
