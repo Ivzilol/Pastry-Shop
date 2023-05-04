@@ -128,7 +128,8 @@ const Homepage = () => {
                                                     id="submit"
                                                     type="button"
                                                     onClick={() => orderProducts(currentProduct.id)}
-                                                >Order
+                                                >
+                                                    Поръчай
                                                 </button>
                                             </div>
                                         ) : (
