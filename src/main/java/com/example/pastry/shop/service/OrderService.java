@@ -115,7 +115,6 @@ public class OrderService {
         ordersProcessing.setUser(currentUser.get());
         ordersProcessing.setStatusOrder("sent");
         ordersProcessing.setDateOfDispatch(LocalDate.now());
-        Set<Orders> keyOrdersAll = this.ordersRepository.findByUsers_Id(id);
         ordersProcessing.setKeyOrder(id);
         this.ordersProcessingRepository.save(ordersProcessing);
         return byOrderKey;

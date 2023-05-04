@@ -36,6 +36,8 @@ public class Users implements UserDetails {
     private String address;
 
 
+
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     @JsonIgnore
     private List<Authority> authorities = new ArrayList<>();
