@@ -22,12 +22,6 @@ public class PastryShopUserDetailsServiceTest {
     @Mock
     private UsersRepository mockUserRepo;
 
-    @BeforeEach
-    void setUp() {
-        UserDetailsServiceImpl toTest = new UserDetailsServiceImpl(
-                mockUserRepo
-        );
-    }
 
     @Test
     void testLoadUserByUsername_UserExist() {
