@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+// eslint-disable-next-line no-unused-vars
 import button from "bootstrap/js/src/button";
 
 const AdminOrders = () => {
@@ -46,7 +47,7 @@ const AdminOrders = () => {
 
 
     function confirmOrder(id) {
-        const  requestBody = {
+        const requestBody = {
             status: "sent",
             dateDelivery: dateDelivery
         }
@@ -60,14 +61,6 @@ const AdminOrders = () => {
         })
             .then(() => {
             });
-
-
-
-        // ajax(`/api/orders/${id}`, "PATCH", user.jwt, {
-        //     status: "sent",
-        //     deliveryDate: dateDelivery
-        // }).then(() =>
-        //         refreshPage())
     }
 
     function confirmOrderDelivery(id) {
