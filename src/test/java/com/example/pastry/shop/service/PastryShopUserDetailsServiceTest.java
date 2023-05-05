@@ -4,7 +4,6 @@ import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -25,7 +24,6 @@ public class PastryShopUserDetailsServiceTest {
 
     @Test
     void testLoadUserByUsername_UserExist() {
-
         Optional<Users> testUsers = Optional.of(new Users());
         testUsers.get().setUsername("Gosho");
         testUsers.get().setFirstName("Georgi");
