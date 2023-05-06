@@ -1,10 +1,8 @@
 package com.example.pastry.shop.controllerTest;
 
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
-import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import com.example.pastry.shop.util.CustomPasswordEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UsersControllerIntegrationTest {
@@ -29,8 +24,6 @@ public class UsersControllerIntegrationTest {
 
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
-    @Autowired
-    private CustomPasswordEncoder passwordEncoder;
 
     @BeforeAll
     public static void init() {
@@ -57,6 +50,10 @@ public class UsersControllerIntegrationTest {
         Users response = restTemplate.postForObject(baseUrl, registrationDto, Users.class);
         Assertions.assertEquals("Tosho", response.getUsername());
         Assertions.assertEquals("gundi@abv.bg", response.getEmail());
+        Assertions.assertEquals("Georgi", response.getFirstName());
+        Assertions.assertEquals("Georgiev", response.getLastName());
+        Assertions.assertEquals("Sofiq", response.getAddress());
+        Assertions.assertEquals("0887778899", response.getPhoneNumber());
         Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
     }
 }
