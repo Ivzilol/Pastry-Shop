@@ -3,10 +3,8 @@ package com.example.pastry.shop.controllerTest;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import org.apache.catalina.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,10 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UsersControllerIntegrationTest {
