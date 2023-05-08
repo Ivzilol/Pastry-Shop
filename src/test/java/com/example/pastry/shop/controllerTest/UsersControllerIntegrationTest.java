@@ -14,8 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.web.client.RestTemplate;
 
-import static org.apache.coyote.http11.Constants.a;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UsersControllerIntegrationTest {
 
@@ -28,6 +26,8 @@ public class UsersControllerIntegrationTest {
 
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
+
+
 
     @BeforeAll
     public static void init() {
@@ -82,5 +82,10 @@ public class UsersControllerIntegrationTest {
         Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
         Assertions.assertFalse(response.getAuthorities().stream()
                 .anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority())));
+    }
+
+    @Test
+    public void testUniqueUsername() {
+
     }
 }
