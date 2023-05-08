@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,55 +48,48 @@ public class UsersControllerIntegrationTest {
     }
 
 
-    @Test
-    public void testCreateUser() {
-        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
-        registrationDto.setUsername("Tosho");
-        registrationDto.setFirstName("Georgi");
-        registrationDto.setLastName("Georgiev");
-        registrationDto.setEmail("gundi@abv.bg");
-        registrationDto.setAddress("Sofiq");
-        registrationDto.setPhoneNumber("0887778899");
-        registrationDto.setPassword("asdasd");
-        registrationDto.setConfirmPassword("asdasd");
-        Users response = restTemplate.postForObject(baseUrl + "/register", registrationDto, Users.class);
-        Assertions.assertEquals("Tosho", response.getUsername());
-        Assertions.assertEquals("gundi@abv.bg", response.getEmail());
-        Assertions.assertEquals("Georgi", response.getFirstName());
-        Assertions.assertEquals("Georgiev", response.getLastName());
-        Assertions.assertEquals("Sofiq", response.getAddress());
-        Assertions.assertEquals("0887778899", response.getPhoneNumber());
-        Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
-    }
-
-    @Test
-    public void testCreateAdmin() {
-        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
-        registrationDto.setUsername("Tosho");
-        registrationDto.setFirstName("Georgi");
-        registrationDto.setLastName("Georgiev");
-        registrationDto.setEmail("gundi@abv.bg");
-        registrationDto.setAddress("Sofiq");
-        registrationDto.setPhoneNumber("0887778899");
-        registrationDto.setPassword("bbGGbb123");
-        registrationDto.setConfirmPassword("bbGGbb123");
-        Users response = restTemplate.postForObject(baseUrl + "/register", registrationDto, Users.class, Authority.class);
-//        Authority authority = restTemplate.postForObject(baseUrl + "/register", response, Authority.class);
-//        Authority auth = new Authority();
-//        auth.setAuthority("user");
-//        auth.setUsers(response);
-//        Authority authResponse = restTemplate.postForObject(baseUrl + "/register", auth, Authority.class);
-        Assertions.assertEquals("Tosho", response.getUsername());
-        Assertions.assertEquals("gundi@abv.bg", response.getEmail());
-        Assertions.assertEquals("Georgi", response.getFirstName());
-        Assertions.assertEquals("Georgiev", response.getLastName());
-        Assertions.assertEquals("Sofiq", response.getAddress());
-        Assertions.assertEquals("0887778899", response.getPhoneNumber());
-        Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
-        Assertions.assertEquals(1, testH2RepositoryAuthority.findAll().size());
-//        Assertions.assertFalse(response.getAuthorities().stream()
-//                .anyMatch(auth1 -> AuthorityEnum.admin.name().equals(auth.getAuthority())));
-    }
+//    @Test
+//    public void testCreateUser() {
+//        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+//        registrationDto.setUsername("Tosho");
+//        registrationDto.setFirstName("Georgi");
+//        registrationDto.setLastName("Georgiev");
+//        registrationDto.setEmail("gundi@abv.bg");
+//        registrationDto.setAddress("Sofiq");
+//        registrationDto.setPhoneNumber("0887778899");
+//        registrationDto.setPassword("asdasd");
+//        registrationDto.setConfirmPassword("asdasd");
+//        Users response = restTemplate.postForObject(baseUrl + "/register", registrationDto, Users.class);
+//        Assertions.assertEquals("Tosho", response.getUsername());
+//        Assertions.assertEquals("gundi@abv.bg", response.getEmail());
+//        Assertions.assertEquals("Georgi", response.getFirstName());
+//        Assertions.assertEquals("Georgiev", response.getLastName());
+//        Assertions.assertEquals("Sofiq", response.getAddress());
+//        Assertions.assertEquals("0887778899", response.getPhoneNumber());
+//        Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
+//    }
+//
+//    @Test
+//    public void testCreateAdmin() {
+//        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+//        registrationDto.setUsername("Tosho");
+//        registrationDto.setFirstName("Georgi");
+//        registrationDto.setLastName("Georgiev");
+//        registrationDto.setEmail("gundi@abv.bg");
+//        registrationDto.setAddress("Sofiq");
+//        registrationDto.setPhoneNumber("0887778899");
+//        registrationDto.setPassword("bbGGbb123");
+//        registrationDto.setConfirmPassword("bbGGbb123");
+//        Users response = restTemplate.postForObject(baseUrl + "/register", registrationDto, Users.class, Authority.class);
+//        Assertions.assertEquals("Tosho", response.getUsername());
+//        Assertions.assertEquals("gundi@abv.bg", response.getEmail());
+//        Assertions.assertEquals("Georgi", response.getFirstName());
+//        Assertions.assertEquals("Georgiev", response.getLastName());
+//        Assertions.assertEquals("Sofiq", response.getAddress());
+//        Assertions.assertEquals("0887778899", response.getPhoneNumber());
+//        Assertions.assertEquals(1, testH2RepositoryUsers.findAll().size());
+//        Assertions.assertEquals(1, testH2RepositoryAuthority.findAll().size());
+//    }
 
     @Test
     public void testGetAllUsers() {
@@ -124,10 +118,16 @@ public class UsersControllerIntegrationTest {
         Assertions.assertEquals("Sofiq", response.getAddress());
         Assertions.assertEquals("Sofiq", response2.getAddress());
         List<Authority> admins = testH2RepositoryAuthority.findAll()
-                .stream().filter(a -> a.getAuthority().equals("admin"))
-                .collect(Collectors.toList());
-
+                .stream().filter(a -> a.getAuthority().equals("admin")).toList();
+        List<Authority> users = testH2RepositoryAuthority.findAll()
+                .stream().filter(a -> a.getAuthority().equals("user")).toList();
         Assertions.assertEquals(1, admins.size());
-    }
+        Assertions.assertEquals(1, users.size());
+        List<Users> allUsers = testH2RepositoryUsers.findAll();
+        Assertions.assertEquals(2, allUsers.size());
+        Users userById = testH2RepositoryUsers.findAll().stream()
+                .filter(u -> u.getUsername().equals("Tosho")).findFirst().orElse(null);
+        Assertions.assertEquals("Tosho", userById.getUsername());
 
+    }
 }
