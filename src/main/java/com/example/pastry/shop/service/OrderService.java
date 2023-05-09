@@ -12,11 +12,8 @@ import com.example.pastry.shop.repository.OrdersProcessingRepository;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -155,9 +152,15 @@ public class OrderService {
             break;
         }
         Set<Orders> ordersForChangeStatus = this.ordersRepository.findByKeyOrderProduct(keyOrder);
+        LocalDate dateRecipe = null;
         for (Orders currentOrder : ordersForChangeStatus) {
             currentOrder.setStatus("delivery");
             this.ordersRepository.save(currentOrder);
+            dateRecipe = currentOrder.getDateOfDelivery();
+        }
+        for (OrdersProcessing order : orders) {
+            order.setDateOfReceipt(dateRecipe);
+            this.ordersProcessingRepository.save(order);
         }
         return (OrdersProcessing) orders;
     }
