@@ -12,8 +12,14 @@ import com.example.pastry.shop.repository.OrdersProcessingRepository;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
@@ -121,12 +127,16 @@ public class OrderService {
     }
 
 
-    public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) {
+    public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
         Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
         LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        java.sql.Time timeDelivery = new java.sql.Time(formatter
+                .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
         for (Orders currentOrder : orders) {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
             currentOrder.setDateOfDelivery(localDate);
+            currentOrder.setTimeOfDelivery(timeDelivery);
             this.ordersRepository.save(currentOrder);
         }
         return (Orders) orders;

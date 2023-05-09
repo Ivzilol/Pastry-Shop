@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Set;
 
 @RestController
@@ -76,7 +77,7 @@ public class OrdersController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Orders> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
-                                                        @PathVariable Long id) {
+                                                        @PathVariable Long id) throws ParseException {
         Orders order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         return ResponseEntity.ok(order);
     }
