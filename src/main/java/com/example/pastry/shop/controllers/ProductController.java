@@ -72,10 +72,10 @@ public class ProductController {
         }
     }
 
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> likeProduct(@PathVariable Long id,
-//                                         @AuthenticationPrincipal Users user) {
-//        Products product = this.productsService.likeProduct(id, user);
-//        return ResponseEntity.ok(product);
-//    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> likeProduct(@PathVariable Long id,
+                                         @AuthenticationPrincipal Users user) {
+        Products product = this.productsService.likeProduct(id, user);
+        return ResponseEntity.ok(product);
+    }
 }

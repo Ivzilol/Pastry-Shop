@@ -48,7 +48,9 @@ const ProductsUser = () => {
         ajax(`/api/products/${id}`, "PATCH", user.jwt, {
             like: 1
         })
-            .then()
+            .then(() => {
+                alert("You like this products")
+            })
     }
     return (
         <main className="products-users">

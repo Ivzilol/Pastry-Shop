@@ -1,10 +1,7 @@
 package com.example.pastry.shop.model.entity;
 
-import com.example.pastry.shop.model.enums.Categories;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
@@ -42,8 +39,8 @@ public class Products {
     @ManyToOne
     public Users admin;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Set<Users> userLikes;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Users> userLikes;
 
     public Products() {
 
@@ -137,11 +134,11 @@ public class Products {
         this.admin = admin;
     }
 
-//    public Set<Users> getUserLikes() {
-//        return userLikes;
-//    }
-//
-//    public void setUserLikes(Set<Users> userLikes) {
-//        this.userLikes = userLikes;
-//    }
+    public Set<Users> getUserLikes() {
+        return userLikes;
+    }
+
+    public void setUserLikes(Set<Users> userLikes) {
+        this.userLikes = userLikes;
+    }
 }

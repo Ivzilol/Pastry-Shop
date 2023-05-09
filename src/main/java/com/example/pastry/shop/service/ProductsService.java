@@ -76,16 +76,16 @@ public class ProductsService {
         return productRepository.findByName(name);
     }
 
-//    public Products likeProduct(Long id, Users user) {
-//        Products product = this.productRepository.findProductById(id);
-//        boolean isUser = isUser(user);
-//        if (isUser) {
-//            product.getUserLikes().add(user);
-//            product.setLikes(product.getLikes() + 1);
-//            this.productRepository.save(product);
-//            return product;
-//        } else {
-//            return null;
-//        }
-//    }
+    public Products likeProduct(Long id, Users user) {
+        Products product = this.productRepository.findProductById(id);
+        boolean isUser = isUser(user);
+        if (isUser) {
+            product.getUserLikes().add(user);
+            product.setLikes(product.getLikes() + 1);
+            this.productRepository.save(product);
+            return product;
+        } else {
+            return null;
+        }
+    }
 }
