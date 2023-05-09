@@ -64,6 +64,8 @@ const UserOrderTracking = () => {
                                     >
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price}</p>
+                                        <p>Дата на доставка: {currentOrder.dateOfDelivery}</p>
+                                        <p>Очаквайте вашата доставка около: {currentOrder.timeOfDelivery} часа</p>
                                         <p className="getAllPrice">{allPriceSend += currentOrder.price}</p>
                                     </div>
                                     :
