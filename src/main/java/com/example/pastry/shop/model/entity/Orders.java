@@ -3,8 +3,8 @@ package com.example.pastry.shop.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
 @Table(name = "orders")
@@ -20,6 +20,9 @@ public class Orders {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfDelivery;
+
+
+    private Time timeOfDelivery;
 
     private String status;
 
@@ -99,5 +102,13 @@ public class Orders {
 
     public void setDateOfDelivery(LocalDate dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
+    }
+
+    public Time getTimeOfDelivery() {
+        return timeOfDelivery;
+    }
+
+    public void setTimeOfDelivery(Time timeOfDelivery) {
+        this.timeOfDelivery = timeOfDelivery;
     }
 }
