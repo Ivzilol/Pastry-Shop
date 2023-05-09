@@ -20,8 +20,7 @@ public class Orders {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfDelivery;
-
-
+    @JsonFormat(pattern = "HH:mm")
     private Time timeOfDelivery;
 
     private String status;

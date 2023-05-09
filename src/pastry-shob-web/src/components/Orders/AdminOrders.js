@@ -13,6 +13,7 @@ const AdminOrders = () => {
     let currentKeyOrder;
     const [sentOrders, setSendOrders] = useState(null);
     const [dateDelivery, setDateDelivery] = useState("");
+    const [timeDelivery, setTimeDelivery] = useState("");
 
 
     useEffect(() => {
@@ -49,7 +50,8 @@ const AdminOrders = () => {
     function confirmOrder(id) {
         const requestBody = {
             status: "sent",
-            dateDelivery: dateDelivery
+            dateDelivery: dateDelivery,
+            timeDelivery: timeDelivery
         }
         fetch(`/api/orders/${id}`, {
             headers: {
@@ -119,6 +121,14 @@ const AdminOrders = () => {
                                                     name="date-delivery"
                                                     value={dateDelivery}
                                                     onChange={(e) => setDateDelivery(e.target.value)}
+                                                />
+                                                <label form="time-delivery">Добави час на доставка</label>
+                                                <input
+                                                    type="time"
+                                                    id="time-delivery"
+                                                    name="time-delivery"
+                                                    value={timeDelivery}
+                                                    onChange={(e) => setTimeDelivery(e.target.value)}
                                                 />
                                                 <button className="orders-admin-button"
                                                         onClick={() => {

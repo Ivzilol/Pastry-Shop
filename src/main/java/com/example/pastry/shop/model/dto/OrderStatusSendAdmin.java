@@ -1,15 +1,12 @@
 package com.example.pastry.shop.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.time.LocalDate;
-
 public class OrderStatusSendAdmin {
 
     private String status;
 
-
     private String dateDelivery;
+
+    private String timeDelivery;
 
     public OrderStatusSendAdmin() {
     }
@@ -28,5 +25,13 @@ public class OrderStatusSendAdmin {
 
     public void setDateDelivery(String dateDelivery) {
         this.dateDelivery = dateDelivery;
+    }
+
+    public String getTimeDelivery() {
+        return timeDelivery;
+    }
+
+    public void setTimeDelivery(String timeDelivery) {
+        this.timeDelivery = timeDelivery;
     }
 }
