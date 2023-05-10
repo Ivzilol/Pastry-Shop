@@ -258,10 +258,23 @@ body {
     margin-top: 20px;
 }
 
+.products-container-item-button {
+    margin: 10px;
+    padding: 5px;
+}
+
 #root > main > section > article {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.products-container-item-button button {
+    padding: 7px;
+    width: 150px;
+    border: none;
+    background-color: aqua;
+    border-radius: 20px;
 }
 
 .products-container-createButton {
