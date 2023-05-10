@@ -104,24 +104,6 @@ const ProductsUser = () => {
                                                      className="products-container-item-likes-icon"
                                     />
                                     {Number(product.userLikes.length)}</p>
-                                {/*{product.userLikes*/}
-                                {/*    ?*/}
-                                {/*    <button*/}
-                                {/*        className="products-container-item-likes-button"*/}
-                                {/*        id="submit"*/}
-                                {/*        type="button"*/}
-                                {/*        onClick={() => likeProduct(product.id)}*/}
-                                {/*    >Харесва ми*/}
-                                {/*    </button>*/}
-                                {/*    :*/}
-                                {/*    <button*/}
-                                {/*        className="products-container-item-likes-button"*/}
-                                {/*        id="submit"*/}
-                                {/*        type="button"*/}
-                                {/*        onClick={() => likeProduct(product.id)}*/}
-                                {/*    >Не харесва*/}
-                                {/*    </button>*/}
-                                {/*}*/}
                                 <div className="products-container-item-likes-container-buttons">
                                     <button
                                         className="products-container-item-likes-button"
