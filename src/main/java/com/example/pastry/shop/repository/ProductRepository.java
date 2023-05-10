@@ -28,4 +28,5 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products as p" +
             " order by p.numberOrders asc ")
     List<Products> recommendedProducts();
+
 }

@@ -10,6 +10,7 @@ import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,12 +21,9 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    private final UsersRepository usersRepository;
-
     public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, UsersRepository usersRepository) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
-        this.usersRepository = usersRepository;
     }
 
     public Products createProduct(CreateProductDTO productDTO) {
@@ -79,7 +77,9 @@ public class ProductsService {
     public Products likeProduct(Long id, Users user) {
         Products product = this.productRepository.findProductById(id);
         boolean isUser = isUser(user);
-        if (isUser) {
+        Set<Users> userLikes = product.getUserLikes();
+        boolean likeUsers = isLike(user, userLikes);
+        if (isUser && !likeUsers) {
             product.getUserLikes().add(user);
             product.setLikes(product.getLikes() + 1);
             this.productRepository.save(product);
@@ -88,4 +88,16 @@ public class ProductsService {
             return null;
         }
     }
+
+    private boolean isLike(Users user, Set<Users> userLikes) {
+        boolean isTrue = false;
+        for (Users currentUser : userLikes) {
+            if (Objects.equals(currentUser.getId(), user.getId())) {
+                isTrue = true;
+                break;
+            }
+        }
+        return isTrue;
+    }
+
 }
