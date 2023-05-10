@@ -5,12 +5,9 @@ import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faFaceGrinHearts,
-    faGrinHearts,
-    faInfoCircle,
-    faShieldHeart,
     faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
+import jwt_decode from "jwt-decode";
 
 
 const ProductsUser = () => {
@@ -26,11 +23,11 @@ const ProductsUser = () => {
         }
     );
 
+
     useEffect(() => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
-                console.log(productsData);
             });
 
         if (!user.jwt) navigate("/login")
@@ -61,6 +58,7 @@ const ProductsUser = () => {
                 alert("You like this products")
             })
     }
+
     return (
         <main className="products-users">
             <NavBar/>
@@ -82,9 +80,16 @@ const ProductsUser = () => {
                             />
                             <p className="products-container-item-likes">
                                 <FontAwesomeIcon icon={faThumbsUp}
-                                className="products-container-item-likes-icon"
+                                                 className="products-container-item-likes-icon"
                                 />
                                 {Number(product.userLikes.length)}</p>
+                                <button
+                                    className="products-container-item-likes-button"
+                                    id="submit"
+                                    type="button"
+                                    onClick={() => likeProduct(product.id)}
+                                >Харесвам </button>
+
                             <div className="products-container-item-button"
                             >
                                 <div className="products-container-item-button-container">
@@ -98,11 +103,6 @@ const ProductsUser = () => {
                                     >
                                         Order Product
                                     </button>
-                                    <button
-                                    id="submit"
-                                    type="button"
-                                    onClick={() => likeProduct(product.id)}
-                                    >Like product </button>
                                 </div>
                             </div>
                         </div>
