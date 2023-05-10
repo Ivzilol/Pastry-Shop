@@ -8,6 +8,7 @@ import {
     faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 import jwt_decode from "jwt-decode";
+import Footer from "../Footer/Footer";
 
 
 const ProductsUser = () => {
@@ -27,11 +28,26 @@ const ProductsUser = () => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
+                console.log(productsData)
             });
 
         if (!user.jwt) navigate("/login")
     }, [user.jwt]);
 
+    const [userUsername, setUserUsername] = useState(getUsernameFromJWT);
+
+    useEffect(() => {
+        setUserUsername(getUsernameFromJWT)
+    }, [user.jwt])
+
+    function getUsernameFromJWT() {
+        if (user.jwt) {
+            const decodeJwt = jwt_decode(user.jwt)
+            console.log(decodeJwt.sub);
+            return decodeJwt
+        }
+        return [];
+    }
 
     function orderProduct(id) {
         ajax(`/api/products/${id}`, "GET", user.jwt)
@@ -88,6 +104,24 @@ const ProductsUser = () => {
                                                      className="products-container-item-likes-icon"
                                     />
                                     {Number(product.userLikes.length)}</p>
+                                {/*{product.userLikes*/}
+                                {/*    ?*/}
+                                {/*    <button*/}
+                                {/*        className="products-container-item-likes-button"*/}
+                                {/*        id="submit"*/}
+                                {/*        type="button"*/}
+                                {/*        onClick={() => likeProduct(product.id)}*/}
+                                {/*    >Харесва ми*/}
+                                {/*    </button>*/}
+                                {/*    :*/}
+                                {/*    <button*/}
+                                {/*        className="products-container-item-likes-button"*/}
+                                {/*        id="submit"*/}
+                                {/*        type="button"*/}
+                                {/*        onClick={() => likeProduct(product.id)}*/}
+                                {/*    >Не харесва*/}
+                                {/*    </button>*/}
+                                {/*}*/}
                                 <div className="products-container-item-likes-container-buttons">
                                     <button
                                         className="products-container-item-likes-button"
@@ -96,6 +130,7 @@ const ProductsUser = () => {
                                         onClick={() => likeProduct(product.id)}
                                     >Харесва ми
                                     </button>
+
                                     <button
                                         className="products-container-item-likes-container-button2"
                                         id="submit"
@@ -115,6 +150,7 @@ const ProductsUser = () => {
             ) : (
                 <></>
             )}
+            <Footer/>
         </main>
     )
 }
