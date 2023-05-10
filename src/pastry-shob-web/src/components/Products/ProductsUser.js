@@ -59,6 +59,15 @@ const ProductsUser = () => {
             })
     }
 
+    const [likes, setLikes] = useState(false)
+
+    useEffect(() => {
+        ajax("api/products/likes", "GET", user.jwt)
+            .then(likesData => {
+                setLikes(likesData)
+            })
+    })
+
     return (
         <main className="products-users">
             <NavBar/>
