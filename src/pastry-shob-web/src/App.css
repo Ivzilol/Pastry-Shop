@@ -258,23 +258,10 @@ body {
     margin-top: 20px;
 }
 
-.products-container-item-button {
-    margin: 10px;
-    padding: 5px;
-}
-
 #root > main > section > article {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.products-container-item-button button {
-    padding: 7px;
-    width: 150px;
-    border: none;
-    background-color: aqua;
-    border-radius: 20px;
 }
 
 .products-container-createButton {
@@ -945,11 +932,35 @@ footer {
     color: #ef7d00;
 }
 
+.products-container-item-likes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
 .products-container-item-likes-icon {
     margin-right: 10px;
     font-size:  17px;
 }
 
+.products-container-item-likes-button {
+    margin-left: 7px;
+    margin-top: 5px;
+    border-radius: 20px;
+    background-color: #ef7d00;
+    border: none;
+    padding: 5px 10px 5px 10px;
+    color: white;
+    margin-bottom: 15px;
+    font-style: italic;
+}
 
-
+.products-container-item-likes-container-button2 {
+    margin-left: 62px;
+    padding: 7px;
+    width: 150px;
+    border: none;
+    background-color: aqua;
+    border-radius: 20px;
+}
 

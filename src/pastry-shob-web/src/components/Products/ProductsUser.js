@@ -23,7 +23,6 @@ const ProductsUser = () => {
         }
     );
 
-
     useEffect(() => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
@@ -50,23 +49,18 @@ const ProductsUser = () => {
             })
     }
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     function likeProduct(id) {
-        ajax(`/api/products/${id}`, "PATCH", user.jwt, {
-            like: 1
-        })
+        ajax(`/api/products/${id}`, "PATCH", user.jwt)
             .then(() => {
                 alert("You like this products")
+                refreshPage();
             })
     }
 
-    const [likes, setLikes] = useState({})
-
-    useEffect(() => {
-        ajax("api/products/likes", "GET", user.jwt)
-            .then(likesData => {
-                setLikes(likesData)
-            })
-    }, [user.jwt])
 
     return (
         <main className="products-users">
@@ -77,6 +71,7 @@ const ProductsUser = () => {
                         <div
                             className="products-container-items"
                             key={product.id}
+                            id={product.id}
                         >
                             <p className="products-container-item"
                             >Продукт: {product.name}</p>
@@ -87,22 +82,22 @@ const ProductsUser = () => {
                             <img
                                 className="product-img" src={product.imageUrl} alt="new"
                             />
-                            <p className="products-container-item-likes">
-                                <FontAwesomeIcon icon={faThumbsUp}
-                                                 className="products-container-item-likes-icon"
-                                />
-                                {Number(product.userLikes.length)}</p>
-                                <button
-                                    className="products-container-item-likes-button"
-                                    id="submit"
-                                    type="button"
-                                    onClick={() => likeProduct(product.id)}
-                                >Харесвам </button>
-
-                            <div className="products-container-item-button"
-                            >
-                                <div className="products-container-item-button-container">
+                            <div className="products-container-item-likes-container">
+                                <p className="products-container-item-likes">
+                                    <FontAwesomeIcon icon={faThumbsUp}
+                                                     className="products-container-item-likes-icon"
+                                    />
+                                    {Number(product.userLikes.length)}</p>
+                                <div className="products-container-item-likes-container-buttons">
                                     <button
+                                        className="products-container-item-likes-button"
+                                        id="submit"
+                                        type="button"
+                                        onClick={() => likeProduct(product.id)}
+                                    >Харесва ми
+                                    </button>
+                                    <button
+                                        className="products-container-item-likes-container-button2"
                                         id="submit"
                                         type="button"
                                         onClick={() => {
@@ -114,6 +109,21 @@ const ProductsUser = () => {
                                     </button>
                                 </div>
                             </div>
+                            {/*<div className="products-container-item-button"*/}
+                            {/*>*/}
+                            {/*    <div className="products-container-item-button-container">*/}
+                            {/*        <button*/}
+                            {/*            id="submit"*/}
+                            {/*            type="button"*/}
+                            {/*            onClick={() => {*/}
+                            {/*                orderProduct(product.id);*/}
+                            {/*                orderProducts(product.id);*/}
+                            {/*            }}*/}
+                            {/*        >*/}
+                            {/*            Order Product*/}
+                            {/*        </button>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     ))}
                 </article>

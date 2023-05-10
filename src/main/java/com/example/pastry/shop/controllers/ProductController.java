@@ -84,6 +84,4 @@ public class ProductController {
         Products product = this.productsService.likeProduct(id, user);
         return ResponseEntity.ok(product);
     }
-
-
 }

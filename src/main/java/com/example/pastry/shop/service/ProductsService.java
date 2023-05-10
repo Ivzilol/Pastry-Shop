@@ -84,9 +84,8 @@ public class ProductsService {
             product.setLikes(product.getLikes() + 1);
             this.productRepository.save(product);
             return product;
-        } else {
-            return null;
         }
+        return product;
     }
 
     private boolean isLike(Users user, Set<Users> userLikes) {
