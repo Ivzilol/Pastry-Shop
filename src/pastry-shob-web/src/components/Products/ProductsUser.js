@@ -59,14 +59,14 @@ const ProductsUser = () => {
             })
     }
 
-    const [likes, setLikes] = useState(false)
+    const [likes, setLikes] = useState({})
 
     useEffect(() => {
         ajax("api/products/likes", "GET", user.jwt)
             .then(likesData => {
                 setLikes(likesData)
             })
-    })
+    }, [user.jwt])
 
     return (
         <main className="products-users">

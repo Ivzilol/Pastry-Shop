@@ -72,10 +72,18 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/likes")
+    public ResponseEntity<?> getUserLikes(@AuthenticationPrincipal Users user) {
+        Set<Products> product = this.productsService.findProductIsLike(user);
+        return ResponseEntity.ok(product);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Products product = this.productsService.likeProduct(id, user);
         return ResponseEntity.ok(product);
     }
+
+
 }

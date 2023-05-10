@@ -99,4 +99,8 @@ public class ProductsService {
         }
         return isTrue;
     }
+
+    public Set<Products> findProductIsLike(Users user) {
+        return user.getLikeProducts();
+    }
 }
