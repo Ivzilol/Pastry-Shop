@@ -937,6 +937,19 @@ footer {
     flex-direction: column;
 }
 
+.products-container-item-likes {
+    text-align: start;
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    color: #ef7d00;
+}
+
+.products-container-item-likes-icon {
+    margin-right: 10px;
+    font-size:  17px;
+}
+
 
 
 

@@ -3,6 +3,15 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {
+    faFaceGrinHearts,
+    faGrinHearts,
+    faInfoCircle,
+    faShieldHeart,
+    faThumbsUp
+} from "@fortawesome/free-solid-svg-icons";
+
 
 const ProductsUser = () => {
     const user = useUser()
@@ -21,6 +30,7 @@ const ProductsUser = () => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
+                console.log(productsData);
             });
 
         if (!user.jwt) navigate("/login")
@@ -41,7 +51,6 @@ const ProductsUser = () => {
                 setProduct(productData);
                 alert("Successfully add the product to your cart")
             })
-
     }
 
     function likeProduct(id) {
@@ -71,7 +80,11 @@ const ProductsUser = () => {
                             <img
                                 className="product-img" src={product.imageUrl} alt="new"
                             />
-
+                            <p className="products-container-item-likes">
+                                <FontAwesomeIcon icon={faThumbsUp}
+                                className="products-container-item-likes-icon"
+                                />
+                                {Number(product.userLikes.length)}</p>
                             <div className="products-container-item-button"
                             >
                                 <div className="products-container-item-button-container">
