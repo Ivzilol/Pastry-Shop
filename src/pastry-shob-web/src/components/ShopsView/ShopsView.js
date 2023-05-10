@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
-import ajax from "../Services/FetchService";
+import ajax from "../../Services/FetchService";
 import {Dropdown, Button, ButtonGroup, Col, Container, DropdownButton, Form, Row} from "react-bootstrap";
-import StatusBadge from "../components/StatusBadge/StatusBadge";
+import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate, useParams} from "react-router-dom";
-import {useUser} from "../UserProvider/UserProvider";
-import Comment from "../components/Comment/Comment";
-import NavBar from "../components/NavBar/NavBar";
-import ShopArt from "../components/ShopArt/ShopArt";
-import Footer from "../components/Footer/Footer";
+import {useUser} from "../../UserProvider/UserProvider";
+import Comment from "../Comment/Comment";
+import NavBar from "../NavBar/NavBar";
+import ShopArt from "../ShopArt/ShopArt";
+import Footer from "../Footer/Footer";
 
 const ShopsView = () => {
     useNavigate();

@@ -7,7 +7,7 @@ import Homepage from "./components/homepage/Homepage";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./PriviteRoute/PrivateRoute";
 import ShopsViewAdmin from "./components/shops/ShopsViewAdmin";
-import ShopsView from "./ShopsView/ShopsView";
+import ShopsView from "./components/ShopsView/ShopsView";
 import jwt_decode from 'jwt-decode'
 import {useUser} from "./UserProvider/UserProvider";
 import Register from "./components/Register/Register";
