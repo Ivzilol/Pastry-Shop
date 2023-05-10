@@ -7,7 +7,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
-import jwt_decode from "jwt-decode";
 
 
 const ProductsUser = () => {
@@ -105,25 +104,10 @@ const ProductsUser = () => {
                                             orderProducts(product.id);
                                         }}
                                     >
-                                        Order Product
+                                        Поръчай
                                     </button>
                                 </div>
                             </div>
-                            {/*<div className="products-container-item-button"*/}
-                            {/*>*/}
-                            {/*    <div className="products-container-item-button-container">*/}
-                            {/*        <button*/}
-                            {/*            id="submit"*/}
-                            {/*            type="button"*/}
-                            {/*            onClick={() => {*/}
-                            {/*                orderProduct(product.id);*/}
-                            {/*                orderProducts(product.id);*/}
-                            {/*            }}*/}
-                            {/*        >*/}
-                            {/*            Order Product*/}
-                            {/*        </button>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                         </div>
                     ))}
                 </article>
