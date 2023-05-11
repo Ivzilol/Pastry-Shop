@@ -86,8 +86,14 @@ public class ProductController {
     }
 
     @GetMapping("/pies")
-    public ResponseEntity<?> getPies(@AuthenticationPrincipal Users user) {
+    public ResponseEntity<?> getPies() {
         Set<Products> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);
+    }
+
+    @GetMapping("/buns")
+    public ResponseEntity<?> getBuns() {
+        Set<Products> buns = this.productsService.findAllBuns();
+        return ResponseEntity.ok(buns);
     }
 }

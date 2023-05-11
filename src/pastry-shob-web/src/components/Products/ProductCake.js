@@ -1,6 +1,10 @@
+import NavBar from "../NavBar/NavBar";
+
 const ProductCake = () => {
     return (
-        <main>proba</main>
+        <main>
+            <NavBar/>
+        </main>
     )
 }
 

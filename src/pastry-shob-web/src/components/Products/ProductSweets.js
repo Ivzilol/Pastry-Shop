@@ -1,6 +1,10 @@
+import NavBar from "../NavBar/NavBar";
+
 const ProductSweets = () => {
     return (
-        <main>proba</main>
+        <main>
+            <NavBar/>
+        </main>
     )
 }
 export default ProductSweets;
