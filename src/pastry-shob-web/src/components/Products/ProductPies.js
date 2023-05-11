@@ -17,7 +17,11 @@ const ProductPies = () => {
 
 
     return (
-        <main>proba</main>
+        <main>
+            <section className="pies">
+
+            </section>
+        </main>
     )
 }
 
