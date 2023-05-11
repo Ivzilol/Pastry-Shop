@@ -28,11 +28,11 @@ const ShopArt = () => {
                     <div className="shop-art-first-picture-row-one">
                         <div className="shop-art-first-picture-row-one-one">
                             <img
-                                src="https://i.ibb.co/8BjcJQY/333701579-220719253820799-4477163902665921833-n.jpg"
+                                src="https://i.ibb.co/NZTYzkG/333787876-951344779329426-826433626994761451-n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products"
-                                >Козунаци</a>
+                                >Кифли</a>
                             </div>
                         </div>
                         <div className="shop-art-first-picture-row-one-one">
