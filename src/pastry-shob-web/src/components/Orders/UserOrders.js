@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import button from "bootstrap/js/src/button";
 
 const UserOrders = () => {
     const user = useUser();

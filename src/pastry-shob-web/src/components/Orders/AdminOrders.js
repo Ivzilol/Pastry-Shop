@@ -3,8 +3,6 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-// eslint-disable-next-line no-unused-vars
-import button from "bootstrap/js/src/button";
 
 const AdminOrders = () => {
     const user = useUser();
