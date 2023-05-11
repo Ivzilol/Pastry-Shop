@@ -86,7 +86,7 @@ public class ProductController {
     }
 
     @GetMapping("/pies")
-    public ResponseEntity<?> getPies() {
+    public ResponseEntity<?> getPies(@AuthenticationPrincipal Users user) {
         Set<Products> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);
     }

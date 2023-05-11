@@ -24,6 +24,7 @@ import UserProfile from "./components/Users/UserProfile";
 import UserEditProfile from "./components/Users/UserEditProfile";
 import UserOrderTracking from "./components/Orders/UserOrderTracking";
 import Author from "./components/Author/Author";
+import ProductPies from "./components/Products/ProductPies";
 
 function App() {
     const user = useUser();
@@ -140,6 +141,7 @@ function App() {
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
             <Route path="/api/author" element={<Author/>}></Route>
+            <Route path="/products/pies" element={<ProductPies/>}></Route>
         </Routes>
     );
 }

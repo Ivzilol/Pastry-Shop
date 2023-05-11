@@ -11,7 +11,7 @@ const ShopArt = () => {
                                 src="https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
-                                <a href="/products"
+                                <a href="/products/pies"
                                 >Баници</a>
                             </div>
                         </div>
