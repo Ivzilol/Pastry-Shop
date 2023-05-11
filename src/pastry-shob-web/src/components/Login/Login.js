@@ -41,9 +41,12 @@ const Login = () => {
 
 
     return (
-        <>
+        <main className="login">
             <NavBar/>
-            <Container className="mt-sm-5">
+            <Container
+                className="mt-sm-5"
+                id="login-users"
+            >
                 <Row className="justify-content-center align-items-center">
                     <Col md="8"
                          lg="6"
@@ -68,7 +71,7 @@ const Login = () => {
                             <Form.Label className="fs-4">Password</Form.Label>
                             <Form.Control
                                 type="password"
-                                placeholder="password"
+                                placeholder="Password"
                                 size="lg"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -88,7 +91,7 @@ const Login = () => {
                 <></>
                 {/*)}*/}
                 <Row className="justify-content-center align-items-center">
-                    <Col md="8" lg="6" className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between">
+                    <Col md="8" lg="6" className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
                         <Button
                             id="submit"
                             type="button"
@@ -111,7 +114,7 @@ const Login = () => {
                     </Col>
                 </Row>
             </Container>
-        </>
+        </main>
     );
 }
 

@@ -978,3 +978,25 @@ footer {
     font-style: italic;
 }
 
+#login-users > div:nth-child(1) {
+    margin-top: 60px;
+}
+
+.login {
+    width: auto;
+    height: 550px;
+    background-image: url("https://i.ibb.co/3FrvFXV/333760483-756983502342639-5123621158379031269-n.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+}
+
+#login-users > div:nth-child(1) > div {
+    margin-top: 70px;
+    color: white;
+}
+
+#login-users > div:nth-child(2) > div {
+    color: white;
+}
