@@ -20,7 +20,7 @@ const ShopArt = () => {
                                 src="http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
-                                <a href="/products"
+                                <a href="/products/sweets"
                                 >Сладки</a>
                             </div>
                         </div>
@@ -31,7 +31,7 @@ const ShopArt = () => {
                                 src="https://i.ibb.co/NZTYzkG/333787876-951344779329426-826433626994761451-n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
-                                <a href="/products"
+                                <a href="/products/buns"
                                 >Кифли</a>
                             </div>
                         </div>
@@ -40,7 +40,7 @@ const ShopArt = () => {
                                 src="https://i.imgupx.com/VoOSBgnl/343389914_610690820707442_5178648780943661264_n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
-                                <a href="/products"
+                                <a href="/products/cake"
                                 >Торти</a>
                             </div>
                         </div>
