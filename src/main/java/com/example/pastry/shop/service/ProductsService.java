@@ -110,4 +110,8 @@ public class ProductsService {
     public Set<Products> findAllBuns() {
         return this.productRepository.findAllBuns();
     }
+
+    public Set<Products> findAllSweets() {
+        return this.productRepository.findAllSweets();
+    }
 }

@@ -3,8 +3,6 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 
 const ProductPies = () => {

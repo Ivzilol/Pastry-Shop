@@ -96,4 +96,10 @@ public class ProductController {
         Set<Products> buns = this.productsService.findAllBuns();
         return ResponseEntity.ok(buns);
     }
+
+    @GetMapping("/sweets")
+    public ResponseEntity<?> getSweets() {
+        Set<Products> sweets = this.productsService.findAllSweets();
+        return ResponseEntity.ok(sweets);
+    }
 }

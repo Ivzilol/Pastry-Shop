@@ -35,4 +35,7 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products as p" +
             " where p.categories = 'buns'")
     Set<Products> findAllBuns();
+    @Query("select p from Products as p" +
+            " where p.categories = 'sweets'")
+    Set<Products> findAllSweets();
 }
