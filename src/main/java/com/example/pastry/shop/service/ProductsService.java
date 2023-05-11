@@ -102,4 +102,8 @@ public class ProductsService {
     public Set<Products> findProductIsLike(Users user) {
         return user.getLikeProducts();
     }
+
+    public Set<Products> findAllPies() {
+        return this.productRepository.findAllPies();
+    }
 }

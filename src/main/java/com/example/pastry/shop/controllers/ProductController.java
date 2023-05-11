@@ -84,4 +84,10 @@ public class ProductController {
         Products product = this.productsService.likeProduct(id, user);
         return ResponseEntity.ok(product);
     }
+
+    @GetMapping("/pies")
+    public ResponseEntity<?> getPies() {
+        Set<Products> pies = this.productsService.findAllPies();
+        return ResponseEntity.ok(pies);
+    }
 }

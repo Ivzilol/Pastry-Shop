@@ -29,4 +29,7 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " order by p.numberOrders asc ")
     List<Products> recommendedProducts();
 
+    @Query("select p from Products as p" +
+            " where p.categories = 'pie'")
+    Set<Products> findAllPies();
 }
