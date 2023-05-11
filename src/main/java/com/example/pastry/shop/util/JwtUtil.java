@@ -50,7 +50,6 @@ public class JwtUtil implements Serializable {
     }
 
     private Boolean ignoreTokenExpiration(String token) {
-
         return null;
     }
 
