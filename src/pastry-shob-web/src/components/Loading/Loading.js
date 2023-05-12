@@ -14,7 +14,7 @@ const Loading = () => {
                     setData(json);
                     setDone(true);
                 });
-        }, 200000);
+        }, 20000);
     }, []);
 
     return (
@@ -24,8 +24,8 @@ const Loading = () => {
                     className="loader"
                     type={"bars"}
                     color={"#ef7d00"}
-                    height={100}
-                    width={100}
+                    height={200}
+                    width={200}
                 ></ReactLoading>
             ) : (
                 <ul>

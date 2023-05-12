@@ -1,8 +1,7 @@
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode"
-import {Button} from "react-bootstrap";
 
 function NavBar() {
 
