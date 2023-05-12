@@ -41,12 +41,12 @@ const UserOrderTracking = () => {
                                         <p className="getAllPrice">{allPriceProcessing += currentOrder.price}</p>
                                     </div>
                                     :
-                                    <></>
+                                    <>-------------</>
                             ))}
                             <h4>Обща цена: {allPriceProcessing.toFixed(2)} лв.</h4>
                         </article>
                     ) : (
-                        <></>
+                        <div></div>
                     )}
                 </section>
                 <section className="tracking-in-send">
@@ -69,7 +69,7 @@ const UserOrderTracking = () => {
                                         <p className="getAllPrice">{allPriceSend += currentOrder.price}</p>
                                     </div>
                                     :
-                                    <></>
+                                    <>-------------</>
                             ))}
                             <h4>Обща цена: {allPriceSend.toFixed(2)} лв.</h4>
                         </article>

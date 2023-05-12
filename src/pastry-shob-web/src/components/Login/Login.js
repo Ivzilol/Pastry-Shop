@@ -12,7 +12,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user.jwt) navigate("/")
-    }, [user])
+    }, [navigate, user])
 
     function sendLoginRequest() {
         const requestBody = {
