@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useUser} from "../UserProvider/UserProvider";
 import {Navigate} from "react-router-dom";
 import ajax from "../Services/FetchService";
+import Loading from "../components/Loading/Loading";
 
 
 const PrivateRoute = (props) => {
@@ -21,7 +22,7 @@ const PrivateRoute = (props) => {
     }
 
     return isLoading ? (
-        <div>Loading...</div>
+        <Loading/>
     ) : isValid === true ? (
         children
     ) : (

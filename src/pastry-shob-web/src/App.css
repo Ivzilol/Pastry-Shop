@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
-body {
-    font-family: Roboto, sans-serif;
+*,*::before,*::after{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
 }
+
 
 .shop-wrapper {
     border: 2px solid black;
@@ -999,4 +1002,10 @@ footer {
 
 #login-users > div:nth-child(2) > div {
     color: white;
+}
+
+#root > div {
+    position: absolute;
+    left: 570px;
+    top: 220px;
 }
