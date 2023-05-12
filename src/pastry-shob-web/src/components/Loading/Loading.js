@@ -23,7 +23,7 @@ const Loading = () => {
                 <ReactLoading
                     className="loader"
                     type={"bars"}
-                    color={"#03fc4e"}
+                    color={"#ef7d00"}
                     height={100}
                     width={100}
                 ></ReactLoading>
