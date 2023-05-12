@@ -7,11 +7,6 @@ test('find name in title', () => {
     expect(headingElement).toBeInTheDocument();
 });
 
-test('find name in role', () => {
-    render(<Author />);
-    const headingElement = screen.getByRole("heading");
-    expect(headingElement).toBeInTheDocument();
-});
 
 test('render author image', () => {
     render(<Author/>)
@@ -31,3 +26,42 @@ test("should render author's contact information", () => {
     expect(contactInfo).toBeInTheDocument()
 });
 
+test('find name in role', () => {
+    render(<Author />);
+    const headingElement = screen.getByRole("heading");
+    expect(headingElement).toBeInTheDocument();
+});
+
+test("find name in role 2", () => {
+    render(<Author/>)
+    const paragraphElement = screen.getByText("Поздарви")
+    expect(paragraphElement).toBeInTheDocument()
+})
+
+test("find Title", () => {
+    render(<Author/>)
+    const titleElement = screen.getByTestId("Author");
+    expect(titleElement).toBeInTheDocument();
+})
+
+// Find By
+
+test('find name in title async', async () => {
+    render(<Author />);
+    const headingElement = await screen.findByText(/Ивайло Иванов Аличков/i);
+    expect(headingElement).toBeInTheDocument();
+});
+
+// QueryBy
+
+test('find name in title query', async () => {
+    render(<Author />);
+    const headingElement = screen.queryByText(/Zahari/i);
+    expect(headingElement).not.toBeInTheDocument();
+});
+
+test('find name in title all', async () => {
+    render(<Author />);
+    const headingElement = screen.getAllByRole("heading");
+    expect(headingElement.length).toBe(1);
+});

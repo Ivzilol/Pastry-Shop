@@ -28,6 +28,7 @@ import ProductPies from "./components/Products/ProductPies";
 import ProductBuns from "./components/Products/ProductBuns";
 import ProductSweets from "./components/Products/ProductSweets";
 import ProductCake from "./components/Products/ProductCake";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
     const user = useUser();
@@ -148,6 +149,7 @@ function App() {
             <Route path="/products/buns" element={<ProductBuns/>}></Route>
             <Route path="/products/sweets" element={<ProductSweets/>}></Route>
             <Route path="/products/cake" element={<ProductCake/>}></Route>
+            <Route element={<NavBar/>}></Route>
         </Routes>
     );
 }
