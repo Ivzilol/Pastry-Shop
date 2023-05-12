@@ -13,7 +13,7 @@ const UserProvider = ({children}) => {
 function useUser() {
     const context = useContext(UserContext);
     if (context === undefined) {
-        throw Error('useUser must be used within a UserProvider');
+        // throw Error('useUser must be used within a UserProvider');
     }
     return context;
 }

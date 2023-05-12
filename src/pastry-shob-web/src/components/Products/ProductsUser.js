@@ -7,7 +7,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
-import jwt_decode from "jwt-decode";
 import Footer from "../Footer/Footer";
 
 
@@ -28,26 +27,24 @@ const ProductsUser = () => {
         ajax("api/products", "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
-                console.log(productsData)
             });
 
         if (!user.jwt) navigate("/login")
     }, [user.jwt]);
 
-    const [userUsername, setUserUsername] = useState(getUsernameFromJWT);
-
-    useEffect(() => {
-        setUserUsername(getUsernameFromJWT)
-    }, [user.jwt])
-
-    function getUsernameFromJWT() {
-        if (user.jwt) {
-            const decodeJwt = jwt_decode(user.jwt)
-            console.log(decodeJwt.sub);
-            return decodeJwt
-        }
-        return [];
-    }
+    // const [userUsername, setUserUsername] = useState(getUsernameFromJWT);
+    //
+    // useEffect(() => {
+    //     setUserUsername(getUsernameFromJWT)
+    // }, [user.jwt])
+    //
+    // function getUsernameFromJWT() {
+    //     if (user.jwt) {
+    //         const decodeJwt = jwt_decode(user.jwt)
+    //         return decodeJwt
+    //     }
+    //     return [];
+    // }
 
     function orderProduct(id) {
         ajax(`/api/products/${id}`, "GET", user.jwt)

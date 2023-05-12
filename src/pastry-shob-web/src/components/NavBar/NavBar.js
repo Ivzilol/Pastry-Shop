@@ -1,12 +1,12 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode"
 
 function NavBar() {
 
-    const navigate = useNavigate();
-    const {pathname} = useNavigate()
+    // const navigate = useNavigate();
+    // const {pathname} = useNavigate()
     const user = useUser();
     const [authorities, setAuthorities] = useState(null);
 
@@ -15,7 +15,7 @@ function NavBar() {
             const decodeJwt = jwt_decode(user.jwt);
             setAuthorities(decodeJwt.authorities);
         }
-    }, [user, user.jwt]);
+    }, [user]);
 
 
     return (
@@ -29,16 +29,16 @@ function NavBar() {
                         className="nav-button"
                         onClick={() => {
                                     user.setJwt(null);
-                                    navigate("/");
+                            window.location.href = "/";
                         }}
                     >
             Logout
           </button>
-                ) : pathname !== "/login" ? (
+                ) : window.location.href !== "/login" ? (
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/login");
+                            window.location.href = "/login";
                         }}
                     >
                         Login
@@ -63,7 +63,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/shops");
+                            window.location.href = "/shops";
                         }}
                     >
                         Shops
@@ -76,7 +76,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/products");
+                            window.location.href = "/products";
                         }}
                     >
                         Products
@@ -88,7 +88,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/orders");
+                            window.location.href = "/orders";
                         }}
                     >
                         Order
@@ -100,7 +100,7 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                            navigate("/users");
+                            window.location.href = "/users"
                         }}
                     >
                         Profile

@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 const Author = () => {
     return (
         <main className="author">
-            {/*<NavBar/>*/}
+            <NavBar/>
             <section className="author-container">
                 <div className="author-container-items">
                     <div className="author-container-img">

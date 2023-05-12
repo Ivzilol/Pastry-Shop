@@ -18,7 +18,7 @@ const ShopsViewUser = () => {
                 setShops(shopData);
             });
         if (!user.jwt) navigate("/login");
-    }, [user.jwt]);
+    }, [navigate, user.jwt]);
 
 
     return (

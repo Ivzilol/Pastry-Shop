@@ -149,7 +149,6 @@ function App() {
             <Route path="/products/buns" element={<ProductBuns/>}></Route>
             <Route path="/products/sweets" element={<ProductSweets/>}></Route>
             <Route path="/products/cake" element={<ProductCake/>}></Route>
-            <Route element={<NavBar/>}></Route>
         </Routes>
     );
 }
