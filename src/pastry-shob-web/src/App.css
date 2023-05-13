@@ -1009,3 +1009,81 @@ footer {
     left: 570px;
     top: 220px;
 }
+
+@media screen and (max-width: 600px) {
+    body, * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+    }
+
+    .nav div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        margin-top: 10px;
+    }
+
+    .nav-button {
+        margin-bottom: 15px;
+    }
+
+    .home-page {
+        background-color: pink;
+        margin-top: 360px;
+    }
+
+    .home-page-first {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-page-first-left {
+        width: 600px;
+    }
+
+    .home-page-first-left img {
+        width: 100%;
+    }
+
+    .home-page-first-right {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .home-page-first-right h6 {
+        color: black;
+    }
+
+    .home-page-first-right p {
+        color: black;
+    }
+
+    .home-page-most-ordered {
+        margin-top: 170px;
+    }
+
+    .home-page-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .footer-four {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+}

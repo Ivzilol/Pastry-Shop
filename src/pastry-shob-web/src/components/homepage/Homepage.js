@@ -81,8 +81,10 @@ const Homepage = () => {
                     <p>поръчайте онлайн с доставка до вашия дом</p>
                 </div>
             </section>
-            <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
-            <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
+            <section className="home-page-most-ordered">
+                <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
+                <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
+            </section>
             {products && user.jwt ? (
                 <article className="home-page-container">
                     {products.map((product) => (
