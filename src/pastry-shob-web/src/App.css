@@ -1020,8 +1020,10 @@ footer {
     .nav {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: auto;
-        position: -ms-device-fixed;
+
+
     }
 
     .home-page-container-item-current-icon {
