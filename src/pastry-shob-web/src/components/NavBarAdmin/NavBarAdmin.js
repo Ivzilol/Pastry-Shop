@@ -103,7 +103,7 @@ function NavBar() {
                             navigate("/users");
                         }}
                     >
-                        Profile
+                        Profiles
                     </button>
                 ) : (
                     <></>
