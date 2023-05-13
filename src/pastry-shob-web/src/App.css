@@ -1022,11 +1022,20 @@ footer {
         width: 600px;
     }
 
+    .home-page-container-item-current-icon {
+        display: none;
+    }
+
+    .nav-home  {
+        padding-left: 100px;
+    }
+
     .nav div {
         display: flex;
         flex-direction: column;
         margin-bottom: 5px;
         margin-top: 10px;
+        padding-left: 100px;
     }
 
     .nav-button {
