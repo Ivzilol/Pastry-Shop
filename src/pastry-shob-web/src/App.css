@@ -163,6 +163,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1;
 }
 
 .nav .nav-home a {
@@ -1019,7 +1020,8 @@ footer {
     .nav {
         display: flex;
         flex-direction: column;
-        width: 600px;
+        width: auto;
+        position: -ms-device-fixed;
     }
 
     .home-page-container-item-current-icon {
