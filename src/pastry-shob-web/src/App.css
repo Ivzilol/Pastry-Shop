@@ -1185,10 +1185,8 @@ footer {
         margin-top: 350px;
     }
 
-    /*.admin-bord-section {*/
-    /*    display: flex;*/
-    /*    flex-direction: column;*/
-    /*    */
-    /*}*/
+    .admin-users-container {
+        margin-top: 350px;
+    }
 
 }
