@@ -1136,4 +1136,8 @@ footer {
     .tracking-in-send {
         margin-top: 30px;
     }
+
+    .user-profile {
+        margin-top: 300px;
+    }
 }
