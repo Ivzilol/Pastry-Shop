@@ -9,11 +9,11 @@ const UserOrdersHistory = () => {
     const [orders, setOrders] = useState(null);
 
     useEffect(() => {
-        ajax("/orders/history/user", "GET", user.jwt)
+        ajax("/api/orders/history/user", "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData);
             });
-    });
+    }, [user.jwt]);
 
     return (
         <section className="ordersUser">

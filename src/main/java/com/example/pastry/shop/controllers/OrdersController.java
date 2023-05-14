@@ -94,4 +94,10 @@ public class OrdersController {
         Set<Orders> confirmedOrder = this.orderService.trackingByStatus(user);
         return ResponseEntity.ok(confirmedOrder);
     }
+
+    @GetMapping("/history/user")
+    public ResponseEntity<?> getOrdersByCurrentUser(@AuthenticationPrincipal Users user) {
+        Set<OrdersProcessing> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
+        return ResponseEntity.ok(userOrders);
+    }
 }

@@ -127,7 +127,7 @@ function App() {
                                <UserOrders/>
                            </PrivateRoute>
                    }/>
-            <Route path="/orders/history"
+            <Route path="/orders/history/user"
                    element={
                        roles.find((role) => role === 'admin')
                            ?

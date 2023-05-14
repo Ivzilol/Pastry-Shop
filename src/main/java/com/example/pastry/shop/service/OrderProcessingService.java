@@ -33,5 +33,7 @@ public class OrderProcessingService {
     }
 
 
-
+    public Set<OrdersProcessing> findOrdersCurrentUser(Users user) {
+        return this.ordersProcessingRepository.findByUserId(user.getId());
+    }
 }
