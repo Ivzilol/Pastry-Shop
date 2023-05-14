@@ -1165,4 +1165,8 @@ footer {
         width: 400px;
     }
 
+    .register-form label {
+        text-align: center;
+    }
+
 }
