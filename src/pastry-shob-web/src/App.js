@@ -29,6 +29,8 @@ import ProductBuns from "./components/Products/ProductBuns";
 import ProductSweets from "./components/Products/ProductSweets";
 import ProductCake from "./components/Products/ProductCake";
 import NavBar from "./components/NavBar/NavBar";
+import AdminOrdersHistory from "./components/Orders/AdminOrdersHistory";
+import UserOrdersHistory from "./components/Orders/UserOrdersHistory";
 
 function App() {
     const user = useUser();
@@ -126,16 +128,29 @@ function App() {
                                <UserOrders/>
                            </PrivateRoute>
                    }/>
+            <Route path="/orders/history"
+                   element={
+                       roles.find((role) => role === 'admin')
+                           ?
+                           <PrivateRoute>
+                               <AdminOrdersHistory/>
+                           </PrivateRoute>
+                           :
+                           <PrivateRoute>
+                               <UserOrdersHistory/>
+                           </PrivateRoute>
+
+                   }/>
             <Route path="/users"
                    element={
                        roles.find((role) => role === 'admin')
                            ?
                            <PrivateRoute>
-                                <AdminUsers/>
+                               <AdminUsers/>
                            </PrivateRoute>
                            :
                            <PrivateRoute>
-                                <UserProfile/>
+                               <UserProfile/>
                            </PrivateRoute>
                    }
             />
