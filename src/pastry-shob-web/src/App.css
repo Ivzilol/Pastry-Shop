@@ -1147,4 +1147,14 @@ footer {
     .user-edit-profile {
         margin-top: 340px;
     }
+
+    .user-comments-container {
+        margin-top: 300px;
+    }
+
+    .user-comments-container-button {
+        margin: 20px 200px 0 200px;
+    }
+
+
 }
