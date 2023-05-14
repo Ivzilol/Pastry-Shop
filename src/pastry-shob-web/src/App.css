@@ -1156,5 +1156,13 @@ footer {
         margin: 20px 200px 0 200px;
     }
 
+    .register {
+        margin-top: 110px;
+        height: auto;
+    }
+
+    #validate-username {
+        width: 400px;
+    }
 
 }
