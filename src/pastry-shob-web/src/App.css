@@ -1099,4 +1099,20 @@ footer {
         align-items: center;
         margin-top: 20px;
     }
+
+    .shops-view {
+        margin-top: 300px;
+    }
+
+    .shop-art-main-title {
+        text-align: center;
+    }
+
+    .shop-art-first-picture-row-one{
+        width: 300px;
+    }
+
+    .shop-art-first-picture-row-one img {
+        width: 260px;
+    }
 }
