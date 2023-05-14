@@ -1022,8 +1022,6 @@ footer {
         flex-direction: column;
         align-items: center;
         width: auto;
-
-
     }
 
     .home-page-container-item-current-icon {
@@ -1114,5 +1112,9 @@ footer {
 
     .shop-art-first-picture-row-one img {
         width: 260px;
+    }
+
+    .products-users {
+        margin-top: 350px;
     }
 }
