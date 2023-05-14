@@ -1121,4 +1121,8 @@ footer {
     .orders-user {
         margin-top: 290px;
     }
+
+    .order-user-tracker-title {
+        text-align: center;
+    }
 }
