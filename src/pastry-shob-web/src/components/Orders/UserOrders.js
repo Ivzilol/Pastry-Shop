@@ -95,6 +95,11 @@ const UserOrders = () => {
                             onClick={() => window.location.href = "/orders/tracking"}
                         >Проследи
                         </button>
+                        <button
+                            className="order-user-tracker-button"
+                            onClick={() => window.location.href = "/orders/history/user"}
+                        >История на Вашите поръчки
+                        </button>
                     </div>
                 )}
             </section>
