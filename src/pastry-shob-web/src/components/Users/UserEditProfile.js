@@ -22,7 +22,7 @@ const UserEditProfile = () => {
                 setCurrentUser(userResponse);
             });
         if (!user.jwt) navigate("/login");
-    }, [])
+    }, [navigate, user.jwt, userId])
 
     function updateUser(prop, value) {
         const newUser = {...currentUser}
