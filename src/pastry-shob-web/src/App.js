@@ -28,7 +28,6 @@ import ProductPies from "./components/Products/ProductPies";
 import ProductBuns from "./components/Products/ProductBuns";
 import ProductSweets from "./components/Products/ProductSweets";
 import ProductCake from "./components/Products/ProductCake";
-import NavBar from "./components/NavBar/NavBar";
 import AdminOrdersHistory from "./components/Orders/AdminOrdersHistory";
 import UserOrdersHistory from "./components/Orders/UserOrdersHistory";
 

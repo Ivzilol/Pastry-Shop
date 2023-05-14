@@ -21,7 +21,7 @@ const Register = () => {
 
     useEffect(() => {
         if (user.jwt) navigate("/");
-    }, [user]);
+    }, [navigate, user]);
 
     function createAndLoginUser() {
         const requestBody = {
@@ -49,6 +49,7 @@ const Register = () => {
             })
             .then(() => {
                 user.setJwt(user.jwt);
+                alert("You have registered successfully")
                 navigate("/login")
             })
             .catch((message) => {
