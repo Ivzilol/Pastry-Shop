@@ -18,5 +18,5 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
 
     Set<OrdersProcessing> findOrderById(Long id);
 
-    Set<OrdersProcessing> findByUserId(Long id);
+    Set<OrdersProcessing> findByUserIdOrderByDateOfReceipt(Long id);
 }

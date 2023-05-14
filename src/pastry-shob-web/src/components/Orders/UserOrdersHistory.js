@@ -18,11 +18,34 @@ const UserOrdersHistory = () => {
     return (
         <section className="ordersUser">
             <NavBar/>
-            {orders ? (
-                <h3>История на поръчките</h3>
-            ) : (
-                <></>
-            )}
+            <h3 className="admin-users-container-title">История на поръчките</h3>
+            <hr/>
+            <div className="admin-users-container-header">
+                <table className="admin-users-table">
+                    <tr>
+                        <th>Data ot Dispatch</th>
+                        <th>Data of Recipe</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>User</th>
+                    </tr>
+                    {orders ? (
+                        <>
+                            {orders.map(order => (
+                                <tr id={order.id}>
+                                    <td>{order.dateOfReceipt}</td>
+                                    <td>{order.dateOfDispatch}</td>
+                                    <td>{Number(order.totalPrice).toFixed(2)}</td>
+                                    <td>{order.statusOrder}</td>
+                                    <td>{order.user.username}</td>
+                                </tr>
+                            ))}
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                </table>
+            </div>
         </section>
     )
 }

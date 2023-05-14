@@ -671,6 +671,10 @@ footer {
     width: 100%;
 }
 
+.admin-users-container {
+    margin-top: 70px;
+}
+
 .admin-users-container-title {
     text-align: center;
     margin: 30px 0;
@@ -1014,6 +1018,10 @@ footer {
     position: absolute;
     left: 570px;
     top: 220px;
+}
+
+.ordersUser {
+    margin-top: 100px;
 }
 
 @media screen and (max-width: 600px) {
