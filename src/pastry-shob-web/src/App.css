@@ -318,7 +318,7 @@
 }
 
 .admin-bord-section {
-    margin-top: 70px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-around;
 }
@@ -1024,6 +1024,15 @@ footer {
     margin-top: 100px;
 }
 
+.order-users-tracker-button {
+    margin-top: 80px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: aqua;
+    text-align: center;
+}
+
 @media screen and (max-width: 600px) {
     body, * {
         margin: 0;
@@ -1192,7 +1201,7 @@ footer {
     }
 
     .orders-admin {
-        margin-top: 350px;
+        margin-top: 150px;
     }
 
     .admin-users-container {

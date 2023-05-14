@@ -100,4 +100,10 @@ public class OrdersController {
         Set<OrdersProcessing> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
         return ResponseEntity.ok(userOrders);
     }
+
+    @GetMapping("/history/admin")
+    public ResponseEntity<?> getAllOrders() {
+        Set<OrdersProcessing> allOrders = this.orderProcessingService.getAllOrders();
+        return ResponseEntity.ok(allOrders);
+    }
 }

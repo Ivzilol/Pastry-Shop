@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const AdminOrders = () => {
     const user = useUser();
@@ -74,7 +75,12 @@ const AdminOrders = () => {
 
     return (
         <main className="orders-admin">
-            <NavBar/>
+            <NavBarAdmin/>
+            <button
+                className="order-users-tracker-button"
+                onClick={() => window.location.href = "/orders/history/user"}
+            >История на поръчките
+            </button>
             <section className="admin-bord-section">
                 <article className="unconfirmed-orders">
                     <h2>Проъчки в процес на приготвяне</h2>

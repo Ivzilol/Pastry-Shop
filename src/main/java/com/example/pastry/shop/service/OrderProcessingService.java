@@ -36,4 +36,8 @@ public class OrderProcessingService {
     public Set<OrdersProcessing> findOrdersCurrentUser(Users user) {
         return this.ordersProcessingRepository.findByUserIdOrderByDateOfReceipt(user.getId());
     }
+
+    public Set<OrdersProcessing> getAllOrders() {
+        return this.ordersProcessingRepository.findAllOrders();
+    }
 }

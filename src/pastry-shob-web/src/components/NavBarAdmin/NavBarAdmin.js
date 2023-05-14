@@ -108,8 +108,6 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
-
-
             </div>
         </section>
     )
