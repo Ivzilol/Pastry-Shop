@@ -1181,4 +1181,14 @@ footer {
         margin-top: 320px;
     }
 
+    .orders-admin {
+        margin-top: 350px;
+    }
+
+    /*.admin-bord-section {*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    */
+    /*}*/
+
 }
