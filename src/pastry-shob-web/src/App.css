@@ -1033,6 +1033,12 @@ footer {
     text-align: center;
 }
 
+#root > div {
+    position: absolute;
+    left: 100px;
+    top: 50px;
+}
+
 @media screen and (max-width: 600px) {
     body, * {
         margin: 0;
@@ -1228,5 +1234,11 @@ footer {
 
     .author-container-img img {
         border-radius: 0;
+    }
+
+    #root > div {
+        position: absolute;
+        left: 160px;
+        top: 300px;
     }
 }
