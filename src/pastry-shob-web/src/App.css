@@ -1125,4 +1125,15 @@ footer {
     .order-user-tracker-title {
         text-align: center;
     }
+
+    .tracking-main-section {
+        margin-top: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tracking-in-send {
+        margin-top: 30px;
+    }
 }
