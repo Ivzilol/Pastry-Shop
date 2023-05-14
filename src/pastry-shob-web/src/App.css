@@ -727,6 +727,9 @@ footer {
 .user-edit-profile-item h6 {
     color: white;
     margin: 10px 0;
+    background-color: black;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 .user-edit-profile-item input {
