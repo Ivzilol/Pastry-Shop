@@ -1039,6 +1039,16 @@ footer {
     top: 50px;
 }
 
+#categories {
+    background-color: white;
+    color: black;
+    width: 400px;
+}
+
+.products-edit-container input {
+    width: 400px;
+}
+
 @media screen and (max-width: 600px) {
     body, * {
         margin: 0;

@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 const CreateProductAdmin = () => {
     useUser();
-    useNavigate();
+    let navigate = useNavigate();
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [categories, setCategories] = useState("");
@@ -32,11 +32,14 @@ const CreateProductAdmin = () => {
             .then((response) => {
                 if (response.status === 200)
                     return Promise.all([response.json(), response.headers]);
-                else return Promise.reject("Invalid product");
+                    else return Promise.reject("Invalid product");
             })
             .catch((message) => {
                 alert(message)
-            });
+            })
+            .then(() => {
+                navigate("/products")
+        });
     }
 
 
@@ -69,14 +72,19 @@ const CreateProductAdmin = () => {
                         onChange={(e) => setPrice(e.target.valueAsNumber)}
                     />
                     <label form="categories">Categories</label>
-                    <input
-                        type="text"
+                    <select
                         id="categories"
                         name="categories"
                         placeholder="Categories"
                         value={categories}
                         onChange={(e) => setCategories(e.target.value)}
-                    />
+                    >
+                        <option value="">Select Categories</option>
+                        <option value="pie">pie</option>
+                        <option value="sweets">sweets</option>
+                        <option value="buns">buns</option>
+                        <option value="cake">cake</option>
+                    </select>
                     <label className="description">Description</label>
                     <input
                         type="text"
