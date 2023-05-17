@@ -28,9 +28,10 @@ const Footer = () => {
                 </article>
                 <article className="footer-four">
                     <a className="footer-first-title" href="/api/author" target="_blank">ЗА АВТОРА НА ПРИЛОЖЕНИЕТО</a>
-                    <a className="footer-first-item" href="https://github.com/Ivzilol" target="_blank">Github</a>
-                    <a className="footer-first-item" href="https://www.linkedin.com/in/ivaylo-alichkov-7406871a1/" target="_blank">Linkedin</a>
-                    <a className="footer-first-item" href="/">Email: ivailoali@gmail.com</a>
+                    <a className="footer-first-item" href="https://github.com/Ivzilol" target="_blank" rel="noreferrer">Github</a>
+                    <a className="footer-first-item" href="https://www.linkedin.com/in/ivaylo-alichkov-7406871a1/" target="_blank" rel="noreferrer">Linkedin</a>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a className="footer-first-item">Email: ivailoali@gmail.com</a>
                 </article>
             </section>
             <hr className="footer-line"/>
