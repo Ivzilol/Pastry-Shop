@@ -17,6 +17,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/orders")
+@CrossOrigin
 public class OrdersController {
 
 

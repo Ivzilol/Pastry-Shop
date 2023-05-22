@@ -1,3 +1,4 @@
+
 function ajax (url, requestMethod, jwt, requestBody) {
 
     const fetchData = {

@@ -6,7 +6,7 @@ function useLocalState (defaultValue, key) {
         const localStorageValue = localStorage.getItem(key);
         return  localStorageValue !== null ? JSON.parse(localStorageValue) : defaultValue;
     });
-
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(value));

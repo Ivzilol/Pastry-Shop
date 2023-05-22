@@ -19,7 +19,7 @@ const Homepage = () => {
     const [recommendedProducts, setRecommendedProducts] = useState(null);
 
     useEffect(() => {
-        ajax("api/", "GET", user.jwt)
+        ajax(`api/`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
@@ -27,7 +27,7 @@ const Homepage = () => {
     }, [user.jwt]);
 
     useEffect(() => {
-        ajax("api/home", "GET", user.jwt)
+        ajax(`api/home`, "GET", user.jwt)
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
             });

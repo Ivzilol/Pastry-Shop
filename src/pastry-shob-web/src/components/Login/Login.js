@@ -9,10 +9,11 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     let navigate = useNavigate();
-
+    window.localStorage.getItem("token");
     useEffect(() => {
         if (user.jwt) navigate("/")
     }, [navigate, user])
+
 
     function sendLoginRequest() {
         const requestBody = {
@@ -20,22 +21,29 @@ const Login = () => {
             "password": password,
         };
 
-        fetch("api/auth/login", {
-            headers: {
-                "Content-Type": "application/json"
-            },
+        fetch(`api/auth/login`, {
             method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(requestBody)
         })
             .then((response) => {
+                console.log(response);
+                // console.log(Promise.all([response.json(), response.headers]))
                 if (response.status === 200)
-                return Promise.all([response.json(), response.headers])
+                    // return fetch(`http://localhost:8080/api/auth/login`, {
+                    //
+                    //     method: "post",
+                    //     body: Promise.all([response.json(), response.headers])
+                    // })
+                    return Promise.all([response.json(), response.headers])
                 else return Promise.reject("Invalid login attempt")
             })
             .then(([body, headers]) => {
                 user.setJwt(headers.get("authorization"))
             }).catch((message) => {
-                alert(message)
+            alert(message)
         });
     }
 
@@ -91,7 +99,8 @@ const Login = () => {
                 <></>
                 {/*)}*/}
                 <Row className="justify-content-center align-items-center">
-                    <Col md="8" lg="6" className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
+                    <Col md="8" lg="6"
+                         className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
                         <Button
                             id="submit"
                             type="button"
