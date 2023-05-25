@@ -9,8 +9,9 @@ const ProductCake = () => {
     const user = useUser()
     const [cakes, setCakes] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
     useEffect(() => {
-        ajax("/api/products/cakes", "GET", user.jwt)
+        ajax(`${baseUrl}api/products/cakes`, "GET", user.jwt)
             .then(cakesData => {
                 setCakes(cakesData)
             })

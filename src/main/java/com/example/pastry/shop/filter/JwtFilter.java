@@ -48,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
             response.setHeader("Access-Control-Max-Age", "3600");
             response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
             chain.doFilter(request, response);
-                return;
+            return;
         }
 
         //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]
@@ -80,6 +80,5 @@ public class JwtFilter extends OncePerRequestFilter {
         //this is where authentication happens and user is now valid
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
-
     }
 }

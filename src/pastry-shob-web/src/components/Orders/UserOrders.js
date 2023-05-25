@@ -9,9 +9,10 @@ const UserOrders = () => {
     let navigate = useNavigate();
     const [products, setProducts] = useState(null);
     let allPrice = 0;
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax('api/orders', "GET", user.jwt)
+        ajax(`${baseUrl}api/orders`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
@@ -19,7 +20,7 @@ const UserOrders = () => {
     }, [user.jwt]);
 
     function removeProductFromOrder(id) {
-        ajax(`/api/orders/${id}`, "DELETE", user.jwt)
+        ajax(`${baseUrl}api/orders/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage()
             })
@@ -30,7 +31,7 @@ const UserOrders = () => {
     }
 
     function confirmOrder(e) {
-        ajax(`/api/orders`, "PATCH", user.jwt, {
+        ajax(`${baseUrl}api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
             .then(() =>

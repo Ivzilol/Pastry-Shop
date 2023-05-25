@@ -12,6 +12,7 @@ const CreateProductAdmin = () => {
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [shopName, setShopName] = useState("");
+    const baseUrl = "http://localhost:8080/";
 
     function createProduct() {
         const requestBody = {
@@ -22,7 +23,7 @@ const CreateProductAdmin = () => {
             imageUrl: imageUrl,
             shopName: shopName,
         }
-        fetch("/api/products/create/admin", {
+        fetch(`${baseUrl}api/products/create/admin`, {
             headers: {
                 "Content-Type": "application/json",
             },

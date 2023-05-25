@@ -8,9 +8,10 @@ const ProductsAdmin = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("api/products", "GET", user.jwt)
+        ajax(`${baseUrl}api/products`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });

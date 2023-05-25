@@ -6,9 +6,10 @@ import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 const AdminUsers = () => {
     const user = useUser();
     const [users, setUsers] = useState("");
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("/api/users/admin", "GET", user.jwt)
+        ajax(`${baseUrl}api/users/admin`, "GET", user.jwt)
             .then(userData => {
                 setUsers(userData);
             })
@@ -20,14 +21,14 @@ const AdminUsers = () => {
     }
 
     function deleteUser(id) {
-        ajax(`/api/users/admin/${id}`, "DELETE", user.jwt)
+        ajax(`${baseUrl}api/users/admin/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage()
             })
     }
 
     function promoteUser(id) {
-        ajax(`/api/users/admin/promote/${id}`, "PATCH", user.jwt)
+        ajax(`${baseUrl}api/users/admin/promote/${id}`, "PATCH", user.jwt)
             .then(() => {
                 refreshPage()
             })

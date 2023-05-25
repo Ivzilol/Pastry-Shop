@@ -14,6 +14,7 @@ const ProductsUser = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
     const [product, setProduct] = useState({
             name: "",
             price: null,
@@ -24,7 +25,7 @@ const ProductsUser = () => {
     );
 
     useEffect(() => {
-        ajax("api/products", "GET", user.jwt)
+        ajax(`${baseUrl}api/products`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
@@ -47,7 +48,7 @@ const ProductsUser = () => {
     // }
 
     function orderProduct(id) {
-        ajax(`/api/products/${id}`, "GET", user.jwt)
+        ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
             });
@@ -55,7 +56,7 @@ const ProductsUser = () => {
     }
 
     function orderProducts(id) {
-        ajax(`/api/orders/${id}`, "POST", user.jwt, product)
+        ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
                 alert("Successfully add the product to your cart")
@@ -67,7 +68,7 @@ const ProductsUser = () => {
     }
 
     function likeProduct(id) {
-        ajax(`/api/products/${id}`, "PATCH", user.jwt)
+        ajax(`${baseUrl}api/products/${id}`, "PATCH", user.jwt)
             .then(() => {
                 alert("You like this products")
                 refreshPage();

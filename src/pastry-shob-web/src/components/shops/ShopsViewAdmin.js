@@ -10,9 +10,10 @@ const ShopsViewAdmin = () => {
     const user = useUser();
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("api/shops", "GET", user.jwt)
+        ajax(`${baseUrl}api/shops`, "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
             });
@@ -20,7 +21,7 @@ const ShopsViewAdmin = () => {
     }, [user.jwt])
 
     function createShop() {
-        ajax("api/shops", "POST", user.jwt).then((shop) => {
+        ajax(`${baseUrl}api/shops`, "POST", user.jwt).then((shop) => {
             window.location.href = `/shops/${shop.id}`
         });
     }

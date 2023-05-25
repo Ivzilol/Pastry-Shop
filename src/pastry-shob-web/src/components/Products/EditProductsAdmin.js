@@ -8,6 +8,7 @@ const EditProductsAdmin = () => {
     const user = useUser();
     const {productId} = useParams();
     const navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
     const [product, setProduct] = useState({
             name: "",
             price: null,
@@ -19,7 +20,7 @@ const EditProductsAdmin = () => {
 
 
     useEffect(() => {
-        ajax(`/api/products/${productId}`, "GET", user.jwt)
+        ajax(`${baseUrl}api/products/${productId}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
             })
@@ -37,14 +38,14 @@ const EditProductsAdmin = () => {
     }
 
     function persist() {
-        ajax(`/api/products/${productId}`, "PUT", user.jwt, product)
+        ajax(`${baseUrl}api/products/${productId}`, "PUT", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
             })
     }
 
     function DeleteProducts() {
-        ajax(`/api/products/${productId}`, "DELETE", user.jwt)
+        ajax(`${baseUrl}api/products/${productId}`, "DELETE", user.jwt)
             .then(() => {
                 navigate("/products")
             });

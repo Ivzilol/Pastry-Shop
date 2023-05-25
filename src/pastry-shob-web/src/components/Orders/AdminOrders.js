@@ -13,10 +13,10 @@ const AdminOrders = () => {
     const [sentOrders, setSendOrders] = useState(null);
     const [dateDelivery, setDateDelivery] = useState("");
     const [timeDelivery, setTimeDelivery] = useState("");
-
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax('/api/orders/admin', "GET", user.jwt)
+        ajax(`${baseUrl}api/orders/admin`, "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData)
             });
@@ -29,7 +29,7 @@ const AdminOrders = () => {
 
 
     function startProcessingOrder(id, date) {
-        ajax(`/api/orders/admin/${id}`, "POST", user.jwt, {
+        ajax(`${baseUrl}api/orders/admin/${id}`, "POST", user.jwt, {
             id: id,
         })
             .then(() => {
@@ -38,7 +38,7 @@ const AdminOrders = () => {
     }
 
     useEffect(() => {
-        ajax("/api/orders/admin/send", "GET", user.jwt)
+        ajax(`${baseUrl}api/orders/admin/send`, "GET", user.jwt)
             .then(ordersData => {
                 setSendOrders(ordersData);
             });
@@ -52,7 +52,7 @@ const AdminOrders = () => {
             dateDelivery: dateDelivery,
             timeDelivery: timeDelivery
         }
-        fetch(`/api/orders/${id}`, {
+        fetch(`${baseUrl}api/orders/${id}`, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -65,7 +65,7 @@ const AdminOrders = () => {
     }
 
     function confirmOrderDelivery(id) {
-        ajax(`/api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
+        ajax(`${baseUrl}api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
             status: "delivery"
         })
             .then(() => {

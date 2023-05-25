@@ -8,6 +8,7 @@ const UserEditProfile = () => {
     const user = useUser();
     const userId = window.location.href.split("/users/")[1];
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
     const [currentUser, setCurrentUser] = useState({
         username: "",
         firstName: "",
@@ -17,7 +18,7 @@ const UserEditProfile = () => {
     });
 
     useEffect(() => {
-        ajax(`/api/users/${userId}`, "GET", user.jwt)
+        ajax(`${baseUrl}api/users/${userId}`, "GET", user.jwt)
             .then(userResponse => {
                 setCurrentUser(userResponse);
             });
@@ -31,7 +32,7 @@ const UserEditProfile = () => {
     }
 
     function editProfile() {
-        ajax(`/api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
+        ajax(`${baseUrl}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
             .then(userData => {
                 setCurrentUser(userData);
             });

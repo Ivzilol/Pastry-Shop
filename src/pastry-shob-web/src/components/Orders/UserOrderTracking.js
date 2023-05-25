@@ -9,9 +9,10 @@ const UserOrderTracking = () => {
     const [order, setOrder] = useState(null);
     let allPriceProcessing = 0;
     let allPriceSend = 0;
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("/api/orders/tracking", "GET", user.jwt)
+        ajax(`${baseUrl}api/orders/tracking`, "GET", user.jwt)
             .then(orderData => {
                 setOrder(orderData)
             });

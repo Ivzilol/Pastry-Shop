@@ -9,8 +9,9 @@ const ProductSweets = () => {
     const user = useUser()
     const [sweets, setSweets] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
     useEffect(() => {
-        ajax("/api/products/sweets", "GET", user.jwt)
+        ajax(`${baseUrl}api/products/sweets`, "GET", user.jwt)
             .then(piesData => {
                 setSweets(piesData)
             })

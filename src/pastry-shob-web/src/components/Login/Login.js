@@ -9,6 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         if (user.jwt) navigate("/")
@@ -22,7 +23,7 @@ const Login = () => {
             "password": password,
         };
         console.log(requestBody);
-        fetch(`http://localhost:8080/api/auth/login`, {
+        fetch(`${baseUrl}api/auth/login`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -30,14 +31,7 @@ const Login = () => {
             body: JSON.stringify(requestBody)
         })
             .then((response) => {
-                console.log(response);
-                // console.log(Promise.all([response.json(), response.headers]))
                 if (response.status === 200)
-                    // return fetch(`http://localhost:8080/api/auth/login`, {
-                    //
-                    //     method: "post",
-                    //     body: Promise.all([response.json(), response.headers])
-                    // })
                     return Promise.all([response.json(), response.headers])
                 else return Promise.reject("Invalid login attempt")
             })

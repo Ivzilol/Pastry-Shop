@@ -7,9 +7,10 @@ const AdminOrdersHistory = () => {
 
     const user = useUser();
     const [orders, setOrders] = useState(null);
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("/api/orders/history/admin", "GET", user.jwt)
+        ajax(`${baseUrl}api/orders/history/admin`, "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData);
             });

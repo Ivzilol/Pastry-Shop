@@ -13,6 +13,7 @@ const ShopsView = () => {
     const user = useUser();
     const {shopId} = useParams()
     // const shopId = window.location.href.split("/shops/")[1];
+    const baseUrl = "http://localhost:8080/";
     const [shop, setShop] = useState({
         town: "",
         address: "",
@@ -51,7 +52,7 @@ const ShopsView = () => {
     }
 
     function handleDeleteComment(commentId) {
-        ajax(`/api/comments/user/${commentId}`, "DELETE", user.jwt)
+        ajax(`${baseUrl}api/comments/user/${commentId}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage();
             });
@@ -59,7 +60,7 @@ const ShopsView = () => {
 
     function submitComment() {
         if (comment.id) {
-            ajax(`/api/comments/${comment.id}`, "PUT", user.jwt, comment).then(d => {
+            ajax(`${baseUrl}api/comments/${comment.id}`, "PUT", user.jwt, comment).then(d => {
                 const commentsCopy = [...comments]
                 const index = commentsCopy.findIndex(comment => comment.id === d.id);
                 commentsCopy[index] = d;
@@ -67,7 +68,7 @@ const ShopsView = () => {
                 setComment(emptyComment);
             })
         } else {
-            ajax('/api/comments', 'POST', user.jwt, comment).then(d => {
+            ajax(`${baseUrl}api/comments`, 'POST', user.jwt, comment).then(d => {
                 const commentsCopy = [...comments]
                 commentsCopy.push(d);
                 setComments(commentsCopy);
@@ -77,7 +78,7 @@ const ShopsView = () => {
     }
 
     useEffect(() => {
-        ajax(`/api/comments?shopId=${shopId}`,
+        ajax(`${baseUrl}api/comments?shopId=${shopId}`,
             'GET',
             user.jwt,
             null)
@@ -107,7 +108,7 @@ const ShopsView = () => {
     }
 
     function persist() {
-        ajax(`/api/shops/${shopId}`, "PUT", user.jwt, shop)
+        ajax(`${baseUrl}api/shops/${shopId}`, "PUT", user.jwt, shop)
             .then(shopData => {
                     setShop(shopData);
                 }
@@ -122,7 +123,7 @@ const ShopsView = () => {
     }, [shop])
 
     useEffect(() => {
-        ajax(`/api/shops/${shopId}`, "GET", user.jwt)
+        ajax(`${baseUrl}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
                 let shopData = shopResponse.shops;
                 if (shopData.town === null) shopData.town = ""

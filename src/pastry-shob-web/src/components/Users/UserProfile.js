@@ -8,14 +8,15 @@ const UserProfile = () => {
     const user = useUser();
     const [currentUser, setCurrentUser] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("/api/users", "GET", user.jwt)
+        ajax(`${baseUrl}api/users`, "GET", user.jwt)
             .then(userData => {
                 setCurrentUser(userData);
             })
             if (!user.jwt) navigate("/login");
-    }, [user.jwt]);
+    }, [navigate, user.jwt]);
 
 
     return (

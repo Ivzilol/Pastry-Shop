@@ -11,9 +11,10 @@ const ShopsViewUser = () => {
     const user = useUser();
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax("api/shops", "GET", user.jwt)
+        ajax(`${baseUrl}api/shops`, "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
             });

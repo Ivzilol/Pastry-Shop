@@ -18,6 +18,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         if (user.jwt) navigate("/");
@@ -35,7 +36,7 @@ const Register = () => {
             phoneNumber: phoneNumber
         }
 
-        fetch("api/users/register", {
+        fetch(`${baseUrl}api/users/register`, {
             headers: {
                 "Content-Type": "application/json",
             },
