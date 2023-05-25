@@ -13,7 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, allowCredentials = "true", allowedHeaders = "true")
 public class CommentController {
 
     private final CommentService commentService;

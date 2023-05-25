@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, allowCredentials = "true", allowedHeaders = "true")
 public class HomeController {
 
     private final HomeService homeService;

@@ -1,0 +1,25 @@
+jwt:
+    secret: sdajkdasdjkasgdajksdgaskjdgak3dgaskd2gaske321dgask*^&dgjasjwkdgaskdgj;
+logging:
+    level:
+        blog: WARN
+        org: WARN
+        org.hibernate.SQL: DEBUG
+server:
+    port: 8080
+spring:
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        password: bbGGbb1234
+        url: jdbc:mysql://localhost:3306/PastryShop?useSSL=false&createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+    security:
+        filter:
+            order: 10

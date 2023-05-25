@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/shops")
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, allowCredentials = "true", allowedHeaders = "true")
 public class ShopsController {
 
 

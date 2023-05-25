@@ -3,24 +3,30 @@ package com.example.pastry.shop.config;
 import com.example.pastry.shop.filter.JwtFilter;
 import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@EnableWebSecurity
 @Configuration
-@CrossOrigin
-@EnableWebMvc
 public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
@@ -29,7 +35,7 @@ public class SecurityConfiguration {
 
     private final JwtFilter jwtFilter;
 
-    public SecurityConfiguration(UserDetailsService userDetailsService, CustomPasswordEncoder encoder, JwtFilter jwtFilter) {
+    public SecurityConfiguration(UserDetailsService userDetailsService, CustomPasswordEncoder encoder, JwtFilter jwtFilter, CorsConfigurationSource corsConfigurationSource) {
         this.userDetailsService = userDetailsService;
         this.encoder = encoder;
         this.jwtFilter = jwtFilter;
@@ -49,19 +55,33 @@ public class SecurityConfiguration {
     }
 
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//        source.registerCorsConfiguration("/**", config);
+//        return new CorsFilter(source);
+//    }
+
+
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**");
+//            }
+//        };
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http = http.csrf().disable().cors().disable();
+        http.cors().and().csrf().disable()
+                .cors(withDefaults());
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -71,10 +91,12 @@ public class SecurityConfiguration {
                                 exception.getMessage())).and();
 
         http.authorizeHttpRequests()
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/users/**").permitAll()
-                .requestMatchers("/api/products/**").permitAll()
-                .requestMatchers("/api/**").permitAll()
+
+//                .requestMatchers("/api/auth/**").permitAll()
+//                .requestMatchers("/api/users/**").permitAll()
+//                .requestMatchers("/api/products/**").permitAll()
+//                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

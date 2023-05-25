@@ -9,19 +9,20 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     let navigate = useNavigate();
-    window.localStorage.getItem("token");
+
     useEffect(() => {
         if (user.jwt) navigate("/")
-    }, [navigate, user])
+    }, [navigate, user]);
 
 
+    // const  baseUrl = require('dotenv').config(process.env.REACT_APP_BASE_URL);
     function sendLoginRequest() {
         const requestBody = {
             "username": username,
             "password": password,
         };
-
-        fetch(`api/auth/login`, {
+        console.log(requestBody);
+        fetch(`http://localhost:8080/api/auth/login`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -41,7 +42,7 @@ const Login = () => {
                 else return Promise.reject("Invalid login attempt")
             })
             .then(([body, headers]) => {
-                user.setJwt(headers.get("authorization"))
+                user.setJwt(headers.get("Authorization"))
             }).catch((message) => {
             alert(message)
         });

@@ -6,6 +6,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, allowCredentials = "true", allowedHeaders = "true")
 public class JwtFilter extends OncePerRequestFilter {
 
 
@@ -34,15 +35,20 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain chain) throws ServletException, IOException {
 
-        //get authorization header and validate
+
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (!StringUtils.hasText(header) ||
                 (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
             chain.doFilter(request, response);
-            return;
+                return;
         }
 
         //Authorization -> [Bearer], [ksldhaskdhaskl2w9ad;sldja;lsjd;l1wd]

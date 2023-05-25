@@ -16,6 +16,8 @@
     "cors": "^2.8.5",
     "custom-react-step-progress-bar": "^1.0.8",
     "dayjs": "^1.10.7",
+    "env-cmd": "^10.1.0",
+    "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.3",
     "js-cookie": "^3.0.1",
@@ -42,7 +44,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:staging": "env-cmd -f .env.staging npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +67,7 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
-    "@types/jquery": "^3.5.16"
+    "@types/jquery": "^3.5.16",
+    "dotenv": "^16.0.3"
   }
 }

@@ -17,9 +17,10 @@ const Homepage = () => {
     const [currentProduct, setCurrentProduct] = useState(null);
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
+    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`api/`, "GET", user.jwt)
+        ajax(`${baseUrl}api/`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
@@ -27,7 +28,7 @@ const Homepage = () => {
     }, [user.jwt]);
 
     useEffect(() => {
-        ajax(`api/home`, "GET", user.jwt)
+        ajax(`${baseUrl}api/home`, "GET", user.jwt)
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
             });
@@ -44,14 +45,14 @@ const Homepage = () => {
     }
 
     function getCurrentProduct(id) {
-        ajax(`/api/products/${id}`, "GET", user.jwt)
+        ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setCurrentProduct(productData);
             });
     }
 
     function orderProducts(id) {
-        ajax(`/api/orders/${id}`, "POST", user.jwt, product)
+        ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
                 alert("Successfully add the product to your cart")

@@ -3,7 +3,7 @@ function ajax (url, requestMethod, jwt, requestBody) {
 
     const fetchData = {
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         method: requestMethod
     }
