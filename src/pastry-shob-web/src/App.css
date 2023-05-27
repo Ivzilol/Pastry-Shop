@@ -1054,13 +1054,15 @@ footer {
     body, * {
         margin: 0;
         padding: 0;
+        /*width: 580px;*/
     }
 
     .nav {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: auto;
+        width: 580px;
+        text-align: center;
     }
 
     .home-page-container-item-current-icon {
@@ -1086,6 +1088,7 @@ footer {
     .home-page {
         background-color: pink;
         margin-top: 360px;
+        width: 580px;
     }
 
     .home-page-first {
@@ -1094,7 +1097,7 @@ footer {
     }
 
     .home-page-first-left {
-        width: 600px;
+        width: 580px;
     }
 
     .home-page-first-left img {

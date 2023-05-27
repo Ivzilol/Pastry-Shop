@@ -42,6 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (!StringUtils.hasText(header) ||
                 (StringUtils.hasText(header) && !header.startsWith("Bearer "))) {
+            //add header fot JWT in production
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Access-Control-Allow-Credentials", "true");
             response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
+    //allows the header to put JWT into production
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
