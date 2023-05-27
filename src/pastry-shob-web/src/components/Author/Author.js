@@ -8,7 +8,7 @@ const Author = () => {
             <section className="author-container">
                 <div className="author-container-items">
                     <div className="author-container-img">
-                        <img src="https://i.imgupx.com/BJeqpcTC/ivo.jpg" alt="new"/>
+                        <img src="https://i.postimg.cc/nrn81M2p/ivo.jpg" alt="new"/>
                     </div>
                     <div className="author-container-text">
                         <h2 data-testid="Author">Ивайло Иванов Аличков</h2>

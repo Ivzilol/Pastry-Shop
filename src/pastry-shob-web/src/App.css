@@ -748,9 +748,9 @@ footer {
 
 .user-edit-profile-button button {
     border-radius: 10px;
-    border-color: white;
+    border-color: black;
     background: none;
-    color: white;
+    color: black;
     width: 150px;
     margin-top: 20px;
 }
@@ -936,6 +936,7 @@ footer {
 }
 
 .author-container-img img {
+    width: 450px;
     border-radius: 50%;
     padding-left: 45px;
 }
