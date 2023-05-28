@@ -30,6 +30,4 @@ backend
 
 frontend
 
-Frontend -
-
 NodeJs.v.18
