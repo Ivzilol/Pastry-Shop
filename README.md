@@ -14,7 +14,7 @@ spring-backend stores its data in a MySql database.
 
 spring-backend has the following endpoints
 
--react-frontend
+- react-frontend
 
 ReactJS frontend application where users can find and order products. In order to access the application, user must login using his/her username and password. All the requests coming from react-frontend to secured endpoints in spring-backend have a access token (JWT) that is generated when user / business logs in.
 
