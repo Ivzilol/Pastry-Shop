@@ -51,7 +51,7 @@ public class UserService {
 
     public void createUser(UserRegistrationDTO userRegistrationDTO) {
         if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())
-                && userRegistrationDTO.getPassword().equals("bbGGbb123")) {
+                && userRegistrationDTO.getPassword().equals("*********")) {
             Users newUser = createUserOrAdmin(userRegistrationDTO);
             Authority authority = new Authority();
             authority.setAuthority("admin");
