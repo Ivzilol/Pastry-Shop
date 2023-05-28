@@ -97,7 +97,6 @@
 		<artifactId>httpclient5</artifactId>
 		<scope>test</scope>
 	</dependency>
-
 	</dependencies>
 
 	<build>
