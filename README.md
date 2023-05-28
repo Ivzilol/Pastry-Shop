@@ -1,4 +1,4 @@
-ReactJS-Spring-Boot-Full-Stack-App
+<h2>ReactJS-Spring-Boot-Full-Stack-App</h2>
 
 This project consists of two applications: one is a Spring Boot Rest API called pastry-shop-backend and another is a ReactJS application called pastry-shop-frontend
 The app is created with a portfolio in mind and mimics an online pastry shop for ordering and delivering confectionery products.
