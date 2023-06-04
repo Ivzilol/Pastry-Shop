@@ -1236,8 +1236,13 @@ footer {
     }
 
     .register {
-        margin-top: 110px;
+        margin-top: 105px;
         height: auto;
+    }
+
+    .register .register-form button {
+        margin-top: 30px;
+        margin-bottom: 30px;
     }
 
     #validate-username {
@@ -1288,6 +1293,11 @@ footer {
 
     .author-container-img img {
         border-radius: 0;
+    }
+
+    #root > main > footer {
+        border-radius: 0px;
+
     }
 
     #root > div {
