@@ -28,5 +28,6 @@ react-frontend uses Semantic UI React as CSS-styled framework.
 -JWT
 
 - frontend
+
 -React 
 -NodeJs.v.18
