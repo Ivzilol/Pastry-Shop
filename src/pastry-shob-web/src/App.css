@@ -517,7 +517,7 @@ footer {
 
 .footer-line {
     color: white;
-    width: 1200px;
+    width: 100%;
     padding-bottom: 10px;
     margin-left: 40px;
     margin-top: 0;
@@ -1051,44 +1051,36 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
-    body, * {
+    * {
         margin: 0;
         padding: 0;
-        /*width: 580px;*/
+        
+    }
+
+    .body {
+        box-sizing: border-box;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .nav {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 580px;
         text-align: center;
+        width: 100%;
+        padding: 0;
     }
 
-    .home-page-container-item-current-icon {
-        display: none;
-    }
-
-    .nav-home {
-        padding-left: 100px;
-    }
-
-    .nav div {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 5px;
-        margin-top: 10px;
-        padding-left: 100px;
-    }
-
-    .nav-button {
-        margin-bottom: 15px;
+    #root {
+        width: 100%;
     }
 
     .home-page {
         background-color: pink;
-        margin-top: 360px;
-        width: 580px;
+        width: 100%;
+        margin-top: 113px;
     }
 
     .home-page-first {
@@ -1097,7 +1089,7 @@ footer {
     }
 
     .home-page-first-left {
-        width: 580px;
+        width: 100%;
     }
 
     .home-page-first-left img {
@@ -1126,19 +1118,57 @@ footer {
         flex-direction: column;
     }
 
+    .home-page-container-item-current-icon {
+        display: none;
+    }
+
+    .nav-home {
+        padding-left: 100px;
+    }
+
+    .nav div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        margin-top: 10px;
+        padding-left: 100px;
+    }
+
+    .nav-button {
+        margin-bottom: 15px;
+    }
+
+    
+
     .footer {
         display: flex;
         flex-direction: column;
         text-align: center;
         font-size: 30px;
+        border-radius: 0;
+    }
+
+    .footer-second {
+        margin-top: 35px;
+    }
+    
+    .footer-third {
+        margin-top: 35px;
     }
 
     .footer-four {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 35px;
     }
+
+    .footer-line {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /*------------------------------------------*/
 
     .shops-view {
         margin-top: 300px;
