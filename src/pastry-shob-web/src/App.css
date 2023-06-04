@@ -1094,6 +1094,7 @@ footer {
     .home-page-first-right {
         margin-top: 20px;
         margin-bottom: 20px;
+        align-items: center;
     }
 
     .home-page-first-right h6 {
@@ -1108,6 +1109,14 @@ footer {
         margin-top: 170px;
     }
 
+    .home-page-most-ordered-title {
+        font-size: 35px;
+    }
+
+    .not-login-user {
+        font-size: 18px;
+    }
+
     .home-page-container {
         display: flex;
         flex-direction: column;
@@ -1118,7 +1127,7 @@ footer {
     }
 
     .nav-home {
-        padding-left: 100px;
+        margin-top: 10px;
     }
 
     .nav div {
@@ -1133,14 +1142,16 @@ footer {
         margin-bottom: 15px;
     }
 
-    
+    .home-page-most-ordered-description {
+        color: black;
+    }
 
     .footer {
         display: flex;
         flex-direction: column;
         text-align: center;
         font-size: 30px;
-        border-radius: 0;
+        border-radius: 0px;
     }
 
     .footer-second {
