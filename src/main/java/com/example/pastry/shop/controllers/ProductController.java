@@ -12,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/products")
@@ -83,6 +82,13 @@ public class ProductController {
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Products product = this.productsService.likeProduct(id, user);
+        for (Users currentUser : product.getUserLikes()) {
+            if (Objects.equals(currentUser.getId(), user.getId())) {
+                Set<Users> userLikeProduct = new HashSet<>();
+                userLikeProduct.add(currentUser);
+                product.setUserLikes(userLikeProduct);
+            }
+        }
         return ResponseEntity.ok(product);
     }
 
