@@ -81,6 +81,7 @@ const ProductsUser = () => {
         ajax(`${baseUrl}api/products/dislike/${id}`, "Delete", user.jwt)
             .then(() => {
                 alert("You dislike product")
+                refreshPage();
             })
     }
 
