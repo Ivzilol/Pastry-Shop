@@ -22,7 +22,6 @@ const Login = () => {
             "username": username,
             "password": password,
         };
-        console.log(requestBody);
         fetch(`${baseUrl}api/auth/login`, {
             method: "post",
             headers: {

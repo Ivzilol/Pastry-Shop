@@ -16,9 +16,9 @@ const AdminUsers = () => {
 
     }, [user.jwt])
 
-    function refreshPage() {
-        window.location.reload();
-    }
+        function refreshPage() {
+            window.location.reload();
+        }
 
     function deleteUser(id) {
         ajax(`${baseUrl}api/users/admin/${id}`, "DELETE", user.jwt)

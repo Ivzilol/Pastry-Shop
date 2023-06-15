@@ -28,7 +28,7 @@ public class SecurityConfiguration {
 
     private final JwtFilter jwtFilter;
 
-    public SecurityConfiguration(UserDetailsService userDetailsService, CustomPasswordEncoder encoder, JwtFilter jwtFilter, CorsConfigurationSource corsConfigurationSource) {
+    public SecurityConfiguration(UserDetailsService userDetailsService, CustomPasswordEncoder encoder, JwtFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
         this.encoder = encoder;
         this.jwtFilter = jwtFilter;

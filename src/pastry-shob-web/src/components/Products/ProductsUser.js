@@ -81,7 +81,7 @@ const ProductsUser = () => {
             <NavBar/>
             {products ? (
                 <article className="products-container">
-                    {products.map((product) => (
+                    {   products.map((product) => (
                         <div
                             className="products-container-items"
                             key={product.id}
