@@ -82,14 +82,14 @@ public class ProductController {
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Products product = this.productsService.likeProduct(id, user);
-//        for (Users currentUser : product.getUserLikes()) {
-//            if (Objects.equals(currentUser.getId(), user.getId())) {
-//                Set<Users> userLikeProduct = new HashSet<>();
-//                userLikeProduct.add(currentUser);
-//                product.setUserLikes(userLikeProduct);
-//            }
-//        }
         return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> dislikeProduct(@PathVariable Long id,
+                                            @AuthenticationPrincipal Users user) {
+        this.productsService.deleteFromProductsLikes(id, user);
+        return (ResponseEntity<?>) ResponseEntity.ok();
     }
 
     @GetMapping("/pies")

@@ -59,7 +59,7 @@ const ProductsUser = () => {
     function likeProduct(id) {
         ajax(`${baseUrl}api/products/${id}`, "PATCH", user.jwt)
             .then(() => {
-                alert("You like this products")
+                alert("You like this product")
                 refreshPage();
             })
     }
@@ -78,7 +78,10 @@ const ProductsUser = () => {
     }
 
     function dislikeProduct(id) {
-
+        ajax(`${baseUrl}api/products/${id}`, "DELETE", user.jwt)
+            .then(() => {
+                alert("You dislike product")
+            })
     }
 
 
@@ -111,8 +114,9 @@ const ProductsUser = () => {
                                 <div className="products-container-item-likes-container-buttons">
                                     {/* eslint-disable-next-line array-callback-return */}
                                     {Object.entries(product.userLikes).map(([key, value]) => {
+                                        // eslint-disable-next-line no-lone-blocks
                                         {
-                                            for (const [k, v] of Object.entries(value)) {
+                                            for (const [, v] of Object.entries(value)) {
                                                 if (v === roles) {
                                                     isEquals = true;
                                                     break;

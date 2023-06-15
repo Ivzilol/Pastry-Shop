@@ -118,4 +118,8 @@ public class ProductsService {
     public Set<Products> findAllCakes() {
         return this.productRepository.findAllCakes();
     }
+
+    public void deleteFromProductsLikes(Long id, Users user) {
+
+    }
 }
