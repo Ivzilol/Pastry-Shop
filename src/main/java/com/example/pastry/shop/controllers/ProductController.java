@@ -85,11 +85,11 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/dislike/{id}")
     public ResponseEntity<?> dislikeProduct(@PathVariable Long id,
                                             @AuthenticationPrincipal Users user) {
-        this.productsService.deleteFromProductsLikes(id, user);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        Products product = this.productsService.deleteFromProductsLikes(id, user);
+        return ResponseEntity.ok(product);
     }
 
     @GetMapping("/pies")

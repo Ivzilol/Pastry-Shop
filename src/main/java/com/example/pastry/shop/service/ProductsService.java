@@ -10,6 +10,7 @@ import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -88,6 +89,27 @@ public class ProductsService {
         return product;
     }
 
+    public Products deleteFromProductsLikes(Long id, Users user) {
+        Products product = this.productRepository.findProductById(id);
+        boolean isUser = isUser(user);
+        Set<Users> userLikes = product.getUserLikes();
+        Set<Users> newUserLikes = new HashSet<>();
+        for (Users currentUser : userLikes) {
+            if (!currentUser.getUsername().equals(user.getUsername())) {
+                newUserLikes.add(currentUser);
+            }
+        }
+        user.getLikeProducts().remove(product);
+        boolean likeUser = isLike(user, userLikes);
+        if (isUser && likeUser) {
+            product.setUserLikes(newUserLikes);
+            product.setLikes(product.getLikes() - 1);
+            this.productRepository.save(product);
+            return product;
+        }
+        return product;
+    }
+
     private boolean isLike(Users user, Set<Users> userLikes) {
         boolean isTrue = false;
         for (Users currentUser : userLikes) {
@@ -119,7 +141,4 @@ public class ProductsService {
         return this.productRepository.findAllCakes();
     }
 
-    public void deleteFromProductsLikes(Long id, Users user) {
-
-    }
 }
