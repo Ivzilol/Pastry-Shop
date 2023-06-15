@@ -86,6 +86,22 @@ const ProductsUser = () => {
     }
 
 
+    function getIsLike(product) {
+        return <>
+            {Object.entries(product.userLikes).map(([key, value]) => {
+                // eslint-disable-next-line no-lone-blocks
+                {
+                    for (const [, v] of Object.entries(value)) {
+                        if (v === roles) {
+                            isEquals = true;
+                            break;
+                        }
+                    }
+                }
+            })}
+        </>;
+    }
+
     return (
         <main className="products-users">
             <NavBar/>
@@ -114,17 +130,7 @@ const ProductsUser = () => {
                                     {Number(product.userLikes.length)}</p>
                                 <div className="products-container-item-likes-container-buttons">
                                     {/* eslint-disable-next-line array-callback-return */}
-                                    {Object.entries(product.userLikes).map(([key, value]) => {
-                                        // eslint-disable-next-line no-lone-blocks
-                                        {
-                                            for (const [, v] of Object.entries(value)) {
-                                                if (v === roles) {
-                                                    isEquals = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    })}
+                                    {getIsLike(product)}
                                     {isEquals
                                         ?
                                         <button
