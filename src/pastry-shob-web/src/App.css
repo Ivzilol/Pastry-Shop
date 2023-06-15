@@ -1050,6 +1050,10 @@ footer {
     width: 400px;
 }
 
+.counter-likes {
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

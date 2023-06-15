@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 const ProductsUser = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
+    let isEquals = false;
     const [roles, setRoles] = useState(getRolesFromJWT());
     let navigate = useNavigate();
     const baseUrl = "http://localhost:8080/";
@@ -76,9 +77,10 @@ const ProductsUser = () => {
         return [];
     }
 
-    let exist;
-    let likeUsers = [];
-    let isEquals = 0;
+    function dislikeProduct(id) {
+
+    }
+
 
     return (
         <main className="products-users">
@@ -109,23 +111,23 @@ const ProductsUser = () => {
                                 <div className="products-container-item-likes-container-buttons">
                                     {/* eslint-disable-next-line array-callback-return */}
                                     {Object.entries(product.userLikes).map(([key, value]) => {
-                                        isEquals = false;
                                         {
                                             for (const [k, v] of Object.entries(value)) {
                                                 if (v === roles) {
-                                                    isEquals = 1;
+                                                    isEquals = true;
+                                                    break;
                                                 }
                                             }
                                         }
                                     })}
-                                    {isEquals === 1
+                                    {isEquals
                                         ?
                                         <button
                                             className="products-container-item-likes-button"
                                             id="submit"
                                             type="button"
-                                            onClick={() => likeProduct(product.id)}
-                                        >Не харесвам
+                                            onClick={() => dislikeProduct(product.id)}
+                                        >Не Харесвам
                                         </button>
                                         :
                                         <button
@@ -148,6 +150,9 @@ const ProductsUser = () => {
                                         Поръчай
                                     </button>
                                 </div>
+                                <p className="counter-likes">
+                                    {isEquals = false}
+                                </p>
                             </div>
                         </div>
                     ))}
