@@ -8,11 +8,13 @@ import {
     faThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
+import jwt_decode from "jwt-decode";
 
 
 const ProductsUser = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
+    const [roles, setRoles] = useState(getRolesFromJWT());
     let navigate = useNavigate();
     const baseUrl = "http://localhost:8080/";
     const [product, setProduct] = useState({
@@ -32,20 +34,6 @@ const ProductsUser = () => {
 
         if (!user.jwt) navigate("/login")
     }, [user.jwt]);
-
-    // const [userUsername, setUserUsername] = useState(getUsernameFromJWT);
-    //
-    // useEffect(() => {
-    //     setUserUsername(getUsernameFromJWT)
-    // }, [user.jwt])
-    //
-    // function getUsernameFromJWT() {
-    //     if (user.jwt) {
-    //         const decodeJwt = jwt_decode(user.jwt)
-    //         return decodeJwt
-    //     }
-    //     return [];
-    // }
 
     function orderProduct(id) {
         ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
@@ -75,13 +63,29 @@ const ProductsUser = () => {
             })
     }
 
+    useEffect(() => {
+        setRoles(getRolesFromJWT())
+    }, [getRolesFromJWT, user.jwt])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function getRolesFromJWT() {
+        if (user.jwt) {
+            const decodeJwt = jwt_decode(user.jwt);
+            return decodeJwt.sub;
+        }
+        return [];
+    }
+
+    let exist;
+    let likeUsers = [];
+    let isEquals = 0;
 
     return (
         <main className="products-users">
             <NavBar/>
             {products ? (
                 <article className="products-container">
-                    {   products.map((product) => (
+                    {products.map((product) => (
                         <div
                             className="products-container-items"
                             key={product.id}
@@ -103,14 +107,35 @@ const ProductsUser = () => {
                                     />
                                     {Number(product.userLikes.length)}</p>
                                 <div className="products-container-item-likes-container-buttons">
-                                    <button
-                                        className="products-container-item-likes-button"
-                                        id="submit"
-                                        type="button"
-                                        onClick={() => likeProduct(product.id)}
-                                    >Харесва ми
-                                    </button>
-
+                                    {/* eslint-disable-next-line array-callback-return */}
+                                    {Object.entries(product.userLikes).map(([key, value]) => {
+                                        isEquals = false;
+                                        {
+                                            for (const [k, v] of Object.entries(value)) {
+                                                if (v === roles) {
+                                                    isEquals = 1;
+                                                }
+                                            }
+                                        }
+                                    })}
+                                    {isEquals === 1
+                                        ?
+                                        <button
+                                            className="products-container-item-likes-button"
+                                            id="submit"
+                                            type="button"
+                                            onClick={() => likeProduct(product.id)}
+                                        >Не харесвам
+                                        </button>
+                                        :
+                                        <button
+                                            className="products-container-item-likes-button"
+                                            id="submit"
+                                            type="button"
+                                            onClick={() => likeProduct(product.id)}
+                                        >Харесва ми
+                                        </button>
+                                    }
                                     <button
                                         className="products-container-item-likes-container-button2"
                                         id="submit"

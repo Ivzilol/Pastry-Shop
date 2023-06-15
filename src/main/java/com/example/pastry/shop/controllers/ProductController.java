@@ -82,13 +82,13 @@ public class ProductController {
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Products product = this.productsService.likeProduct(id, user);
-        for (Users currentUser : product.getUserLikes()) {
-            if (Objects.equals(currentUser.getId(), user.getId())) {
-                Set<Users> userLikeProduct = new HashSet<>();
-                userLikeProduct.add(currentUser);
-                product.setUserLikes(userLikeProduct);
-            }
-        }
+//        for (Users currentUser : product.getUserLikes()) {
+//            if (Objects.equals(currentUser.getId(), user.getId())) {
+//                Set<Users> userLikeProduct = new HashSet<>();
+//                userLikeProduct.add(currentUser);
+//                product.setUserLikes(userLikeProduct);
+//            }
+//        }
         return ResponseEntity.ok(product);
     }
 

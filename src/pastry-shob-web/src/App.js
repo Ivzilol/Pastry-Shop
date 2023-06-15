@@ -45,8 +45,9 @@ function App() {
             return decodeJwt.authorities;
         }
         return [];
-
     }
+
+
 
     return (
         <Routes>
