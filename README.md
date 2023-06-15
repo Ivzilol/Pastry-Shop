@@ -9,6 +9,7 @@ Link to app: https://sladkarnicata-na-mama.azurewebsites.net/
 - spring-backend
 
 Spring Boot Web Java backend application that exposes a REST API to manage deliveries. Its secured endpoints can just be accessed if an access token (JWT) is provided.
+In the application there are user/admin roles, the processing of the requests made by the user is carried out by the administrator.
 
 spring-backend stores its data in a MySql database.
 
@@ -28,4 +29,5 @@ react-frontend uses Semantic UI React as CSS-styled framework.
 
 - frontend
 
+-React 
 -NodeJs.v.18
