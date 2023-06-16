@@ -26,9 +26,19 @@ const ShopsViewAdmin = () => {
         });
     }
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    function deleteShop(id) {
+        ajax(`${baseUrl}api/shops/delete/${id}`, "DELETE", user.jwt)
+            .then(() => {
+                refreshPage()
+            })
+    }
+
 
     return (
-
         <div style={{margin: '2em'}}>
             <NavBarAdmin/>
             {shops ? (
@@ -55,6 +65,14 @@ const ShopsViewAdmin = () => {
                                             window.location.href = `/shops/${shops.id}`;
                                         }}
                                     > Edit
+                                    </Button>
+                                    <Button
+                                        id="submit"
+                                        type="button"
+                                        onClick={() => {
+                                            deleteShop(shops.id);
+                                        }}
+                                    > Delete
                                     </Button>
                                 </Card.Text>
                             </Card.Body>

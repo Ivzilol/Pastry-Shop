@@ -65,4 +65,11 @@ public class ShopsController {
         Shops updateShop = shopsService.saveShop(shop);
         return ResponseEntity.ok(updateShop);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteShop(@PathVariable Long id,
+                                        @AuthenticationPrincipal Users user) {
+        this.shopsService.deleteShop(id, user);
+        return (ResponseEntity<?>) ResponseEntity.ok();
+    }
 }

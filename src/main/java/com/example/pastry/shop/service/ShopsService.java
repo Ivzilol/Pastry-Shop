@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.repository.ShopsRepository;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,17 @@ public class ShopsService {
 
     public List<Shops> findAll() {
         return this.shopsRepository.findAll();
+    }
+
+    private static boolean isAdmin(Users user) {
+        return user.getAuthorities()
+                .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
+    }
+
+    public void deleteShop(Long shopId, Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            this.shopsRepository.deleteById(shopId);
+        }
     }
 }
