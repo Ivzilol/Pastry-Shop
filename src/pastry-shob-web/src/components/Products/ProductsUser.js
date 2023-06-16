@@ -34,7 +34,7 @@ const ProductsUser = () => {
             });
 
         if (!user.jwt) navigate("/login")
-    }, [user.jwt]);
+    }, [navigate, user.jwt]);
 
     function orderProduct(id) {
         ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
@@ -88,7 +88,8 @@ const ProductsUser = () => {
 
     function getIsLike(product) {
         return <>
-            {Object.entries(product.userLikes).map(([key, value]) => {
+            {/* eslint-disable-next-line array-callback-return */}
+            {Object.entries(product.userLikes).map(([, value]) => {
                 // eslint-disable-next-line no-lone-blocks
                 {
                     for (const [, v] of Object.entries(value)) {

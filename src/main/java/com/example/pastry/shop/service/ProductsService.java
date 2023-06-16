@@ -7,13 +7,12 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
-import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductsService {
@@ -22,7 +21,7 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, UsersRepository usersRepository) {
+    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
     }
@@ -93,12 +92,10 @@ public class ProductsService {
         Products product = this.productRepository.findProductById(id);
         boolean isUser = isUser(user);
         Set<Users> userLikes = product.getUserLikes();
-        Set<Users> newUserLikes = new HashSet<>();
-        for (Users currentUser : userLikes) {
-            if (!currentUser.getUsername().equals(user.getUsername())) {
-                newUserLikes.add(currentUser);
-            }
-        }
+        Set<Users> newUserLikes = userLikes
+                .stream()
+                .filter(u -> !u.getUsername().equals(user.getUsername()))
+                .collect(Collectors.toSet());
         user.getLikeProducts().remove(product);
         boolean likeUser = isLike(user, userLikes);
         if (isUser && likeUser) {
