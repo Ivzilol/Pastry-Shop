@@ -16,7 +16,7 @@ const ProductSweets = () => {
                 setSweets(piesData)
             })
         if (!user.jwt) navigate("/login")
-    }, [user.jwt])
+    }, [navigate, user.jwt])
 
 
     return (
@@ -40,34 +40,6 @@ const ProductSweets = () => {
                                 <img
                                     className="product-img" src={product.imageUrl} alt="new"
                                 />
-                                {/*<div className="products-container-item-likes-container">*/}
-                                {/*    <p className="products-container-item-likes">*/}
-                                {/*        <FontAwesomeIcon icon={faThumbsUp}*/}
-                                {/*                         className="products-container-item-likes-icon"*/}
-                                {/*        />*/}
-                                {/*        {Number(product.userLikes.length)}</p>*/}
-                                {/*    <div className="products-container-item-likes-container-buttons">*/}
-                                {/*        <button*/}
-                                {/*            className="products-container-item-likes-button"*/}
-                                {/*            id="submit"*/}
-                                {/*            type="button"*/}
-                                {/*            onClick={() => likeProduct(product.id)}*/}
-                                {/*        >Харесва ми*/}
-                                {/*        </button>*/}
-
-                                {/*        <button*/}
-                                {/*            className="products-container-item-likes-container-button2"*/}
-                                {/*            id="submit"*/}
-                                {/*            type="button"*/}
-                                {/*            onClick={() => {*/}
-                                {/*                orderProduct(product.id);*/}
-                                {/*                orderProducts(product.id);*/}
-                                {/*            }}*/}
-                                {/*        >*/}
-                                {/*            Поръчай*/}
-                                {/*        </button>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
                             </div>
                         ))}
                     </article>
