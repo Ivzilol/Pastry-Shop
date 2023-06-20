@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ajax from "../../Services/FetchService";
-import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import Comment from "../Comment/Comment";
@@ -21,7 +20,7 @@ const ShopsView = () => {
         status: ""
     });
 
-    const [shopsEnums, setShopsEnums] = useState([]);
+    const [, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
     const prevShopValue = useRef(shop);
 
@@ -85,7 +84,7 @@ const ShopsView = () => {
             .then(commentsData => {
                 setComments(commentsData)
             });
-    }, [])
+    }, [shopId, user.jwt])
 
     function updateComment(value) {
         const commentCopy = {...comment}
@@ -132,7 +131,7 @@ const ShopsView = () => {
                 setShopsEnums(shopResponse.shopsEnums);
                 setShopsStatuses(shopResponse.statusEnums);
             });
-    }, []);
+    }, [shopId, user.jwt]);
 
     return (
         <main className="user-comments-container">
