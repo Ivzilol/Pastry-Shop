@@ -172,6 +172,14 @@ const Register = () => {
     }
 
 
+    function username() {
+        return <>
+            {error.username &&
+                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
+            }
+        </>;
+    }
+
     return (
         <>
             <NavBar/>
@@ -192,10 +200,7 @@ const Register = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         onBlur={validateUsername}
                     />
-                    {error.username &&
-                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
-                    }
-
+                    {username()}
                     <label form="password">Password</label>
                     <input
                         type="password"
