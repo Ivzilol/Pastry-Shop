@@ -24,7 +24,7 @@ const EditProductsAdmin = () => {
             .then(productData => {
                 setProduct(productData);
             })
-    }, []);
+    }, [productId, user.jwt]);
 
     function saveProduct() {
         persist();
