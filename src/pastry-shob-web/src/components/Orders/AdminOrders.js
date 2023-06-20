@@ -2,7 +2,6 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const AdminOrders = () => {
@@ -21,7 +20,7 @@ const AdminOrders = () => {
                 setOrders(ordersData)
             });
         if (!user.jwt) navigate('/login')
-    }, [user.jwt])
+    }, [navigate, user.jwt])
 
     function refreshPage() {
         window.location.reload();
@@ -43,7 +42,7 @@ const AdminOrders = () => {
                 setSendOrders(ordersData);
             });
         if (!user.jwt) navigate("/login")
-    }, [user.jwt])
+    }, [navigate, user.jwt])
 
 
     function confirmOrder(id) {
