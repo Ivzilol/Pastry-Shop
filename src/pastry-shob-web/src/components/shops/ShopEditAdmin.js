@@ -17,10 +17,9 @@ const ShopEditAdmin = () => {
         status: ""
     });
 
-    const [shopEnum, setShopEnum] = useState([]);
-    const [shopStatus, setShopStatus] = useState([]);
-    const prevShopVale = useRef(shop);
-
+    const [, setShopEnum] = useState([]);
+    const [, setShopStatus] = useState([]);
+    useRef(shop);
     useEffect(() => {
         ajax(`${baseUrl}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
@@ -31,7 +30,7 @@ const ShopEditAdmin = () => {
                 setShopEnum(shopResponse.shopsEnums);
                 setShopStatus(shopResponse.statusEnums);
             });
-    }, []);
+    }, [shopId, user.jwt]);
 
     function updateShop(prop, value) {
         const newShop = {...shop};
