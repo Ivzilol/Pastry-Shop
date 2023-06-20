@@ -17,7 +17,7 @@ const UserOrders = () => {
                 setProducts(productsData);
             });
         if (!user.jwt) navigate('/login')
-    }, [user.jwt]);
+    }, [navigate, user.jwt]);
 
     function removeProductFromOrder(id) {
         ajax(`${baseUrl}api/orders/${id}`, "DELETE", user.jwt)
@@ -30,7 +30,7 @@ const UserOrders = () => {
         window.location.reload();
     }
 
-    function confirmOrder(e) {
+    function confirmOrder() {
         ajax(`${baseUrl}api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
