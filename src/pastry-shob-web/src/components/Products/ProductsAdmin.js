@@ -17,7 +17,7 @@ const ProductsAdmin = () => {
             });
 
         if (!user.jwt) navigate("/login")
-    }, [user.jwt]);
+    }, [navigate, user.jwt]);
 
     return (
         <section className="products-all">
