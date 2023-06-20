@@ -81,17 +81,6 @@ const Login = () => {
                         </Form.Group>
                     </Col>
                 </Row>
-                {/*{errorMessage ? (*/}
-                {/*    <Row className="justify-content-center mb-4">*/}
-                {/*        <Col md="8" lg="6">*/}
-                {/*            <div className="" style={{ color: "red", fontWeight: "bold" }}>*/}
-                {/*                {errorMessage}*/}
-                {/*            </div>*/}
-                {/*        </Col>*/}
-                {/*    </Row>*/}
-                {/*) : (*/}
-                <></>
-                {/*)}*/}
                 <Row className="justify-content-center align-items-center">
                     <Col md="8" lg="6"
                          className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
