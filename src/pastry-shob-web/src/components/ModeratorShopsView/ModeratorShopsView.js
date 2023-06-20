@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import CommentContainer from "../CommentContainer/CommentContainer";
 
 const ModeratorShopsView = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt")
+    const [jwt] = useLocalState("", "jwt")
     const shopId = window.location.href.split("/shops/")[1];
     let navigate = useNavigate();
     const [shop, setShop] = useState({
@@ -17,7 +17,7 @@ const ModeratorShopsView = () => {
             status: ""
     });
 
-    const [shopsEnums, setShopsEnums] = useState([]);
+    const [, setShopsEnums] = useState([]);
     const [shopsStatuses, setShopsStatuses] = useState([]);
 
     const prevShopValue = useRef(shop);
@@ -37,6 +37,7 @@ const ModeratorShopsView = () => {
         window.location.href = "/shops";
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     function persist() {
         ajax(`/api/shops/${shopId}`, "PUT", jwt, shop)
             .then(shopData => {
@@ -50,7 +51,7 @@ const ModeratorShopsView = () => {
             persist();
         }
         prevShopValue.current = shop;
-    }, [shop])
+    }, [persist, shop])
 
     useEffect(() => {
         ajax(`/api/shops/${shopId}`, "GET", jwt)
@@ -62,7 +63,7 @@ const ModeratorShopsView = () => {
                 setShopsEnums(shopResponse.shopsEnums);
                 setShopsStatuses(shopResponse.statusEnums);
             });
-    }, []);
+    }, [jwt, shopId]);
 
     return (
         <Container className="mt-4">
