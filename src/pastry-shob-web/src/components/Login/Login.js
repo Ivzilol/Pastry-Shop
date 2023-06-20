@@ -34,7 +34,7 @@ const Login = () => {
                     return Promise.all([response.json(), response.headers])
                 else return Promise.reject("Invalid login attempt")
             })
-            .then(([body, headers]) => {
+            .then(([, headers]) => {
                 user.setJwt(headers.get("Authorization"))
             }).catch((message) => {
             alert(message)
