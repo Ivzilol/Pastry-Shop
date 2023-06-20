@@ -18,7 +18,7 @@ const ShopsViewAdmin = () => {
                 setShops(shopData);
             });
         if (!user.jwt) navigate("/login");
-    }, [user.jwt])
+    }, [navigate, user.jwt])
 
     function createShop() {
         ajax(`${baseUrl}api/shops`, "POST", user.jwt).then((shop) => {
