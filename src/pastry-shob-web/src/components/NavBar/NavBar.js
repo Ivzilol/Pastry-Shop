@@ -5,8 +5,6 @@ import jwt_decode from "jwt-decode"
 
 function NavBar() {
 
-    // const navigate = useNavigate();
-    // const {pathname} = useNavigate()
     const user = useUser();
     const [authorities, setAuthorities] = useState(null);
 
