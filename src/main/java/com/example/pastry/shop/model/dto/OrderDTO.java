@@ -29,10 +29,6 @@ public class OrderDTO {
         this.price = price;
     }
 
-    public LocalDate getDataCreated() {
-        return dataCreated;
-    }
-
     public void setDataCreated(LocalDate dataCreated) {
         this.dataCreated = dataCreated;
     }
