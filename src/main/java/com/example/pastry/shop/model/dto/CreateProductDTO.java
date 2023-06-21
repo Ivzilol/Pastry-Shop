@@ -43,10 +43,6 @@ public class CreateProductDTO {
         return Categories;
     }
 
-    public void setCategories(String categories) {
-        Categories = categories;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -67,7 +63,4 @@ public class CreateProductDTO {
         return shopName;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
 }
