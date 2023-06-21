@@ -32,10 +32,4 @@ public class HomeController {
         List<Products> recommendedProducts = this.homeService.findRecommendedProducts();
         return ResponseEntity.ok(recommendedProducts);
     }
-
-//    @GetMapping("/api/products/{id}")
-//    public ResponseEntity<?> getCurrentProduct(@PathVariable Long id) {
-//        Products product = this.homeService.findCurrentProduct(id);
-//        return ResponseEntity.ok(product);
-//    }
- }
+}
