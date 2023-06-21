@@ -50,7 +50,6 @@ public class AuthController {
         }
     }
 
-//    http://localhost:8080/api/auth/validate?token=something
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@RequestParam String token,
                                             @AuthenticationPrincipal Users user) {
