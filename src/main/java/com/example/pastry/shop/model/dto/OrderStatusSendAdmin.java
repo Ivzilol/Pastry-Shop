@@ -23,15 +23,8 @@ public class OrderStatusSendAdmin {
         return dateDelivery;
     }
 
-    public void setDateDelivery(String dateDelivery) {
-        this.dateDelivery = dateDelivery;
-    }
-
     public String getTimeDelivery() {
         return timeDelivery;
     }
 
-    public void setTimeDelivery(String timeDelivery) {
-        this.timeDelivery = timeDelivery;
-    }
 }
