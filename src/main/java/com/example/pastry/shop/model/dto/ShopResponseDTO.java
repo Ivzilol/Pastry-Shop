@@ -8,8 +8,6 @@ public class ShopResponseDTO {
 
     private Shops shops;
 
-    private ShopsEnum[] shopsEnums = ShopsEnum.values();
-
     private final ShopStatusEnum[] statusEnums = ShopStatusEnum.values();
 
     public ShopResponseDTO(Shops shops) {
@@ -25,12 +23,7 @@ public class ShopResponseDTO {
         this.shops = shops;
     }
 
-    public ShopsEnum[] getShopsEnums() {
-        return shopsEnums;
-    }
-
     public void setShopsEnums(ShopsEnum[] shopsEnums) {
-        this.shopsEnums = shopsEnums;
     }
 
     public ShopStatusEnum[] getStatusEnums() {
