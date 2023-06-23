@@ -142,16 +142,14 @@ public class OrderService {
 
     public OrdersProcessing updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
         Set<OrdersProcessing> orders = this.ordersProcessingRepository.findOrderById(id);
-        for (OrdersProcessing currentOrder : orders) {
-            currentOrder.setStatusOrder(orderStatusDeliveryAdmin.getStatus());
-            this.ordersProcessingRepository.save(currentOrder);
-        }
-        Long keyOrder = 0L;
-        for (OrdersProcessing order : orders) {
-            keyOrder = order.getKeyOrder();
-            break;
-        }
+        getStatus(orderStatusDeliveryAdmin, orders);
+        Long keyOrder = getKeyOrder(orders);
         Set<Orders> ordersForChangeStatus = this.ordersRepository.findByKeyOrderProduct(keyOrder);
+        setStatusAndDate(orders, ordersForChangeStatus);
+        return (OrdersProcessing) orders;
+    }
+
+    private void setStatusAndDate(Set<OrdersProcessing> orders, Set<Orders> ordersForChangeStatus) {
         LocalDate dateRecipe = null;
         for (Orders currentOrder : ordersForChangeStatus) {
             currentOrder.setStatus("delivery");
@@ -162,7 +160,22 @@ public class OrderService {
             order.setDateOfReceipt(dateRecipe);
             this.ordersProcessingRepository.save(order);
         }
-        return (OrdersProcessing) orders;
+    }
+
+    private static Long getKeyOrder(Set<OrdersProcessing> orders) {
+        Long keyOrder = 0L;
+        for (OrdersProcessing order : orders) {
+            keyOrder = order.getKeyOrder();
+            break;
+        }
+        return keyOrder;
+    }
+
+    private void getStatus(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Set<OrdersProcessing> orders) {
+        for (OrdersProcessing currentOrder : orders) {
+            currentOrder.setStatusOrder(orderStatusDeliveryAdmin.getStatus());
+            this.ordersProcessingRepository.save(currentOrder);
+        }
     }
 
 
