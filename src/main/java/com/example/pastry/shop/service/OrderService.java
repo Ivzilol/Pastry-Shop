@@ -79,6 +79,16 @@ public class OrderService {
     public Orders updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
+        Long mostBigKey = getKey(lastKey);
+        for (Orders currentOrder : byUsers) {
+            currentOrder.setStatus(ordersStatusDTO.getStatus());
+            currentOrder.setKeyOrderProduct(mostBigKey + 1);
+            this.ordersRepository.save(currentOrder);
+        }
+        return (Orders) byUsers;
+    }
+
+    private static Long getKey(Set<Orders> lastKey) {
         Long mostBigKey = 0L;
         for (Orders order : lastKey) {
             if (order.getKeyOrderProduct() == null) {
@@ -88,12 +98,7 @@ public class OrderService {
                 mostBigKey = order.getKeyOrderProduct();
             }
         }
-        for (Orders currentOrder : byUsers) {
-            currentOrder.setStatus(ordersStatusDTO.getStatus());
-            currentOrder.setKeyOrderProduct(mostBigKey + 1);
-            this.ordersRepository.save(currentOrder);
-        }
-        return (Orders) byUsers;
+        return mostBigKey;
     }
 
     public Set<Orders> findByStatus(Users user) {
