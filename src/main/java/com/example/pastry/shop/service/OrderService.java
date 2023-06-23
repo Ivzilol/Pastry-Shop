@@ -14,6 +14,7 @@ import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,13 +131,17 @@ public class OrderService {
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         java.sql.Time timeDelivery = new java.sql.Time(formatter
                 .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
+        setStatusTimeAndDate(orderStatusSendAdmin, orders, localDate, timeDelivery);
+        return (Orders) orders;
+    }
+
+    private void setStatusTimeAndDate(OrderStatusSendAdmin orderStatusSendAdmin, Set<Orders> orders, LocalDate localDate, Time timeDelivery) {
         for (Orders currentOrder : orders) {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
             currentOrder.setDateOfDelivery(localDate);
             currentOrder.setTimeOfDelivery(timeDelivery);
             this.ordersRepository.save(currentOrder);
         }
-        return (Orders) orders;
     }
 
 
