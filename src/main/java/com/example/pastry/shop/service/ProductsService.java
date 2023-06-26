@@ -124,6 +124,11 @@ public class ProductsService {
 
     private boolean isLike(Users user, Set<Users> userLikes) {
         boolean isTrue = false;
+        isTrue = findIsLike(user, userLikes, isTrue);
+        return isTrue;
+    }
+
+    private static boolean findIsLike(Users user, Set<Users> userLikes, boolean isTrue) {
         for (Users currentUser : userLikes) {
             if (Objects.equals(currentUser.getId(), user.getId())) {
                 isTrue = true;
