@@ -98,6 +98,13 @@ public class ProductsService {
 
     public Products deleteFromProductsLikes(Long id, Users user) {
         Products product = this.productRepository.findProductById(id);
+        Products product1 = getProductsNotLike(user, product);
+        if (product1 != null) return product1;
+        return product;
+    }
+
+    @Nullable
+    private Products getProductsNotLike(Users user, Products product) {
         boolean isUser = isUser(user);
         Set<Users> userLikes = product.getUserLikes();
         Set<Users> newUserLikes = userLikes
@@ -112,7 +119,7 @@ public class ProductsService {
             this.productRepository.save(product);
             return product;
         }
-        return product;
+        return null;
     }
 
     private boolean isLike(Users user, Set<Users> userLikes) {
