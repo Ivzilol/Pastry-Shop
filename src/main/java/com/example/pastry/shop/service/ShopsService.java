@@ -5,6 +5,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.model.enums.ShopStatusEnum;
 import com.example.pastry.shop.repository.ShopsRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,11 @@ public class ShopsService {
         if (shopsByUser == null) {
             return 1;
         }
+        return nextNumberToShop(shopsByUser);
+    }
+
+    @NotNull
+    private static Integer nextNumberToShop(Set<Shops> shopsByUser) {
         Optional<Integer> nextShopNumber = shopsByUser.stream()
                 .sorted((s1, s2) -> {
                     if (s1.getNumber() == null)
