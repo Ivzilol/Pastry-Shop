@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -76,6 +77,13 @@ public class ProductsService {
 
     public Products likeProduct(Long id, Users user) {
         Products product = this.productRepository.findProductById(id);
+        Products product1 = getProducts(user, product);
+        if (product1 != null) return product1;
+        return product;
+    }
+
+    @Nullable
+    private Products getProducts(Users user, Products product) {
         boolean isUser = isUser(user);
         Set<Users> userLikes = product.getUserLikes();
         boolean likeUsers = isLike(user, userLikes);
@@ -85,7 +93,7 @@ public class ProductsService {
             this.productRepository.save(product);
             return product;
         }
-        return product;
+        return null;
     }
 
     public Products deleteFromProductsLikes(Long id, Users user) {
