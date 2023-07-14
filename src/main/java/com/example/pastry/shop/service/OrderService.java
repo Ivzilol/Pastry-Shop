@@ -12,6 +12,7 @@ import com.example.pastry.shop.repository.OrdersProcessingRepository;
 import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -164,16 +165,22 @@ public class OrderService {
     }
 
     private void setStatusAndDate(Set<OrdersProcessing> orders, Set<Orders> ordersForChangeStatus) {
+        LocalDate dateRecipe = getLocalDate(ordersForChangeStatus);
+        for (OrdersProcessing order : orders) {
+            order.setDateOfReceipt(dateRecipe);
+            this.ordersProcessingRepository.save(order);
+        }
+    }
+
+    @Nullable
+    private LocalDate getLocalDate(Set<Orders> ordersForChangeStatus) {
         LocalDate dateRecipe = null;
         for (Orders currentOrder : ordersForChangeStatus) {
             currentOrder.setStatus("delivery");
             this.ordersRepository.save(currentOrder);
             dateRecipe = currentOrder.getDateOfDelivery();
         }
-        for (OrdersProcessing order : orders) {
-            order.setDateOfReceipt(dateRecipe);
-            this.ordersProcessingRepository.save(order);
-        }
+        return dateRecipe;
     }
 
     private static Long getKeyOrder(Set<OrdersProcessing> orders) {
