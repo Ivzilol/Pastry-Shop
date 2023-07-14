@@ -166,6 +166,10 @@ public class OrderService {
 
     private void setStatusAndDate(Set<OrdersProcessing> orders, Set<Orders> ordersForChangeStatus) {
         LocalDate dateRecipe = getLocalDate(ordersForChangeStatus);
+        setDateRecipe(orders, dateRecipe);
+    }
+
+    private void setDateRecipe(Set<OrdersProcessing> orders, LocalDate dateRecipe) {
         for (OrdersProcessing order : orders) {
             order.setDateOfReceipt(dateRecipe);
             this.ordersProcessingRepository.save(order);
