@@ -2,7 +2,7 @@
 
 This project consists of two applications: one is a Spring Boot Rest API called pastry-shop-backend and another is a ReactJS application called pastry-shop-frontend
 The app is created with a portfolio in mind and mimics an online pastry shop for ordering and delivering confectionery products.
-Link to app: https://sladkarnicata-na-mama.azurewebsites.net/
+
 
 <h3>Applications</h3>
 
