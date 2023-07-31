@@ -29,7 +29,7 @@ public class Orders {
 
     private String productName;
 
-    @Column(name = "key_order_product", unique = true)
+    @Column(name = "key_order_product")
     private Long keyOrderProduct;
     @ManyToOne
     private Users users;
