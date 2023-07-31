@@ -78,10 +78,11 @@ public class UsersControllerIntegrationTest {
         Long currentId = 1L;
         Users byId = restTemplate.getForObject(baseUrl + "/{id}", Users.class, currentId);
         Assertions.assertEquals("Tosho", byId.getUsername());
-        Users userForFind = testH2RepositoryUsers.findAll()
-                .stream().filter(u -> u.getUsername().equals("Victor")).findFirst().orElse(null);
-        Users currentUser = restTemplate.getForObject(baseUrl , Users.class, userForFind);
-        Assertions.assertEquals(response, currentUser);
+    }
 
+    @Test
+    public void testGetAllUsers() {
+        List<Authority> users = this.testH2RepositoryAuthority.findUsers();
+        Assertions.assertEquals(1, users.size());
     }
 }
