@@ -85,4 +85,10 @@ public class UsersControllerIntegrationTest {
         List<Authority> users = this.testH2RepositoryAuthority.findUsers();
         Assertions.assertEquals(1, users.size());
     }
+
+    @Test
+    public void testGetAllAdmins() {
+        List<Authority> admins = this.testH2RepositoryAuthority.findAdmin();
+        Assertions.assertEquals(1, admins.size());
+    }
 }
