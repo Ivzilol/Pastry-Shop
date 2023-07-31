@@ -8,7 +8,7 @@ const ShopArt = () => {
                     <div className="shop-art-first-picture-row-one">
                         <div className="shop-art-first-picture-row-one-one">
                             <img
-                                src="https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg"
+                                src="https://i.ibb.co/QM6sBZh/333679583-1370979030385235-8353098425062243540-n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/pies"
@@ -37,7 +37,7 @@ const ShopArt = () => {
                         </div>
                         <div className="shop-art-first-picture-row-one-one">
                             <img
-                                src="https://i.imgupx.com/VoOSBgnl/343389914_610690820707442_5178648780943661264_n.jpg"
+                                src="https://i.ibb.co/K0JfVSp/343389914-610690820707442-5178648780943661264-n.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/cake"
