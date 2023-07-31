@@ -63,4 +63,11 @@ public class CreateProductDTO {
         return shopName;
     }
 
+    public void setCategories(String categories) {
+        Categories = categories;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 }
