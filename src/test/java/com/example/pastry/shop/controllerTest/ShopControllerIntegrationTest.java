@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -74,7 +74,8 @@ public class ShopControllerIntegrationTest {
     @Test
     @WithUserDetails("Tosho")
     public void deleteShop() throws Exception {
-        Long shopId = 4L;
+        List<Shops> shops = testH2RepositoryShops.findAll();
+        Long shopId = shops.stream().findFirst().get().getId();
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
