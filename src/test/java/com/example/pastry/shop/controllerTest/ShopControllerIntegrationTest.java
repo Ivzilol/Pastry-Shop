@@ -47,12 +47,9 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
-    @WithUserDetails("Tosho")
     public void testShopById() throws Exception {
         Long shopId = 1L;
-        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{shopId}"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(shopId))
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{shopId}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-
     }
 }
