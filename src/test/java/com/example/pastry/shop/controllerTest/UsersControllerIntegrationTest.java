@@ -97,6 +97,4 @@ public class UsersControllerIntegrationTest {
         List<Users> allUsers = testH2RepositoryUsers.findAll();
         Assertions.assertEquals(2, allUsers.size());
     }
-
-
 }
