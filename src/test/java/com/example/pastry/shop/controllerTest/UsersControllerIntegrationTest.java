@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -96,5 +97,14 @@ public class UsersControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
         List<Users> allUsers = testH2RepositoryUsers.findAll();
         Assertions.assertEquals(2, allUsers.size());
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void getCurrentUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Optional<Users> user = testH2RepositoryUsers.findById(2L);
+        Assertions.assertEquals("Victor", user.get().getUsername());
     }
 }
