@@ -44,7 +44,7 @@ public class ShopsController {
 
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable Long shopId) {
-        Optional<Shops> shopOpt = shopsService.findById(shopId);
+            Optional<Shops> shopOpt = shopsService.findById(shopId);
         ShopResponseDTO response = new ShopResponseDTO(shopOpt.orElse(new Shops()));
         return ResponseEntity.ok(response);
     }
@@ -68,6 +68,6 @@ public class ShopsController {
     public ResponseEntity<?> deleteShop(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
         this.shopsService.deleteShop(id, user);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 }

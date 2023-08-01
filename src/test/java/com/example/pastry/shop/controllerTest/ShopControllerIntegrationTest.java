@@ -1,5 +1,7 @@
 package com.example.pastry.shop.controllerTest;
 
+import com.example.pastry.shop.model.entity.Shops;
+import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class ShopControllerIntegrationTest {
@@ -22,6 +26,9 @@ public class ShopControllerIntegrationTest {
     private MockMvc mockMvc;
 
     private String baseUrl = "http://localhost";
+
+    @Autowired
+    private TestH2RepositoryShops testH2RepositoryShops;
 
     @BeforeAll
     public static void init() {
@@ -42,7 +49,7 @@ public class ShopControllerIntegrationTest {
 
     @Test
     public void testGetShop() throws Exception {
-       mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -50,6 +57,25 @@ public class ShopControllerIntegrationTest {
     public void testShopById() throws Exception {
         Long shopId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{shopId}", shopId))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testUpdateShop() throws Exception {
+        Long shopId = 1L;
+        Shops shop  = new Shops();
+        shop.setName("Test");
+        shop.setTown("TestTown");
+        shop.setAddress("test");
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{shopId}", shopId, shop))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @WithUserDetails("Tosho")
+    public void deleteShop() throws Exception {
+        Long shopId = 4L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
