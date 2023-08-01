@@ -68,14 +68,14 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
         this.userService.deleteUser(id, user);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return  ResponseEntity.ok().build();
     }
 
     @PatchMapping("/admin/promote/{id}")
     public ResponseEntity<?> promoteUser(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         this.userService.makeUserAdmin(id, user);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")

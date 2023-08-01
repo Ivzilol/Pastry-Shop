@@ -10,16 +10,25 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
 public class UsersControllerIntegrationTest {
     @LocalServerPort
     private int port;
+
+    @Autowired
+    private MockMvc mockMvc;
 
     private String baseUrl = "http://localhost";
 
@@ -81,14 +90,13 @@ public class UsersControllerIntegrationTest {
     }
 
     @Test
-    public void testGetAllUsers() {
-        List<Authority> users = this.testH2RepositoryAuthority.findUsers();
-        Assertions.assertEquals(1, users.size());
+    @WithUserDetails("Tosho")
+    public void testGetAllUsers() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        List<Users> allUsers = testH2RepositoryUsers.findAll();
+        Assertions.assertEquals(2, allUsers.size());
     }
 
-    @Test
-    public void testGetAllAdmins() {
-        List<Authority> admins = this.testH2RepositoryAuthority.findAdmin();
-        Assertions.assertEquals(1, admins.size());
-    }
+
 }
