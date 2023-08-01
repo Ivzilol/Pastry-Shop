@@ -107,4 +107,13 @@ public class UsersControllerIntegrationTest {
         Optional<Users> user = testH2RepositoryUsers.findById(2L);
         Assertions.assertEquals("Victor", user.get().getUsername());
     }
+
+    @Test
+    public void testGetUserById() throws Exception {
+        Long id = 2L;
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{id}", id))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Optional<Users> user = testH2RepositoryUsers.findById(id);
+        Assertions.assertEquals("Victor", user.get().getUsername());
+    }
 }
