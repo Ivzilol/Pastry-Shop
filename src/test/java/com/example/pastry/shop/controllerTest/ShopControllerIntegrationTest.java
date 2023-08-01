@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllerTest;
 
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,8 @@ public class ShopControllerIntegrationTest {
     public void testCreateShop() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        List<Shops> shopsSize = testH2RepositoryShops.findAll();
+        Assertions.assertEquals(1, shopsSize.size());
     }
 
     @Test
@@ -78,5 +81,7 @@ public class ShopControllerIntegrationTest {
         Long shopId = shops.stream().findFirst().get().getId();
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        List<Shops> shopsSize = testH2RepositoryShops.findAll();
+        Assertions.assertEquals(0, shopsSize.size());
     }
 }
