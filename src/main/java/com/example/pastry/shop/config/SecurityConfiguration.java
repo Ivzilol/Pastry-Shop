@@ -14,7 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -46,6 +45,7 @@ public class SecurityConfiguration {
         authProvider.setPasswordEncoder(encoder.getPasswordEncoder());
         return authProvider;
     }
+
 
 
     @Bean
