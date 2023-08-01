@@ -50,4 +50,11 @@ public class UpdateUserDTO {
         this.address = address;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllerTest;
 
+import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
@@ -13,14 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.RequestEntity.patch;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -115,5 +121,21 @@ public class UsersControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
         Optional<Users> user = testH2RepositoryUsers.findById(id);
         Assertions.assertEquals("Victor", user.get().getUsername());
+    }
+
+    @Test
+    public void updateUser() throws Exception {
+        Long userId = 2L;
+        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
+        updateUserDTO.setUsername("Victor");
+        updateUserDTO.setFirstName("Victor");
+        updateUserDTO.setLastName("Victorov");
+        updateUserDTO.setEmail("victor@abv.bg");
+        updateUserDTO.setAddress("Samokov");
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/edit/{id}", userId)
+                        .content(updateUserDTO.toString()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+
     }
 }
