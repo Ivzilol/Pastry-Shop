@@ -33,7 +33,6 @@ public class ShopsController {
     @PostMapping("")
     public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
         Shops newShop = shopsService.createShop(user);
-
         return ResponseEntity.ok(newShop);
     }
 
