@@ -39,4 +39,12 @@ public class ShopControllerIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+
+    @Test
+    public void testGetShop() throws Exception {
+       mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
 }
