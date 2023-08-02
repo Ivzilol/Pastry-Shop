@@ -129,13 +129,6 @@ public class UsersControllerIntegrationTest {
 
     @Test
     public void updateUser() throws Exception {
-
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("username", "Victor");
-        parameters.add("firstName", "Victor");
-        parameters.add("lastName", "Victorov");
-        parameters.add("email", "victor@abv.bg");
-        parameters.add("address", "Samokov");
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("Victor");
@@ -144,5 +137,6 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setEmail("victor@abv.bg");
         updateUserDTO.setAddress("Samokov");
         Users user = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, Users.class, userId);
+        Assertions.assertEquals("Samokov", user.getAddress());
     }
 }
