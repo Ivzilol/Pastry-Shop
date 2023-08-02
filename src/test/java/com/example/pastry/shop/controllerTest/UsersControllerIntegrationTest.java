@@ -6,6 +6,8 @@ import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,14 +21,19 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.RequestEntity.patch;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -100,7 +107,7 @@ public class UsersControllerIntegrationTest {
     @WithUserDetails("Tosho")
     public void testGetAllUsers() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
         List<Users> allUsers = testH2RepositoryUsers.findAll();
         Assertions.assertEquals(2, allUsers.size());
     }
@@ -109,7 +116,7 @@ public class UsersControllerIntegrationTest {
     @WithUserDetails("Victor")
     public void getCurrentUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
         Optional<Users> user = testH2RepositoryUsers.findById(2L);
         Assertions.assertEquals("Victor", user.get().getUsername());
     }
@@ -118,13 +125,19 @@ public class UsersControllerIntegrationTest {
     public void testGetUserById() throws Exception {
         Long id = 2L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{id}", id))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
         Optional<Users> user = testH2RepositoryUsers.findById(id);
         Assertions.assertEquals("Victor", user.get().getUsername());
     }
 
     @Test
     public void updateUser() throws Exception {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("username", "Victor");
+        parameters.add("firstName", "Victor");
+        parameters.add("lastName", "Victorov");
+        parameters.add("email", "victor@abv.bg");
+        parameters.add("address", "Samokov");
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("Victor");
@@ -132,8 +145,17 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setLastName("Victorov");
         updateUserDTO.setEmail("victor@abv.bg");
         updateUserDTO.setAddress("Samokov");
-        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/edit/{id}", userId)
-                        .content(updateUserDTO.toString()))
+
+        MockHttpServletRequestBuilder builder =
+                MockMvcRequestBuilders.patch(baseUrl + "/edit/{id}", userId)
+//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+//                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(String.valueOf(updateUserDTO));
+
+        this.mockMvc.perform(builder)
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
 
