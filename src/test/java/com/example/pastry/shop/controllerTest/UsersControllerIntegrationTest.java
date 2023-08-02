@@ -6,8 +6,6 @@ import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,24 +13,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.RequestEntity.patch;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,7 +38,9 @@ public class UsersControllerIntegrationTest {
 
     private String baseUrl = "http://localhost";
 
-    private static RestTemplate restTemplate;
+    private static TestRestTemplate restTemplate;
+
+
 
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
@@ -56,13 +50,16 @@ public class UsersControllerIntegrationTest {
 
     @BeforeAll
     public static void init() {
-        restTemplate = new RestTemplate();
+        restTemplate = new TestRestTemplate();
+        restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
     }
 
     @BeforeEach
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/users");
     }
+
+
 
     @Test
     public void testRegisterUsers() {
@@ -132,6 +129,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     public void updateUser() throws Exception {
+
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.add("username", "Victor");
         parameters.add("firstName", "Victor");
@@ -145,19 +143,6 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setLastName("Victorov");
         updateUserDTO.setEmail("victor@abv.bg");
         updateUserDTO.setAddress("Samokov");
-
-        MockHttpServletRequestBuilder builder =
-                MockMvcRequestBuilders.patch(baseUrl + "/edit/{id}", userId)
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-//                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8")
-                        .content(String.valueOf(updateUserDTO));
-
-        this.mockMvc.perform(builder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-
+        Users user = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, Users.class, userId);
     }
 }
