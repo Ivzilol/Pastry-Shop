@@ -41,7 +41,6 @@ public class UsersControllerIntegrationTest {
     private static TestRestTemplate restTemplate;
 
 
-
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
 
@@ -58,7 +57,6 @@ public class UsersControllerIntegrationTest {
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/users");
     }
-
 
 
     @Test
@@ -128,6 +126,7 @@ public class UsersControllerIntegrationTest {
     }
 
     @Test
+    @WithUserDetails("Victor")
     public void updateUser() throws Exception {
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
