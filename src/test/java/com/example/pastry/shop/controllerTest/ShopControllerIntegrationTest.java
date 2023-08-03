@@ -9,7 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,6 +30,8 @@ public class ShopControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private static TestRestTemplate restTemplate;
+
     private String baseUrl = "http://localhost";
 
     @Autowired
@@ -33,6 +39,8 @@ public class ShopControllerIntegrationTest {
 
     @BeforeAll
     public static void init() {
+        restTemplate = new TestRestTemplate();
+        restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
     }
 
 
@@ -64,14 +72,16 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
+    @WithUserDetails("Tosho")
     public void testUpdateShop() throws Exception {
-        Long shopId = 1L;
+        List<Shops> allShops = testH2RepositoryShops.findAll();
+        Long shopId = allShops.stream().findFirst().get().getId();
         Shops shop  = new Shops();
         shop.setName("Test");
         shop.setTown("TestTown");
         shop.setAddress("test");
-        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{shopId}", shopId, shop))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        HttpEntity<Shops> requestEntity = new HttpEntity<>(shop);
+        HttpEntity<Shops> result = restTemplate.exchange(baseUrl + "/{shopId}", HttpMethod.PUT, requestEntity, Shops.class, shopId);
     }
 
     @Test
