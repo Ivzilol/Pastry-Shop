@@ -39,7 +39,7 @@ const ShopEditAdmin = () => {
     }
 
     function editShop() {
-        ajax(`${baseUrl}api/shops/${shopId}`, "PUT", user.jwt, shop)
+        ajax(`${baseUrl}api/shops/${shopId}`, "PATCH", user.jwt, shop)
             .then(shopData => {
                 setShop(shopData);
             })

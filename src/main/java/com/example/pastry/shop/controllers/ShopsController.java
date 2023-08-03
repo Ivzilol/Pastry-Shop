@@ -3,10 +3,8 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.service.ShopsService;
 import com.example.pastry.shop.service.UserService;
-import com.example.pastry.shop.util.AuthorityUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -44,23 +42,16 @@ public class ShopsController {
 
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable Long shopId) {
-            Optional<Shops> shopOpt = shopsService.findById(shopId);
+        Optional<Shops> shopOpt = shopsService.findById(shopId);
         ShopResponseDTO response = new ShopResponseDTO(shopOpt.orElse(new Shops()));
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{shopId}")
-    public ResponseEntity<?> updateShop(@PathVariable Long shopId,
+    @PatchMapping("/{shopId}")
+    public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user
+                                        , @PathVariable Long shopId,
                                         @RequestBody Shops shop) {
-        // add moderator in this shop if it must be changed
-        if (shop.getAdmin() != null) {
-            Users admin = shop.getAdmin();
-            admin = userService.findUserByUsername(admin.getUsername()).orElse(new Users());
-            if (AuthorityUtil.hasRole(AuthorityEnum.admin.name(), admin)) {
-                shop.setAdmin(admin);
-            }
-        }
-        Shops updateShop = shopsService.saveShop(shop);
+        Shops updateShop = shopsService.saveShop(shop, user);
         return ResponseEntity.ok(updateShop);
     }
 

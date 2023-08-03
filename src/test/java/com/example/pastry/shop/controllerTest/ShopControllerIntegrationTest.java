@@ -1,7 +1,9 @@
 package com.example.pastry.shop.controllerTest;
 
 import com.example.pastry.shop.model.entity.Shops;
+import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
+import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -36,6 +41,9 @@ public class ShopControllerIntegrationTest {
 
     @Autowired
     private TestH2RepositoryShops testH2RepositoryShops;
+
+    @Autowired
+    private TestH2RepositoryUsers testH2RepositoryUsers;
 
     @BeforeAll
     public static void init() {
@@ -72,16 +80,20 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
-    @WithUserDetails("Tosho")
     public void testUpdateShop() throws Exception {
+        Long userId = 1L;
         List<Shops> allShops = testH2RepositoryShops.findAll();
         Long shopId = allShops.stream().findFirst().get().getId();
         Shops shop  = new Shops();
         shop.setName("Test");
         shop.setTown("TestTown");
         shop.setAddress("test");
-        HttpEntity<Shops> requestEntity = new HttpEntity<>(shop);
-        HttpEntity<Shops> result = restTemplate.exchange(baseUrl + "/{shopId}", HttpMethod.PUT, requestEntity, Shops.class, shopId);
+        Optional<Users> userById = testH2RepositoryUsers.findById(userId);
+        HttpHeaders headers  = new HttpHeaders();
+        headers.setBasicAuth("Tosho", "bbGGbb123");
+        HttpEntity<Shops> request = new HttpEntity<>(shop, headers);
+        ResponseEntity<Void> response = restTemplate.exchange(baseUrl + "/" + shopId,
+                HttpMethod.PATCH, request, Void.class, userById);
     }
 
     @Test

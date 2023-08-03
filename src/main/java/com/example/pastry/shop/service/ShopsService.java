@@ -77,9 +77,7 @@ public class ShopsService {
         return shopsRepository.findById(shopId);
     }
 
-    public Shops saveShop(Shops shop) {
-        return shopsRepository.save(shop);
-    }
+
 
     public List<Shops> findAll() {
         return this.shopsRepository.findAll();
@@ -95,5 +93,13 @@ public class ShopsService {
         if (isAdmin) {
             this.shopsRepository.deleteById(shopId);
         }
+    }
+
+    public Shops saveShop(Shops shop, Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            this.shopsRepository.save(shop);
+        }
+        return shop;
     }
 }

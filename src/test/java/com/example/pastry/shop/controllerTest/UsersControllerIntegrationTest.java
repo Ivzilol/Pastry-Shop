@@ -19,8 +19,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +126,7 @@ public class UsersControllerIntegrationTest {
     @Test
     @WithUserDetails("Victor")
     public void updateUser() throws Exception {
-        Long userId = 2L;
+        Long userId = 1L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("Victor");
         updateUserDTO.setFirstName("Victor");
