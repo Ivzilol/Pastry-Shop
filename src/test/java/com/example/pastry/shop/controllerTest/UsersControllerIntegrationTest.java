@@ -134,8 +134,8 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setFirstName("Victor");
         updateUserDTO.setLastName("Victorov");
         updateUserDTO.setEmail("victor@abv.bg");
-        updateUserDTO.setAddress("Samokov");
+        updateUserDTO.setAddress("Sofiq");
         Users user = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, Users.class, userId);
-        Assertions.assertEquals("Samokov", user.getAddress());
+        Assertions.assertEquals("Sofiq", user.getAddress());
     }
 }
