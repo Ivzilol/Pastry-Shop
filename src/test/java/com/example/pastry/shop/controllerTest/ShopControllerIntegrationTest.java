@@ -26,6 +26,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class ShopControllerIntegrationTest {
@@ -80,6 +82,7 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
+    @WithUserDetails("Tosho")
     public void testUpdateShop() throws Exception {
         Long userId = 1L;
         List<Shops> allShops = testH2RepositoryShops.findAll();
@@ -89,11 +92,10 @@ public class ShopControllerIntegrationTest {
         shop.setTown("TestTown");
         shop.setAddress("test");
         Optional<Users> userById = testH2RepositoryUsers.findById(userId);
-        HttpHeaders headers  = new HttpHeaders();
-        headers.setBasicAuth("Tosho", "bbGGbb123");
-        HttpEntity<Shops> request = new HttpEntity<>(shop, headers);
-        ResponseEntity<Void> response = restTemplate.exchange(baseUrl + "/" + shopId,
-                HttpMethod.PATCH, request, Void.class, userById);
+        Shops result = restTemplate.patchForObject
+                (baseUrl + "/{shopId}", shop, Shops.class, shopId, userById);
+        Assertions.assertEquals("Test", result.getName());
+
     }
 
     @Test
