@@ -13,11 +13,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,8 +22,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -82,7 +77,7 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
-    @WithUserDetails("Tosho")
+    @WithMockUser(username = "Tosho")
     public void testUpdateShop() throws Exception {
         Long userId = 1L;
         List<Shops> allShops = testH2RepositoryShops.findAll();
@@ -93,7 +88,7 @@ public class ShopControllerIntegrationTest {
         shop.setAddress("test");
         Optional<Users> userById = testH2RepositoryUsers.findById(userId);
         Shops result = restTemplate.patchForObject
-                (baseUrl + "/{shopId}", shop, Shops.class, shopId, userById);
+                (baseUrl + "/{shopId}", shop, Shops.class, shopId);
         Assertions.assertEquals("Test", result.getName());
 
     }
