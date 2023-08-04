@@ -126,7 +126,7 @@ public class UsersControllerIntegrationTest {
     @Test
     @WithUserDetails("Victor")
     public void updateUser() throws Exception {
-        Long userId = 1L;
+        Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("Victor");
         updateUserDTO.setFirstName("Victor");

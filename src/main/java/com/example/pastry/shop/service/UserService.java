@@ -81,7 +81,7 @@ public class UserService {
         return newUser;
     }
 
-    public Users saveUser(UpdateUserDTO updateUserDTO, Long id, Users user) {
+    public Users saveUser(UpdateUserDTO updateUserDTO, Long id) {
         Users updateUser = this.usersRepository.findByUserId(id);
         updateUser.setPassword(updateUser.getPassword());
         updateUser.setUsername(updateUserDTO.getUsername());
