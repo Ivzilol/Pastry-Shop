@@ -96,9 +96,15 @@ public class ShopsService {
     }
 
     public Shops saveShop(Shops shop, Users user) {
-        boolean isAdmin = isAdmin(user);
-        if (isAdmin) {
+        if (user != null) {
+            boolean isAdmin = isAdmin(user);
+            if (isAdmin) {
+                this.shopsRepository.save(shop);
+                return shop;
+            }
+        } else {
             this.shopsRepository.save(shop);
+            return shop;
         }
         return shop;
     }

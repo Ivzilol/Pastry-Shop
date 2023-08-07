@@ -78,16 +78,18 @@ public class ShopControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Tosho")
-    public void testUpdateShop() throws Exception {
+    public void testUpdateShop() {
         Long userId = 1L;
         List<Shops> allShops = testH2RepositoryShops.findAll();
         Long shopId = allShops.stream().findFirst().get().getId();
+        Optional<Users> userById = testH2RepositoryUsers.findById(userId);
         Shops shop  = new Shops();
+        shop.setUsers(userById.get());
         shop.setName("Test");
         shop.setTown("TestTown");
         shop.setAddress("test");
-        Optional<Users> userById = testH2RepositoryUsers.findById(userId);
         Shops shopForUpdate = restTemplate.patchForObject(baseUrl + "/{shopId}", shop, Shops.class, shopId);
+        Assertions.assertEquals("Test", shopForUpdate.getName());
     }
 
     @Test
