@@ -17,8 +17,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Optional;
@@ -132,9 +134,17 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setFirstName("Victor");
         updateUserDTO.setLastName("Victorov");
         updateUserDTO.setEmail("victor@abv.bg");
-        updateUserDTO.setAddress("Sofiq");
+        updateUserDTO.setAddress("Samokov");
         Users user = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, Users.class, userId);
 
-        Assertions.assertEquals("Sofiq", user.getAddress());
+        Assertions.assertEquals("Samokov", user.getAddress());
+    }
+
+    @Test
+    public void testAuthentication() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("http://localhost/api/auth/validate")
+                .with(SecurityMockMvcRequestPostProcessors.user("Tosho").roles("admin")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
     }
 }

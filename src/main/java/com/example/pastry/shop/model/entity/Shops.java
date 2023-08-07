@@ -96,4 +96,6 @@ public class Shops {
     public void setAdmin(Users moderator) {
         this.admin = moderator;
     }
+
+
 }
