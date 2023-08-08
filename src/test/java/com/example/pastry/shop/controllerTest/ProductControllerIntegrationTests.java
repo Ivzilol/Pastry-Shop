@@ -87,6 +87,5 @@ public class ProductControllerIntegrationTests {
         product.setName("New Name");
         Products result = restTemplate.patchForObject(baseUrl + "/{productId}", product, Products.class, productId);
         Assertions.assertEquals("New Name", result.getName());
-
     }
 }
