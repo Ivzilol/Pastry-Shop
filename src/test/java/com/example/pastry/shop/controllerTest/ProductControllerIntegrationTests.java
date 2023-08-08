@@ -3,7 +3,6 @@ package com.example.pastry.shop.controllerTest;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
-import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +15,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -32,9 +35,6 @@ public class ProductControllerIntegrationTests {
 
     @Autowired
     private TestH2RepositoryProducts testH2RepositoryProducts;
-
-    @Autowired
-    private TestH2RepositoryShops testH2RepositoryShops;
 
     @BeforeAll
     public static void init() {
@@ -59,5 +59,14 @@ public class ProductControllerIntegrationTests {
         createProductDTO.setShopName("Sladcarnicata na Mama");
         Products result = restTemplate.postForObject(baseUrl + "/create/admin", createProductDTO, Products.class);
         Assertions.assertEquals("Баница", result.getName());
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void getProductByUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        List<Products> allProducts = testH2RepositoryProducts.findAll();
+        Assertions.assertEquals(1, allProducts.size());
     }
 }
