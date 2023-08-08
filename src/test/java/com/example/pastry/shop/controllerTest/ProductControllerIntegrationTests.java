@@ -105,4 +105,12 @@ public class ProductControllerIntegrationTests {
         Set<Products> productLikes = user.get().getLikeProducts();
         Assertions.assertEquals(0, productLikes.size());
     }
+
+    @Test
+    public void testGetPies() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/pies"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Set<Products> pies = testH2RepositoryProducts.findAllPies();
+        Assertions.assertEquals(1, pies.size());
+    }
 }
