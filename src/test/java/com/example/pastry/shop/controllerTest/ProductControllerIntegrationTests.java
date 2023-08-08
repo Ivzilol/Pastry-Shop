@@ -79,4 +79,14 @@ public class ProductControllerIntegrationTests {
         Optional<Products> productById = testH2RepositoryProducts.findById(productId);
         Assertions.assertEquals("Баница", productById.get().getName());
     }
+
+    @Test
+    public void testUpdateProduct() throws Exception {
+        Long productId = 1L;
+        Products product = testH2RepositoryProducts.findProductById(productId);
+        product.setName("New Name");
+        Products result = restTemplate.patchForObject(baseUrl + "/{productId}", product, Products.class, productId);
+        Assertions.assertEquals("New Name", result.getName());
+
+    }
 }
