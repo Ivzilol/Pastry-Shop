@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -63,10 +64,19 @@ public class ProductControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
-    public void getProductByUser() throws Exception {
+    public void testGetProductByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         List<Products> allProducts = testH2RepositoryProducts.findAll();
         Assertions.assertEquals(1, allProducts.size());
+    }
+
+    @Test
+    public void testGetProductBId() throws Exception {
+        Long productId = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{productId}", productId))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Optional<Products> productById = testH2RepositoryProducts.findById(productId);
+        Assertions.assertEquals("Баница", productById.get().getName());
     }
 }
