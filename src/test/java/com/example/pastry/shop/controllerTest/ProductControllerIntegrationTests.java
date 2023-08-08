@@ -81,11 +81,18 @@ public class ProductControllerIntegrationTests {
     }
 
     @Test
-    public void testUpdateProduct() throws Exception {
+    public void testUpdateProduct() {
         Long productId = 1L;
         Products product = testH2RepositoryProducts.findProductById(productId);
         product.setName("New Name");
         Products result = restTemplate.patchForObject(baseUrl + "/{productId}", product, Products.class, productId);
         Assertions.assertEquals("New Name", result.getName());
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testGetUserLikes() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/likes"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
