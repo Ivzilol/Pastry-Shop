@@ -86,14 +86,14 @@ public class ProductControllerIntegrationTests {
         Assertions.assertEquals("Баница", productById.get().getName());
     }
 
-//    @Test
-//    public void testUpdateProduct() {
-//        Long productId = 1L;
-//        Products product = testH2RepositoryProducts.findProductById(productId);
-//        product.setName("New Name");
-//        Products result = restTemplate.patchForObject(baseUrl + "/{productId}", product, Products.class, productId);
-//        Assertions.assertEquals("New Name", result.getName());
-//    }
+    @Test
+    public void testUpdateProduct() {
+        Long productId = 1L;
+        Products product = testH2RepositoryProducts.findProductById(productId);
+        product.setName("New Name");
+        Products result = restTemplate.patchForObject(baseUrl + "/{productId}", product, Products.class, productId);
+        Assertions.assertEquals("New Name", result.getName());
+    }
 
     @Test
     @WithUserDetails("Victor")
