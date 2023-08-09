@@ -113,4 +113,9 @@ public class ProductControllerIntegrationTests {
         Set<Products> pies = testH2RepositoryProducts.findAllPies();
         Assertions.assertEquals(1, pies.size());
     }
+
+    @Test
+    public void testGetSweets() {
+
+    }
 }
