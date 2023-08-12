@@ -114,7 +114,6 @@ const ProductsUser = () => {
                             key={product.id}
                             id={product.id}
                         >
-
                             <p className="products-container-item"
                             >Продукт: {product.name}</p>
                             <p className="products-container-item"
