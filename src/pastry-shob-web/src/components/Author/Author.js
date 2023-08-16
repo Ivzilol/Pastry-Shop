@@ -11,7 +11,6 @@ const Author = () => {
                         <img src="https://i.postimg.cc/nrn81M2p/ivo.jpg" alt="new"/>
                     </div>
                     <div className="author-container-text">
-
                         <h2 data-testid="Author">Ивайло Иванов Аличков</h2>
                         <p><p>Здравейте! Казвам се Иво и съм авторът на приложението Сладкарницата на Мама. В него съм
                             използвал снимки на сладкишите, които тя приготвя, както и техни рецепти. Създаденото от мен
