@@ -431,12 +431,11 @@
 }
 
 .home-page-first {
-
     display: flex;
     align-items: center;
     justify-content: start;
     height: 500px;
-    margin: 70px 0 20px 0;
+    margin: 10px 0 20px 0;
     background-color: #e592b9;
     cursor: pointer;
 }
@@ -1055,7 +1054,23 @@ footer {
 }
 
 .home-page-event {
-    padding-top: 100px;
+    color: #ef7d00;
+    overflow: hidden;
+    height: 120px;
+    width: 50%;
+    border-radius: 20px;
+    border:2px solid #ef7d00;
+    margin: 70px 0 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.home-page-event h5 {
+    margin-top: 13px;
+}
+
+.home-page-event p {
+    font-size: 25px;
 }
 
 @media screen and (max-width: 600px) {

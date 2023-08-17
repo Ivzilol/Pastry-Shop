@@ -110,12 +110,12 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <div className="home-page-event">
-                {showEvent && <p>Поръчвай всички наши продукти с 20 процента отстъпка!</p>}
+                {showEvent && <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>}
                 <div>
-                    Време до края на промоцията
-                    {timeRemaining.hours.toString().padStart(2, '0')}:
+                    <h6>Време до края на промоцията</h6>
+                    <p>{timeRemaining.hours.toString().padStart(2, '0')}:
                     {timeRemaining.minutes.toString().padStart(2, '0')}:
-                    {timeRemaining.seconds.toString().padStart(2, '0')}
+                    {timeRemaining.seconds.toString().padStart(2, '0')}</p>
                 </div>
             </div>
             <section className="home-page-first"
