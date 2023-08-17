@@ -17,7 +17,7 @@ const ShopArt = () => {
                         </div>
                         <div className="shop-art-first-picture-row-one-one">
                             <img
-                                src="http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg"
+                                src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg"
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/sweets"
