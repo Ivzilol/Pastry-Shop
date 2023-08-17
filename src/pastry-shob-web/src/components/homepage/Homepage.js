@@ -69,7 +69,7 @@ const Homepage = () => {
         const checkTimeAndShowEvent = () => {
             const now = new Date();
             const hours = now.getHours();
-            if (hours > 6 && hours < 17) {
+            if (hours > 14 && hours < 20) {
                 setShowEvent(true);
             } else {
                 setShowEvent(false);
@@ -82,12 +82,41 @@ const Homepage = () => {
         }
     }, []);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const eventEndTime = new Date();
+    eventEndTime.setHours(20, 0, 0);
+    const getTimeRemaining = (endTime) => {
+        const now = new Date();
+        const timeDiff = endTime - now;
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        return { hours, minutes, seconds };
+    };
+    const [timeRemaining, setTimeRemaining] = useState(getTimeRemaining(eventEndTime))
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeRemaining(getTimeRemaining(eventEndTime));
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [eventEndTime]);
 
     return (
         <main className="home-page">
             <NavBar/>
             <div className="home-page-event">
-                {showEvent && <p>Налична между 6 и 23 часа</p>}
+                {showEvent && <p>Поръчвай всички наши продукти с 20 процента отстъпка!</p>}
+                <div>
+                    Време до края на промоцията
+                    {timeRemaining.hours.toString().padStart(2, '0')}:
+                    {timeRemaining.minutes.toString().padStart(2, '0')}:
+                    {timeRemaining.seconds.toString().padStart(2, '0')}
+                </div>
             </div>
             <section className="home-page-first"
                      onClick={toLogin}
