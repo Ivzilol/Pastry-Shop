@@ -75,7 +75,7 @@ const Homepage = () => {
                 setShowEvent(false);
             }
         }
-        const interval = setInterval(checkTimeAndShowEvent, 60000);
+        const interval = setInterval(checkTimeAndShowEvent, 1000);
         checkTimeAndShowEvent();
         return () => {
             clearInterval(interval);
@@ -110,13 +110,17 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <div className="home-page-event">
-                {showEvent && <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>}
-                <div>
-                    <h6>Време до края на промоцията</h6>
-                    <p>{timeRemaining.hours.toString().padStart(2, '0')}:
-                    {timeRemaining.minutes.toString().padStart(2, '0')}:
-                    {timeRemaining.seconds.toString().padStart(2, '0')}</p>
-                </div>
+                {showEvent &&
+                    <div>
+                    <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
+                        <div>
+                            <h6>Време до края на промоцията</h6>
+                            <p>{timeRemaining.hours.toString().padStart(2, '0')}:
+                                {timeRemaining.minutes.toString().padStart(2, '0')}:
+                                {timeRemaining.seconds.toString().padStart(2, '0')}</p>
+                        </div>
+                    </div>
+                }
             </div>
             <section className="home-page-first"
                      onClick={toLogin}
