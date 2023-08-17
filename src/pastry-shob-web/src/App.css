@@ -1073,6 +1073,10 @@ footer {
     font-size: 25px;
 }
 
+.home-page-dialog {
+    background-color: red;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

@@ -162,11 +162,12 @@ const Homepage = () => {
                             </a>
 
                             <Dialog
-                                open={open} onClose={handleClickCloseProductDetails}>
+                                open={open} onClose={handleClickCloseProductDetails}
+                            >
                                 <section
                                     className="product-details"
                                     key={product.id}>
-                                    <div>
+                                    <div className="product-details-container">
                                         {currentProduct ? (
                                             <div className="product-details-selected-product">
                                                 <a className="close"
