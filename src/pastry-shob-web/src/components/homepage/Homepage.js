@@ -73,7 +73,7 @@ const Homepage = () => {
             >
                 <div className="home-page-first-left">
                     <img className="home-page-first-left-picture"
-                         src="http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg" alt="img"/>
+                         src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg" alt="img"/>
                 </div>
                 <div className="home-page-first-right">
                     <h6>РЪЧНО ПРИГОТВЕНИ ДОМАШНИ ВКУСОТИИ</h6>
