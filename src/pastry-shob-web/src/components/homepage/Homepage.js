@@ -17,6 +17,7 @@ const Homepage = () => {
     const [currentProduct, setCurrentProduct] = useState(null);
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
+    const [showEvent, setShowEvent] = useState(null);
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -64,12 +65,32 @@ const Homepage = () => {
         navigate("/login");
     }
 
+    useEffect(() => {
+        const checkTimeAndShowEvent = () => {
+            const now = new Date();
+            const hours = now.getHours();
+            if (hours > 6 && hours < 17) {
+                setShowEvent(true);
+            } else {
+                setShowEvent(false);
+            }
+        }
+        const interval = setInterval(checkTimeAndShowEvent, 60000);
+        checkTimeAndShowEvent();
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
+
+
     return (
         <main className="home-page">
             <NavBar/>
+            <div className="home-page-event">
+                {showEvent && <p>Налична между 6 и 23 часа</p>}
+            </div>
             <section className="home-page-first"
                      onClick={toLogin}
-
             >
                 <div className="home-page-first-left">
                     <img className="home-page-first-left-picture"
