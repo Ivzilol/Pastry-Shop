@@ -6,6 +6,7 @@ import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
+import {options} from "axios";
 
 
 const Homepage = () => {
@@ -92,7 +93,7 @@ const Homepage = () => {
         const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-        return { hours, minutes, seconds };
+        return {hours, minutes, seconds};
     };
     const [timeRemaining, setTimeRemaining] = useState(getTimeRemaining(eventEndTime))
 
@@ -110,9 +111,6 @@ const Homepage = () => {
     const [dialogVisible, setDialogVisible] = useState(false);
     const [searchResult, setSearchResult] = useState(null);
 
-    const handleOptionChange = (event) => {
-        setSelectOptions(event.target.value);
-    };
 
     function getSearchResult() {
         ajax(`${baseUrl}api/products/search`, "POST", user.jwt, selectOptions)
@@ -136,7 +134,7 @@ const Homepage = () => {
             <div className="home-page-event">
                 {showEvent ?
                     <div>
-                    <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
+                        <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
                         <div>
                             <h6>Време до края на промоцията</h6>
                             <p>{timeRemaining.hours.toString().padStart(2, '0')}:
@@ -151,10 +149,20 @@ const Homepage = () => {
                     </div>
                 }
             </div>
-            <div>
-                <select value={selectOptions} onChange={handleOptionChange}>
-
+            <div className="home-page-search">
+                Search Product
+                <select value={selectOptions}
+                        onChange={(e) => setSelectOptions(e.target.value)}
+                        id="search-product"
+                        name="search-product"
+                >
+                    <option value="">Select Product</option>
+                    <option value="">pie</option>
+                    <option value="">sweets</option>
+                    <option value="">buns</option>
+                    <option value="">cake</option>
                 </select>
+                <button onClick={getSearchResult}>Search</button>
             </div>
             <section className="home-page-first"
                      onClick={toLogin}

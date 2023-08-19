@@ -1073,6 +1073,9 @@ footer {
     font-size: 25px;
 }
 
+.home-page-search select option {
+    color: black;
+}
 
 @media screen and (max-width: 600px) {
 
