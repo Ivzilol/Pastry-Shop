@@ -133,70 +133,72 @@ const Homepage = () => {
             <NavBar/>
             {dialogVisible && (
                 <div className="search-result">
-                        <button className="search-result-close-button" onClick={closeDialog}>Close</button>
-                        <h6>Search Result</h6>
-                        {searchResult ? (
-                            <div className="search-result-container">
-                                {searchResult.map((product) => (
-                                    <div>
-                                        <img className="search-result-container-img"
-                                        src={product.imageUrl} alt="new"/>
-                                        <h5>{product.name}</h5>
-                                        <p>Цена: {product.price} лв.</p>
-                                        <p>{product.description}</p>
-                                        <button
-                                                className="product-details-selected-product-button"
-                                            id="submit"
-                                            type="button"
-                                            onClick={() => orderProducts(currentProduct.id)}
-                                        >
-                                            Поръчай
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <></>
-                        )}
+                    <button className="search-result-close-button" onClick={closeDialog}>Close</button>
+                    <h6>Search Result</h6>
+                    {searchResult ? (
+                        <div className="search-result-container">
+                            {searchResult.map((product) => (
+                                <div id={product.id}
+                                     key={product.id}
+                                >
+                                    <img className="search-result-container-img"
+                                         src={product.imageUrl} alt="new"/>
+                                    <h5>{product.name}</h5>
+                                    <p>Цена: {product.price} лв.</p>
+                                    <p>{product.description}</p>
+                                    <button
+                                        className="product-details-selected-product-button"
+                                        id="submit"
+                                        type="button"
+                                        onClick={() => orderProducts(product.id)}
+                                    >
+                                        Поръчай
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             )}
             <section className="home-page-event-search">
-            <div className="home-page-event">
-                {showEvent ?
-                    <div>
-                        <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
+                <div className="home-page-event">
+                    {showEvent ?
                         <div>
-                            <h6>Време до края на промоцията</h6>
-                            <p>{timeRemaining.hours.toString().padStart(2, '0')}:
-                                {timeRemaining.minutes.toString().padStart(2, '0')}:
-                                {timeRemaining.seconds.toString().padStart(2, '0')}</p>
+                            <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
+                            <div>
+                                <h6>Време до края на промоцията</h6>
+                                <p>{timeRemaining.hours.toString().padStart(2, '0')}:
+                                    {timeRemaining.minutes.toString().padStart(2, '0')}:
+                                    {timeRemaining.seconds.toString().padStart(2, '0')}</p>
+                            </div>
                         </div>
-                    </div>
-                    :
-                    <div>
-                        В момента няма налична промоция,
-                        но можете да очаквате нашата всекидневна такава от 14 часа!
-                    </div>
-                }
-            </div>
-            <div className="home-page-search">
-                <h5>Search Product</h5>
-                <select
-                    id="search-product"
-                    name="search-product"
-                    placeholder="Select product"
-                    value={selectOptions}
-                    onChange={(e) => setSelectOptions(e.target.value)}
+                        :
+                        <div>
+                            В момента няма налична промоция,
+                            но можете да очаквате нашата всекидневна такава от 14 часа!
+                        </div>
+                    }
+                </div>
+                <div className="home-page-search">
+                    <h5>Search Product</h5>
+                    <select
+                        id="search-product"
+                        name="search-product"
+                        placeholder="Select product"
+                        value={selectOptions}
+                        onChange={(e) => setSelectOptions(e.target.value)}
 
-                >
-                    <option value="">Select Product</option>
-                    <option value="pie">pie</option>
-                    <option value="sweets">sweets</option>
-                    <option value="buns">buns</option>
-                    <option value="cake">cake</option>
-                </select>
-                <button onClick={getSearchResult}>Search</button>
-            </div>
+                    >
+                        <option value="">Select Product</option>
+                        <option value="pie">Погачи</option>
+                        <option value="sweets">Сладки</option>
+                        <option value="buns">Кифлички</option>
+                        <option value="cake">Торти</option>
+                    </select>
+                    <button onClick={getSearchResult}>Search</button>
+                </div>
             </section>
             <section className="home-page-first"
                      onClick={toLogin}
