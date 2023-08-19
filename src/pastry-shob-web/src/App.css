@@ -1126,6 +1126,7 @@ footer {
 /*}*/
 
 .search-result {
+    font-style: italic;
     position: absolute;
     top: 0;
     right: 0;
@@ -1154,11 +1155,15 @@ footer {
 }
 
 .product-details-selected-product-button {
-    margin-bottom: 10px;
-}
+    margin-bottom: 20px;
 
+}
 .search-result-container h5 {
     margin-top: 10px;
+}
+
+.search-result-container-description {
+    margin-bottom: 7px;
 }
 
 .search-result-close-button {
@@ -1169,6 +1174,12 @@ footer {
     padding: 5px;
     border-radius: 20px;
 }
+
+.search-result-container-price {
+    text-decoration: underline;
+}
+
+
 
 @media screen and (max-width: 600px) {
 

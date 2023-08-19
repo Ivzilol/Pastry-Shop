@@ -6,7 +6,6 @@ import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
-import {options} from "axios";
 
 
 const Homepage = () => {
@@ -144,8 +143,8 @@ const Homepage = () => {
                                     <img className="search-result-container-img"
                                          src={product.imageUrl} alt="new"/>
                                     <h5>{product.name}</h5>
-                                    <p>Цена: {product.price} лв.</p>
-                                    <p>{product.description}</p>
+                                    <p className="search-result-container-price">Цена: {product.price} лв.</p>
+                                    <p className="search-result-container-description" >{product.description}</p>
                                     <button
                                         className="product-details-selected-product-button"
                                         id="submit"
