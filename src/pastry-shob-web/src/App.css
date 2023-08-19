@@ -394,6 +394,7 @@
     border: none;
     background-color: #ef7d00;
     border-radius: 20px;
+    color: white;
 }
 
 .close {
@@ -1119,9 +1120,54 @@ footer {
     color: white;
 }
 
+/*.search-result {*/
+/*    position: absolute;*/
+/*    margin-top: 70px;*/
+/*}*/
+
 .search-result {
     position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    border-radius: 20px;
     margin-top: 70px;
+}
+
+.search-result-container {
+    overflow-y: auto; /* Добавете вертикален скрол, ако съдържанието е дълго */
+    max-height: 80%; /* Максимална височина на контейнера за съдържание */
+    text-align: center;
+}
+
+.search-result-container-img {
+    width: 160px;
+    height: 120px;
+    border-radius: 20px;
+}
+
+.product-details-selected-product-button {
+    margin-bottom: 10px;
+}
+
+.search-result-container h5 {
+    margin-top: 10px;
+}
+
+.search-result-close-button {
+    width: 100px;
+    background-color: #ef7d00;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
 }
 
 @media screen and (max-width: 600px) {

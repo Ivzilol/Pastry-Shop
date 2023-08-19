@@ -133,21 +133,31 @@ const Homepage = () => {
             <NavBar/>
             {dialogVisible && (
                 <div className="search-result">
-                    <div className="search-result-container">
-                        <button onClick={closeDialog}>Close</button>
+                        <button className="search-result-close-button" onClick={closeDialog}>Close</button>
                         <h6>Search Result</h6>
                         {searchResult ? (
-                            <div>
+                            <div className="search-result-container">
                                 {searchResult.map((product) => (
                                     <div>
-                                        <p>{product.name}</p>
+                                        <img className="search-result-container-img"
+                                        src={product.imageUrl} alt="new"/>
+                                        <h5>{product.name}</h5>
+                                        <p>Цена: {product.price} лв.</p>
+                                        <p>{product.description}</p>
+                                        <button
+                                                className="product-details-selected-product-button"
+                                            id="submit"
+                                            type="button"
+                                            onClick={() => orderProducts(currentProduct.id)}
+                                        >
+                                            Поръчай
+                                        </button>
                                     </div>
                                 ))}
                             </div>
                         ) : (
                             <></>
                         )}
-                    </div>
                 </div>
             )}
             <section className="home-page-event-search">
