@@ -69,7 +69,7 @@ const Homepage = () => {
         const checkTimeAndShowEvent = () => {
             const now = new Date();
             const hours = now.getHours();
-            if (hours > 14 && hours < 20) {
+            if (hours > 14 && hours < 21) {
                 setShowEvent(true);
             } else {
                 setShowEvent(false);
@@ -84,7 +84,7 @@ const Homepage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const eventEndTime = new Date();
-    eventEndTime.setHours(20, 0, 0);
+    eventEndTime.setHours(21, 0, 0);
     const getTimeRemaining = (endTime) => {
         const now = new Date();
         const timeDiff = endTime - now;
@@ -110,7 +110,7 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <div className="home-page-event">
-                {showEvent &&
+                {showEvent ?
                     <div>
                     <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
                         <div>
@@ -119,6 +119,11 @@ const Homepage = () => {
                                 {timeRemaining.minutes.toString().padStart(2, '0')}:
                                 {timeRemaining.seconds.toString().padStart(2, '0')}</p>
                         </div>
+                    </div>
+                    :
+                    <div>
+                        В момента няма налична промоция,
+                        но можете да очаквате нашата всекидневна такава от 14 часа!
                     </div>
                 }
             </div>
