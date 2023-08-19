@@ -106,6 +106,30 @@ const Homepage = () => {
         };
     }, [eventEndTime]);
 
+    const [selectOptions, setSelectOptions] = useState('');
+    const [dialogVisible, setDialogVisible] = useState(false);
+    const [searchResult, setSearchResult] = useState(null);
+
+    const handleOptionChange = (event) => {
+        setSelectOptions(event.target.value);
+    };
+
+    function getSearchResult() {
+        ajax(`${baseUrl}api/products/search`, "POST", user.jwt, selectOptions)
+            .then(productsData => {
+                setSearchResult(productsData);
+                setDialogVisible(true);
+            })
+            .catch(error => {
+                console.error('No product find', error);
+            })
+    }
+
+    const closeDialog = () => {
+        setDialogVisible(false);
+        setSearchResult(null);
+    }
+
     return (
         <main className="home-page">
             <NavBar/>
@@ -126,6 +150,11 @@ const Homepage = () => {
                         но можете да очаквате нашата всекидневна такава от 14 часа!
                     </div>
                 }
+            </div>
+            <div>
+                <select value={selectOptions} onChange={handleOptionChange}>
+
+                </select>
             </div>
             <section className="home-page-first"
                      onClick={toLogin}
