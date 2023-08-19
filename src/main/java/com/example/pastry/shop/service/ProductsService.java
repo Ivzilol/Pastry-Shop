@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
@@ -158,4 +159,7 @@ public class ProductsService {
         return this.productRepository.findAllCakes();
     }
 
+    public Set<Products> findSearchedProducts(CategoryProductDto categoryProductDto) {
+        return this.productRepository.findByCategories(categoryProductDto.getSelectOptions());
+    }
 }

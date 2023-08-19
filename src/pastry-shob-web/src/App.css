@@ -1073,6 +1073,10 @@ footer {
     font-size: 25px;
 }
 
+.home-page-search select {
+    color: black;
+}
+
 .home-page-search select option {
     color: black;
 }

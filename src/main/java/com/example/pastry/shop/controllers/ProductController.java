@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
@@ -115,5 +116,11 @@ public class ProductController {
     public ResponseEntity<?> getCakes() {
         Set<Products> cakes = this.productsService.findAllCakes();
         return ResponseEntity.ok(cakes);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<?> getSearchProducts(@RequestBody CategoryProductDto categoryProductDto) {
+        Set<Products> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
+        return ResponseEntity.ok(searchedProducts);
     }
 }

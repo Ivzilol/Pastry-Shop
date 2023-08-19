@@ -42,4 +42,5 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " where p.categories = 'cake'")
     Set<Products> findAllCakes();
 
+    Set<Products> findByCategories(String category);
 }

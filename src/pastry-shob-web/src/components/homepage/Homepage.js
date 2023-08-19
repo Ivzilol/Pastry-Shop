@@ -107,7 +107,7 @@ const Homepage = () => {
         };
     }, [eventEndTime]);
 
-    const [selectOptions, setSelectOptions] = useState('');
+    const [selectOptions, setSelectOptions] = useState("");
     const [dialogVisible, setDialogVisible] = useState(false);
     const [searchResult, setSearchResult] = useState(null);
 
@@ -151,16 +151,19 @@ const Homepage = () => {
             </div>
             <div className="home-page-search">
                 Search Product
-                <select value={selectOptions}
-                        onChange={(e) => setSelectOptions(e.target.value)}
-                        id="search-product"
-                        name="search-product"
+                <select
+                    id="search-product"
+                    name="search-product"
+                    placeholder="Select product"
+                    value={selectOptions}
+                    onChange={(e) => setSelectOptions(e.target.value)}
+
                 >
                     <option value="">Select Product</option>
-                    <option value="">pie</option>
-                    <option value="">sweets</option>
-                    <option value="">buns</option>
-                    <option value="">cake</option>
+                    <option value="pie">pie</option>
+                    <option value="sweets">sweets</option>
+                    <option value="buns">buns</option>
+                    <option value="cake">cake</option>
                 </select>
                 <button onClick={getSearchResult}>Search</button>
             </div>
