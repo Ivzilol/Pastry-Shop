@@ -1100,6 +1100,8 @@ footer {
     text-align: center;
     border-radius: 20px;
     font-style: italic;
+    border: 2px solid #ef7d00;
+
 }
 
 .home-page-search select option {
