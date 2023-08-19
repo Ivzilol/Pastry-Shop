@@ -125,7 +125,7 @@ const Homepage = () => {
 
     const closeDialog = () => {
         setDialogVisible(false);
-        // setSearchResult(null);
+        setSearchResult(null);
     }
 
     return (
