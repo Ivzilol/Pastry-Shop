@@ -109,35 +109,23 @@ const Homepage = () => {
 
     const [selectOptions, setSelectOptions] = useState("");
     const [dialogVisible, setDialogVisible] = useState(false);
-    const [searchResult, setSearchResult] = useState(null);
+    const [searchResult, setSearchResult] = useState(null)
 
 
     function getSearchResult() {
         const requestBody = {
             selectOptions: selectOptions
         }
-        fetch(`${baseUrl}api/products/search`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(requestBody),
-        })
+        ajax(`${baseUrl}api/products/search`, "POST", user.jwt, requestBody)
             .then(productsData => {
-                const result = Promise.all([productsData.json()]);
-                setSearchResult(result);
-                console.log(result)
+                setSearchResult(productsData);
                 setDialogVisible(true);
-
-            })
-            .catch(error => {
-                console.error('No product find', error);
-            })
+            });
     }
 
     const closeDialog = () => {
         setDialogVisible(false);
-        setSearchResult(null);
+        // setSearchResult(null);
     }
 
     return (
@@ -150,7 +138,11 @@ const Homepage = () => {
                         <h6>Search Result</h6>
                         {searchResult ? (
                             <div>
-                                <p>{searchResult.id}</p>
+                                {searchResult.map((product) => (
+                                    <div>
+                                        <p>{product.name}</p>
+                                    </div>
+                                ))}
                             </div>
                         ) : (
                             <></>
