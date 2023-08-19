@@ -140,6 +140,7 @@ const Homepage = () => {
     return (
         <main className="home-page">
             <NavBar/>
+            <section className="home-page-event-search">
             <div className="home-page-event">
                 {showEvent ?
                     <div>
@@ -159,7 +160,7 @@ const Homepage = () => {
                 }
             </div>
             <div className="home-page-search">
-                Search Product
+                <h5>Search Product</h5>
                 <select
                     id="search-product"
                     name="search-product"
@@ -176,6 +177,7 @@ const Homepage = () => {
                 </select>
                 <button onClick={getSearchResult}>Search</button>
             </div>
+            </section>
             <section className="home-page-first"
                      onClick={toLogin}
             >

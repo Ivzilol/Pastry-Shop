@@ -1053,16 +1053,21 @@ footer {
     display: none;
 }
 
+.home-page-event-search {
+    display: flex;
+    flex-direction: row;
+}
+
 .home-page-event {
     color: #ef7d00;
     overflow: hidden;
     height: 120px;
-    width: 50%;
+    width: 48%;
     border-radius: 20px;
     border:2px solid #ef7d00;
-    margin: 70px 0 0;
     text-align: center;
     font-style: italic;
+    margin: 70px 50px 0 0;
 }
 
 .home-page-event h5 {
@@ -1073,12 +1078,42 @@ footer {
     font-size: 25px;
 }
 
+.home-page-search {
+    color: #ef7d00;
+    overflow: hidden;
+    height: 120px;
+    width: 48%;
+    border-radius: 20px;
+    border:2px solid #ef7d00;
+    margin: 70px 0 0;
+    text-align: center;
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .home-page-search select {
+    margin-top: 5px;
     color: black;
+    width: 30%;
+    text-align: center;
+    border-radius: 20px;
+    font-style: italic;
 }
 
 .home-page-search select option {
     color: black;
+}
+
+.home-page-search button {
+    width: 30%;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #ef7d00;
+    border: none;
+    font-style: italic;
 }
 
 @media screen and (max-width: 600px) {
