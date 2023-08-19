@@ -76,7 +76,7 @@ const Homepage = () => {
                 setShowEvent(false);
             }
         }
-        const interval = setInterval(checkTimeAndShowEvent, 1000);
+        const interval = setInterval(checkTimeAndShowEvent, 60000);
         checkTimeAndShowEvent();
         return () => {
             clearInterval(interval);
@@ -124,8 +124,11 @@ const Homepage = () => {
             body: JSON.stringify(requestBody),
         })
             .then(productsData => {
-                setSearchResult(productsData);
+                const result = Promise.all([productsData.json()]);
+                setSearchResult(result);
+                console.log(result)
                 setDialogVisible(true);
+
             })
             .catch(error => {
                 console.error('No product find', error);
@@ -140,6 +143,21 @@ const Homepage = () => {
     return (
         <main className="home-page">
             <NavBar/>
+            {dialogVisible && (
+                <div className="search-result">
+                    <div className="search-result-container">
+                        <button onClick={closeDialog}>Close</button>
+                        <h6>Search Result</h6>
+                        {searchResult ? (
+                            <div>
+                                <p>{searchResult.id}</p>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+                    </div>
+                </div>
+            )}
             <section className="home-page-event-search">
             <div className="home-page-event">
                 {showEvent ?

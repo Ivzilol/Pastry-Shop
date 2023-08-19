@@ -1116,6 +1116,12 @@ footer {
     background-color: #ef7d00;
     border: none;
     font-style: italic;
+    color: white;
+}
+
+.search-result {
+    position: absolute;
+    margin-top: 70px;
 }
 
 @media screen and (max-width: 600px) {
