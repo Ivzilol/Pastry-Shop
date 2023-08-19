@@ -113,7 +113,16 @@ const Homepage = () => {
 
 
     function getSearchResult() {
-        ajax(`${baseUrl}api/products/search`, "POST", user.jwt, selectOptions)
+        const requestBody = {
+            selectOptions: selectOptions
+        }
+        fetch(`${baseUrl}api/products/search`, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(requestBody),
+        })
             .then(productsData => {
                 setSearchResult(productsData);
                 setDialogVisible(true);
