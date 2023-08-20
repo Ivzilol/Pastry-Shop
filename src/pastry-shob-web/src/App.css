@@ -1192,6 +1192,7 @@ footer {
     /*margin-top: 200px;*/
     color: white;
     font-style: italic;
+    border-radius: 20px;
 }
 
 .order-window h5 {
@@ -1204,11 +1205,16 @@ footer {
 }
 
 .order-window button {
-    padding: 5px 7px;
+    padding: 5px 10px;
     border-radius: 20px;
     border: none;
     background-color: #ef7d00;
     color: white;
+    cursor: pointer;
+}
+
+.order-window button:hover {
+    background-color: aqua;
 }
 
 
