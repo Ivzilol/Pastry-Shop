@@ -185,6 +185,11 @@
     border-radius: 20px;
     border: 2px solid #ef7d00;
     background: none;
+    cursor: pointer;
+}
+
+.nav-button:hover {
+    background-color: aqua;
 }
 
 .nav .nav-home a {
