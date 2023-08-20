@@ -24,8 +24,16 @@ const OrderWindow = () => {
             {dialogVisible && (
                 <div className="order-window">
                     <h5>Вие имате незавършена или недоставена поръчка</h5>
-                    <p>Можете да завршите вашата поръчка от тук: <button>Завърши</button></p>
-                    <p>Да следите статуса на вашата доставка от тук: <button>Проследи</button></p>
+                    <p>Можете да завршите вашата поръчка от тук: <button
+                        onClick={() => {
+                            window.location.href = "/orders";
+                        }}
+                    >Завърши</button></p>
+                    <p>Да следите статуса на вашата доставка от тук: <button
+                        onClick={() => {
+                            window.location.href = "/orders/tracking";
+                        }}
+                    >Проследи</button></p>
                 </div>
             )}
         </main>
