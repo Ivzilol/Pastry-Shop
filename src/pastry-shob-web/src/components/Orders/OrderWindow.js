@@ -13,14 +13,18 @@ const OrderWindow = () => {
         ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)
             .then(result => {
                 setOrder(result);
-                console.log(result)
+                if (result.length > 0) {
+                    setDialogVisible(true);
+                }
             })
     },[user.jwt])
 
     return(
         <main>
             {dialogVisible && (
-                <div></div>
+                <div className="order-window">
+                    <h5>Вие имате незавършена поръчка</h5>
+                </div>
             )}
         </main>
     )
