@@ -1184,17 +1184,17 @@ footer {
     left: 0;
     top: 0;
     width: 300px;
-    height: 200px;
+    height: 300px;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow-y: auto;
     padding: 20px;
     margin-top: 200px;
+    color: #ef7d00;
 }
 
 .order-window h5 {
     font-size: 1.2rem;
-    color: white;
     text-align: center;
 }
 
