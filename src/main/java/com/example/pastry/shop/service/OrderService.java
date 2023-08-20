@@ -20,8 +20,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -207,5 +210,12 @@ public class OrderService {
     public Set<Orders> trackingByStatus(Users user) {
         Long id = user.getId();
         return this.ordersRepository.findConfirmedOrder(id);
+    }
+
+    public Set<Orders> findOrdersWhichNotDelivered(Users user) {
+        Long id = user.getId();
+        Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
+        return allOrders.stream().filter(o ->
+                !Objects.equals(o.getStatus(), "delivery")).collect(Collectors.toSet());
     }
 }

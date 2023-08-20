@@ -13,6 +13,7 @@ const OrderWindow = () => {
         ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)
             .then(result => {
                 setOrder(result);
+                console.log(result)
             })
     },[user.jwt])
 

@@ -107,4 +107,11 @@ public class OrdersController {
         Set<OrdersProcessing> allOrders = this.orderProcessingService.getAllOrders();
         return ResponseEntity.ok(allOrders);
     }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> getOrdersStatus(@AuthenticationPrincipal Users user) {
+        Set<Orders> userOrder = this.orderService.findOrdersWhichNotDelivered(user);
+        return ResponseEntity.ok(userOrder);
+    }
+
 }

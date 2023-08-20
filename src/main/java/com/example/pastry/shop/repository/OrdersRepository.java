@@ -29,4 +29,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders as o" +
             " where o.users.id = :id")
     Set<Orders> findConfirmedOrder(Long id);
+
+    @Query("select o from Orders as o" +
+            " where o.users.id = :id")
+    Set<Orders> findNotDeliveredOrders(Long id);
 }
