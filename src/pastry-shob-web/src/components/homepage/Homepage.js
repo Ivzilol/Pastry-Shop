@@ -6,6 +6,7 @@ import ajax from "../../Services/FetchService";
 import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
+import OrderWindow from "../Orders/OrderWindow";
 
 
 const Homepage = () => {
@@ -130,6 +131,7 @@ const Homepage = () => {
     return (
         <main className="home-page">
             <NavBar/>
+            <OrderWindow/>
             {dialogVisible && (
                 <div className="search-result">
                     <button className="search-result-close-button" onClick={closeDialog}>Close</button>
