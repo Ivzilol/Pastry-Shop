@@ -70,7 +70,7 @@ const Homepage = () => {
         const checkTimeAndShowEvent = () => {
             const now = new Date();
             const hours = now.getHours();
-            if (hours > 14 && hours < 21) {
+            if (hours >= 14 && hours < 21) {
                 setShowEvent(true);
             } else {
                 setShowEvent(false);

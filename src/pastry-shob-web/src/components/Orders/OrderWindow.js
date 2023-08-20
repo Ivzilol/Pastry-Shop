@@ -37,7 +37,7 @@ const OrderWindow = () => {
         <main>
             {dialogVisible && (
                 <div className="order-window">
-                    <p>Можете да завршите вашата поръчка от тук: <button
+                    <p>Можете да завършите вашата поръчка от тук: <button
                         onClick={() => {
                             window.location.href = "/orders";
                         }}
