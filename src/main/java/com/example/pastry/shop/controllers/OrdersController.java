@@ -114,4 +114,10 @@ public class OrdersController {
         return ResponseEntity.ok(userOrder);
     }
 
+    @GetMapping("status/confirmed")
+    public ResponseEntity<?> getOrderStatusConfirmed(@AuthenticationPrincipal Users user) {
+        Set<Orders> userOrders = this.orderService.findOrdersWhichConfirmed(user);
+        return ResponseEntity.ok(userOrders);
+    }
+
 }

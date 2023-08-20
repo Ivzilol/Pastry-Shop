@@ -216,6 +216,18 @@ public class OrderService {
         Long id = user.getId();
         Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
         return allOrders.stream().filter(o ->
-                !Objects.equals(o.getStatus(), "delivery")).collect(Collectors.toSet());
+                Objects.equals(o.getStatus(), "newOrder")).collect(Collectors.toSet());
+    }
+
+    public Set<Orders> findOrdersWhichConfirmed(Users user) {
+        Long id = user.getId();
+        Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
+        Set<Orders> confirmedOrSendOrder = new HashSet<>();
+        for (Orders order : allOrders) {
+            if (order.getStatus().equals("confirmed") || order.getStatus().equals("sent")) {
+                confirmedOrSendOrder.add(order);
+            }
+        }
+        return confirmedOrSendOrder;
     }
 }
