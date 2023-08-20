@@ -37,16 +37,16 @@ const OrderWindow = () => {
         <main>
             {dialogVisible && (
                 <div className="order-window">
-                        <p>Можете да завршите вашата поръчка от тук: <button
-                            onClick={() => {
-                                window.location.href = "/orders";
-                            }}
-                        >Завърши</button></p>
+                    <p>Можете да завршите вашата поръчка от тук: <button
+                        onClick={() => {
+                            window.location.href = "/orders";
+                        }}
+                    >Завърши</button></p>
                 </div>
             )}
             {dialogVisibleConfirmed && (
                 <div className="order-window">
-                    <p>Да следите статуса на вашата доставка от тук: <button
+                    <p>Можете да следите статуса на вашата доставка от тук: <button
                         onClick={() => {
                             window.location.href = "/orders/tracking";
                         }}

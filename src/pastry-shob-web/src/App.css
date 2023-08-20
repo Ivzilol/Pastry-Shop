@@ -1184,7 +1184,7 @@ footer {
     left: 0;
     bottom: 0;
     width: 350px;
-    height: 200px;
+    height: 120px;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow-y: auto;
