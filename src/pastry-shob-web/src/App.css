@@ -100,9 +100,9 @@
 
 .register {
     padding: 10px 300px;
-    height: 700px;
+    height: auto;
     background-image: url(
-    "http://alfa.kachi-snimka.info/images-2021/bfi1677689901o.jpg");
+    "https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
