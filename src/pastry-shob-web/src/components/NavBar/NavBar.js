@@ -30,7 +30,7 @@ function NavBar() {
                             window.location.href = "/";
                         }}
                     >
-            Logout
+            Изход
           </button>
                 ) : window.location.href !== "/login" ? (
                     <button
@@ -39,7 +39,7 @@ function NavBar() {
                             window.location.href = "/login";
                         }}
                     >
-                        Login
+                        Влизане
                     </button>
                 ) : (
                     <></>
@@ -64,7 +64,7 @@ function NavBar() {
                             window.location.href = "/shops";
                         }}
                     >
-                        Shops
+                        Магазини
                     </button>
                 ) : (
                     <></>
@@ -77,7 +77,7 @@ function NavBar() {
                             window.location.href = "/products";
                         }}
                     >
-                        Products
+                        Продукти
                     </button>
                 ) : (
                     <></>
@@ -89,7 +89,7 @@ function NavBar() {
                             window.location.href = "/orders";
                         }}
                     >
-                        Order
+                        Поръчки
                     </button>
                 ) : (
                     <></>
@@ -101,7 +101,7 @@ function NavBar() {
                             window.location.href = "/users"
                         }}
                     >
-                        Profile
+                        Профил
                     </button>
                 ) : (
                     <></>
