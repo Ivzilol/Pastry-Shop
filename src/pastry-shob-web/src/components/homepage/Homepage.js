@@ -20,7 +20,7 @@ const Homepage = () => {
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const changeLanguageHandler = (lang) => {
         i18n.changeLanguage("en")
     }
@@ -151,7 +151,7 @@ const Homepage = () => {
                                          src={product.imageUrl} alt="new"/>
                                     <h5>{product.name}</h5>
                                     <p className="search-result-container-price">Цена: {product.price} лв.</p>
-                                    <p className="search-result-container-description" >{product.description}</p>
+                                    <p className="search-result-container-description">{product.description}</p>
                                     <button
                                         className="product-details-selected-product-button"
                                         id="submit"
@@ -182,7 +182,8 @@ const Homepage = () => {
                         </div>
                         :
                         <div>
-                            {t('promo')}
+                            В момента няма налична промоция,
+                            но можете да очаквате нашата всекидневна такава от 14 часа!
                         </div>
                     }
                 </div>
