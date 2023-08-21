@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 
 const OrderWindow = () => {
@@ -9,8 +9,7 @@ const OrderWindow = () => {
     const [order, setOrder] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
-    // eslint-disable-next-line no-unused-vars
-    // let isNewOrder = false;
+
 
     useEffect(() => {
         ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)

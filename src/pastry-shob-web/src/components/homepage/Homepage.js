@@ -7,6 +7,8 @@ import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
+import jwt_decode from "jwt-decode";
+import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 
 
 const Homepage = () => {
@@ -19,9 +21,22 @@ const Homepage = () => {
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
-
-
+    const [roles, setRoles] = useState(getRolesFromJWT());
     const baseUrl = "http://localhost:8080/";
+
+    useEffect(() => {
+        setRoles(getRolesFromJWT())
+    }, [user.jwt])
+
+    function getRolesFromJWT() {
+        if (user.jwt) {
+            const decodeJwt = jwt_decode(user.jwt);
+            return decodeJwt.authorities;
+        }
+        return [];
+    }
+
+
 
     useEffect(() => {
         ajax(`${baseUrl}api/`, "GET", user.jwt)
@@ -137,6 +152,7 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
+            {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
                     <button className="search-result-close-button" onClick={closeDialog}>Затовори</button>
@@ -202,7 +218,7 @@ const Homepage = () => {
                         <option value="buns">Кифлички</option>
                         <option value="cake">Торти</option>
                     </select>
-                    <button onClick={getSearchResult}>Search</button>
+                    <button onClick={getSearchResult}>Търсене</button>
                 </div>
             </section>
             <section className="home-page-first"
