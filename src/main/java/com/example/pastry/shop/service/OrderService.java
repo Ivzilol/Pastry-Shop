@@ -230,4 +230,8 @@ public class OrderService {
         }
         return confirmedOrSendOrder;
     }
+
+    public Set<Orders> findAllNotSendOrders() {
+        return this.ordersRepository.findAllNotSendOrders();
+    }
 }

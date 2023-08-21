@@ -9,7 +9,7 @@ const OrderWindowAdmin = () => {
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/status/confirmed`, "GET", user.jwt)
+        ajax(`${baseUrl}api/orders/status/confirmed/admin`, "GET", user.jwt)
             .then(result => {
                 setOrder(result);
                 if (result.length > 0) {
@@ -24,7 +24,7 @@ const OrderWindowAdmin = () => {
                 <div className="order-window">
                     <p>Има необработена заявка <button
                         onClick={() => {
-                            window.location.href = "/orders/tracking";
+                            window.location.href = "/orders";
                         }}
                     >Обработи</button></p>
                 </div>

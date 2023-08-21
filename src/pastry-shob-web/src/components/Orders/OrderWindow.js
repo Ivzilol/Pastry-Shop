@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 
 const OrderWindow = () => {

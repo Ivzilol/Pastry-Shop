@@ -119,4 +119,10 @@ public class OrdersController {
         return ResponseEntity.ok(userOrders);
     }
 
+    @GetMapping("status/confirmed/admin")
+    public ResponseEntity<?> getNotSendOrders() {
+        Set<Orders> allNotSendOrders = this.orderService.findAllNotSendOrders();
+        return ResponseEntity.ok(allNotSendOrders);
+    }
+
 }

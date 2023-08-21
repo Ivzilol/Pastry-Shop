@@ -33,4 +33,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders as o" +
             " where o.users.id = :id")
     Set<Orders> findNotDeliveredOrders(Long id);
+
+    @Query("select o from Orders as o" +
+            " where o.status = 'confirmed' or o.status = 'sent'")
+    Set<Orders> findAllNotSendOrders();
 }
