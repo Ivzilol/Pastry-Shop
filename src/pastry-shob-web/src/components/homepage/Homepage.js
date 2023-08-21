@@ -7,6 +7,7 @@ import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
+import {useTranslation} from "react-i18next";
 
 
 const Homepage = () => {
@@ -19,6 +20,10 @@ const Homepage = () => {
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
+    const { t, i18n } = useTranslation();
+    const changeLanguageHandler = (lang) => {
+        i18n.changeLanguage("en")
+    }
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -177,8 +182,7 @@ const Homepage = () => {
                         </div>
                         :
                         <div>
-                            В момента няма налична промоция,
-                            но можете да очаквате нашата всекидневна такава от 14 часа!
+                            {t('promo')}
                         </div>
                     }
                 </div>
