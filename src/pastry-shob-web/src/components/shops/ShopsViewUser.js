@@ -5,6 +5,7 @@ import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
 import Footer from "../Footer/Footer";
+import OrderWindow from "../Orders/OrderWindow";
 
 const ShopsViewUser = () => {
 
@@ -25,6 +26,7 @@ const ShopsViewUser = () => {
     return (
 
         <main className="shops-view">
+            <OrderWindow/>
             <NavBar/>
             <ShopArt/>
             {shops ? (

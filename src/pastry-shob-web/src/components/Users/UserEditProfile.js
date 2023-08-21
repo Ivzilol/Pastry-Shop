@@ -1,8 +1,9 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
+import OrderWindow from "../Orders/OrderWindow";
 
 const UserEditProfile = () => {
     const user = useUser();
@@ -42,6 +43,7 @@ const UserEditProfile = () => {
     return (
         <main className="user-edit-profile">
             <NavBar/>
+            <OrderWindow/>
             {currentUser ? (
                 <section className="user-edit-profile-container">
                     {currentUser ? (

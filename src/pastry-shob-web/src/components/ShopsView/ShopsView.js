@@ -6,6 +6,7 @@ import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
 import Footer from "../Footer/Footer";
+import OrderWindow from "../Orders/OrderWindow";
 
 const ShopsView = () => {
     useNavigate();
@@ -138,6 +139,7 @@ const ShopsView = () => {
         <main className="user-comments-container">
             <NavBar/>
             <ShopArt/>
+            <OrderWindow/>
             <div className="comments">
                         <textarea placeholder="Напиешете Вашето мнение тук..."
                             className="comments-textarea"

@@ -1,8 +1,9 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import OrderWindow from "./OrderWindow";
 
 const UserOrders = () => {
     const user = useUser();

@@ -1,6 +1,6 @@
 import NavBar from "../NavBar/NavBar";
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 import jwt_decode from "jwt-decode";
+import OrderWindow from "../Orders/OrderWindow";
 
 
 const ProductsUser = () => {
@@ -106,6 +107,7 @@ const ProductsUser = () => {
     return (
         <main className="products-users">
             <NavBar/>
+            <OrderWindow/>
             {products ? (
                 <article className="products-container">
                     {products.map((product) => (
