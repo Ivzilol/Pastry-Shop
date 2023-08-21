@@ -1178,6 +1178,7 @@ footer {
     border: none;
     padding: 5px;
     border-radius: 20px;
+    margin-bottom: 10px;
 }
 
 .search-result-container-price {

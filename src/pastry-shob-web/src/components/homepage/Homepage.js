@@ -139,8 +139,7 @@ const Homepage = () => {
             <OrderWindow/>
             {dialogVisible && (
                 <div className="search-result">
-                    <button className="search-result-close-button" onClick={closeDialog}>Close</button>
-                    <h6>Search Result</h6>
+                    <button className="search-result-close-button" onClick={closeDialog}>Затовори</button>
                     {searchResult ? (
                         <div className="search-result-container">
                             {searchResult.map((product) => (
@@ -188,7 +187,7 @@ const Homepage = () => {
                     }
                 </div>
                 <div className="home-page-search">
-                    <h5>Search Product</h5>
+                    <h5>Търсене продукт</h5>
                     <select
                         id="search-product"
                         name="search-product"
@@ -197,7 +196,7 @@ const Homepage = () => {
                         onChange={(e) => setSelectOptions(e.target.value)}
 
                     >
-                        <option value="">Select Product</option>
+                        <option value="">Изберете продукт</option>
                         <option value="pie">Погачи</option>
                         <option value="sweets">Сладки</option>
                         <option value="buns">Кифлички</option>
