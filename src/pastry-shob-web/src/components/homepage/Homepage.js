@@ -7,7 +7,6 @@ import {Dialog} from "@mui/material";
 import {FaSearch} from 'react-icons/fa';
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
-import {useTranslation} from "react-i18next";
 
 
 const Homepage = () => {
@@ -20,10 +19,8 @@ const Homepage = () => {
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
-    const {t, i18n} = useTranslation();
-    const changeLanguageHandler = (lang) => {
-        i18n.changeLanguage("en")
-    }
+
+
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -59,12 +56,15 @@ const Homepage = () => {
     }
 
     function orderProducts(id) {
-        ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
-            .then(productData => {
-                setProduct(productData);
-                alert("Successfully add the product to your cart")
-            })
-
+        if (user.jwt) {
+            ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
+                .then(productData => {
+                    setProduct(productData);
+                    alert("Successfully add the product to your cart")
+                })
+        } else {
+            window.location.href = "/login";
+        }
     }
 
     function toLogin() {
@@ -223,7 +223,7 @@ const Homepage = () => {
                 <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
                 <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
             </section>
-            {products && user.jwt ? (
+            {products ? (
                 <article className="home-page-container">
                     {products.map((product) => (
                         <div
@@ -291,7 +291,7 @@ const Homepage = () => {
                 <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
             )}
             <h4 className="home-page-most-ordered-title">ПРЕПОРЪЧАНИ ПРОДУКТИ!</h4>
-            {recommendedProducts && user.jwt ? (
+            {recommendedProducts ? (
                 <article className="home-page-container">
                     {recommendedProducts.map((recommendedProduct) => (
                         <div
