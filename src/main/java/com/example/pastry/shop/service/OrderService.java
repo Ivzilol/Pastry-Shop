@@ -216,7 +216,7 @@ public class OrderService {
         Long id = user.getId();
         Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
         return allOrders.stream().filter(o ->
-                Objects.equals(o.getStatus(), " ")).collect(Collectors.toSet());
+                Objects.equals(o.getStatus(), "newOrder")).collect(Collectors.toSet());
     }
 
     public Set<Orders> findOrdersWhichConfirmed(Users user) {

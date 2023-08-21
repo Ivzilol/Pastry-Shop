@@ -189,6 +189,21 @@
     font-style: italic;
 }
 
+.nav-button-user {
+    margin: 0 20px;
+    padding: 5px;
+    width: 100px;
+    border-radius: 20px;
+    border: 2px solid #ef7d00;
+    cursor: pointer;
+    font-style: italic;
+    background-color: white;
+}
+
+.nav-button-user:hover {
+    background-color: aqua;
+}
+
 .nav-button:hover {
     background-color: aqua;
 }

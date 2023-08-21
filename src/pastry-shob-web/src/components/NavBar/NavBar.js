@@ -7,6 +7,21 @@ function NavBar() {
 
     const user = useUser();
     const [authorities, setAuthorities] = useState(null);
+    const [roles, setRoles] = useState(getRolesFromJWT());
+
+    useEffect(() => {
+        setRoles(getRolesFromJWT())
+    }, [getRolesFromJWT, user.jwt])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function getRolesFromJWT() {
+        if (user.jwt) {
+            const decodeJwt = jwt_decode(user.jwt);
+            return decodeJwt.sub;
+        }
+        return [];
+    }
+
 
     useEffect(() => {
         if (user && user.jwt) {
@@ -96,13 +111,14 @@ function NavBar() {
                 )}
                 {user && user.jwt ? (
                     <button
-                        className="nav-button"
+                        className="nav-button-user"
                         onClick={() => {
                             window.location.href = "/users"
                         }}
                     >
-                        Профил
+                        {roles}
                     </button>
+
                 ) : (
                     <></>
                 )}
