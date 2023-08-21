@@ -186,6 +186,7 @@
     border: 2px solid #ef7d00;
     background: none;
     cursor: pointer;
+    font-style: italic;
 }
 
 .nav-button:hover {
