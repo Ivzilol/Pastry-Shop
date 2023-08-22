@@ -9,13 +9,15 @@ const OrderWindowAdmin = () => {
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/status/confirmed/admin`, "GET", user.jwt)
-            .then(result => {
-                setOrder(result);
-                if (result.length > 0) {
-                    setDialogVisibleConfirmed(true);
-                }
-            })
+        if (user.jwt) {
+            ajax(`${baseUrl}api/orders/status/confirmed/admin`, "GET", user.jwt)
+                .then(result => {
+                    setOrder(result);
+                    if (result.length > 0) {
+                        setDialogVisibleConfirmed(true);
+                    }
+                })
+        }
     }, [user.jwt])
 
     return (

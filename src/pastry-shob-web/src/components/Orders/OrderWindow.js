@@ -12,24 +12,28 @@ const OrderWindow = () => {
 
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)
-            .then(result => {
-                setOrder(result);
-                if (result.length > 0) {
-                    setDialogVisible(true);
-                }
-            })
-    }, [])
+        if (user.jwt) {
+            ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)
+                .then(result => {
+                    setOrder(result);
+                    if (result.length > 0) {
+                        setDialogVisible(true);
+                    }
+                })
+        }
+    }, []);
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/status/confirmed`, "GET", user.jwt)
-            .then(result => {
-                setOrder(result);
-                if (result.length > 0) {
-                    setDialogVisibleConfirmed(true);
-                }
-            })
-    }, [])
+        if (user.jwt) {
+            ajax(`${baseUrl}api/orders/status/confirmed`, "GET", user.jwt)
+                .then(result => {
+                    setOrder(result);
+                    if (result.length > 0) {
+                        setDialogVisibleConfirmed(true);
+                    }
+                })
+        }
+    }, []);
 
 
     return (
