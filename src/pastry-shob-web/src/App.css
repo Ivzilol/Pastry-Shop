@@ -1239,10 +1239,6 @@ footer {
     background-color: aqua;
 }
 
-.language-picker--dropdown {
-    border-radius: 20px;
-    background-color: #e592b9;
-}
 
 
 @media screen and (max-width: 600px) {
