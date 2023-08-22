@@ -19,7 +19,7 @@ const OrderWindow = () => {
                     setDialogVisible(true);
                 }
             })
-    }, [user.jwt])
+    }, [])
 
     useEffect(() => {
         ajax(`${baseUrl}api/orders/status/confirmed`, "GET", user.jwt)
@@ -29,7 +29,7 @@ const OrderWindow = () => {
                     setDialogVisibleConfirmed(true);
                 }
             })
-    }, [user.jwt])
+    }, [])
 
 
     return (

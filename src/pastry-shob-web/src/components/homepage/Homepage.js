@@ -9,7 +9,6 @@ import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
-import LanguagePicker from "../LanguagePicker/LanguagePicker";
 
 
 const Homepage = () => {
@@ -153,7 +152,6 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
-            <LanguagePicker/>
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
