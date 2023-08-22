@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useUser} from "../../UserProvider/UserProvider";
-import NavBar from "../NavBarAdmin/NavBarAdmin";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import NavBar from "../NavBar/NavBar";
 
 const UserOrdersHistory = () => {
 

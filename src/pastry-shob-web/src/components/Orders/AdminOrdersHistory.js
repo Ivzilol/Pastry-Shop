@@ -1,7 +1,7 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
-import NavBar from "../NavBarAdmin/NavBarAdmin";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const AdminOrdersHistory = () => {
 
@@ -18,7 +18,7 @@ const AdminOrdersHistory = () => {
 
     return (
         <section className="ordersUser">
-            <NavBar/>
+            <NavBarAdmin/>
             <h3 className="admin-users-container-title">История на поръчките</h3>
             <hr/>
             <div className="admin-users-container-header">

@@ -3,7 +3,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode"
 
-function NavBar() {
+function NavBarAdmin() {
 
     const navigate = useNavigate();
     const {pathname} = useNavigate()
@@ -113,4 +113,4 @@ function NavBar() {
     )
 }
 
-export default NavBar;
+export default NavBarAdmin;
