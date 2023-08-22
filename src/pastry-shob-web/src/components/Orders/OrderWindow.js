@@ -19,7 +19,7 @@ const OrderWindow = () => {
                     if (result.length > 0) {
                         setDialogVisible(true);
                     }
-                })
+                });
         }
     }, []);
 
@@ -31,7 +31,7 @@ const OrderWindow = () => {
                     if (result.length > 0) {
                         setDialogVisibleConfirmed(true);
                     }
-                })
+                });
         }
     }, []);
 

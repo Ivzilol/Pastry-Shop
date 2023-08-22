@@ -16,7 +16,7 @@ const OrderWindowAdmin = () => {
                     if (result.length > 0) {
                         setDialogVisibleConfirmed(true);
                     }
-                })
+                });
         }
     }, [user.jwt])
 

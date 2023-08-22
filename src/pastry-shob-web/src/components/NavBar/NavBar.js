@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode"
+import LanguagePicker from "../LanguagePicker/LanguagePicker";
 
 function NavBar() {
 
@@ -36,6 +37,7 @@ function NavBar() {
             <article className="nav-home">
                 <a href="/">СЛАДКАРНИЦАТА НА МАМА</a>
             </article>
+            <LanguagePicker/>
             <div>
                 {user && user.jwt ? (
                     <button

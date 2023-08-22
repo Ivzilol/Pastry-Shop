@@ -9,6 +9,8 @@ import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
+import LanguagePicker from "../LanguagePicker/LanguagePicker";
+import {useTranslation} from "react-i18next";
 
 
 const Homepage = () => {
@@ -22,6 +24,7 @@ const Homepage = () => {
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
     const [roles, setRoles] = useState(getRolesFromJWT());
+    const { t } = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -229,7 +232,7 @@ const Homepage = () => {
                          src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg" alt="img"/>
                 </div>
                 <div className="home-page-first-right">
-                    <h6>РЪЧНО ПРИГОТВЕНИ ДОМАШНИ ВКУСОТИИ</h6>
+                    <h6>{t('title')}</h6>
                     <h1>ЗА ВСЕКИ ВКУС</h1>
                     <p>изберете от любимите си домашни вкусотии</p>
                     <p>поръчайте онлайн с доставка до вашия дом</p>
