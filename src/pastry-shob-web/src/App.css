@@ -1239,6 +1239,9 @@ footer {
     background-color: aqua;
 }
 
+.language-picker {
+    margin-top: 70px;
+}
 
 @media screen and (max-width: 600px) {
 
