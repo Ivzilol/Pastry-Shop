@@ -18,5 +18,39 @@
     "option4": "Buns",
     "option5": "Cakes",
     "button": "Search"
+  },
+  "home-page-most-ordered": {
+    "home-page-most-ordered-title": "BEST SELLING PRODUCTS!",
+    "home-page-most-ordered-description": "Order online with delivery to your address!"
+  },
+  "home-page-most-ordered-title-2": "RECOMMENDED PRODUCTS!",
+  "nav": {
+    "nav-logo": "MOM'S SWEET SHOP",
+    "nav-button-exit": "Logout",
+    "nav-button-entrance": "Login",
+    "nav-button-markets": "Shops",
+    "nav-button-products": "Products",
+    "nav-button-orders": "Orders"
+  },
+  "footer": {
+    "footer-first1": "ONLINE STORE",
+    "footer-first2": "COZUNATSI",
+    "footer-first3": "SWEETS",
+    "footer-first4": "BREADS",
+    "footer-first5": "CAKES",
+    "footer-first6": "PIES",
+    "footer-second1": "ABOUT US",
+    "footer-second2": "SHOP",
+    "footer-second3": "NEWS",
+    "footer-second4": "CAREERS",
+    "footer-second5": "CONTACTS",
+    "footer-second6": "PROGRAMS",
+    "footer-third1": "CONDITIONS",
+    "footer-third2": "TERMS OF ORDER AND DELIVERY",
+    "footer-third3": "METHOD OF PAYMENT",
+    "footer-third4": "GENERAL TERMS",
+    "footer-third5": "APPLICATION USES COOKIES",
+    "footer-third6": "PROMOTIONS",
+    "footer-four": "ABOUT THE APP AUTHOR"
   }
 }

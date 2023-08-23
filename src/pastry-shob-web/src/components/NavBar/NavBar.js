@@ -3,12 +3,14 @@ import {useUser} from "../../UserProvider/UserProvider";
 import React, {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode"
 import LanguagePicker from "../LanguagePicker/LanguagePicker";
+import {useTranslation} from "react-i18next";
 
 function NavBar() {
 
     const user = useUser();
     const [authorities, setAuthorities] = useState(null);
     const [roles, setRoles] = useState(getRolesFromJWT());
+    const {t} = useTranslation();
 
     useEffect(() => {
         setRoles(getRolesFromJWT())
@@ -35,7 +37,7 @@ function NavBar() {
     return (
         <section className="nav">
             <article className="nav-home">
-                <a href="/">СЛАДКАРНИЦАТА НА МАМА</a>
+                <a href="/">{t('nav.nav-logo')}</a>
             </article>
             <LanguagePicker/>
             <div>
@@ -47,7 +49,7 @@ function NavBar() {
                             window.location.href = "/";
                         }}
                     >
-            Изход
+                        {t('nav.nav-button-exit')}
           </button>
                 ) : window.location.href !== "/login" ? (
                     <button
@@ -56,7 +58,7 @@ function NavBar() {
                             window.location.href = "/login";
                         }}
                     >
-                        Влизане
+                        {t('nav.nav-button-entrance')}
                     </button>
                 ) : (
                     <></>
@@ -81,7 +83,7 @@ function NavBar() {
                             window.location.href = "/shops";
                         }}
                     >
-                        Магазини
+                        {t('nav.nav-button-markets')}
                     </button>
                 ) : (
                     <></>
@@ -94,7 +96,7 @@ function NavBar() {
                             window.location.href = "/products";
                         }}
                     >
-                        Продукти
+                        {t('nav.nav-button-products')}
                     </button>
                 ) : (
                     <></>
@@ -106,7 +108,7 @@ function NavBar() {
                             window.location.href = "/orders";
                         }}
                     >
-                        Поръчки
+                        {t('nav.nav-button-orders')}
                     </button>
                 ) : (
                     <></>

@@ -18,5 +18,39 @@
     "option4": "Кифлички",
     "option5": "Торти",
     "button": "Търсене"
+  },
+  "home-page-most-ordered": {
+    "home-page-most-ordered-title": "НАЙ ПРОДАВАНИ ПРОДУКТИ!",
+    "home-page-most-ordered-description": "Поръчай онлайн с доставка до адрес!"
+  },
+  "home-page-most-ordered-title-2": "ПРЕПОРЪЧАНИ ПРОДУКТИ!",
+  "nav": {
+    "nav-logo": "СЛАДКАРНИЦАТА НА МАМА",
+    "nav-button-exit": "Изход",
+    "nav-button-entrance": "Влизане",
+    "nav-button-markets": "Магазини",
+    "nav-button-products": "Продукти",
+    "nav-button-orders": "Поръчки"
+  },
+  "footer": {
+    "footer-first1": "ОНЛАЙН МАГАЗИН",
+    "footer-first2": "КОЗУНАЦИ",
+    "footer-first3": "СЛАДКИ",
+    "footer-first4": "ПОГАЧИ",
+    "footer-first5": "ТОРТИ",
+    "footer-first6": "БАНИЦИ",
+    "footer-second1": "ЗА НАС",
+    "footer-second2": "МАГАЗИН",
+    "footer-second3": "НОВИНИ",
+    "footer-second4": "КАРИЕРИ",
+    "footer-second5": "КОНТАКТИ",
+    "footer-second6": "ПРОГРАМИ",
+    "footer-third1": "УСЛОВИЯ",
+    "footer-third2": "УСЛОВИЯ ПОРЪЧКА И ДОСТАВКА",
+    "footer-third3": "НАЧИН НА ПЛАЩАНЕ",
+    "footer-third4": "ОБЩИ УСЛОВИЯ",
+    "footer-third5": "ПРИЛОЖЕНИЕ ИЗПОЛЗВА БИСКВИТКИ",
+    "footer-third6": "ПРОМОЦИИ",
+    "footer-four": "ЗА АВТОРА НА ПРИЛОЖЕНИЕТО"
   }
 }

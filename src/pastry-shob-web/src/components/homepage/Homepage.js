@@ -24,7 +24,7 @@ const Homepage = () => {
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
     const [roles, setRoles] = useState(getRolesFromJWT());
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -38,7 +38,6 @@ const Homepage = () => {
         }
         return [];
     }
-
 
 
     useEffect(() => {
@@ -238,8 +237,8 @@ const Homepage = () => {
                 </div>
             </section>
             <section className="home-page-most-ordered">
-                <h4 className="home-page-most-ordered-title">НАЙ ПРОДАВАНИ ПРОДУКТИ!</h4>
-                <p className="home-page-most-ordered-description">Поръчай онлайн с доставка до адрес!</p>
+                <h4 className="home-page-most-ordered-title">{t('home-page-most-ordered.home-page-most-ordered-title')}</h4>
+                <p className="home-page-most-ordered-description">{t('home-page-most-ordered.home-page-most-ordered-description')}</p>
             </section>
             {products ? (
                 <article className="home-page-container">
@@ -300,7 +299,7 @@ const Homepage = () => {
                             <p className="home-page-container-item"
                             >{product.name}</p>
                             <p className="home-page-container-item"
-                            >Цена: {product.price}</p>
+                            >Цена: {product.price} лв.</p>
                         </div>
                     ))}
                 </article>
@@ -308,7 +307,7 @@ const Homepage = () => {
             ) : (
                 <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
             )}
-            <h4 className="home-page-most-ordered-title">ПРЕПОРЪЧАНИ ПРОДУКТИ!</h4>
+            <h4 className="home-page-most-ordered-title">{t('home-page-most-ordered-title-2')}</h4>
             {recommendedProducts ? (
                 <article className="home-page-container">
                     {recommendedProducts.map((recommendedProduct) => (
@@ -367,7 +366,7 @@ const Homepage = () => {
                             <p className="home-page-container-item"
                             >{recommendedProduct.name}</p>
                             <p className="home-page-container-item"
-                            >Цена: {recommendedProduct.price}</p>
+                            >Цена: {recommendedProduct.price} лв.</p>
                         </div>
                     ))}
                 </article>

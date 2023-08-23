@@ -1,33 +1,36 @@
+import {useTranslation} from "react-i18next";
+
 const Footer = () => {
+    const { t } = useTranslation();
     return (
         <footer>
             <section className="footer">
                 <article className="footer-first">
-                    <a className="footer-first-title" href="/">ОНЛАЙН МАГАЗИН</a>
-                    <a className="footer-first-item" href="/">КОЗУНАЦИ</a>
-                    <a className="footer-first-item" href="/">СЛАДКИ</a>
-                    <a className="footer-first-item" href="/">ПОГАЧИ</a>
-                    <a className="footer-first-item" href="/">ТОРТИ</a>
-                    <a className="footer-first-item" href="/">БАНИЦИ</a>
+                    <a className="footer-first-title" href="/">{t('footer.footer-first1')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-first2')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-first3')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-first4')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-first5')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-first6')}</a>
                 </article>
                 <article className="footer-second">
-                    <a className="footer-first-title" href="/">ЗА НАС</a>
-                    <a className="footer-first-item" href="/">МАГАЗИН</a>
-                    <a className="footer-first-item" href="/">НОВИНИ</a>
-                    <a className="footer-first-item" href="/">КАРИЕРИ</a>
-                    <a className="footer-first-item" href="/">КОНТАКТИ</a>
-                    <a className="footer-first-item" href="/">ПРОГРАМИ</a>
+                    <a className="footer-first-title" href="/">{t('footer.footer-second1')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-second2')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-second3')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-second4')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-second5')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-second6')}</a>
                 </article>
                 <article className="footer-third">
-                    <a className="footer-first-title" href="/">УСЛОВИЯ</a>
-                    <a className="footer-first-item" href="/">УСЛОВИЯ ПОРЪЧКА И ДОСТАВКА</a>
-                    <a className="footer-first-item" href="/">НАЧИН НА ПЛАЩАНЕ</a>
-                    <a className="footer-first-item" href="/">ОБЩИ УСЛОВИЯ</a>
-                    <a className="footer-first-item" href="/">ПРИЛОЖЕНИЕ ИЗПОЛЗВА БИСКИТИ</a>
-                    <a className="footer-first-item" href="/">ПОМОЦИИ</a>
+                    <a className="footer-first-title" href="/">{t('footer.footer-third1')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-third2')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-third3')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-third4')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-third5')}</a>
+                    <a className="footer-first-item" href="/">{t('footer.footer-third6')}</a>
                 </article>
                 <article className="footer-four">
-                    <a className="footer-first-title" href="/api/author" target="_blank">ЗА АВТОРА НА ПРИЛОЖЕНИЕТО</a>
+                    <a className="footer-first-title" href="/api/author" target="_blank">{t('footer.footer-four')}</a>
                     <a className="footer-first-item" href="https://github.com/Ivzilol" target="_blank" rel="noreferrer">Github</a>
                     <a className="footer-first-item" href="https://www.linkedin.com/in/ivaylo-alichkov-7406871a1/" target="_blank" rel="noreferrer">Linkedin</a>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
