@@ -1,6 +1,7 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
+import {useTranslation} from "react-i18next";
 
 const OrderWindow = () => {
 
@@ -9,7 +10,7 @@ const OrderWindow = () => {
     const [order, setOrder] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
-
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (user.jwt) {
@@ -40,20 +41,20 @@ const OrderWindow = () => {
         <main>
             {dialogVisible && (
                 <div className="order-window">
-                    <p>Можете да завършите вашата поръчка от тук: <button
+                    <p>{t('order-window.finish')}<button
                         onClick={() => {
                             window.location.href = "/orders";
                         }}
-                    >Завърши</button></p>
+                    >{t('order-window.finish-button')}</button></p>
                 </div>
             )}
             {dialogVisibleConfirmed && (
                 <div className="order-window">
-                    <p>Можете да следите статуса на вашата доставка от тук: <button
+                    <p>{t('order-window.tracking')} <button
                         onClick={() => {
                             window.location.href = "/orders/tracking";
                         }}
-                    >Проследи</button></p>
+                    >{t('order-window.tracking-button')}</button></p>
                 </div>
             )}
         </main>

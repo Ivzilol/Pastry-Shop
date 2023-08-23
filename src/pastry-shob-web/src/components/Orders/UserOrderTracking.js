@@ -2,6 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import NavBar from "../NavBar/NavBar";
 import ajax from "../../Services/FetchService";
+import {useTranslation} from "react-i18next";
 
 const UserOrderTracking = () => {
 
@@ -9,6 +10,7 @@ const UserOrderTracking = () => {
     const [order, setOrder] = useState(null);
     let allPriceProcessing = 0;
     let allPriceSend = 0;
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -27,7 +29,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-processing-order">
-                            <h4>В процес на приготвяне</h4>
+                            <h4>{t('tracking-main-section.process-order')}</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'confirmed'
                                     ?
@@ -37,14 +39,14 @@ const UserOrderTracking = () => {
                                         id={currentOrder.keyOrderProduct}
                                     >
                                         <p>{currentOrder.productName}</p>
-                                        <p>{currentOrder.price} лв.</p>
-                                        <p>Oт дата: {currentOrder.dateCreated}</p>
+                                        <p>{currentOrder.price} {t('products-users.currency')}</p>
+                                        <p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>
                                         <p className="getAllPrice">{allPriceProcessing += currentOrder.price}</p>
                                     </div>
                                     :
                                     <>-------------</>
                             ))}
-                            <h4>Обща цена: {allPriceProcessing.toFixed(2)} лв.</h4>
+                            <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>
                         </article>
                     ) : (
                         <div></div>
@@ -55,7 +57,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-send-order">
-                            <h4>В процес на доставка</h4>
+                            <h4>{t('tracking-main-section.process-delivery')}</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'sent'
                                     ?
@@ -64,15 +66,15 @@ const UserOrderTracking = () => {
                                          id={currentOrder.keyOrderProduct}
                                     >
                                         <p>{currentOrder.productName}</p>
-                                        <p>{currentOrder.price}</p>
-                                        <p>Дата на доставка: {currentOrder.dateOfDelivery}</p>
-                                        <p>Очаквайте вашата доставка около: {currentOrder.timeOfDelivery} часа</p>
+                                        <p>{currentOrder.price} {t('products-users.currency')}</p>
+                                        <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
+                                        <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
                                         <p className="getAllPrice">{allPriceSend += currentOrder.price}</p>
                                     </div>
                                     :
                                     <>-------------</>
                             ))}
-                            <h4>Обща цена: {allPriceSend.toFixed(2)} лв.</h4>
+                            <h4>{t('tracking-main-section.all-price')} {allPriceSend.toFixed(2)} {t('products-users.currency')}</h4>
                         </article>
                     ) : (
                         <></>

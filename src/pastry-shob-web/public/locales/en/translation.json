@@ -73,5 +73,29 @@
     "no-like-button": "I do not like",
     "like-button": "I like product",
     "order-button": "Order"
+  },
+  "orders-user": {
+    "title": "Your order",
+    "name": "Name:",
+    "close-product-button": "Remove the product",
+    "all-price": "Total price of the order:",
+    "confirm-button": "Confirm the order",
+    "h5": "If you have undelivered orders, you can track them here:",
+    "tracking-button": "Follow up",
+    "history-button": "History of your orders"
+  },
+  "tracking-main-section": {
+    "data": "From date:",
+    "all-price": "Total cost:",
+    "process-order": "In process of preparation",
+    "process-delivery": "In process of delivery",
+    "time": "Expect your delivery around:",
+    "hour": "time"
+  },
+  "order-window": {
+    "finish": "You can complete your order from here:",
+    "finish-button": "Finished",
+    "tracking": "You can track the status of your delivery here:",
+    "tracking-button": "Follow up"
   }
 }
