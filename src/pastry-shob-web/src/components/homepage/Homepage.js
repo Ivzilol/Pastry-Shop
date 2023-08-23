@@ -190,9 +190,9 @@ const Homepage = () => {
                 <div className="home-page-event">
                     {showEvent ?
                         <div>
-                            <h5>Поръчвай всички наши продукти с 20 процента отстъпка!</h5>
+                            <h5>{t('search-result.home-page-event')}</h5>
                             <div>
-                                <h6>Време до края на промоцията</h6>
+                                <h6>{t('search-result.h6')}</h6>
                                 <p>{timeRemaining.hours.toString().padStart(2, '0')}:
                                     {timeRemaining.minutes.toString().padStart(2, '0')}:
                                     {timeRemaining.seconds.toString().padStart(2, '0')}</p>
@@ -200,8 +200,7 @@ const Homepage = () => {
                         </div>
                         :
                         <div>
-                            В момента няма налична промоция,
-                            но можете да очаквате нашата всекидневна такава от 14 часа!
+                            {t('search-result.div')}
                         </div>
                     }
                 </div>
