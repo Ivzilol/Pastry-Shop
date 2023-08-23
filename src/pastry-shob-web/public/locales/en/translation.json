@@ -1,3 +1,8 @@
 {
-  "title": "HANDMADE HOMEMADE DELICIOUSNESS"
+  "homepage-first-right": "HANDMADE HOMEMADE DELICIOUSNESS",
+  "description": {
+    "h1": "FOR EVERY TASTE",
+    "p1": "choose from your favorite homemade treats",
+    "p2": "order online with delivery to your home"
+  }
 }

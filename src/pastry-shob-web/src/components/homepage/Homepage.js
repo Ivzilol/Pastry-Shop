@@ -232,10 +232,10 @@ const Homepage = () => {
                          src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg" alt="img"/>
                 </div>
                 <div className="home-page-first-right">
-                    <h6>{t('title')}</h6>
-                    <h1>ЗА ВСЕКИ ВКУС</h1>
-                    <p>изберете от любимите си домашни вкусотии</p>
-                    <p>поръчайте онлайн с доставка до вашия дом</p>
+                    <h6>{t('homepage-first-right')}</h6>
+                    <h1>{t('description.h1')}</h1>
+                    <p>{t('description.p1')}</p>
+                    <p>{t('description.p2')}</p>
                 </div>
             </section>
             <section className="home-page-most-ordered">

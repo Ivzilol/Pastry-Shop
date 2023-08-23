@@ -1086,7 +1086,7 @@ footer {
     height: 120px;
     width: 48%;
     border-radius: 20px;
-    border:2px solid #ef7d00;
+    border: 2px solid #ef7d00;
     text-align: center;
     font-style: italic;
     margin: 70px 50px 0 0;
@@ -1106,7 +1106,7 @@ footer {
     height: 120px;
     width: 48%;
     border-radius: 20px;
-    border:2px solid #ef7d00;
+    border: 2px solid #ef7d00;
     margin: 70px 0 0;
     text-align: center;
     font-style: italic;
@@ -1179,6 +1179,7 @@ footer {
     margin-bottom: 20px;
 
 }
+
 .search-result-container h5 {
     margin-top: 10px;
 }
@@ -1238,9 +1239,12 @@ footer {
 .order-window button:hover {
     background-color: aqua;
 }
+
 .language-picker {
     position: fixed;
     font-style: italic;
+    right: 0;
+    margin-right: 20px;
 }
 
 
@@ -1350,7 +1354,7 @@ footer {
     .footer-second {
         margin-top: 35px;
     }
-    
+
     .footer-third {
         margin-top: 35px;
     }
@@ -1373,7 +1377,6 @@ footer {
     }
 
     /*------------------------------------------*/
-
     .shops-view {
         margin-top: 300px;
     }
