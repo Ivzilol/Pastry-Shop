@@ -9,7 +9,6 @@ import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
-import LanguagePicker from "../LanguagePicker/LanguagePicker";
 import {useTranslation} from "react-i18next";
 
 
@@ -157,7 +156,7 @@ const Homepage = () => {
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
-                    <button className="search-result-close-button" onClick={closeDialog}>Затовори</button>
+                    <button className="search-result-close-button" onClick={closeDialog}>{t('search-result-close-button')}</button>
                     {searchResult ? (
                         <div className="search-result-container">
                             {searchResult.map((product) => (
@@ -167,7 +166,7 @@ const Homepage = () => {
                                     <img className="search-result-container-img"
                                          src={product.imageUrl} alt="new"/>
                                     <h5>{product.name}</h5>
-                                    <p className="search-result-container-price">Цена: {product.price} лв.</p>
+                                    <p className="search-result-container-price">{t('homepage-price')} {product.price} {t('homepage-currency')}</p>
                                     <p className="search-result-container-description">{product.description}</p>
                                     <button
                                         className="product-details-selected-product-button"
@@ -175,7 +174,7 @@ const Homepage = () => {
                                         type="button"
                                         onClick={() => orderProducts(product.id)}
                                     >
-                                        Поръчай
+                                        {t('product-details-selected-product-button')}
                                     </button>
                                 </div>
                             ))}
@@ -299,7 +298,7 @@ const Homepage = () => {
                             <p className="home-page-container-item"
                             >{product.name}</p>
                             <p className="home-page-container-item"
-                            >Цена: {product.price} лв.</p>
+                            >{t('homepage-price')} {product.price} {t('homepage-currency')}</p>
                         </div>
                     ))}
                 </article>
@@ -366,7 +365,7 @@ const Homepage = () => {
                             <p className="home-page-container-item"
                             >{recommendedProduct.name}</p>
                             <p className="home-page-container-item"
-                            >Цена: {recommendedProduct.price} лв.</p>
+                            >{t('homepage-price')} {recommendedProduct.price} {t('homepage-currency')}</p>
                         </div>
                     ))}
                 </article>

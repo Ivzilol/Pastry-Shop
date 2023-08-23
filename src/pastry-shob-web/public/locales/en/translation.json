@@ -52,5 +52,9 @@
     "footer-third5": "APPLICATION USES COOKIES",
     "footer-third6": "PROMOTIONS",
     "footer-four": "ABOUT THE APP AUTHOR"
-  }
+  },
+  "homepage-price": "Price:",
+  "homepage-currency": "BGN",
+  "search-result-close-button": "Close",
+  "product-details-selected-product-button": "Order"
 }

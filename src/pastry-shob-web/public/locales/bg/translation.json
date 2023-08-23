@@ -52,5 +52,9 @@
     "footer-third5": "ПРИЛОЖЕНИЕ ИЗПОЛЗВА БИСКВИТКИ",
     "footer-third6": "ПРОМОЦИИ",
     "footer-four": "ЗА АВТОРА НА ПРИЛОЖЕНИЕТО"
-  }
+  },
+  "homepage-price": "Цена:",
+  "homepage-currency": "лева",
+  "search-result-close-button": "Затвори",
+  "product-details-selected-product-button": "Поръчай"
 }
