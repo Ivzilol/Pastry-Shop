@@ -199,13 +199,13 @@ const Homepage = () => {
                             </div>
                         </div>
                         :
-                        <div>
+                        <div className="home-page-event-search-div">
                             {t('search-result.div')}
                         </div>
                     }
                 </div>
                 <div className="home-page-search">
-                    <h5>Търсене продукт</h5>
+                    <h5>{t('home-page-search.h5')}</h5>
                     <select
                         id="search-product"
                         name="search-product"
@@ -214,13 +214,13 @@ const Homepage = () => {
                         onChange={(e) => setSelectOptions(e.target.value)}
 
                     >
-                        <option value="">Изберете продукт</option>
-                        <option value="pie">Погачи</option>
-                        <option value="sweets">Сладки</option>
-                        <option value="buns">Кифлички</option>
-                        <option value="cake">Торти</option>
+                        <option value="">{t('home-page-search.option1')}</option>
+                        <option value="pie">{t('home-page-search.option2')}</option>
+                        <option value="sweets">{t('home-page-search.option3')}</option>
+                        <option value="buns">{t('home-page-search.option4')}</option>
+                        <option value="cake">{t('home-page-search.option5')}</option>
                     </select>
-                    <button onClick={getSearchResult}>Търсене</button>
+                    <button onClick={getSearchResult}>{t('home-page-search.button')}</button>
                 </div>
             </section>
             <section className="home-page-first"

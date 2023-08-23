@@ -1247,6 +1247,10 @@ footer {
     margin-right: 20px;
 }
 
+.home-page-event-search-div {
+    padding-top: 35px;
+}
+
 
 @media screen and (max-width: 600px) {
 

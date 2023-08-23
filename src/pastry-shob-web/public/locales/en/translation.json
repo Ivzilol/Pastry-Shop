@@ -9,5 +9,14 @@
     "home-page-event": "Order all our products with a 20 percent discount!",
     "h6": "Time until the end of the promotion",
     "div": "There is currently no promotion available,\n but you can expect our living room from 2 pm!"
+  },
+  "home-page-search": {
+    "h5": "Search product",
+    "option1": "Select a product",
+    "option2": "Pies",
+    "option3": "Sweets",
+    "option4": "Buns",
+    "option5": "Cakes",
+    "button": "Search"
   }
 }
