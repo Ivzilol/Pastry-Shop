@@ -305,7 +305,7 @@ const Homepage = () => {
                 </article>
 
             ) : (
-                <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
+                <></>
             )}
             <h4 className="home-page-most-ordered-title">{t('home-page-most-ordered-title-2')}</h4>
             {recommendedProducts ? (
@@ -371,7 +371,7 @@ const Homepage = () => {
                     ))}
                 </article>
             ) : (
-                <h4 className="not-login-user">За да видите нашите предложения моля влезте с Вашия профил</h4>
+                <></>
             )}
             <Footer/>
         </main>
