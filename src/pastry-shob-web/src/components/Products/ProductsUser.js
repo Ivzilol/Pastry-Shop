@@ -10,6 +10,7 @@ import {
 import Footer from "../Footer/Footer";
 import jwt_decode from "jwt-decode";
 import OrderWindow from "../Orders/OrderWindow";
+import {useTranslation} from "react-i18next";
 
 
 const ProductsUser = () => {
@@ -18,6 +19,7 @@ const ProductsUser = () => {
     let isEquals = false;
     const [roles, setRoles] = useState(getRolesFromJWT());
     let navigate = useNavigate();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
     const [product, setProduct] = useState({
             name: "",
@@ -117,11 +119,11 @@ const ProductsUser = () => {
                             id={product.id}
                         >
                             <p className="products-container-item"
-                            >Продукт: {product.name}</p>
+                            >{t('products-users.name')} {product.name}</p>
                             <p className="products-container-item"
-                            >Цена: {product.price} лв.</p>
+                            >{t('products-users.price')} {product.price} {t('products-users.currency')}</p>
                             <p className="products-container-item"
-                            >Описание на продукта: {product.description}</p>
+                            >{t('products-users.description')} {product.description}</p>
                             <img
                                 className="product-img" src={product.imageUrl} alt="new"
                             />
@@ -141,7 +143,7 @@ const ProductsUser = () => {
                                             id="submit"
                                             type="button"
                                             onClick={() => dislikeProduct(product.id)}
-                                        >Не Харесвам
+                                        >{t('products-users.no-like-button')}
                                         </button>
                                         :
                                         <button
@@ -149,7 +151,7 @@ const ProductsUser = () => {
                                             id="submit"
                                             type="button"
                                             onClick={() => likeProduct(product.id)}
-                                        >Харесва ми
+                                        >{t('products-users.like-button')}
                                         </button>
                                     }
                                     <button
@@ -161,7 +163,7 @@ const ProductsUser = () => {
                                             orderProducts(product.id);
                                         }}
                                     >
-                                        Поръчай
+                                        {t('products-users.order-button')}
                                     </button>
                                 </div>
                                 <p className="counter-likes">

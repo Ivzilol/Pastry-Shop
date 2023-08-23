@@ -56,5 +56,22 @@
   "homepage-price": "Цена:",
   "homepage-currency": "лева",
   "search-result-close-button": "Затвори",
-  "product-details-selected-product-button": "Поръчай"
+  "product-details-selected-product-button": "Поръчай",
+  "shop-art": {
+    "h1": "Добре дошли в Сладкарницата на Мама",
+    "h3": "София"
+  },
+  "shops-view": {
+    "h3": "Вашето менение е важно за нас",
+    "button": "Напишете Вашия коментар"
+  },
+  "products-users": {
+    "name": "Продукт:",
+    "price": "Цена:",
+    "currency": "лева",
+    "description": "Описание на продукта:",
+    "no-like-button": "Не Харесвам",
+    "like-button": "Харесва ми",
+    "order-button": "Поръчай"
+  }
 }

@@ -1,9 +1,12 @@
+import {useTranslation} from "react-i18next";
+
 const ShopArt = () => {
+    const {t} = useTranslation();
     return (
         <main className="shop-art">
             <section className="shop-art-main">
-                <h1 className="shop-art-main-title">Добре дошли в Сладкарницата на Мама</h1>
-                <h3 className="shop-art-main-town">София</h3>
+                <h1 className="shop-art-main-title">{t('shop-art.h1')}</h1>
+                <h3 className="shop-art-main-town">{t('shop-art.h3')}</h3>
                 <article className="shop-art-first-picture">
                     <div className="shop-art-first-picture-row-one">
                         <div className="shop-art-first-picture-row-one-one">
@@ -12,7 +15,7 @@ const ShopArt = () => {
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/pies"
-                                >Баници</a>
+                                >{t('home-page-search.option2')}</a>
                             </div>
                         </div>
                         <div className="shop-art-first-picture-row-one-one">
@@ -21,7 +24,7 @@ const ShopArt = () => {
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/sweets"
-                                >Сладки</a>
+                                >{t('home-page-search.option3')}</a>
                             </div>
                         </div>
                     </div>
@@ -32,7 +35,7 @@ const ShopArt = () => {
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/buns"
-                                >Кифли</a>
+                                >{t('home-page-search.option4')}</a>
                             </div>
                         </div>
                         <div className="shop-art-first-picture-row-one-one">
@@ -41,7 +44,7 @@ const ShopArt = () => {
                                 alt=""/>
                             <div className="shop-art-first-paragraph">
                                 <a href="/products/cake"
-                                >Торти</a>
+                                >{t('home-page-search.option5')}</a>
                             </div>
                         </div>
                     </div>

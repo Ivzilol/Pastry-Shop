@@ -6,6 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
+import {useTranslation} from "react-i18next";
 
 const ShopsViewUser = () => {
 
@@ -13,6 +14,7 @@ const ShopsViewUser = () => {
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
     const baseUrl = "http://localhost:8080/";
+    const {t} = useTranslation();
 
     useEffect(() => {
         ajax(`${baseUrl}api/shops`, "GET", user.jwt)
@@ -36,7 +38,7 @@ const ShopsViewUser = () => {
                             key={shops.id}
                             >
                             <h3 className="shops-view-container-comment-title">
-                                Вашето менение е важно за нас</h3>
+                                {t('shops-view.h3')}</h3>
                             <button className="shops-view-button"
                                 id="submit"
                                 type="button"
@@ -44,7 +46,7 @@ const ShopsViewUser = () => {
                                     window.location.href = `/shops/${shops.id}`
                                 }}
                             >
-                                Напишете Вашия коментар
+                                {t('shops-view.button')}
                             </button>
                         </article>
                     ))}
