@@ -8,6 +8,12 @@ const UserOrderTracking = () => {
 
     const user = useUser();
     const [order, setOrder] = useState(null);
+    const now = new Date();
+    const hours = now.getHours();
+    let promotion = false;
+    if (hours >= 10 && hours < 21) {
+        promotion = true;
+    }
     let allPriceProcessing = 0;
     let allPriceSend = 0;
     const {t} = useTranslation();
@@ -41,7 +47,14 @@ const UserOrderTracking = () => {
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price} {t('products-users.currency')}</p>
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>
-                                        <p className="getAllPrice">{allPriceProcessing += currentOrder.price}</p>
+                                        <p className="getAllPrice">{
+                                            promotion
+                                                ?
+                                                allPriceProcessing += currentOrder.price - (currentOrder.price * 0.20)
+                                                :
+                                                allPriceProcessing += currentOrder.price
+                                        }
+                                        </p>
                                     </div>
                                     :
                                     <>-------------</>
@@ -69,7 +82,13 @@ const UserOrderTracking = () => {
                                         <p>{currentOrder.price} {t('products-users.currency')}</p>
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
                                         <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
-                                        <p className="getAllPrice">{allPriceSend += currentOrder.price}</p>
+                                        <p className="getAllPrice">{
+                                            promotion
+                                                ?
+                                                allPriceSend += currentOrder.price - (currentOrder.price * 0.20)
+                                                :
+                                                allPriceSend += currentOrder.price
+                                        }</p>
                                     </div>
                                     :
                                     <>-------------</>
