@@ -105,5 +105,6 @@
     "email": "Email:",
     "address": "Address:",
     "edit-button": "Edit profile"
-  }
+  },
+  "ordersUser": "Order history"
 }

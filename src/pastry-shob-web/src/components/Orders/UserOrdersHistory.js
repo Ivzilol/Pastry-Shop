@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useUser} from "../../UserProvider/UserProvider";
-import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 const UserOrdersHistory = () => {
 
     const user = useUser();
     const [orders, setOrders] = useState(null);
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const UserOrdersHistory = () => {
     return (
         <section className="ordersUser">
             <NavBar/>
-            <h3 className="admin-users-container-title">История на поръчките</h3>
+            <h3 className="admin-users-container-title">{t('ordersUser')}</h3>
             <hr/>
             <div className="admin-users-container-header">
                 <table className="admin-users-table">
