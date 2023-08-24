@@ -76,9 +76,9 @@ public class OrdersController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Orders> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
+    public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                         @PathVariable Long id) throws ParseException {
-        Orders order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
+        Set<Orders> order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         return ResponseEntity.ok(order);
     }
 

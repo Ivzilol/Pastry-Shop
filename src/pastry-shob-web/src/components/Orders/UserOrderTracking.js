@@ -11,7 +11,7 @@ const UserOrderTracking = () => {
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
-    if (hours >= 10 && hours < 21) {
+    if (hours >= 14 && hours < 21) {
         promotion = true;
     }
     let allPriceProcessing = 0;

@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -127,6 +129,13 @@ public class OrderService {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         Set<Orders> byOrderKey = this.ordersRepository.findByKeyOrderProduct(id);
         double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
+        if (intHour >= 14 && intHour < 21) {
+            totalPrice = totalPrice - (totalPrice * 0.20);
+        }
         ordersProcessing.setTotalPrice(totalPrice);
         Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
         ordersProcessing.setUser(currentUser.get());
@@ -138,14 +147,14 @@ public class OrderService {
     }
 
 
-    public Orders updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
+    public Set<Orders> updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
         Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
         LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         java.sql.Time timeDelivery = new java.sql.Time(formatter
                 .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
         setStatusTimeAndDate(orderStatusSendAdmin, orders, localDate, timeDelivery);
-        return (Orders) orders;
+        return orders;
     }
 
     private void setStatusTimeAndDate(OrderStatusSendAdmin orderStatusSendAdmin, Set<Orders> orders, LocalDate localDate, Time timeDelivery) {
