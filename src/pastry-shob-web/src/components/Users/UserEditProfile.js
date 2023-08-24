@@ -4,11 +4,13 @@ import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import OrderWindow from "../Orders/OrderWindow";
+import {useTranslation} from "react-i18next";
 
 const UserEditProfile = () => {
     const user = useUser();
     const userId = window.location.href.split("/users/")[1];
     let navigate = useNavigate();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
     const [currentUser, setCurrentUser] = useState({
         username: "",
@@ -49,7 +51,7 @@ const UserEditProfile = () => {
                     {currentUser ? (
                         <div className="user-edit-profile-items">
                             <article className="user-edit-profile-item">
-                                <h6>Username:</h6>
+                                <h6>{t('user-profile.username')}:</h6>
                                 <input
                                     onChange={(e) => updateUser("username", e.target.value)}
                                     value={currentUser.username}
@@ -58,7 +60,7 @@ const UserEditProfile = () => {
                                 />
                             </article>
                             <article className="user-edit-profile-item">
-                                <h6>First Name:</h6>
+                                <h6>{t('user-profile.first-name')}</h6>
                                 <input
                                     onChange={(e) => updateUser("firstName", e.target.value)}
                                     value={currentUser.firstName}
@@ -67,7 +69,7 @@ const UserEditProfile = () => {
                                 />
                             </article>
                             <article className="user-edit-profile-item">
-                                <h6>Last Name:</h6>
+                                <h6>{t('user-profile.last-name')}</h6>
                                 <input
                                     onChange={(e) => updateUser("lastName", e.target.value)}
                                     value={currentUser.lastName}
@@ -76,7 +78,7 @@ const UserEditProfile = () => {
                                 />
                             </article>
                             <article className="user-edit-profile-item">
-                                <h6>Email:</h6>
+                                <h6>{t('user-profile.email')}</h6>
                                 <input
                                     onChange={(e) => updateUser("email", e.target.value)}
                                     value={currentUser.email}
@@ -85,7 +87,7 @@ const UserEditProfile = () => {
                                 />
                             </article>
                             <article className="user-edit-profile-item">
-                                <h6>Address:</h6>
+                                <h6>{t('user-profile.address')}</h6>
                                 <input
                                     onChange={(e) => updateUser("address", e.target.value)}
                                     value={currentUser.address}
@@ -98,7 +100,7 @@ const UserEditProfile = () => {
                                 type="submit"
                                 onClick={() => editProfile()}
                                 >
-                                    Edit Profile
+                                    {t('user-profile.edit-button')}
                                 </button>
                             </section>
                         </div>
