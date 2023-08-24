@@ -4,11 +4,13 @@ import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import OrderWindow from "../Orders/OrderWindow";
+import {useTranslation} from "react-i18next";
 
 const UserProfile = () => {
     const user = useUser();
     const [currentUser, setCurrentUser] = useState(null);
     let navigate = useNavigate();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -29,16 +31,16 @@ const UserProfile = () => {
                 <section
                     id={currentUser.id}
                     className="user-profile-container-items">
-                    <h6>Username: {currentUser.username}</h6>
-                    <p>First Name: {currentUser.firstName}</p>
-                    <p>Last Name: {currentUser.lastName}</p>
-                    <p>Email: {currentUser.email}</p>
-                    <p>Address: {currentUser.address}</p>
+                    <h6>{t('user-profile.username')} {currentUser.username}</h6>
+                    <p>{t('user-profile.first-name')} {currentUser.firstName}</p>
+                    <p>{t('user-profile.last-name')} {currentUser.lastName}</p>
+                    <p>{t('user-profile.email')} {currentUser.email}</p>
+                    <p>{t('user-profile.address')} {currentUser.address}</p>
                     <button
                     onClick={() => {
                         window.location.href = `/users/${currentUser.id}`;
                     }}
-                    >Edit profile</button>
+                    >{t('user-profile.edit-button')}</button>
                 </section>
             ) : (
                 <></>

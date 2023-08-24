@@ -97,5 +97,13 @@
     "finish-button": "Finished",
     "tracking": "You can track the status of your delivery here:",
     "tracking-button": "Follow up"
+  },
+  "user-profile": {
+    "username": "Username:",
+    "first-name": "First Name:",
+    "last-name": "Last Name:",
+    "email": "Email:",
+    "address": "Address:",
+    "edit-button": "Edit profile"
   }
 }
