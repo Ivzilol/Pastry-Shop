@@ -113,6 +113,7 @@
     "p2": "A little information about me:\n                                 I have been studying software engineering for over a year, and the application you see is\n                                 my first serious project. Its full description can be found by following\n                                 the link to the Github repository:",
     "p3": "In short, in the creation of\n                                 project I have used React for the front-end part and Spring for the back-end, the database is\n                                 MySQL. If you wish to contact me, you can find me at\n                                 footer-a e-mail or LinkedIn, as well as leave me a message in the comments section at\n                                 the application itself.",
     "p4": "Regards,",
-    "p5": "Ivo"
+    "p5": "Ivo",
+    "here": "Here"
   }
 }

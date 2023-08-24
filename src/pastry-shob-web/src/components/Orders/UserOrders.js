@@ -9,7 +9,14 @@ const UserOrders = () => {
     const user = useUser();
     let navigate = useNavigate();
     const [products, setProducts] = useState(null);
+    const now = new Date();
+    const hours = now.getHours();
+    let promotion = false;
+    if (hours >= 14 && hours < 21) {
+        promotion = true;
+    }
     let allPrice = 0;
+
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
@@ -70,7 +77,14 @@ const UserOrders = () => {
                                 :
                                 <></>
                             }
-                            <p className="getAllPrice">{allPrice += product.price}</p>
+                            <p className="getAllPrice">{
+                                promotion
+                                    ?
+                                    allPrice += product.price - (product.price * 0.20)
+                                    :
+                                    allPrice += product.price
+                            }
+                            </p>
                         </div>
                     ))}
                 </article>

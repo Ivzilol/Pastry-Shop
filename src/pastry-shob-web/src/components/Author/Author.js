@@ -15,9 +15,7 @@ const Author = () => {
                     <div className="author-container-text">
                         <h2 data-testid="Author">{t('author.name')}</h2>
                         <p><p>{t('author.p1')}</p>
-                            <p className="author-firstP">{t('author.p2')}</p>
-                            <a href="https://github.com/Ivzilol/Pastry-Shop" target="_blank">Тук</a>
-                            <p>{t('author.p3')}</p>
+                            <p className="author-firstP">{t('author.p2')} <a href="https://github.com/Ivzilol/Pastry-Shop" target="_blank">{t('here')}</a> {t('author.p3')} </p>
                             <p>{t('author.p4')}</p>
                             <p>{t('author.p5')}</p>
                         </p>
