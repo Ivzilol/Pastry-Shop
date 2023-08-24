@@ -106,5 +106,13 @@
     "address": "Address:",
     "edit-button": "Edit profile"
   },
-  "ordersUser": "Order history"
+  "ordersUser": "Order history",
+  "author": {
+    "name": "Ivaylo Ivanov Alichkov",
+    "p1": "Hello! My name is Ivo and I am the author of the application Mama's Bakery. I'm in it\n                             used photos of the sweets she makes, as well as their recipes. Created by me\n                             application is intended to serve as a portfolio for me, as although the products presented in it\n                             to be real, when ordering from the app there will be no real delivery even though it\n                             tracks the various order/delivery cycles of the product.",
+    "p2": "A little information about me:\n                                 I have been studying software engineering for over a year, and the application you see is\n                                 my first serious project. Its full description can be found by following\n                                 the link to the Github repository:",
+    "p3": "In short, in the creation of\n                                 project I have used React for the front-end part and Spring for the back-end, the database is\n                                 MySQL. If you wish to contact me, you can find me at\n                                 footer-a e-mail or LinkedIn, as well as leave me a message in the comments section at\n                                 the application itself.",
+    "p4": "Regards,",
+    "p5": "Ivo"
+  }
 }

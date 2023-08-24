@@ -1251,6 +1251,9 @@ footer {
     padding-top: 35px;
 }
 
+.author-firstP {
+    margin: 0;
+}
 
 @media screen and (max-width: 600px) {
 
