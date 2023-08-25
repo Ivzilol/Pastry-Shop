@@ -12,7 +12,8 @@ const ShopsView = () => {
     useNavigate();
     const user = useUser();
     const {shopId} = useParams()
-    // const shopId = window.location.href.split("/shops/")[1];
+// const shopId = window.location.href.split("/shops/")[1];
+    const textareaRef = useRef(null);
     const baseUrl = "http://localhost:8080/";
     const [shop, setShop] = useState({
         town: "",
@@ -135,20 +136,34 @@ const ShopsView = () => {
             });
     }, [shopId, user.jwt]);
 
+
+
+    useEffect(() => {
+        focusTextarea()
+    })
+
+    function focusTextarea() {
+        textareaRef.current.focus();
+    }
+
+
     return (
         <main className="user-comments-container">
             <NavBar/>
             <ShopArt/>
             <OrderWindow/>
-            <div className="comments">
+            <div className="comments"
+
+            >
                         <textarea placeholder="Напиешете Вашето мнение тук..."
-                            className="comments-textarea"
-                            onChange={(e) => updateComment(e.target.value)}
-                            value={comment.text}
+                                  className="comments-textarea"
+                                  ref={textareaRef}
+                                  onChange={(e) => updateComment(e.target.value)}
+                                  value={comment.text}
                         >
                         </textarea>
                 <button className="user-comments-container-button"
-                    onClick={() => submitComment()}
+                        onClick={() => submitComment()}
                 >Post Comment
                 </button>
             </div>
