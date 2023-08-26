@@ -103,7 +103,7 @@ public class UserService {
         mailContent += "<p>Thank you for registration</p>";
         String verifyUrl = siteUrl + "/verify?code=";
 //        mailContent += "<a>VERIFY</a>";
-        mailContent += "<p>The Pastry Shop Team<p/>";
+        mailContent += "<p>Mom's sweet shop team<p/>";
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom("ivailoali@gmail.com", senderName);
