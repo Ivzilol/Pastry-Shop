@@ -1283,6 +1283,15 @@ footer {
         margin-top: 113px;
     }
 
+    .home-page-event-search {
+        margin-top: 250px;
+        width: 600px;
+    }
+
+    .search-result {
+        margin-top: 320px;
+    }
+
     .home-page-first {
         display: flex;
         flex-direction: column;
