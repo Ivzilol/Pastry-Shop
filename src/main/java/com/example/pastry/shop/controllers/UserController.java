@@ -5,7 +5,10 @@ import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.aspectj.weaver.bcel.Utility;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +40,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
-
+    private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
         userService.createUser(userRegistrationDTO);
+//        String siteUrl = "http://localhost:8080/api/users/register";
+//        userService.sendVerificationEmail(userRegistrationDTO, siteUrl);
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(

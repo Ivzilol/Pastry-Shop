@@ -39,6 +39,9 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(columnDefinition = "TEXT", updatable = false)
+    private String verificationCode;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     @JsonIgnore
@@ -155,5 +158,13 @@ public class Users implements UserDetails {
 
     public void setLikeProducts(Set<Products> likeProducts) {
         this.likeProducts = likeProducts;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 }
