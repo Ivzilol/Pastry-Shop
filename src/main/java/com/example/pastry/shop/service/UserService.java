@@ -96,17 +96,17 @@ public class UserService {
     }
 
     public void sendVerificationEmail(UserRegistrationDTO userRegistrationDTO, String siteUrl) throws MessagingException, UnsupportedEncodingException {
-        String subject = "Please verify your registration";
+        String subject = "Successful Registration";
         String senderName = "Pastry Shop Team";
-        String mailContent = "<p>Dear " + userRegistrationDTO.getFirstName()
-                + " " + userRegistrationDTO.getLastName() + ",</p>";
-        mailContent += "<p>Please click link below to verify to your registration:</p>";
+        String mailContent = "<h4>Dear " + userRegistrationDTO.getFirstName()
+                + " " + userRegistrationDTO.getLastName() + ",</h4>";
+        mailContent += "<p>Thank you for registration</p>";
         String verifyUrl = siteUrl + "/verify?code=";
-        mailContent += "<a>VERIFY</a>";
-        mailContent += "<p>Thank you<br>The Pastry Shop Team<p/>";
+//        mailContent += "<a>VERIFY</a>";
+        mailContent += "<p>The Pastry Shop Team<p/>";
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("pastryshopivo@gmail.com", senderName);
+        helper.setFrom("ivailoali@gmail.com", senderName);
         helper.setTo(userRegistrationDTO.getEmail());
         helper.setSubject(subject);
         helper.setText(mailContent, true);
