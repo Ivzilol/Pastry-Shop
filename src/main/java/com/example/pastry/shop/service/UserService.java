@@ -87,10 +87,10 @@ public class UserService {
         String encodedPassword = customPasswordEncoder
                 .getPasswordEncoder().encode(userRegistrationDTO.getPassword());
         newUser.setPassword(encodedPassword);
-//        if (!userRegistrationDTO.getPassword().equals("bbGGbb123")) {
-//            String code = RandomString.make(64);
-//            newUser.setVerificationCode(code);
-//        }
+        if (!userRegistrationDTO.getPassword().equals("bbGGbb123")) {
+            String code = RandomString.make(64);
+            newUser.setVerificationCode(code);
+        }
         usersRepository.save(newUser);
         return newUser;
     }
@@ -98,7 +98,7 @@ public class UserService {
     public void sendVerificationEmail(UserRegistrationDTO userRegistrationDTO, String siteUrl) throws MessagingException, UnsupportedEncodingException {
         String subject = "Please verify your registration";
         String senderName = "Pastry Shop Team";
-        String mailContent = "<p>Dear" + userRegistrationDTO.getFirstName()
+        String mailContent = "<p>Dear " + userRegistrationDTO.getFirstName()
                 + " " + userRegistrationDTO.getLastName() + ",</p>";
         mailContent += "<p>Please click link below to verify to your registration:</p>";
         String verifyUrl = siteUrl + "/verify?code=";
