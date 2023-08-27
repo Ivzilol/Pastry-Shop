@@ -7,9 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.aspectj.weaver.bcel.Utility;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -115,7 +113,7 @@ public class UserController {
         return ResponseEntity.ok(updateUser);
     }
 
-    @PostMapping("/change-password")
+    @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                             @AuthenticationPrincipal Users user) {
         Users userChangePass = this.userService.changeUserPassword(changePasswordDto, user);

@@ -15,7 +15,8 @@ import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -33,15 +34,15 @@ public class UserService {
 
     private final JavaMailSender javaMailSender;
 
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
 
-    public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, PasswordEncoder passwordEncoder) {
+    public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
         this.usersRepository = usersRepository;
         this.customPasswordEncoder = customPasswordEncoder;
         this.authorityRepository = authorityRepository;
         this.javaMailSender = javaMailSender;
-        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
     public Optional<Users> findUserByUsername(String username) {
@@ -183,13 +184,20 @@ public class UserService {
 
     public Users changeUserPassword(ChangePasswordDto changePasswordDto, Users user) {
         boolean passwordMatch = ifPasswordMatch(changePasswordDto, user);
-        return null;
+        if (passwordMatch) {
+            String encodedPassword = customPasswordEncoder
+                    .getPasswordEncoder().encode(changePasswordDto.getNewPassword());
+            user.setPassword(encodedPassword);
+            this.usersRepository.save(user);
+        }
+        return user;
     }
 
     private boolean ifPasswordMatch(ChangePasswordDto changePasswordDto, Users user) {
-        Optional<Users> currentUser = this.usersRepository.findByUsername(user.getUsername());
-        boolean matchesOldPassword = passwordEncoder
-                .matches(currentUser.get().getPassword(), changePasswordDto.getOldPassword());
+        boolean matchesOldPassword = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        user.getUsername(), changePasswordDto.getOldPassword()
+                )).isAuthenticated();
         boolean matchesNewPassword = changePasswordDto.getNewPassword()
                 .equals(changePasswordDto.getConfirmNewPassword());
         return matchesOldPassword && matchesNewPassword;

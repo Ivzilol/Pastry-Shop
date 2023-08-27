@@ -16,7 +16,7 @@ const UserChangePassword = () => {
             newPassword: newPassword,
             confirmNewPassword: confirmNewPassword
         }
-        ajax(`${baseUrl}api/users/change-password`, "POST", user.jwt, requestBody)
+        ajax(`${baseUrl}api/users/change-password`, "PATCH", user.jwt, requestBody)
             .then()
     }
 
