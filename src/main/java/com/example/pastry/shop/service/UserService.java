@@ -168,6 +168,11 @@ public class UserService {
     }
 
     public Users validateUser(String verification) {
-        return this.usersRepository.findByVerificationCode(verification);
+        Users user = this.usersRepository.findByVerificationCode(verification);
+        if (!user.getEmail().isEmpty()) {
+            user.setValidate(true);
+            this.usersRepository.save(user);
+        }
+        return user;
     }
 }

@@ -31,4 +31,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Users findByVerificationCode(String code);
 
+    @Query("select u from Users as u" +
+            " where u.username = :username and u.isValidate = true")
+    Optional<Users> findByUsernameAndIsValidate(String username);
 }

@@ -42,6 +42,8 @@ public class Users implements UserDetails {
     @Column(columnDefinition = "TEXT", updatable = false)
     private String verificationCode;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isValidate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     @JsonIgnore
@@ -166,5 +168,13 @@ public class Users implements UserDetails {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public boolean isValidate() {
+        return isValidate;
+    }
+
+    public void setValidate(boolean validate) {
+        isValidate = validate;
     }
 }
