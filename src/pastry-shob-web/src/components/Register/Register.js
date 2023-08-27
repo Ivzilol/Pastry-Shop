@@ -50,7 +50,7 @@ const Register = () => {
             })
             .then(() => {
                 user.setJwt(user.jwt);
-                alert("You have registered successfully")
+                alert("You have registered successfully, please check your email for activation")
                 navigate("/login")
             })
             .catch((message) => {
