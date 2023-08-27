@@ -96,13 +96,14 @@ public class UserService {
     }
 
     public void sendVerificationEmail(UserRegistrationDTO userRegistrationDTO, String siteUrl) throws MessagingException, UnsupportedEncodingException {
+        Optional<Users> user = this.usersRepository.findByEmail(userRegistrationDTO.getEmail());
         String subject = "Successful Registration";
         String senderName = "Pastry Shop Team";
         String mailContent = "<h4>Dear " + userRegistrationDTO.getFirstName()
                 + " " + userRegistrationDTO.getLastName() + ",</h4>";
         mailContent += "<p>Thank you for registration</p>";
-        String verifyUrl = siteUrl + "/verify?code=";
-//        mailContent += "<a>VERIFY</a>";
+        String verifyUrl = siteUrl + "/verify/" + user.get().getVerificationCode();
+        mailContent += "<h3><a href=\"" + verifyUrl + "\">VERIFY</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -164,5 +165,9 @@ public class UserService {
 
     public Optional<Users> getUserById(Long id) {
         return this.usersRepository.findById(id);
+    }
+
+    public Users validateUser(String verification) {
+        return this.usersRepository.findByVerificationCode(verification);
     }
 }

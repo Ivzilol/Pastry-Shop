@@ -39,10 +39,20 @@ public class UserController {
         this.jwtUtil = jwtUtil;
     }
 
+    @PostMapping("/register/verify/{verification}")
+    private ResponseEntity<?> verificationUser(@PathVariable String verification) {
+        Users user = this.userService.validateUser(verification);
+        if (!user.getEmail().isEmpty()) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
     @PostMapping("/register")
     private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
         userService.createUser(userRegistrationDTO);
-        String siteUrl = "http://localhost:8080/api/users/register";
+        String siteUrl = "http://localhost:3000/register";
         userService.sendVerificationEmail(userRegistrationDTO, siteUrl);
         try {
             Authentication authentication = authenticationManager
@@ -62,6 +72,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+
 
     @GetMapping("/admin")
     public ResponseEntity<?> getAllUsers(@AuthenticationPrincipal Users user) {

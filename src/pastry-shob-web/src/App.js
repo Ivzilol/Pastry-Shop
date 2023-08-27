@@ -30,6 +30,7 @@ import ProductSweets from "./components/Products/ProductSweets";
 import ProductCake from "./components/Products/ProductCake";
 import AdminOrdersHistory from "./components/Orders/AdminOrdersHistory";
 import UserOrdersHistory from "./components/Orders/UserOrdersHistory";
+import ConfirmRegister from "./components/Register/ConfirmRegister";
 
 function App() {
     const user = useUser();
@@ -159,6 +160,7 @@ function App() {
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
+            <Route path="/register/verify/:verificationCode" element={<ConfirmRegister/>} />
             <Route path="/api/author" element={<Author/>}></Route>
             <Route path="/products/pies" element={<ProductPies/>}></Route>
             <Route path="/products/buns" element={<ProductBuns/>}></Route>

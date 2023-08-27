@@ -29,4 +29,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " where u.id = :id")
     Users findByUserId(Long id);
 
+    Users findByVerificationCode(String code);
+
 }
