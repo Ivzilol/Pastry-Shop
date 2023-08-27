@@ -30,55 +30,57 @@ const UserChangePassword = () => {
     }
 
     return (
-        <main>
+        <main className="user-change-pass">
             <NavBar/>
+            <section className="user-change-pass-container">
             <h1 className="change-password">Change Password</h1>
-            <label
-                htmlFor="oldPassword"
-            >
-                Old Password
-            </label>
-            <input
-                type="text"
-                id="oldPassword"
-                name="oldPassword"
-                placeholder="oldPassword"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-            />
-            <label
-                htmlFor="oldPassword"
-            >
-                New Password
-            </label>
-            <input
-                type="text"
-                id="newPassword"
-                name="newPassword"
-                placeholder="newPassword"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <label
-                htmlFor="oldPassword"
-            >
-                Confirm New Password
-            </label>
-            <input
-                type="text"
-                id="confirmNewPassword"
-                name="confirmNewPassword"
-                placeholder="confirmNewPassword"
-                value={confirmNewPassword}
-                onChange={(e) => setConfirmNewPassword(e.target.value)}
-            />
-            <button
-                id="submit"
-                type="button"
-                onClick={() => changePassword()}
-            >
-                Change Password
-            </button>
+                <label
+                    htmlFor="oldPassword"
+                >
+                    Old Password
+                </label>
+                <input
+                    type="password"
+                    id="oldPassword"
+                    name="oldPassword"
+                    placeholder="oldPassword"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                />
+                <label
+                    htmlFor="oldPassword"
+                >
+                    New Password
+                </label>
+                <input
+                    type="password"
+                    id="newPassword"
+                    name="newPassword"
+                    placeholder="newPassword"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <label
+                    htmlFor="oldPassword"
+                >
+                    Confirm New Password
+                </label>
+                <input
+                    type="password"
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
+                    placeholder="confirmNewPassword"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                />
+                <button
+                    id="submit"
+                    type="button"
+                    onClick={() => changePassword()}
+                >
+                    Change Password
+                </button>
+            </section>
         </main>
     )
 }
