@@ -45,7 +45,7 @@ const UserProfile = () => {
                         onClick={() => {
                             window.location.href = `users/change-password`;
                         }}
-                    >Change Password</button>
+                    >{t('user-change-pass.button')}</button>
                 </section>
             ) : (
                 <></>

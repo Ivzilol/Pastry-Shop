@@ -115,5 +115,12 @@
     "p4": "Regards,",
     "p5": "Ivo",
     "here": "Here"
+  },
+  "user-change-pass": {
+    "title": "Change password",
+    "label1": "Old password",
+    "label2": "New password",
+    "label3": "Confirm new password",
+    "button": "Change password"
   }
 }

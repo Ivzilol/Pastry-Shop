@@ -2,12 +2,14 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 const UserChangePassword = () => {
     const user = useUser();
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     function changePassword() {
@@ -33,43 +35,43 @@ const UserChangePassword = () => {
         <main className="user-change-pass">
             <NavBar/>
             <section className="user-change-pass-container">
-            <h1 className="change-password">Change Password</h1>
+            <h1 className="change-password">{t('user-change-pass.title')}</h1>
                 <label
                     htmlFor="oldPassword"
                 >
-                    Old Password
+                    {t('user-change-pass.label1')}
                 </label>
                 <input
                     type="password"
                     id="oldPassword"
                     name="oldPassword"
-                    placeholder="oldPassword"
+                    placeholder="Old Password"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
                 />
                 <label
                     htmlFor="oldPassword"
                 >
-                    New Password
+                    {t('user-change-pass.label2')}
                 </label>
                 <input
                     type="password"
                     id="newPassword"
                     name="newPassword"
-                    placeholder="newPassword"
+                    placeholder="New Password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
                 <label
                     htmlFor="oldPassword"
                 >
-                    Confirm New Password
+                    {t('user-change-pass.label3')}
                 </label>
                 <input
                     type="password"
                     id="confirmNewPassword"
                     name="confirmNewPassword"
-                    placeholder="confirmNewPassword"
+                    placeholder="Confirm New Password"
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
                 />
@@ -78,7 +80,7 @@ const UserChangePassword = () => {
                     type="button"
                     onClick={() => changePassword()}
                 >
-                    Change Password
+                    {t('user-change-pass.button')}
                 </button>
             </section>
         </main>
