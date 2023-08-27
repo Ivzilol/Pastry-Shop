@@ -41,6 +41,11 @@ const UserProfile = () => {
                         window.location.href = `/users/${currentUser.id}`;
                     }}
                     >{t('user-profile.edit-button')}</button>
+                    <button
+                        onClick={() => {
+                            window.location.href = `users/change-password`;
+                        }}
+                    >Change Password</button>
                 </section>
             ) : (
                 <></>

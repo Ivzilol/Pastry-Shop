@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.ChangePasswordDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
@@ -14,6 +15,7 @@ import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -31,12 +33,15 @@ public class UserService {
 
     private final JavaMailSender javaMailSender;
 
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender) {
+
+    public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
         this.customPasswordEncoder = customPasswordEncoder;
         this.authorityRepository = authorityRepository;
         this.javaMailSender = javaMailSender;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<Users> findUserByUsername(String username) {
@@ -174,5 +179,19 @@ public class UserService {
             this.usersRepository.save(user);
         }
         return user;
+    }
+
+    public Users changeUserPassword(ChangePasswordDto changePasswordDto, Users user) {
+        boolean passwordMatch = ifPasswordMatch(changePasswordDto, user);
+        return null;
+    }
+
+    private boolean ifPasswordMatch(ChangePasswordDto changePasswordDto, Users user) {
+        Optional<Users> currentUser = this.usersRepository.findByUsername(user.getUsername());
+        boolean matchesOldPassword = passwordEncoder
+                .matches(currentUser.get().getPassword(), changePasswordDto.getOldPassword());
+        boolean matchesNewPassword = changePasswordDto.getNewPassword()
+                .equals(changePasswordDto.getConfirmNewPassword());
+        return matchesOldPassword && matchesNewPassword;
     }
 }

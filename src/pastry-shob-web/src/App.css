@@ -1271,6 +1271,10 @@ footer {
     color: black;
 }
 
+.change-password {
+    margin-top: 70px;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

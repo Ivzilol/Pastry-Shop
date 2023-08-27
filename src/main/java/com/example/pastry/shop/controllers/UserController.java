@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.ChangePasswordDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
@@ -113,4 +114,12 @@ public class UserController {
         Users updateUser = this.userService.saveUser(updateUserDTO, id);
         return ResponseEntity.ok(updateUser);
     }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
+                                            @AuthenticationPrincipal Users user) {
+        Users userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
+        return ResponseEntity.ok().build();
+    }
+
 }
