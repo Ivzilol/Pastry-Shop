@@ -103,6 +103,7 @@ public class UserService {
                 + " " + userRegistrationDTO.getLastName() + ",</h4>";
         mailContent += "<p>Thank you for registration</p>";
         String verifyUrl = siteUrl + "/verify/" + user.get().getVerificationCode();
+        mailContent += "<p>Please click on the \"VERIFY\" link to activate your account.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">VERIFY</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
         MimeMessage message = javaMailSender.createMimeMessage();

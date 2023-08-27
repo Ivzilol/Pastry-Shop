@@ -12,7 +12,7 @@ const ConfirmRegister = () => {
     }, [verificationCode])
 
     return(
-        <main>{verificationCode}</main>
+        <main>You have successfully activated your account</main>
     )
 }
 export default ConfirmRegister;
