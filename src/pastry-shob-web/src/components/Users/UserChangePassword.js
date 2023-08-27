@@ -10,17 +10,26 @@ const UserChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const baseUrl = "http://localhost:8080/";
 
-    function changePassword(){
+    function changePassword() {
         const requestBody = {
             oldPassword: oldPassword,
             newPassword: newPassword,
             confirmNewPassword: confirmNewPassword
         }
         ajax(`${baseUrl}api/users/change-password`, "PATCH", user.jwt, requestBody)
-            .then()
+            .then((response) => {
+                console.log(response);
+                if (response !== undefined) {
+                    return alert("You have successfully changed your password, please login with your new password"),
+                        user.setJwt(null),
+                        window.location.href = "/login"
+                } else {
+                    return alert("Password change failed")
+                }
+            })
     }
 
-    return(
+    return (
         <main>
             <NavBar/>
             <h1 className="change-password">Change Password</h1>

@@ -182,15 +182,17 @@ public class UserService {
         return user;
     }
 
-    public Users changeUserPassword(ChangePasswordDto changePasswordDto, Users user) {
+    public boolean changeUserPassword(ChangePasswordDto changePasswordDto, Users user) {
         boolean passwordMatch = ifPasswordMatch(changePasswordDto, user);
         if (passwordMatch) {
             String encodedPassword = customPasswordEncoder
                     .getPasswordEncoder().encode(changePasswordDto.getNewPassword());
             user.setPassword(encodedPassword);
             this.usersRepository.save(user);
+            return true;
+        } else {
+            return false;
         }
-        return user;
     }
 
     private boolean ifPasswordMatch(ChangePasswordDto changePasswordDto, Users user) {

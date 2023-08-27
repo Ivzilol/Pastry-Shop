@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.ChangePasswordDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
 import jakarta.mail.MessagingException;
@@ -31,11 +32,14 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
+    private final UsersRepository usersRepository;
 
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, UsersRepository usersRepository) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.usersRepository = usersRepository;
     }
 
     @PostMapping("/register/verify/{verification}")
@@ -116,8 +120,13 @@ public class UserController {
     @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                             @AuthenticationPrincipal Users user) {
-        Users userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
-        return ResponseEntity.ok().build();
+        boolean userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
+        if (userChangePass) {
+            Optional<Users> userForBack = this.usersRepository.findByUsername(user.getUsername());
+            return ResponseEntity.ok(userForBack);
+        } else {
+            return ResponseEntity.ok(null);
+        }
     }
 
 }
