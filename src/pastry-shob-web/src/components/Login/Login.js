@@ -3,12 +3,14 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 const Login = () => {
     const user = useUser();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     let navigate = useNavigate();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -54,7 +56,7 @@ const Login = () => {
                          lg="6"
                     >
                         <Form.Group className="mb-3" controlId="username">
-                            <Form.Label className="fs-3">Username</Form.Label>
+                            <Form.Label className="fs-3">{t('login.fs-3')}</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="John Doe"
@@ -70,7 +72,7 @@ const Login = () => {
                          lg="6"
                     >
                         <Form.Group className="mb-3" controlId="password">
-                            <Form.Label className="fs-4">Password</Form.Label>
+                            <Form.Label className="fs-4">{t('login.fs-4')}</Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
@@ -90,7 +92,7 @@ const Login = () => {
                             size="lg"
                             onClick={() => sendLoginRequest()}
                         >
-                            Login
+                            {t('login.login-button')}
                         </Button>
                         <Button
                             variant="secondary"
@@ -101,14 +103,14 @@ const Login = () => {
                                 navigate("/register")
                             }}
                         >
-                            Register
+                            {t('login.register-button')}
                         </Button>
                     </Col>
                 </Row>
             </Container>
             <a className="forgotten-password-link"
             onClick={() => navigate("/forgotten-password")}
-            >Забравена парола</a>
+            >{t('login.forgotten-password')}</a>
         </main>
     );
 }

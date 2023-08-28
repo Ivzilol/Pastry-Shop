@@ -122,5 +122,12 @@
     "label2": "New password",
     "label3": "Confirm new password",
     "button": "Change password"
+  },
+  "login": {
+    "fs-3": "Username",
+    "fs-4": "Password",
+    "login-button": "Login",
+    "register-button": "Registration",
+    "forgotten-password": "Forgotten password?"
   }
 }

@@ -211,8 +211,8 @@ public class UserService {
                 + " " + email.get().getLastName() + ",</h4>";
         mailContent += "<p>You have requested a change of your password.</p>";
         String verifyUrl = siteUrl + email.get().getVerificationCode();
-        mailContent += "<p>Please click on the \"CHANGE PASSWORD\" link to change your password.<p/>";
-        mailContent += "<h3><a href=\"" + verifyUrl + "\">CHANGE PASSWORD</a></h3>";
+        mailContent += "<p>Please click on the \" NEW PASSWORD\" link to generate new password.<p/>";
+        mailContent += "<h3><a href=\"" + verifyUrl + "\">NEW PASSWORD</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
