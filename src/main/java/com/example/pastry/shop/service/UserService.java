@@ -13,6 +13,7 @@ import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -223,5 +224,17 @@ public class UserService {
         helper.setSubject(subject);
         helper.setText(mailContent, true);
         javaMailSender.send(message);
+    }
+
+    @NotNull
+    public static StringBuilder getEmail(String forgottenPasswordDto) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < forgottenPasswordDto.length(); i++) {
+            if (i == 0 || i == forgottenPasswordDto.length() - 1) {
+            } else {
+                sb.append(forgottenPasswordDto.charAt(i));
+            }
+        }
+        return sb;
     }
 }

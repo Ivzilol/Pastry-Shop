@@ -7,12 +7,9 @@ const ForgottenPasswordEmail = () => {
     const [email, setEmail] = useState("");
 
     function sendEmail() {
-        const requestBody = {
-            email: email
-        }
-        ajax(`${baseUrl}api/users/change-password`, "POST", null, requestBody)
+        ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, email)
             .then(() => {
-                alert("Please check your Email");
+                alert("")
             })
     }
 
