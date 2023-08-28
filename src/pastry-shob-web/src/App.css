@@ -1306,6 +1306,10 @@ footer {
     color: white;
 }
 
+.forgotten-password-link:hover{
+    color: black;
+}
+
 .user-forgotten-password-container {
     font-style: italic;
     display: flex;
@@ -1321,14 +1325,17 @@ footer {
 
 .user-forgotten-password-container input {
     width: 300px;
-    border-radius: 20px;
+    border-radius: 10px;
+    border: 3px solid gray;
     padding: 2px 2px 2px 10px;
+
 }
 
 .user-forgotten-password-container button {
+    font-style: italic;
     margin-top: 20px;
     border-radius: 20px;
-    padding: 5px 10px;
+    padding: 5px 15px;
     border: none;
     cursor: pointer;
     background-color: aqua;
