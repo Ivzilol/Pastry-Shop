@@ -204,4 +204,24 @@ public class UserService {
                 .equals(changePasswordDto.getConfirmNewPassword());
         return matchesOldPassword && matchesNewPassword;
     }
+
+    public void sendEmailNewPassword(Optional<Users> email) throws MessagingException, UnsupportedEncodingException {
+        String siteUrl = "http://localhost:3000/change-password/";
+        String subject = "Forgotten password";
+        String senderName = "Pastry Shop Team";
+        String mailContent = "<h4>Dear " + email.get().getFirstName()
+                + " " + email.get().getLastName() + ",</h4>";
+        mailContent += "<p>You have requested a change of your password.</p>";
+        String verifyUrl = siteUrl + email.get().getVerificationCode();
+        mailContent += "<p>Please click on the \"CHANGE PASSWORD\" link to change your password.<p/>";
+        mailContent += "<h3><a href=\"" + verifyUrl + "\">CHANGE PASSWORD</a></h3>";
+        mailContent += "<p>Mom's sweet shop team<p/>";
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom("ivailoali@gmail.com", senderName);
+        helper.setTo(email.get().getEmail());
+        helper.setSubject(subject);
+        helper.setText(mailContent, true);
+        javaMailSender.send(message);
+    }
 }

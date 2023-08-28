@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.ChangePasswordDto;
+import com.example.pastry.shop.model.dto.ForgottenPasswordEmailDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
@@ -126,6 +127,16 @@ public class UserController {
             return ResponseEntity.ok(userForBack);
         } else {
             return ResponseEntity.ok(null);
+        }
+    }
+    @PatchMapping("/forgotten-password")
+    public ResponseEntity<?> forgottenPasswordEmail(@RequestBody ForgottenPasswordEmailDto forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
+        Optional<Users> email = this.usersRepository.findByEmail(forgottenPasswordDto.getEmail());
+        if (email.isPresent()) {
+            this.userService.sendEmailNewPassword(email);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
