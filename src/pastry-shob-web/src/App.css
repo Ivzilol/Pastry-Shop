@@ -1300,6 +1300,10 @@ footer {
     background-color: aqua;
 }
 
+.forgotten-password-link {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

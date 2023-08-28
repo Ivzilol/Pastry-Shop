@@ -106,6 +106,9 @@ const Login = () => {
                     </Col>
                 </Row>
             </Container>
+            <a className="forgotten-password-link"
+            onClick={() => navigate("/forgotten-password")}
+            >Забравена парола</a>
         </main>
     );
 }
