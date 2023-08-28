@@ -37,7 +37,7 @@ const UserChangePassword = () => {
             <section className="user-change-pass-container">
             <h1 className="change-password">{t('user-change-pass.title')}</h1>
                 <label
-                    htmlFor="oldPassword"
+                        htmlFor="oldPassword"
                 >
                     {t('user-change-pass.label1')}
                 </label>
