@@ -133,6 +133,10 @@
   "user-forgotten-password": {
     "h1": "Password recovery",
     "label": "Enter your Email",
-    "button": "Send"
+    "button": "Send",
+    "h1-pass": "Generate a new password",
+    "new-password": "New password",
+    "confirm-new-password": "Confirm the new password",
+    "button-new-password": "Send"
   }
 }

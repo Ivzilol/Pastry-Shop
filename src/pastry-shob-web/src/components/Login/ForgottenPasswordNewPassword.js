@@ -2,12 +2,14 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 const ForgottenPasswordNewPassword = () => {
     const {verificationCode} = useParams();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const navigate = useNavigate();
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/"
 
     function setNewPassword() {
@@ -32,11 +34,11 @@ const ForgottenPasswordNewPassword = () => {
         <main className="forgotten-password-send">
             <NavBar/>
             <section className="user-forgotten-password-container">
-                <h1>Смяна на паролата</h1>
+                <h1>{t("user-forgotten-password.h1-pass")}</h1>
                 <label
                     htmlFor="password"
                 >
-                    Нова парола
+                    {t("user-forgotten-password.new-password")}
                 </label>
                 <input
                     type="password"
@@ -49,7 +51,7 @@ const ForgottenPasswordNewPassword = () => {
                 <label
                     htmlFor="password"
                 >
-                    Потвърди новата парола
+                    {t("user-forgotten-password.confirm-new-password")}
                 </label>
                 <input
                     type="password"
@@ -64,7 +66,7 @@ const ForgottenPasswordNewPassword = () => {
                     type="button"
                     onClick={() => setNewPassword()}
                 >
-                    Change Password
+                    {t("user-forgotten-password.button-new-password")}
                 </button>
             </section>
         </main>

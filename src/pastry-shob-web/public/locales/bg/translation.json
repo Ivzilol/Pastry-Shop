@@ -133,6 +133,10 @@
   "user-forgotten-password": {
     "h1": "Възстановяване на парола",
     "label": "Въведете своя Имейл",
-    "button": "Изпрати"
+    "button": "Изпрати",
+    "h1-pass": "Генериране на нова парола",
+    "new-password": "Нова парола",
+    "confirm-new-password": "Потвърди новата парола",
+    "button-new-password": "Изпрати"
   }
 }
