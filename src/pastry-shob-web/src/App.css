@@ -1302,6 +1302,8 @@ footer {
 
 .forgotten-password-link {
     cursor: pointer;
+    margin-left: 360px;
+    color: white;
 }
 
 @media screen and (max-width: 600px) {
