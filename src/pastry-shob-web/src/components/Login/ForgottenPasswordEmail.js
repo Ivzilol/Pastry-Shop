@@ -8,7 +8,15 @@ const ForgottenPasswordEmail = () => {
     const [email, setEmail] = useState("");
 
     function sendEmail() {
-        ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, email)
+        if (email.trim() === '') {
+            alert("Please put your email")
+            return;
+        }
+        const requestBody = {
+            email: email
+        }
+
+        ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, requestBody)
             .then(() => {
                 handleSubmit()
                 alert("Please check your Email");

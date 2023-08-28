@@ -223,18 +223,6 @@ public class UserService {
         javaMailSender.send(message);
     }
 
-    @NotNull
-    public static StringBuilder getEmail(String forgottenPasswordDto) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < forgottenPasswordDto.length(); i++) {
-            if (i == 0 || i == forgottenPasswordDto.length() - 1) {
-            } else {
-                sb.append(forgottenPasswordDto.charAt(i));
-            }
-        }
-        return sb;
-    }
-
     public boolean forgottenPasswordSetNew(ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
         if (forgottenPasswordNewPasswordDto.getPassword()
                 .equals(forgottenPasswordNewPasswordDto.getConfirmPassword())) {

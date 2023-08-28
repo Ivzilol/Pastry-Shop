@@ -1,9 +1,6 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.ChangePasswordDto;
-import com.example.pastry.shop.model.dto.ForgottenPasswordNewPasswordDto;
-import com.example.pastry.shop.model.dto.UpdateUserDTO;
-import com.example.pastry.shop.model.dto.UserRegistrationDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.service.UserService;
@@ -23,8 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
-
-import static com.example.pastry.shop.service.UserService.getEmail;
 
 @RestController
 @RequestMapping("/api/users")
@@ -132,9 +127,8 @@ public class UserController {
         }
     }
     @PostMapping("/register/forgotten-password")
-    public ResponseEntity<?> forgottenPasswordEmail(@RequestBody String forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
-        StringBuilder sb = getEmail(forgottenPasswordDto);
-        Optional<Users> email = this.usersRepository.findByEmail(sb.toString());
+    public ResponseEntity<?> forgottenPasswordEmail(@RequestBody ForgottenPasswordEmailDto forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
+        Optional<Users> email = this.usersRepository.findByEmail(forgottenPasswordDto.getEmail());
         if (email.isPresent()) {
             this.userService.sendEmailNewPassword(email);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
