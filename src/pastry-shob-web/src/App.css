@@ -738,15 +738,13 @@ footer {
 
 .user-edit-profile {
     width: auto;
-    height: 600px;
-    background-image: url("https://i.imgupx.com/VoOSBgnl/343389914_610690820707442_5178648780943661264_n.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    height: auto;
+
 }
 
 .user-edit-profile-container {
     margin-top: 65px;
+    font-style: italic;
 }
 
 .user-edit-profile-items {
@@ -757,28 +755,30 @@ footer {
 }
 
 .user-edit-profile-item h6 {
-    color: white;
-    margin: 10px 0;
-    background-color: black;
-    border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
     padding: 5px;
+    color: black;
 }
 
 .user-edit-profile-item input {
-    color: white;
+    color: black;
     border-radius: 10px;
-    margin: 5px 0;
-    background: black;
-    border-color: white;
+    margin: 0px 0;
+    border: 3px solid gray;
+    padding-left: 10px;
+    width: 250px;
+    font-style: italic;
 }
 
 .user-edit-profile-button button {
     border-radius: 10px;
-    border-color: black;
+    border: 3px solid gray;
     background: none;
     color: black;
     width: 150px;
     margin-top: 20px;
+    font-style: italic;
 }
 
 .user-profile {
@@ -1293,13 +1293,15 @@ footer {
 }
 
 .user-change-pass-container input {
-    border-radius: 20px;
+    border-radius: 10px;
+    width: 250px;
     padding: 2px 2px 2px 10px;
+    border: 3px solid gray;
 }
 
 .user-change-pass-container button {
-    margin-top: 10px;
-    border-radius: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
     padding: 5px 10px;
     border: none;
     cursor: pointer;

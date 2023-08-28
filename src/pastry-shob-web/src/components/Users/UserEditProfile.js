@@ -51,7 +51,7 @@ const UserEditProfile = () => {
                     {currentUser ? (
                         <div className="user-edit-profile-items">
                             <article className="user-edit-profile-item">
-                                <h6>{t('user-profile.username')}:</h6>
+                                <h6>{t('user-profile.username')}</h6>
                                 <input
                                     onChange={(e) => updateUser("username", e.target.value)}
                                     value={currentUser.username}
