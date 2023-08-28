@@ -9,7 +9,7 @@ const ForgottenPasswordEmail = () => {
     function sendEmail() {
         ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, email)
             .then(() => {
-                alert("")
+                alert("Please check your Email");
             })
     }
 

@@ -207,7 +207,7 @@ public class UserService {
     }
 
     public void sendEmailNewPassword(Optional<Users> email) throws MessagingException, UnsupportedEncodingException {
-        String siteUrl = "http://localhost:3000/change-password/";
+        String siteUrl = "http://localhost:3000/forgotten-password/";
         String subject = "Forgotten password";
         String senderName = "Pastry Shop Team";
         String mailContent = "<h4>Dear " + email.get().getFirstName()

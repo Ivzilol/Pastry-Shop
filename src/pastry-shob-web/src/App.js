@@ -33,6 +33,7 @@ import UserOrdersHistory from "./components/Orders/UserOrdersHistory";
 import ConfirmRegister from "./components/Register/ConfirmRegister";
 import UserChangePassword from "./components/Users/UserChangePassword";
 import ForgottenPasswordEmail from "./components/Login/ForgottenPasswordEmail";
+import ForgottenPasswordNewPassword from "./components/Login/ForgottenPasswordNewPassword";
 
 function App() {
     const user = useUser();
@@ -160,7 +161,8 @@ function App() {
             <Route path={"/orders/tracking"} element={<UserOrderTracking/>}/>
             <Route path="/users/:userId" element={<UserEditProfile/>}/>
             <Route path="users/change-password" element={<UserChangePassword/>}/>
-            <Route path={"/forgotten-password"} element={<ForgottenPasswordEmail/>}/>
+            <Route path="/forgotten-password" element={<ForgottenPasswordEmail/>}/>
+            <Route path="/forgotten-password/:verificationCode" element={<ForgottenPasswordNewPassword/>}/>
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
