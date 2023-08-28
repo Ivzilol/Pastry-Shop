@@ -420,6 +420,7 @@
     background-color: #ef7d00;
     border-radius: 20px;
     color: white;
+    font-style: italic;
 }
 
 .close {
@@ -1200,6 +1201,7 @@ footer {
     padding: 5px;
     border-radius: 20px;
     margin-bottom: 10px;
+    font-style: italic;
 }
 
 .search-result-container-price {

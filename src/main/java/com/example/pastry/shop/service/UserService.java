@@ -209,7 +209,7 @@ public class UserService {
         String senderName = "Pastry Shop Team";
         String mailContent = "<h4>Dear " + email.get().getFirstName()
                 + " " + email.get().getLastName() + ",</h4>";
-        mailContent += "<p>You have requested a change of your password.</p>";
+        mailContent += "<p>You have requested a generate new password.</p>";
         String verifyUrl = siteUrl + email.get().getVerificationCode();
         mailContent += "<p>Please click on the \" NEW PASSWORD\" link to generate new password.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">NEW PASSWORD</a></h3>";
