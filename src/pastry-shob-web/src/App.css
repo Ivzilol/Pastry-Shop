@@ -781,6 +781,10 @@ footer {
     font-style: italic;
 }
 
+.user-edit-profile-button button:hover {
+    background-color: aqua;
+}
+
 .user-profile {
     width: auto;
     height: 600px;
@@ -1285,6 +1289,7 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-style: italic;
 }
 
 .user-change-pass-container label{
@@ -1305,6 +1310,11 @@ footer {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
+    background-color: gray;
+    font-style: italic;
+}
+
+.user-change-pass-container button:hover{
     background-color: aqua;
 }
 
