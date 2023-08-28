@@ -138,5 +138,17 @@
     "new-password": "New password",
     "confirm-new-password": "Confirm the new password",
     "button-new-password": "Send"
+  },
+  "register": {
+    "h1": "Registration",
+    "username": "Username",
+    "password": "Password",
+    "confirm-password": "Repeat password",
+    "name": "First Name",
+    "last-name": "Last Name",
+    "email": "Email",
+    "address": "Address",
+    "phone-number": "Phone number",
+    "button": "Registration"
   }
 }

@@ -138,5 +138,17 @@
     "new-password": "Нова парола",
     "confirm-new-password": "Потвърди новата парола",
     "button-new-password": "Изпрати"
+  },
+  "register": {
+    "h1": "Регистрация",
+    "username": "Потребителско име",
+    "password": "Парола",
+    "confirm-password": "Повтори парола",
+    "name": "Име",
+    "last-name": "Фамилия",
+    "email": "Електронна поща",
+    "address": "Адрес",
+    "phone-number": "Телефонен номер",
+    "button": "Регистрация"
   }
 }

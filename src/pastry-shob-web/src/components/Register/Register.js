@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 
 const Register = () => {
@@ -18,6 +19,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -177,10 +179,10 @@ const Register = () => {
             <NavBar/>
             <section className="register">
                 <article className="register-form">
-                    <h1>Register</h1>
+                    <h1>{t('register.h1')}</h1>
                     <label
                         htmlFor="username"
-                    >Username
+                    >{t('register.username')}
                     </label>
                     <input
                         type="text"
@@ -196,7 +198,7 @@ const Register = () => {
                         <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
                     }
 
-                    <label form="password">Password</label>
+                    <label form="password">{t('register.password')}</label>
                     <input
                         type="password"
                         id="password"
@@ -210,7 +212,7 @@ const Register = () => {
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
                     }
 
-                    <label form="confirmPassword">Confirm Password</label>
+                    <label form="confirmPassword">{t('register.confirm-password')}</label>
                     <input
                         type="password"
                         id="confirmPassword"
@@ -224,7 +226,7 @@ const Register = () => {
                         <span id="validate-username"><FontAwesomeIcon
                             icon={faInfoCircle}/> {error.confirmPassword}</span>
                     }
-                    <label form="firstName">First Name</label>
+                    <label form="firstName">{t('register.name')}</label>
                     <input
                         type="text"
                         id="firstName"
@@ -237,7 +239,7 @@ const Register = () => {
                     {error.firstName &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
                     }
-                    <label form="lastName">Last Name</label>
+                    <label form="lastName">{t('register.last-name')}</label>
                     <input
                         type="text"
                         id="lastName"
@@ -250,7 +252,7 @@ const Register = () => {
                     {error.lastName &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
                     }
-                    <label form="email">Email</label>
+                    <label form="email">{t('register.email')}</label>
                     <input
                         type="email"
                         id="email"
@@ -263,7 +265,7 @@ const Register = () => {
                     {error.email &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
                     }
-                    <label form="address">Address</label>
+                    <label form="address">{t('register.address')}</label>
                     <input
                         type="text"
                         id="address"
@@ -276,7 +278,7 @@ const Register = () => {
                     {error.address &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
                     }
-                    <label form="phoneNumber">Phone Number</label>
+                    <label form="phoneNumber">{t('register.phone-number')}</label>
                     <input
                         type="text"
                         id="phoneNumber"
@@ -295,7 +297,7 @@ const Register = () => {
                         onClick={() => createAndLoginUser()
                         }
                     >
-                        Register
+                        {t('register.button')}
                     </button>
                 </article>
             </section>
