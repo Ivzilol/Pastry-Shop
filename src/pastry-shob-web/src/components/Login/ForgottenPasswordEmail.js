@@ -1,11 +1,13 @@
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
+import {useTranslation} from "react-i18next";
 
 const ForgottenPasswordEmail = () => {
 
     const baseUrl = "http://localhost:8080/";
     const [email, setEmail] = useState("");
+    const {t} = useTranslation();
 
     function sendEmail() {
         if (email.trim() === '') {
@@ -31,9 +33,9 @@ const ForgottenPasswordEmail = () => {
         <main className="user-forgotten-password">
             <NavBar/>
             <section className="user-forgotten-password-container">
-                <h1>Намиране на вашия акаунт</h1>
+                <h1>{t('user-forgotten-password.h1')}</h1>
                 <label htmlFor="email">
-                    Напишете своя Имейл
+                    {t('user-forgotten-password.label')}
                 </label>
                 <input
                     type="text"
@@ -48,7 +50,7 @@ const ForgottenPasswordEmail = () => {
                     type="button"
                     onClick={() => sendEmail()}
                 >
-                    Send Email
+                    {t('user-forgotten-password.button')}
                 </button>
             </section>
         </main>

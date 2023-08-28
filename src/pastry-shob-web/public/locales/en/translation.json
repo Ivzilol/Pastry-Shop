@@ -129,5 +129,10 @@
     "login-button": "Login",
     "register-button": "Registration",
     "forgotten-password": "Forgotten password?"
+  },
+  "user-forgotten-password": {
+    "h1": "Password recovery",
+    "label": "Enter your Email",
+    "button": "Send"
   }
 }

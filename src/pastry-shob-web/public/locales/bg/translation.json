@@ -129,5 +129,10 @@
     "login-button": "Влизане",
     "register-button": "Регистрация",
     "forgotten-password": "Забравена парола?"
+  },
+  "user-forgotten-password": {
+    "h1": "Възстановяване на парола",
+    "label": "Въведете своя Имейл",
+    "button": "Изпрати"
   }
 }
