@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.ChangePasswordDto;
+import com.example.pastry.shop.model.dto.ForgottenPasswordNewPasswordDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Users;
@@ -139,6 +140,17 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PatchMapping("/register/forgotten-password/new-password")
+    public ResponseEntity<?> forgottenPasswordNewPassword(@RequestBody ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
+        boolean newPassword = this.userService.forgottenPasswordSetNew(forgottenPasswordNewPasswordDto);
+        if (newPassword) {
+            Users user = this.usersRepository.findByVerificationCode(forgottenPasswordNewPasswordDto.getVerificationCode());
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }

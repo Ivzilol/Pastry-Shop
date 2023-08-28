@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
 
@@ -6,6 +6,7 @@ const ForgottenPasswordNewPassword = () => {
     const {verificationCode} = useParams();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
     const baseUrl = "http://localhost:8080/"
 
     function setNewPassword() {
@@ -16,7 +17,14 @@ const ForgottenPasswordNewPassword = () => {
         }
         ajax(`${baseUrl}api/users/register/forgotten-password/new-password`, "PATCH",
             null, requestBody)
-            .then()
+            .then(response => {
+                if (response !== undefined) {
+                    alert("Successful changed your password")
+                    navigate("/login");
+                } else {
+                    alert("Error")
+                }
+            })
     }
 
     return(

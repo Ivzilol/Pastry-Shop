@@ -1,9 +1,6 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.model.dto.ChangePasswordDto;
-import com.example.pastry.shop.model.dto.UpdateUserDTO;
-import com.example.pastry.shop.model.dto.UserDTO;
-import com.example.pastry.shop.model.dto.UserRegistrationDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
@@ -236,5 +233,20 @@ public class UserService {
             }
         }
         return sb;
+    }
+
+    public boolean forgottenPasswordSetNew(ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
+        if (forgottenPasswordNewPasswordDto.getPassword()
+                .equals(forgottenPasswordNewPasswordDto.getConfirmPassword())) {
+            Users user = this.usersRepository
+                    .findByVerificationCode(forgottenPasswordNewPasswordDto.getVerificationCode());
+            String encode = customPasswordEncoder.getPasswordEncoder()
+                    .encode(forgottenPasswordNewPasswordDto.getPassword());
+            user.setPassword(encode);
+            this.usersRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
