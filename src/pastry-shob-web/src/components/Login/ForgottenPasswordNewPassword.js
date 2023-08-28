@@ -1,6 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
+import NavBar from "../NavBar/NavBar";
 
 const ForgottenPasswordNewPassword = () => {
     const {verificationCode} = useParams();
@@ -27,42 +28,45 @@ const ForgottenPasswordNewPassword = () => {
             })
     }
 
-    return(
+    return (
         <main className="forgotten-password-send">
-            <h1>Change Password</h1>
-            <label
-                htmlFor="password"
-            >
-                New Password
-            </label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="New Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <label
-                htmlFor="password"
-            >
-                Confirm New Password
-            </label>
-            <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm New Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <button
-                id="submit"
-                type="button"
-                onClick={() => setNewPassword()}
-            >
-                Change Password
-            </button>
+            <NavBar/>
+            <section className="user-forgotten-password-container">
+                <h1>Смяна на паролата</h1>
+                <label
+                    htmlFor="password"
+                >
+                    Нова парола
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="New Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <label
+                    htmlFor="password"
+                >
+                    Потвърди новата парола
+                </label>
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="Confirm New Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <button
+                    id="submit"
+                    type="button"
+                    onClick={() => setNewPassword()}
+                >
+                    Change Password
+                </button>
+            </section>
         </main>
     )
 }

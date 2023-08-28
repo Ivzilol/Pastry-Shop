@@ -1,5 +1,6 @@
 import {useState} from "react";
 import ajax from "../../Services/FetchService";
+import NavBar from "../NavBar/NavBar";
 
 const ForgottenPasswordEmail = () => {
 
@@ -9,17 +10,22 @@ const ForgottenPasswordEmail = () => {
     function sendEmail() {
         ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, email)
             .then(() => {
+                handleSubmit()
                 alert("Please check your Email");
             })
     }
 
+    const handleSubmit = () => {
+        setEmail("");
+    }
 
     return (
         <main className="user-forgotten-password">
+            <NavBar/>
             <section className="user-forgotten-password-container">
-                <h1>Change Password</h1>
+                <h1>Намиране на вашия акаунт</h1>
                 <label htmlFor="email">
-                    Please enter your email
+                    Напишете своя Имейл
                 </label>
                 <input
                     type="text"
