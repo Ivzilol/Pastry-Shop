@@ -19,9 +19,14 @@ const ForgottenPasswordEmail = () => {
         }
 
         ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, requestBody)
-            .then(() => {
-                handleSubmit()
-                alert("Please check your Email");
+            .then((response) => {
+                if (response === undefined) {
+                    alert("Please check your Email");
+                } else {
+                    let message = response.custom
+                    handleSubmit()
+                    alert(`${message}`)
+                }
             })
     }
 

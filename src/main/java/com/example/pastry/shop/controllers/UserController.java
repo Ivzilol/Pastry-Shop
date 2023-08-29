@@ -3,6 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
 import jakarta.mail.MessagingException;
@@ -133,7 +134,9 @@ public class UserController {
             this.userService.sendEmailNewPassword(email);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Invalid Email");
+            return ResponseEntity.ok(customResponse);
         }
     }
 
