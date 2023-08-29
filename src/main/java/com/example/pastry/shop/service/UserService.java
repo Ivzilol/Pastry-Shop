@@ -122,6 +122,8 @@ public class UserService {
         Users updateUser = this.usersRepository.findByUserId(id);
         Optional<Users> userUsername = this.usersRepository.findByUsername(updateUserDTO.getUsername());
         Optional<Users> userEmail = this.usersRepository.findByEmail(updateUserDTO.getEmail());
+        // Checking whether the username and password with which he is trying to change them
+        // are not taken by another user
         if ((userUsername.isPresent() && Objects.equals(id, updateUser.getId())) ||
                 (userEmail.isPresent() && Objects.equals(id, updateUser.getId()))) {
             if ((!Objects.equals(id, userUsername.get().getId())) ||
