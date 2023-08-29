@@ -112,8 +112,14 @@ public class UserController {
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
                                         @RequestBody UpdateUserDTO updateUserDTO){
-        Users updateUser = this.userService.saveUser(updateUserDTO, id);
-        return ResponseEntity.ok(updateUser);
+        boolean updateUser = this.userService.saveUser(updateUserDTO, id);
+        CustomResponse customResponse = new CustomResponse();
+        if (updateUser) {
+            customResponse.setCustom("Successful update user!");
+        } else {
+            customResponse.setCustom("Unsuccessful update user!");
+        }
+        return ResponseEntity.ok(customResponse);
     }
 
     @PatchMapping("/change-password")

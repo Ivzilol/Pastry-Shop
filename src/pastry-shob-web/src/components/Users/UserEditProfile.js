@@ -36,8 +36,20 @@ const UserEditProfile = () => {
     }
 
     function editProfile() {
+        if (
+            currentUser.username.trim() === '' ||
+            currentUser.firstName.trim() === '' ||
+            currentUser.lastName.trim() === '' ||
+            currentUser.email.trim() === '' ||
+            currentUser.address.trim() === '' ||
+            currentUser.phoneNumber.trim() === ''
+        ) {
+            alert("Format cannot contain empty fields");
+            return;
+        }
         ajax(`${baseUrl}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
             .then(userData => {
+                alert(userData.custom)
                 setCurrentUser(userData);
             });
         navigate("/users");

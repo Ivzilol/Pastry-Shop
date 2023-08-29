@@ -10,7 +10,6 @@ import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -118,17 +118,29 @@ public class UserService {
         javaMailSender.send(message);
     }
 
-    public Users saveUser(UpdateUserDTO updateUserDTO, Long id) {
+    public boolean saveUser(UpdateUserDTO updateUserDTO, Long id) {
         Users updateUser = this.usersRepository.findByUserId(id);
-        updateUser.setPassword(updateUser.getPassword());
-        updateUser.setUsername(updateUserDTO.getUsername());
-        updateUser.setFirstName(updateUserDTO.getFirstName());
-        updateUser.setLastName(updateUserDTO.getLastName());
-        updateUser.setEmail(updateUserDTO.getEmail());
-        updateUser.setAddress(updateUserDTO.getAddress());
-        updateUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
-        this.usersRepository.save(updateUser);
-        return updateUser;
+        Optional<Users> userUsername = this.usersRepository.findByUsername(updateUserDTO.getUsername());
+        Optional<Users> userEmail = this.usersRepository.findByEmail(updateUserDTO.getEmail());
+        if ((userUsername.isPresent() && Objects.equals(id, updateUser.getId())) ||
+                (userEmail.isPresent() && Objects.equals(id, updateUser.getId()))) {
+            if ((!Objects.equals(id, userUsername.get().getId())) ||
+                    (!Objects.equals(id, userEmail.get().getId()))) {
+                return false;
+            } else {
+                updateUser.setPassword(updateUser.getPassword());
+                updateUser.setUsername(updateUserDTO.getUsername());
+                updateUser.setFirstName(updateUserDTO.getFirstName());
+                updateUser.setLastName(updateUserDTO.getLastName());
+                updateUser.setEmail(updateUserDTO.getEmail());
+                updateUser.setAddress(updateUserDTO.getAddress());
+                updateUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
+                this.usersRepository.save(updateUser);
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     public void makeUserAdmin(Long id, Users user) {

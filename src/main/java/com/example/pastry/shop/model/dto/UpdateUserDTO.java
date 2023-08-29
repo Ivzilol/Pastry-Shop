@@ -2,19 +2,26 @@ package com.example.pastry.shop.model.dto;
 
 import com.example.pastry.shop.validation.annotation.UniqueEmail;
 import com.example.pastry.shop.validation.annotation.UniqueUsername;
+import com.unboundid.util.NotNull;
 
 public class UpdateUserDTO {
+    @NotNull
     @UniqueUsername
     private String username;
 
+    @NotNull
     private String firstName;
 
+    @NotNull
     private String lastName;
+    @NotNull
     @UniqueEmail
     private String email;
 
+    @NotNull
     private String address;
 
+    @NotNull
     private String phoneNumber;
 
     public UpdateUserDTO() {
@@ -32,8 +39,16 @@ public class UpdateUserDTO {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -50,14 +65,6 @@ public class UpdateUserDTO {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getPhoneNumber() {
