@@ -114,11 +114,7 @@ public class UserController {
                                         @RequestBody UpdateUserDTO updateUserDTO){
         boolean updateUser = this.userService.updateUser(updateUserDTO, id);
         CustomResponse customResponse = new CustomResponse();
-        if (updateUser) {
-            customResponse.setCustom("Successful update user!");
-        } else {
-            customResponse.setCustom("Unsuccessful update user!");
-        }
+        customResponse.setCustom(updateUser ? "Successful update user!" : "Unsuccessful update user!");
         return ResponseEntity.ok(customResponse);
     }
 
