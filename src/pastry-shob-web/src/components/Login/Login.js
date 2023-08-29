@@ -9,6 +9,7 @@ const Login = () => {
     const user = useUser();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     let navigate = useNavigate();
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
@@ -43,6 +44,10 @@ const Login = () => {
         });
     }
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
 
     return (
         <main className="login">
@@ -74,18 +79,22 @@ const Login = () => {
                         <Form.Group className="mb-3" controlId="password">
                             <Form.Label className="fs-4">{t('login.fs-4')}</Form.Label>
                             <Form.Control
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 size="lg"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            <a className="forgotten-password-send-show-password-login"
+                               onClick={togglePasswordVisibility}>
+                                {showPassword ? 'Show password' : 'Hide password'}
+                            </a>
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="justify-content-center align-items-center">
                     <Col md="8" lg="6"
-                         className="mt-4 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
+                         className="mt-1 d-flex flex-column gap-3 flex-md-row justify-content-between border-0">
                         <Button
                             id="submit"
                             type="button"

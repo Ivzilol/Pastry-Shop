@@ -75,7 +75,7 @@ const ForgottenPasswordNewPassword = () => {
                     {t("user-forgotten-password.confirm-new-password")}
                 </label>
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Confirm New Password"

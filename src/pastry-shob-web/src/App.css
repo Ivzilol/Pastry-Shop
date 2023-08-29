@@ -1364,6 +1364,19 @@ footer {
     cursor: pointer;
 }
 
+.forgotten-password-send-show-password-login {
+    cursor: pointer;
+    color: white;
+}
+
+.forgotten-password-send-show-password-login:hover {
+    color: black;
+}
+
+#login-users > div:nth-child(3) > div {
+    margin-top: 0;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {
