@@ -104,6 +104,7 @@
     "last-name": "Last Name:",
     "email": "Email:",
     "address": "Address:",
+    "phone-number": "Телефон:",
     "edit-button": "Edit profile"
   },
   "ordersUser": "Order history",

@@ -36,6 +36,7 @@ const UserProfile = () => {
                     <p>{t('user-profile.last-name')} {currentUser.lastName}</p>
                     <p>{t('user-profile.email')} {currentUser.email}</p>
                     <p>{t('user-profile.address')} {currentUser.address}</p>
+                    <p>{t('user-profile.phone-number')} {currentUser.phoneNumber}</p>
                     <button
                     onClick={() => {
                         window.location.href = `/users/${currentUser.id}`;
