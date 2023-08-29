@@ -1377,6 +1377,12 @@ footer {
     margin-top: 0;
 }
 
+.forgotten-password-send-show-password-register {
+    cursor: pointer;
+    color: white;
+    margin-right: 290px;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

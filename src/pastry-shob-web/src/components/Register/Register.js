@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ const Register = () => {
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const {t} = useTranslation();
+    const [showPassword, setShowPassword] = useState(false);
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -173,6 +174,10 @@ const Register = () => {
         }));
     }
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
 
     return (
         <>
@@ -200,7 +205,7 @@ const Register = () => {
 
                     <label form="password">{t('register.password')}</label>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="password"
                         name="password"
                         placeholder="Password"
@@ -208,13 +213,16 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         onBlur={validatePassword}
                     />
+                    <a className="forgotten-password-send-show-password-register"
+                       onClick={togglePasswordVisibility}>
+                        {showPassword ? 'Hide password' : 'Show password'}
+                    </a>
                     {error.password &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
                     }
-
                     <label form="confirmPassword">{t('register.confirm-password')}</label>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="confirmPassword"
                         name="confirmPassword"
                         placeholder="ConfirmPassword"
@@ -222,6 +230,10 @@ const Register = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         onBlur={validateConfirmPassword}
                     />
+                    <a className="forgotten-password-send-show-password-register"
+                       onClick={togglePasswordVisibility}>
+                        {showPassword ? 'Hide password' : 'Show password'}
+                    </a>
                     {error.confirmPassword &&
                         <span id="validate-username"><FontAwesomeIcon
                             icon={faInfoCircle}/> {error.confirmPassword}</span>

@@ -87,7 +87,7 @@ const Login = () => {
                             />
                             <a className="forgotten-password-send-show-password-login"
                                onClick={togglePasswordVisibility}>
-                                {showPassword ? 'Show password' : 'Hide password'}
+                                {showPassword ? 'Hide password' : 'Show password'}
                             </a>
                         </Form.Group>
                     </Col>
