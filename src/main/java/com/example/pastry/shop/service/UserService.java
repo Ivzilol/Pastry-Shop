@@ -124,19 +124,22 @@ public class UserService {
         Optional<Users> userEmail = this.usersRepository.findByEmail(updateUserDTO.getEmail());
         // Checking whether the username and password with which he is trying to change them
         // are not taken by another user
-        if ((!Objects.equals(id, userUsername.get().getId())) ||
-                (!Objects.equals(id, userEmail.get().getId()))) {
+        if (userUsername.isPresent() && !Objects.equals(userUsername.get().getId(), id)) {
             return false;
         } else {
-            updateUser.setPassword(updateUser.getPassword());
-            updateUser.setUsername(updateUserDTO.getUsername());
-            updateUser.setFirstName(updateUserDTO.getFirstName());
-            updateUser.setLastName(updateUserDTO.getLastName());
-            updateUser.setEmail(updateUserDTO.getEmail());
-            updateUser.setAddress(updateUserDTO.getAddress());
-            updateUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
-            this.usersRepository.save(updateUser);
-            return true;
+            if (userEmail.isPresent() && !Objects.equals(id, userEmail.get().getId())) {
+                return false;
+            } else {
+                updateUser.setPassword(updateUser.getPassword());
+                updateUser.setUsername(updateUserDTO.getUsername());
+                updateUser.setFirstName(updateUserDTO.getFirstName());
+                updateUser.setLastName(updateUserDTO.getLastName());
+                updateUser.setEmail(updateUserDTO.getEmail());
+                updateUser.setAddress(updateUserDTO.getAddress());
+                updateUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
+                this.usersRepository.save(updateUser);
+                return true;
+            }
         }
     }
 

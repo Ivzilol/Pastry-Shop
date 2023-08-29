@@ -49,10 +49,15 @@ const UserEditProfile = () => {
         }
         ajax(`${baseUrl}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
             .then(userData => {
-                alert(userData.custom)
-                setCurrentUser(userData);
+                if (userData.custom === 'Successful update user!') {
+                    alert("Successful update your personal info, please login again in your profile")
+                    user.setJwt(null);
+                } else {
+                    alert(userData.custom);
+                    navigate("/users");
+                }
             });
-        navigate("/users");
+
     }
 
     return (
@@ -119,8 +124,8 @@ const UserEditProfile = () => {
                             </article>
                             <section className="user-edit-profile-button">
                                 <button
-                                type="submit"
-                                onClick={() => editProfile()}
+                                    type="submit"
+                                    onClick={() => editProfile()}
                                 >
                                     {t('user-profile.edit-button')}
                                 </button>
