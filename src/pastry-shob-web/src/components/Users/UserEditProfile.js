@@ -57,7 +57,6 @@ const UserEditProfile = () => {
                     navigate("/users");
                 }
             });
-
     }
 
     return (

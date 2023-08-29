@@ -69,6 +69,7 @@ const ProductsUser = () => {
 
     useEffect(() => {
         setRoles(getRolesFromJWT())
+        scrolling()
     }, [getRolesFromJWT, user.jwt])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,6 +106,29 @@ const ProductsUser = () => {
             })}
         </>;
     }
+
+    function handleScroll() {
+        localStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            // Премахнете събитието при разглобяване на компонентата
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
+    function scrolling() {
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        window.scrollTo(0, parseInt(scrollPosition))
+    }
+
+    useEffect(() => {
+        scrolling()
+    }, []);
 
     return (
         <main className="products-users">
