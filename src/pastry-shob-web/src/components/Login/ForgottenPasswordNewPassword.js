@@ -31,9 +31,8 @@ const ForgottenPasswordNewPassword = () => {
                     alert("Successful change your password");
                     navigate("/login")
                 } else {
-                    let message = response.custom
                     handleSubmit()
-                    alert(`${message}`)
+                    alert(`${response.custom}`)
                 }
             })
     }
