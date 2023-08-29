@@ -224,20 +224,18 @@ public class UserService {
     }
 
     public boolean forgottenPasswordSetNew(ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
-        if (forgottenPasswordNewPasswordDto.getPassword() == null) {
+        Users user = this.usersRepository
+                .findByVerificationCode(forgottenPasswordNewPasswordDto.getVerificationCode());
+        if (forgottenPasswordNewPasswordDto.getPassword() == null || user == null ||
+                !forgottenPasswordNewPasswordDto.getPassword()
+                        .equals(forgottenPasswordNewPasswordDto.getConfirmPassword())) {
             return false;
-        }
-        if (forgottenPasswordNewPasswordDto.getPassword()
-                .equals(forgottenPasswordNewPasswordDto.getConfirmPassword())) {
-            Users user = this.usersRepository
-                    .findByVerificationCode(forgottenPasswordNewPasswordDto.getVerificationCode());
+        } else {
             String encode = customPasswordEncoder.getPasswordEncoder()
                     .encode(forgottenPasswordNewPasswordDto.getPassword());
             user.setPassword(encode);
             this.usersRepository.save(user);
             return true;
-        } else {
-            return false;
         }
     }
 }
