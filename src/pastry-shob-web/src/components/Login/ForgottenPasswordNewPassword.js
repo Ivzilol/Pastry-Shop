@@ -8,6 +8,7 @@ const ForgottenPasswordNewPassword = () => {
     const {verificationCode} = useParams();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/"
@@ -17,6 +18,10 @@ const ForgottenPasswordNewPassword = () => {
             verificationCode: verificationCode,
             password: password,
             confirmPassword: confirmPassword
+        }
+        if (password.trim() === '' || confirmPassword.trim() === '') {
+            alert("Please fill in both fields correctly")
+            return;
         }
         ajax(`${baseUrl}api/users/register/forgotten-password/new-password`, "PATCH",
             null, requestBody)
@@ -38,6 +43,10 @@ const ForgottenPasswordNewPassword = () => {
         setConfirmPassword("");
     }
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <main className="forgotten-password-send">
             <NavBar/>
@@ -49,13 +58,17 @@ const ForgottenPasswordNewPassword = () => {
                     {t("user-forgotten-password.new-password")}
                 </label>
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
                     placeholder="New Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <a className="forgotten-password-send-show-password"
+                    onClick={togglePasswordVisibility}>
+                    {showPassword ? 'Скрий паролата' : 'Покажи паролата'}
+                </a>
                 <label
                     htmlFor="password"
                 >
@@ -69,6 +82,10 @@ const ForgottenPasswordNewPassword = () => {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                <a className="forgotten-password-send-show-password"
+                   onClick={togglePasswordVisibility}>
+                    {showPassword ? 'Скрий паролата' : 'Покажи паролата'}
+                </a>
                 <button
                     id="submit"
                     type="button"
