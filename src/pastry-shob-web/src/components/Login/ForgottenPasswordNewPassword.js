@@ -67,7 +67,7 @@ const ForgottenPasswordNewPassword = () => {
                 />
                 <a className="forgotten-password-send-show-password"
                     onClick={togglePasswordVisibility}>
-                    {showPassword ? 'Скрий паролата' : 'Покажи паролата'}
+                    {showPassword ? t('login.hide-password') : t('login.show-password')}
                 </a>
                 <label
                     htmlFor="password"
@@ -84,7 +84,7 @@ const ForgottenPasswordNewPassword = () => {
                 />
                 <a className="forgotten-password-send-show-password"
                    onClick={togglePasswordVisibility}>
-                    {showPassword ? 'Скрий паролата' : 'Покажи паролата'}
+                    {showPassword ? t('login.hide-password') : t('login.show-password')}
                 </a>
                 <button
                     id="submit"

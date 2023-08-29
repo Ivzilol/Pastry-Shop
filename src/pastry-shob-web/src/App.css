@@ -1380,7 +1380,11 @@ footer {
 .forgotten-password-send-show-password-register {
     cursor: pointer;
     color: white;
-    margin-right: 290px;
+    margin-right: 280px;
+}
+
+.forgotten-password-send-show-password-register:hover {
+    color: aqua;
 }
 
 @media screen and (max-width: 600px) {

@@ -128,7 +128,9 @@
     "fs-4": "Password",
     "login-button": "Login",
     "register-button": "Registration",
-    "forgotten-password": "Forgotten password?"
+    "forgotten-password": "Forgotten password?",
+    "show-password": "Show password",
+    "hide-password": "Hide password"
   },
   "user-forgotten-password": {
     "h1": "Password recovery",

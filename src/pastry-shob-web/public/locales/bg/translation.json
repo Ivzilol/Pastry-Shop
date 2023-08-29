@@ -128,7 +128,9 @@
     "fs-4": "Парола",
     "login-button": "Влизане",
     "register-button": "Регистрация",
-    "forgotten-password": "Забравена парола?"
+    "forgotten-password": "Забравена парола?",
+    "show-password": "Покажи парола",
+    "hide-password": "Скрий парола"
   },
   "user-forgotten-password": {
     "h1": "Възстановяване на парола",

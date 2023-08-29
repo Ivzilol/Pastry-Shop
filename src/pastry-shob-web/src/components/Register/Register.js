@@ -215,7 +215,7 @@ const Register = () => {
                     />
                     <a className="forgotten-password-send-show-password-register"
                        onClick={togglePasswordVisibility}>
-                        {showPassword ? 'Hide password' : 'Show password'}
+                        {showPassword ? t('login.hide-password') : t('login.show-password')}
                     </a>
                     {error.password &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
@@ -232,7 +232,7 @@ const Register = () => {
                     />
                     <a className="forgotten-password-send-show-password-register"
                        onClick={togglePasswordVisibility}>
-                        {showPassword ? 'Hide password' : 'Show password'}
+                        {showPassword ? t('login.hide-password') : t('login.show-password')}
                     </a>
                     {error.confirmPassword &&
                         <span id="validate-username"><FontAwesomeIcon
