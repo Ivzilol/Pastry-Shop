@@ -112,7 +112,7 @@ public class UserController {
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
                                         @RequestBody UpdateUserDTO updateUserDTO){
-        boolean updateUser = this.userService.saveUser(updateUserDTO, id);
+        boolean updateUser = this.userService.updateUser(updateUserDTO, id);
         CustomResponse customResponse = new CustomResponse();
         if (updateUser) {
             customResponse.setCustom("Successful update user!");

@@ -118,7 +118,7 @@ public class UserService {
         javaMailSender.send(message);
     }
 
-    public boolean saveUser(UpdateUserDTO updateUserDTO, Long id) {
+    public boolean updateUser(UpdateUserDTO updateUserDTO, Long id) {
         Users updateUser = this.usersRepository.findByUserId(id);
         Optional<Users> userUsername = this.usersRepository.findByUsername(updateUserDTO.getUsername());
         Optional<Users> userEmail = this.usersRepository.findByEmail(updateUserDTO.getEmail());
