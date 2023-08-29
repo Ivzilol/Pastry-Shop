@@ -224,6 +224,9 @@ public class UserService {
     }
 
     public boolean forgottenPasswordSetNew(ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
+        if (forgottenPasswordNewPasswordDto.getPassword() == null) {
+            return false;
+        }
         if (forgottenPasswordNewPasswordDto.getPassword()
                 .equals(forgottenPasswordNewPasswordDto.getConfirmPassword())) {
             Users user = this.usersRepository

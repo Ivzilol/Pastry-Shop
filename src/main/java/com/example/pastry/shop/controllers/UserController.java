@@ -144,10 +144,11 @@ public class UserController {
     public ResponseEntity<?> forgottenPasswordNewPassword(@RequestBody ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
         boolean newPassword = this.userService.forgottenPasswordSetNew(forgottenPasswordNewPasswordDto);
         if (newPassword) {
-            Users user = this.usersRepository.findByVerificationCode(forgottenPasswordNewPasswordDto.getVerificationCode());
-            return ResponseEntity.ok(user);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Invalid Password");
+            return ResponseEntity.ok(customResponse);
         }
     }
 }

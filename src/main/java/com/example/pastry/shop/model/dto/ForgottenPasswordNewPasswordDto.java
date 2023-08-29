@@ -1,5 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
+import jakarta.validation.constraints.Size;
+
 public class ForgottenPasswordNewPasswordDto {
 
     private String verificationCode;
@@ -24,6 +26,9 @@ public class ForgottenPasswordNewPasswordDto {
     }
 
     public void setPassword(String password) {
+        if (password.length() < 3 || password.length() > 20) {
+            return;
+        }
         this.password = password;
     }
 
