@@ -24,9 +24,8 @@ const ForgottenPasswordEmail = () => {
                     alert("Please check your Email");
                     handleSubmit()
                 } else {
-                    let message = response.custom
                     handleSubmit()
-                    alert(`${message}`)
+                    alert(`${response.custom}`)
                 }
             })
     }
