@@ -17,7 +17,8 @@ const UserEditProfile = () => {
         firstName: "",
         lastName: "",
         email: "",
-        address: ""
+        address: "",
+        phoneNumber: ""
     });
 
     useEffect(() => {
@@ -93,6 +94,15 @@ const UserEditProfile = () => {
                                     value={currentUser.address}
                                     type="text"
                                     name="address"
+                                />
+                            </article>
+                            <article className="user-edit-profile-item">
+                                <h6>{t('user-profile.phone-number')}</h6>
+                                <input
+                                    onChange={(e) => updateUser("phoneNumber", e.target.value)}
+                                    value={currentUser.phoneNumber}
+                                    type="text"
+                                    name="phoneNumber"
                                 />
                             </article>
                             <section className="user-edit-profile-button">

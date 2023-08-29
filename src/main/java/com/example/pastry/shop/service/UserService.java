@@ -126,6 +126,7 @@ public class UserService {
         updateUser.setLastName(updateUserDTO.getLastName());
         updateUser.setEmail(updateUserDTO.getEmail());
         updateUser.setAddress(updateUserDTO.getAddress());
+        updateUser.setPhoneNumber(updateUserDTO.getPhoneNumber());
         this.usersRepository.save(updateUser);
         return updateUser;
     }

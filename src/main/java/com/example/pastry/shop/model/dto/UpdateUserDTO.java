@@ -15,6 +15,8 @@ public class UpdateUserDTO {
 
     private String address;
 
+    private String phoneNumber;
+
     public UpdateUserDTO() {
     }
 
@@ -56,5 +58,13 @@ public class UpdateUserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
