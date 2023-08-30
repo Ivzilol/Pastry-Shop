@@ -208,7 +208,7 @@ const Homepage = () => {
                 </div>
             }
             {showScrollingElement2 &&
-                <div className="home-page-scrolling-element-2">
+                <div className="home-page-scrolling-element-1">
                     {products ? (
                         <div className="home-page-scrolling-element-1-container">
                             <p className="home-page-scrolling-element-1-name">{products[1].name}</p>
@@ -222,7 +222,7 @@ const Homepage = () => {
                 </div>
             }
             {showScrollingElement3 &&
-                <div className="home-page-scrolling-element-3">
+                <div className="home-page-scrolling-element-1">
                     {products ? (
                         <div className="home-page-scrolling-element-1-container">
                             <p className="home-page-scrolling-element-1-name">{products[2].name}</p>
@@ -236,7 +236,7 @@ const Homepage = () => {
                 </div>
             }
             {showScrollingElement4 &&
-                <div className="home-page-scrolling-element-4">
+                <div className="home-page-scrolling-element-1">
                     {products ? (
                         <div className="home-page-scrolling-element-1-container">
                             <p className="home-page-scrolling-element-1-name">{products[3].name}</p>
