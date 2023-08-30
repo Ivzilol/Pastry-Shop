@@ -159,26 +159,26 @@ const Homepage = () => {
         function handleScroll() {
             const scrollPosition = window.scrollY;
             const threshold = 140
-            if (scrollPosition >= threshold && scrollPosition < 400) {
-                setShowScrollingElement1(true);
-            } else {
+            scrollPosition >= threshold && scrollPosition < 400
+                ?
+                setShowScrollingElement1(true)
+                :
                 setShowScrollingElement1(false)
-            }
-            if (scrollPosition >= 400 && scrollPosition < 650) {
-                setShowScrollingElement2(true);
-            } else {
+            scrollPosition >= 400 && scrollPosition < 650
+                ?
+                setShowScrollingElement2(true)
+                :
                 setShowScrollingElement2(false)
-            }
-            if (scrollPosition >= 650 && scrollPosition < 900) {
+            scrollPosition >= 650 && scrollPosition < 900
+                ?
                 setShowScrollingElement3(true)
-            } else {
+                :
                 setShowScrollingElement3(false)
-            }
-            if (scrollPosition >= 900 && scrollPosition < 1200) {
+            scrollPosition >= 900 && scrollPosition < 1200
+                ?
                 setShowScrollingElement4(true)
-            } else {
+                :
                 setShowScrollingElement4(false)
-            }
         }
 
         window.addEventListener("scroll", handleScroll);
