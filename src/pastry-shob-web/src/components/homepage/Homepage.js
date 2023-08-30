@@ -10,6 +10,7 @@ import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
+import {getFixedT} from "i18next";
 
 
 const Homepage = () => {
@@ -149,10 +150,45 @@ const Homepage = () => {
         setSearchResult(null);
     }
 
+    const [showScrollingElement, setShowScrollingElement] = useState(false);
+    const [scrollWidth, setScrollWidth] = useState(200)
+
+    useEffect(() => {
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const threshold = 300
+            if (scrollPosition >= threshold && !showScrollingElement) {
+                setShowScrollingElement(true);
+            }
+            setScrollWidth(200 + scrollPosition - threshold)
+        }
+        window.addEventListener("scroll", handleScroll);
+
+        return() => {
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, [showScrollingElement])
+
+
+    const containerStyle = {
+        right: 0,
+        width: scrollWidth + 'px',
+        height: 300,
+        opacity: showScrollingElement ? 1 : 0,
+        transition: 'opacity 0.5s ease-in-out',
+    };
+
     return (
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
+            {showScrollingElement &&
+                <div className="home-page-scrolling-element">
+                    <div className="image-container" style={containerStyle}>
+                        <img style={containerStyle} src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg" alt="img"/>
+                    </div>
+                </div>
+            }
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
