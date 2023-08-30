@@ -115,7 +115,6 @@ const ProductsUser = () => {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
-            // Премахнете събитието при разглобяване на компонентата
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
@@ -123,7 +122,7 @@ const ProductsUser = () => {
 
     function scrolling() {
         const scrollPosition = localStorage.getItem('scrollPosition');
-        window.scrollTo(0, parseInt(scrollPosition))
+        window.scrollTo(0, parseInt(scrollPosition));
     }
 
     useEffect(() => {
