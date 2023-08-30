@@ -151,16 +151,33 @@ const Homepage = () => {
     }
 
     const [showScrollingElement1, setShowScrollingElement1] = useState(false);
+    const [showScrollingElement2, setShowScrollingElement2] = useState(false);
+    const [showScrollingElement3, setShowScrollingElement3] = useState(false);
+    const [showScrollingElement4, setShowScrollingElement4] = useState(false);
 
     useEffect(() => {
         function handleScroll() {
             const scrollPosition = window.scrollY;
             const threshold = 140
-            if (scrollPosition >= threshold) {
+            if (scrollPosition >= threshold && scrollPosition < 400) {
                 setShowScrollingElement1(true);
-            }
-            if (scrollPosition < threshold) {
+            } else {
                 setShowScrollingElement1(false)
+            }
+            if (scrollPosition >= 400 && scrollPosition < 650) {
+                setShowScrollingElement2(true);
+            } else {
+                setShowScrollingElement2(false)
+            }
+            if (scrollPosition >= 650 && scrollPosition < 900) {
+                setShowScrollingElement3(true)
+            } else {
+                setShowScrollingElement3(false)
+            }
+            if (scrollPosition >= 900 && scrollPosition < 1200) {
+                setShowScrollingElement4(true)
+            } else {
+                setShowScrollingElement4(false)
             }
         }
 
@@ -170,7 +187,6 @@ const Homepage = () => {
             window.removeEventListener("scroll", handleScroll)
         }
     }, [showScrollingElement1])
-
 
 
     return (
@@ -183,7 +199,49 @@ const Homepage = () => {
                         <div className="home-page-scrolling-element-1-container">
                             <p className="home-page-scrolling-element-1-name">{products[0].name}</p>
                             <img className="home-page-scrolling-element-1-img"
-                                src={products[0].imageUrl} alt="img"
+                                 src={products[0].imageUrl} alt="img"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+            }
+            {showScrollingElement2 &&
+                <div className="home-page-scrolling-element-2">
+                    {products ? (
+                        <div className="home-page-scrolling-element-1-container">
+                            <p className="home-page-scrolling-element-1-name">{products[1].name}</p>
+                            <img className="home-page-scrolling-element-1-img"
+                                 src={products[1].imageUrl} alt="img"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+            }
+            {showScrollingElement3 &&
+                <div className="home-page-scrolling-element-3">
+                    {products ? (
+                        <div className="home-page-scrolling-element-1-container">
+                            <p className="home-page-scrolling-element-1-name">{products[2].name}</p>
+                            <img className="home-page-scrolling-element-1-img"
+                                 src={products[2].imageUrl} alt="img"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+            }
+            {showScrollingElement4 &&
+                <div className="home-page-scrolling-element-4">
+                    {products ? (
+                        <div className="home-page-scrolling-element-1-container">
+                            <p className="home-page-scrolling-element-1-name">{products[3].name}</p>
+                            <img className="home-page-scrolling-element-1-img"
+                                 src={products[3].imageUrl} alt="img"
                             />
                         </div>
                     ) : (
