@@ -150,49 +150,52 @@ const Homepage = () => {
         setSearchResult(null);
     }
 
-    const [showScrollingElement, setShowScrollingElement] = useState(false);
-    const [scrollWidth, setScrollWidth] = useState(200)
+    const [showScrollingElement1, setShowScrollingElement1] = useState(false);
 
     useEffect(() => {
         function handleScroll() {
             const scrollPosition = window.scrollY;
-            const threshold = 300
-            if (scrollPosition >= threshold && !showScrollingElement) {
-                setShowScrollingElement(true);
+            const threshold = 140
+            if (scrollPosition >= threshold) {
+                setShowScrollingElement1(true);
             }
-            setScrollWidth(200 + scrollPosition - threshold)
+            if (scrollPosition < threshold) {
+                setShowScrollingElement1(false)
+            }
         }
+
         window.addEventListener("scroll", handleScroll);
 
-        return() => {
+        return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [showScrollingElement])
+    }, [showScrollingElement1])
 
 
-    const containerStyle = {
-        right: 0,
-        width: scrollWidth + 'px',
-        height: 300,
-        opacity: showScrollingElement ? 1 : 0,
-        transition: 'opacity 0.5s ease-in-out',
-    };
 
     return (
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
-            {showScrollingElement &&
-                <div className="home-page-scrolling-element">
-                    <div className="image-container" style={containerStyle}>
-                        <img style={containerStyle} src="https://i.ibb.co/vDRjrkc/bfi1677689901o.jpg" alt="img"/>
-                    </div>
+            {showScrollingElement1 &&
+                <div className="home-page-scrolling-element-1">
+                    {products ? (
+                        <div className="home-page-scrolling-element-1-container">
+                            <p className="home-page-scrolling-element-1-name">{products[0].name}</p>
+                            <img className="home-page-scrolling-element-1-img"
+                                src={products[0].imageUrl} alt="img"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             }
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
-                    <button className="search-result-close-button" onClick={closeDialog}>{t('search-result-close-button')}</button>
+                    <button className="search-result-close-button"
+                            onClick={closeDialog}>{t('search-result-close-button')}</button>
                     {searchResult ? (
                         <div className="search-result-container">
                             {searchResult.map((product) => (
@@ -278,6 +281,7 @@ const Homepage = () => {
             {products ? (
                 <article className="home-page-container">
                     {products.map((product) => (
+
                         <div
                             className="home-page-container-items"
                             key={product.id}
