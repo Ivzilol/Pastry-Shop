@@ -83,7 +83,14 @@
     "confirm-button": "Confirm the order",
     "h5": "If you have undelivered orders, you can track them here:",
     "tracking-button": "Follow up",
-    "history-button": "History of your orders"
+    "history-button": "History of your orders",
+    "discount": "Discount:",
+    "method-pay": "Choose a payment method",
+    "pay-delivery": "Payment on delivery",
+    "pay-card": "Payment by credit card",
+    "card-information": "Credit card information",
+    "card-*": "* This is a portfolio purpose app does not process real payments!",
+    "pay-confirm": "Confirm payment"
   },
   "tracking-main-section": {
     "data": "From date:",

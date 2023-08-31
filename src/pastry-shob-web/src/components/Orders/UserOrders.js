@@ -121,7 +121,7 @@ const UserOrders = () => {
                         {promotion
                         ?
                             <h5 className="orders-user-title"
-                            >Отстъпка: {discount.toFixed(2)} {t('products-users.currency')}
+                            >{t('orders-user.discount')} {discount.toFixed(2)} {t('products-users.currency')}
                             </h5>
                             :
                             <></>
@@ -130,7 +130,7 @@ const UserOrders = () => {
                         >{t('orders-user.all-price')} {allPrice.toFixed(2)} {t('products-users.currency')}
                         </h5>
                         <div className="orders-user-form">
-                            <h3>Изберете метод на плащане</h3>
+                            <h3>{t('orders-user.method-pay')}</h3>
                             <div>
                                 <label>
                                     <input
@@ -139,7 +139,7 @@ const UserOrders = () => {
                                         checked={paymentMethod === "delivery"}
                                         onChange={handlePaymentMethodChange}
                                     />
-                                    Плащане при доставка
+                                    {t('orders-user.pay-delivery')}
                                 </label>
                             </div>
                             <div>
@@ -150,29 +150,29 @@ const UserOrders = () => {
                                         checked={paymentMethod === "creditCard"}
                                         onChange={handlePaymentMethodChange}
                                     />
-                                    Плащане с кредитна карта
+                                    {t('orders-user.pay-card')}
                                 </label>
                             </div>
 
                             {paymentMethod === "creditCard" && (
                                 <div className="orders-user-form-card">
-                                    <h4>Информация за кредитната карта</h4>
-                                    <p>* Това е приложение с цел портфолио не обработва реални плащания!</p>
+                                    <h4>{t('orders-user.card-information')}</h4>
+                                    <p>{t('orders-user.card-*')}</p>
                                     <input
                                         type="text"
                                         name="cardNumber"
-                                        placeholder="Номер на кредитната карта"
+                                        placeholder="  Credit card number"
                                         onChange={handleCreditCardChange}
                                         value={creditCardData.cardNumber}
                                     />
                                     <input
                                         type="text"
                                         name="cardHolderName"
-                                        placeholder="Име на държателя"
+                                        placeholder="  Name of holder"
                                         onChange={handleCreditCardChange}
                                         value={creditCardData.cardHolderName}
                                     />
-                                    <button>Потвърди плащането</button>
+                                    <button>{t('orders-user.pay-confirm')}</button>
                                 </div>
                             )}
                         </div>
