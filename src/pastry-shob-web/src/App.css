@@ -1441,7 +1441,24 @@ footer {
     width: auto;
     border-radius: 10px;
     padding: 2px 20px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
+}
+
+.registration-message-successful {
+    margin-top: 10px;
+    font-size: 12px;
+    background-color: black;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.registration-message-unsuccessful {
+    margin-top: 10px;
+    font-size: 17px;
+    background-color: black;
+    padding: 3px 10px;
+    border-radius: 10px;
+    color: red;
 }
 
 @media screen and (max-width: 600px) {

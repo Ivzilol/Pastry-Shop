@@ -21,6 +21,10 @@ const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const {t} = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
+    const [successfulRegistrationDialog, setSuccessfulRegistrationDialog] = useState(false);
+    const [successfulRegistration, setSuccessfulRegistration] = useState("");
+    const [unsuccessfulRegistrationDialog, setUnsuccessfulRegistrationDialog] = useState(false)
+    const [unsuccessfulRegistration, setUnsuccessfulRegistration] = useState("");
     const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
@@ -53,11 +57,12 @@ const Register = () => {
             })
             .then(() => {
                 user.setJwt(user.jwt);
-                alert("You have registered successfully, please check your email for activation")
-                navigate("/login")
+                setSuccessfulRegistration("You have registered successfully, please check your email for activation");
+                setSuccessfulRegistrationDialog(true);
             })
             .catch((message) => {
-                alert(message);
+                setUnsuccessfulRegistrationDialog(true);
+                setUnsuccessfulRegistration(message);
             });
     }
 
@@ -302,6 +307,14 @@ const Register = () => {
                     />
                     {error.phoneNumber &&
                         <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.phoneNumber}</span>
+                    }
+                    {successfulRegistrationDialog &&
+                        <h5 className="registration-message-successful">{successfulRegistration}
+                        </h5>
+                    }
+                    {unsuccessfulRegistrationDialog &&
+                        <h5 className="registration-message-unsuccessful">{unsuccessfulRegistration}
+                        </h5>
                     }
                     <button
                         id="submit"
