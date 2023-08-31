@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
@@ -7,11 +7,16 @@ const ForgottenPasswordEmail = () => {
 
     const baseUrl = "http://localhost:8080/";
     const [email, setEmail] = useState("");
+    const [dialogVisible, setDialogVisible] = useState(false);
+    const [emptyEmailDialog, setEmptyEmailDialog] = useState(false);
+    const [error, setError] = useState("")
+    const [emptyErrorEmail, setEmptyErrorEmail] = useState("");
     const {t} = useTranslation();
 
     function sendEmail() {
         if (email.trim() === '') {
-            alert("Please put your email")
+            setEmptyErrorEmail("Please put your email");
+            setEmptyEmailDialog(true);
             return;
         }
         const requestBody = {
@@ -25,7 +30,8 @@ const ForgottenPasswordEmail = () => {
                     handleSubmit()
                 } else {
                     handleSubmit()
-                    alert(`${response.custom}`)
+                    setError(response.custom)
+                    setDialogVisible(true)
                 }
             })
     }
@@ -50,6 +56,14 @@ const ForgottenPasswordEmail = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
+                {dialogVisible &&
+                    <h5 className="forgotten-password-invalid">{error}
+                    </h5>
+                }
+                {emptyEmailDialog &&
+                    <h5 className="forgotten-password-invalid">{emptyErrorEmail}
+                    </h5>
+                }
                 <button
                     id="submit"
                     type="button"
