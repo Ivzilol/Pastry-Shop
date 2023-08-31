@@ -66,7 +66,6 @@ const ProductsUser = () => {
     function likeProduct(id) {
         ajax(`${baseUrl}api/products/${id}`, "PATCH", user.jwt)
             .then(() => {
-                alert("You like this product")
                 refreshPage();
             })
     }
@@ -88,7 +87,6 @@ const ProductsUser = () => {
     function dislikeProduct(id) {
         ajax(`${baseUrl}api/products/dislike/${id}`, "Delete", user.jwt)
             .then(() => {
-                alert("You dislike product")
                 refreshPage();
             })
     }
