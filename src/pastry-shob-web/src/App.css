@@ -1428,6 +1428,9 @@ footer {
     color: red;
     margin-top: 10px;
     text-align: center;
+    background-color: black;
+    width: auto;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 600px) {
