@@ -47,6 +47,7 @@ const UserOrders = () => {
             status: "confirmed"
         })
             .then(() => {
+                refreshPage()
                 setConfirmOrderMessage("Successful confirm your order");
                 setDialogVisible(true);
                 })
