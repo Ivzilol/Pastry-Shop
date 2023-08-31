@@ -146,7 +146,7 @@
     color: white;
 }
 
-.register .register-form button:hover{
+.register .register-form button:hover {
     background-color: black;
 }
 
@@ -1293,7 +1293,7 @@ footer {
     font-style: italic;
 }
 
-.user-change-pass-container label{
+.user-change-pass-container label {
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -1315,7 +1315,7 @@ footer {
     font-style: italic;
 }
 
-.user-change-pass-container button:hover{
+.user-change-pass-container button:hover {
     background-color: aqua;
 }
 
@@ -1325,7 +1325,7 @@ footer {
     color: white;
 }
 
-.forgotten-password-link:hover{
+.forgotten-password-link:hover {
     color: black;
 }
 
@@ -1424,6 +1424,11 @@ footer {
     margin-left: 40px;
 }
 
+.login-invalid {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
 
 @media screen and (max-width: 600px) {
 

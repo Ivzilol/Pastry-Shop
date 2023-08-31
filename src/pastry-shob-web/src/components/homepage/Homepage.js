@@ -186,7 +186,7 @@ const Homepage = () => {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [showScrollingElement1])
+    }, [])
 
 
     return (

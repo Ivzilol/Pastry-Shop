@@ -10,6 +10,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [dialogVisible, setDialogVisible] = useState(false);
     let navigate = useNavigate();
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
@@ -39,8 +40,8 @@ const Login = () => {
             })
             .then(([, headers]) => {
                 user.setJwt(headers.get("Authorization"))
-            }).catch((message) => {
-            alert(message)
+            }).catch(() => {
+            setDialogVisible(true)
         });
     }
 
@@ -85,6 +86,10 @@ const Login = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+                            {dialogVisible &&
+                                <h5 className="login-invalid">{t('login.error')}
+                                </h5>
+                            }
                             <a className="forgotten-password-send-show-password-login"
                                onClick={togglePasswordVisibility}>
                                 {showPassword ? t('login.hide-password') : t('login.show-password')}
@@ -118,7 +123,7 @@ const Login = () => {
                 </Row>
             </Container>
             <a className="forgotten-password-link"
-            onClick={() => navigate("/forgotten-password")}
+               onClick={() => navigate("/forgotten-password")}
             >{t('login.forgotten-password')}</a>
         </main>
     );

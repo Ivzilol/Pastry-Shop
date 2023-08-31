@@ -131,7 +131,8 @@
     "register-button": "Registration",
     "forgotten-password": "Forgotten password?",
     "show-password": "Show password",
-    "hide-password": "Hide password"
+    "hide-password": "Hide password",
+    "error": "Invalid username or password"
   },
   "user-forgotten-password": {
     "h1": "Password recovery",
