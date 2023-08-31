@@ -16,6 +16,7 @@ const UserOrders = () => {
         promotion = true;
     }
     let allPrice = 0;
+    let discount = allPrice - (allPrice * 0.20);
 
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
@@ -100,6 +101,14 @@ const UserOrders = () => {
                                     allPrice += product.price
                             }
                             </p>
+                            <p className="getAllPrice">{
+                                promotion
+                                    ?
+                                    discount += product.price * 0.20
+                                    :
+                                    discount += product.price
+                            }
+                            </p>
                         </div>
                     ))}
                 </article>
@@ -109,8 +118,17 @@ const UserOrders = () => {
             <section>
                 {allPrice > 0 ? (
                     <div className="orders-user-price">
+                        {promotion
+                        ?
+                            <h5 className="orders-user-title"
+                            >Отстъпка: {discount.toFixed(2)} {t('products-users.currency')}
+                            </h5>
+                            :
+                            <></>
+                        }
                         <h5 className="orders-user-title"
-                        >{t('orders-user.all-price')} {allPrice.toFixed(2)} {t('products-users.currency')}</h5>
+                        >{t('orders-user.all-price')} {allPrice.toFixed(2)} {t('products-users.currency')}
+                        </h5>
                         <div className="orders-user-form">
                             <h3>Изберете метод на плащане</h3>
                             <div>
