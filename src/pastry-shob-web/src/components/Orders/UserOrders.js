@@ -139,6 +139,7 @@ const UserOrders = () => {
                             {paymentMethod === "creditCard" && (
                                 <div className="orders-user-form-card">
                                     <h4>Информация за кредитната карта</h4>
+                                    <p>* Това е приложение с цел портфолио не обработва реални плащания!</p>
                                     <input
                                         type="text"
                                         name="cardNumber"

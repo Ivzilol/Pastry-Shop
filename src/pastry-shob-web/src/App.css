@@ -1500,6 +1500,12 @@ footer {
     color: gray;
 }
 
+.orders-user-form-card p {
+    color: gray;
+    text-align: center;
+    font-size: 10px;
+}
+
 .orders-user-form-card input {
     margin-bottom: 10px;
     width: 400px;
