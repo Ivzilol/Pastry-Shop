@@ -1478,6 +1478,50 @@ footer {
     text-align: center;
 }
 
+.orders-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: italic;
+    color: #ef7d00;
+}
+
+.orders-user-form-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid gray;
+    border-radius: 10px;
+    padding: 5px 20px;
+    width: 500px;
+}
+
+.orders-user-form-card h4 {
+    color: gray;
+}
+
+.orders-user-form-card input {
+    margin-bottom: 10px;
+    width: 400px;
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+
+.orders-user-form-card button {
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: gray;
+    font-style: italic;
+    color: white;
+}
+
+.orders-user-form-card button:hover {
+    background-color: aqua;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

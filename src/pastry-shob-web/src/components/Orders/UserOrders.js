@@ -48,6 +48,21 @@ const UserOrders = () => {
         alert("Successful confirm your order");
     }
 
+    const [paymentMethod, setPaymentMethod] = useState("delivery");
+    const [creditCardData, setCreditCardData] = useState({
+        cardNumber: "",
+        cardHolderName: "",
+    });
+
+    const handlePaymentMethodChange = (e) => {
+        setPaymentMethod(e.target.value);
+    };
+
+    const handleCreditCardChange = (e) => {
+        const { name, value } = e.target;
+        setCreditCardData({ ...creditCardData, [name]: value });
+    };
+
 
     return (
         <main className="orders-user">
@@ -96,6 +111,52 @@ const UserOrders = () => {
                     <div className="orders-user-price">
                         <h5 className="orders-user-title"
                         >{t('orders-user.all-price')} {allPrice.toFixed(2)} {t('products-users.currency')}</h5>
+                        <div className="orders-user-form">
+                            <h3>Изберете метод на плащане</h3>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="delivery"
+                                        checked={paymentMethod === "delivery"}
+                                        onChange={handlePaymentMethodChange}
+                                    />
+                                    Плащане при доставка
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="creditCard"
+                                        checked={paymentMethod === "creditCard"}
+                                        onChange={handlePaymentMethodChange}
+                                    />
+                                    Плащане с кредитна карта
+                                </label>
+                            </div>
+
+                            {paymentMethod === "creditCard" && (
+                                <div className="orders-user-form-card">
+                                    <h4>Информация за кредитната карта</h4>
+                                    <input
+                                        type="text"
+                                        name="cardNumber"
+                                        placeholder="Номер на кредитната карта"
+                                        onChange={handleCreditCardChange}
+                                        value={creditCardData.cardNumber}
+                                    />
+                                    <input
+                                        type="text"
+                                        name="cardHolderName"
+                                        placeholder="Име на държателя"
+                                        onChange={handleCreditCardChange}
+                                        value={creditCardData.cardHolderName}
+                                    />
+                                    <button>Потвърди плащането</button>
+                                </div>
+                            )}
+                        </div>
                         <button
                             className="orders-container-items-button-confirm"
                             onClick={() => confirmOrder()}
