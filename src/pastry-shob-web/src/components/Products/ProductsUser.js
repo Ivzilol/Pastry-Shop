@@ -43,6 +43,10 @@ const ProductsUser = () => {
         ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
+                setOrderDialogProductName(productData.productName)
+                setOrderDialogProductDescription(productData.price)
+                setOrderDialog(true);
+                timerOrderWindow();
             });
 
     }
@@ -51,7 +55,7 @@ const ProductsUser = () => {
         ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
-                alert("Successfully add the product to your cart")
+
             })
     }
 
@@ -129,10 +133,27 @@ const ProductsUser = () => {
         scrolling()
     }, []);
 
+    const [orderDialog, setOrderDialog] = useState(false);
+    const [orderDialogProductName, setOrderDialogProductName] = useState("")
+    const [orderDialogProductDescription, setOrderDialogProductDescription] = useState("")
+
+    function timerOrderWindow() {
+        setTimeout(() => {
+            setOrderDialog(false)
+        }, 5000)
+    }
+
     return (
         <main className="products-users">
             <NavBar/>
             <OrderWindow/>
+            {orderDialog &&
+                <div className="home-page-order-dialog">
+                    <h4>{t('products-users.choice')}</h4>
+                    <h5>{t('products-users.name')} {orderDialogProductName}</h5>
+                    <p>{t('products-users.price')} {orderDialogProductDescription} {t('products-users.currency')}</p>
+                </div>
+            }
             {products ? (
                 <article className="products-container">
                     {products.map((product) => (
