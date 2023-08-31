@@ -9,6 +9,8 @@ const UserOrders = () => {
     const user = useUser();
     let navigate = useNavigate();
     const [products, setProducts] = useState(null);
+    const [dialogVisible, setDialogVisible] = useState(false);
+    const [confirmOrderMessage, setConfirmOrderMessage] = useState("");
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
@@ -44,9 +46,10 @@ const UserOrders = () => {
         ajax(`${baseUrl}api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
-            .then(() =>
-                refreshPage())
-        alert("Successful confirm your order");
+            .then(() => {
+                setConfirmOrderMessage("Successful confirm your order");
+                setDialogVisible(true);
+                })
     }
 
     const [paymentMethod, setPaymentMethod] = useState("delivery");
@@ -68,6 +71,11 @@ const UserOrders = () => {
     return (
         <main className="orders-user">
             <NavBar/>
+            {dialogVisible &&
+            <div className="home-page-order-dialog">
+                <h4>{confirmOrderMessage}</h4>
+            </div>
+            }
             <h2 className="orders-user-title">{t('orders-user.title')}</h2>
             <hr className="orders-user-line"/>
             {products ? (
