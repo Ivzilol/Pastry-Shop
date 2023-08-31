@@ -24,7 +24,7 @@ const ForgottenPasswordNewPassword = () => {
             confirmPassword: confirmPassword
         }
         if (password.trim() === '' || confirmPassword.trim() === '') {
-            setErrorWrongFilling("Please fill in both fields correctly")
+            setErrorWrongFilling("Please fill in both fields")
             setDialogErrorWrongFilling(true);
             return;
         }
