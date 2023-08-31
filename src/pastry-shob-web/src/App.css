@@ -1461,6 +1461,23 @@ footer {
     color: red;
 }
 
+.home-page-order-dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 350px;
+    height: 149px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+    color: white;
+    font-style: italic;
+    border-radius: 20px;
+    margin-top: 65px;
+    text-align: center;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

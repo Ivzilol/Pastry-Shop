@@ -72,7 +72,8 @@
     "description": "Описание на продукта:",
     "no-like-button": "Не Харесвам",
     "like-button": "Харесва ми",
-    "order-button": "Поръчай"
+    "order-button": "Поръчай",
+    "choice": "Вие избрахте:"
   },
   "orders-user": {
     "title": "Вашата поръчка",

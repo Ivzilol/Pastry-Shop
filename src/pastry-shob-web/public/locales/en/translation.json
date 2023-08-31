@@ -72,7 +72,8 @@
     "description": "Description of the product:",
     "no-like-button": "I do not like",
     "like-button": "I like product",
-    "order-button": "Order"
+    "order-button": "Order",
+    "choice": "You chose:"
   },
   "orders-user": {
     "title": "Your order",

@@ -10,7 +10,6 @@ import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
-import {getFixedT} from "i18next";
 
 
 const Homepage = () => {
@@ -77,7 +76,10 @@ const Homepage = () => {
             ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
                 .then(productData => {
                     setProduct(productData);
-                    alert("Successfully add the product to your cart")
+                    setOrderDialogProductName(productData.productName)
+                    setOrderDialogProductDescription(productData.price)
+                    setOrderDialog(true);
+                    timerOrderWindow();
                 })
         } else {
             window.location.href = "/login";
@@ -188,11 +190,28 @@ const Homepage = () => {
         }
     }, [])
 
+    const [orderDialog, setOrderDialog] = useState(false);
+    const [orderDialogProductName, setOrderDialogProductName] = useState("")
+    const [orderDialogProductDescription, setOrderDialogProductDescription] = useState("")
+
+    function timerOrderWindow() {
+        setTimeout(() => {
+            setOrderDialog(false)
+        }, 5000)
+    }
+
 
     return (
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
+            {orderDialog &&
+                <div className="home-page-order-dialog">
+                    <h4>{t('products-users.choice')}</h4>
+                    <h5>{t('products-users.name')} {orderDialogProductName}</h5>
+                    <p>{t('products-users.price')} {orderDialogProductDescription} {t('products-users.currency')}</p>
+                </div>
+            }
             {showScrollingElement1 &&
                 <div className="home-page-scrolling-element-1">
                     {products ? (
