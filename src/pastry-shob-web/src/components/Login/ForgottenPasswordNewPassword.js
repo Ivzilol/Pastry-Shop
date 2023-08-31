@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
@@ -9,6 +9,10 @@ const ForgottenPasswordNewPassword = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [dialogVisible, setDialogVisible] = useState(false);
+    const [dialogErrorWrongFilling, setDialogErrorWrongFilling] = useState(false);
+    const [errorResponse, setErrorResponse] = useState("");
+    const [errorWrongFilling, setErrorWrongFilling] = useState("");
     const navigate = useNavigate();
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/"
@@ -20,7 +24,8 @@ const ForgottenPasswordNewPassword = () => {
             confirmPassword: confirmPassword
         }
         if (password.trim() === '' || confirmPassword.trim() === '') {
-            alert("Please fill in both fields correctly")
+            setErrorWrongFilling("Please fill in both fields correctly")
+            setDialogErrorWrongFilling(true);
             return;
         }
         ajax(`${baseUrl}api/users/register/forgotten-password/new-password`, "PATCH",
@@ -32,7 +37,8 @@ const ForgottenPasswordNewPassword = () => {
                     navigate("/login")
                 } else {
                     handleSubmit()
-                    alert(`${response.custom}`)
+                    setErrorResponse(response.custom)
+                    setDialogVisible(true)
                 }
             })
     }
@@ -85,6 +91,14 @@ const ForgottenPasswordNewPassword = () => {
                    onClick={togglePasswordVisibility}>
                     {showPassword ? t('login.hide-password') : t('login.show-password')}
                 </a>
+                {dialogErrorWrongFilling &&
+                    <h5 className="forgotten-password-invalid">{errorWrongFilling}
+                    </h5>
+                }
+                {dialogVisible &&
+                    <h5 className="forgotten-password-invalid">{errorResponse}
+                    </h5>
+                }
                 <button
                     id="submit"
                     type="button"
