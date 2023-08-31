@@ -112,7 +112,7 @@
     "last-name": "Last Name:",
     "email": "Email:",
     "address": "Address:",
-    "phone-number": "Телефон:",
+    "phone-number": "Phone:",
     "edit-button": "Edit profile"
   },
   "ordersUser": "Order history",
