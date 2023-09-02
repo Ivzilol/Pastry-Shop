@@ -1578,10 +1578,9 @@ footer {
     }
 
     .home-page-search {
-        width: 450px;
+        width: 75%;
         margin-top: 20px;
     }
-
     .search-result {
         margin-top: 110px;
         align-items: center;
@@ -1624,6 +1623,18 @@ footer {
 
     .not-login-user {
         font-size: 18px;
+    }
+
+    .forgotten-password-link {
+        margin-left: 45px;
+    }
+
+    .user-forgotten-password-container {
+        margin-top: 150px;
+    }
+
+    .forgotten-password-send-show-password-register {
+        margin-right: 320px;
     }
 
     .home-page-container {
