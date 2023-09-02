@@ -1556,13 +1556,35 @@ footer {
         margin-top: 113px;
     }
 
+    .home-page-scrolling-element-1 {
+        display: none;
+    }
+
     .home-page-event-search {
-        margin-top: 250px;
-        width: 600px;
+        /*margin-top: 170px;*/
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        align-items: center;
+        height: auto;
+
+    }
+
+    .home-page-event {
+        width: auto;
+        height: auto;
+        margin-left: 50px;
+        margin-top: 30px;
+    }
+
+    .home-page-search {
+        width: 450px;
+        margin-top: 20px;
     }
 
     .search-result {
-        margin-top: 320px;
+        margin-top: 110px;
+        align-items: center;
     }
 
     .home-page-first {
