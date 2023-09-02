@@ -110,7 +110,7 @@ const ShopsView = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function persist() {
-        ajax(`${baseUrl}api/shops/${shopId}`, "PUT", user.jwt, shop)
+        ajax(`${baseUrl}api/shops/${shopId}`, "PATCH", user.jwt, shop)
             .then(shopData => {
                     setShop(shopData);
                 }

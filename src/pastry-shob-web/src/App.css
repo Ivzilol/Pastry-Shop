@@ -1561,13 +1561,13 @@ footer {
     }
 
     .home-page-event-search {
-        /*margin-top: 170px;*/
+        margin-top: 300px;
         display: flex;
         flex-direction: column;
         width: auto;
         align-items: center;
         height: auto;
-
+        /*margin-top: 100px;*/
     }
 
     .home-page-event {
@@ -1824,4 +1824,9 @@ footer {
         left: 160px;
         top: 300px;
     }
+
+    .user-change-pass {
+        margin-top: 280px;
+    }
+
 }
