@@ -42,7 +42,6 @@ const ProductsUser = () => {
     function orderProduct(id) {
         ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
-                console.log(productData)
                 setProduct(productData);
                 setOrderDialogProductName(productData.name)
                 setOrderDialogProductDescription(productData.price)

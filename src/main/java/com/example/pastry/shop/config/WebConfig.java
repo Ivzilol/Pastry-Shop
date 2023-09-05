@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000/")
                 .allowedOrigins("https://sladkarnicata-na-mama.azurewebsites.net/")
-                .allowedMethods("PUT", "DELETE")
+                .allowedMethods("PUT", "DELETE", "POST", "GET", "PATCH")
                 .allowedHeaders("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization")
                 .exposedHeaders("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization")
                 .allowCredentials(true).maxAge(3600);
