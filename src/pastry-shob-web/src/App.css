@@ -756,7 +756,7 @@ footer {
 
 .user-edit-profile-item h6 {
     margin-top: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding: 5px;
     color: black;
 }
@@ -764,7 +764,7 @@ footer {
 .user-edit-profile-item input {
     color: black;
     border-radius: 10px;
-    margin: 0px 0;
+    margin: 0 0;
     border: 3px solid gray;
     padding-left: 10px;
     width: 250px;
@@ -1864,6 +1864,12 @@ footer {
     .ordersUser {
         margin-top: 320px;
     }
+    .product-details-selected-product {
+        width: 300px;
+    }
 
-
+    .product-details-selected-product-img {
+        width: 260px;
+        height: auto;
+    }
 }
