@@ -27,7 +27,7 @@ const AdminOrders = () => {
     }
 
 
-    function startProcessingOrder(id, date) {
+    function startProcessingOrder(id) {
         ajax(`${baseUrl}api/orders/admin/${id}`, "POST", user.jwt, {
             id: id,
         })
@@ -100,12 +100,12 @@ const AdminOrders = () => {
                                             <p>Адрес: {order.users.address}</p>
                                             {orders ? (
                                                     <div className="orders-details-product"
-                                                         key={orders.keyOrderProduct}
+                                                         id={orders.keyOrderProduct}
                                                     >
                                                         {orders.map((orderDetails) =>
                                                             order.keyOrderProduct === orderDetails.keyOrderProduct
                                                                 ?
-                                                                <div>
+                                                                <div id={order.keyOrderProduct}>
                                                                     <p>Продукт: {orderDetails.productName}</p>
                                                                     <p>Цена: {orderDetails.price} лв.</p>
                                                                 </div>
