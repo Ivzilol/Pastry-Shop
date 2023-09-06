@@ -1528,6 +1528,11 @@ footer {
     background-color: aqua;
 }
 
+.products-container-item-description {
+    color: #ef7d00;
+    font-style: italic;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {
@@ -1582,7 +1587,7 @@ footer {
         margin-top: 20px;
     }
     .search-result {
-        margin-top: 110px;
+        margin-top: 320px;
         align-items: center;
     }
 
@@ -1646,6 +1651,14 @@ footer {
         display: none;
     }
 
+    .product-details {
+        width: auto;
+    }
+
+    .nav {
+        width: auto;
+    }
+
     .nav-home {
         margin-top: 10px;
     }
@@ -1665,12 +1678,17 @@ footer {
         color: black;
     }
 
+    footer {
+        width: auto;
+    }
+
     .footer {
         display: flex;
         flex-direction: column;
         text-align: center;
         font-size: 30px;
         border-radius: 0;
+        width: auto;
     }
 
     .footer-second {
@@ -1701,22 +1719,34 @@ footer {
     /*------------------------------------------*/
     .shops-view {
         margin-top: 300px;
+        width: auto;
     }
+
 
     .shop-art-main-title {
         text-align: center;
     }
 
-    .shop-art-first-picture-row-one {
-        width: 300px;
-    }
+    /*.shop-art-first-picture-row-one {*/
+    /*    width: 300px;*/
+    /*}*/
 
-    .shop-art-first-picture-row-one img {
-        width: 260px;
+    .shop-art-first-picture-row-one-one img {
+        width: 150px;
+        height: 220px;
     }
 
     .products-users {
         margin-top: 350px;
+    }
+
+    .products-container-items .product-img {
+        width: 350px;
+        height: auto;
+    }
+
+    .products-container-items .products-container-item-description {
+        width: 340px;
     }
 
     .orders-user {
@@ -1751,12 +1781,14 @@ footer {
     }
 
     .user-comments-container-button {
-        margin: 20px 200px 0 200px;
+        margin-left: 0;
+        align-items: center;
     }
 
     .register {
         margin-top: 105px;
         height: auto;
+        width: auto;
     }
 
     .register .register-form button {
@@ -1828,5 +1860,10 @@ footer {
     .user-change-pass {
         margin-top: 280px;
     }
+
+    .ordersUser {
+        margin-top: 320px;
+    }
+
 
 }

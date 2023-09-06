@@ -164,7 +164,7 @@ const ProductsUser = () => {
                             >{t('products-users.name')} {product.name}</p>
                             <p className="products-container-item"
                             >{t('products-users.price')} {product.price} {t('products-users.currency')}</p>
-                            <p className="products-container-item"
+                            <p className="products-container-item-description"
                             >{t('products-users.description')} {product.description}</p>
                             <img
                                 className="product-img" src={product.imageUrl} alt="new"
