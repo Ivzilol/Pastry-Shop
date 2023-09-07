@@ -102,9 +102,7 @@ function App() {
                         </PrivateRoute>
 
                     ) : (
-                        <PrivateRoute>
                             <ShopsViewUser/>
-                        </PrivateRoute>
                     )
                 }/>
             <Route

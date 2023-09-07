@@ -45,12 +45,12 @@ function NavBar() {
                     <button
                         className="nav-button"
                         onClick={() => {
-                                    user.setJwt(null);
+                            user.setJwt(null);
                             window.location.href = "/";
                         }}
                     >
                         {t('nav.nav-button-exit')}
-          </button>
+                    </button>
                 ) : window.location.href !== "/login" ? (
                     <button
                         className="nav-button"
@@ -75,20 +75,14 @@ function NavBar() {
                 ) : (
                     <></>
                 )}
-
-                {user && user.jwt ? (
-                    <button
-                        className="nav-button"
-                        onClick={() => {
-                            window.location.href = "/shops";
-                        }}
-                    >
-                        {t('nav.nav-button-markets')}
-                    </button>
-                ) : (
-                    <></>
-                )}
-
+                <button
+                    className="nav-button"
+                    onClick={() => {
+                        window.location.href = "/shops";
+                    }}
+                >
+                    {t('nav.nav-button-markets')}
+                </button>
                 {user && user.jwt ? (
                     <button
                         className="nav-button"

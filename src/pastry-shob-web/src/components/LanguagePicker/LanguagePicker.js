@@ -6,6 +6,7 @@ const LanguagePicker = () => {
     const languageHandlerChange = (lang) => {
         i18.changeLanguage(lang);
         document.getElementById('selectedLanguage').textContent = lang;
+        localStorage.setItem('selectedLanguage', lang);
     }
 
     return (

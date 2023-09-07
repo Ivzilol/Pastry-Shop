@@ -21,7 +21,7 @@ const ShopsViewUser = () => {
             .then(shopData => {
                 setShops(shopData);
             });
-        if (!user.jwt) navigate("/login");
+        // if (!user.jwt) navigate("/login");
     }, [navigate, user.jwt]);
 
 
@@ -36,15 +36,20 @@ const ShopsViewUser = () => {
                     {shops.map((shops) => (
                         <article
                             key={shops.id}
-                            >
+                        >
                             <h3 className="shops-view-container-comment-title">
                                 {t('shops-view.h3')}</h3>
                             <button className="shops-view-button"
-                                id="submit"
-                                type="button"
-                                onClick={() => {
-                                    window.location.href = `/shops/${shops.id}`
-                                }}
+                                    id="submit"
+                                    type="button"
+                                    onClick={() => {
+                                        user.jwt
+                                            ?
+                                            window.location.href = `/shops/${shops.id}`
+                                            :
+                                            alert("To comment please log in with your account");
+                                        navigate("/login")
+                                    }}
                             >
                                 {t('shops-view.button')}
                             </button>
