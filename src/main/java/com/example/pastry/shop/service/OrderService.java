@@ -65,7 +65,7 @@ public class OrderService {
     public Set<Orders> findByUser(Users user) {
         boolean isUser = isUser(user);
         if (isUser) {
-            return ordersRepository.findByUsers(user);
+            return ordersRepository.findByUsersId(user.getId());
         } else {
             return null;
         }
