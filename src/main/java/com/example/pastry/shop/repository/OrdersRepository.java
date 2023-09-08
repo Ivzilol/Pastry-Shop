@@ -39,7 +39,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     Set<Orders> findAllNotSendOrders();
 
     @Query("select o from Orders as o" +
-            " join Users as u on o.users.id = u.id" +
-            " where o.status = 'newOrder' and u.id = :id")
+            " where o.status = 'newOrder' and o.users.id = :id")
     Set<Orders> findByUsersId(Long id);
 }

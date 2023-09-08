@@ -1,7 +1,9 @@
 import {DropdownButton, Dropdown} from "react-bootstrap";
 import * as i18 from "i18next";
+import {useState} from "react";
 
 const LanguagePicker = () => {
+
 
     const languageHandlerChange = (lang) => {
         i18.changeLanguage(lang);

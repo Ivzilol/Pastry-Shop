@@ -69,7 +69,7 @@
     "name": "Product:",
     "price": "Price:",
     "currency": "BGN",
-    "description": "Description of the product:",
+    "description": "Description:",
     "no-like-button": "I do not like",
     "like-button": "I like product",
     "order-button": "Order",

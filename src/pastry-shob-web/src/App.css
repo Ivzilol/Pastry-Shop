@@ -1635,7 +1635,7 @@ footer {
     }
 
     .user-forgotten-password-container {
-        margin-top: 150px;
+        margin-top: 220px;
     }
 
     .forgotten-password-send-show-password-register {
@@ -1786,7 +1786,7 @@ footer {
     }
 
     .register {
-        margin-top: 105px;
+        margin-top: 155px;
         height: auto;
         width: auto;
     }
@@ -1871,5 +1871,9 @@ footer {
     .product-details-selected-product-img {
         width: 260px;
         height: auto;
+    }
+
+    .login {
+        margin-top: 170px;
     }
 }

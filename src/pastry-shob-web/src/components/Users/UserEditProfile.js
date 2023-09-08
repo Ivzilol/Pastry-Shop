@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
-import OrderWindow from "../Orders/OrderWindow";
 import {useTranslation} from "react-i18next";
 
 const UserEditProfile = () => {
@@ -62,7 +61,6 @@ const UserEditProfile = () => {
     return (
         <main className="user-edit-profile">
             <NavBar/>
-            <OrderWindow/>
             {currentUser ? (
                 <section className="user-edit-profile-container">
                     {currentUser ? (
