@@ -73,6 +73,10 @@ const Homepage = () => {
 
     function orderProducts(id) {
         if (user.jwt) {
+            if (roles.find((role) => role === 'admin')) {
+                alert("Admin cant order products");
+                return;
+            }
             ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
                 .then(productData => {
                     setProduct(productData);
