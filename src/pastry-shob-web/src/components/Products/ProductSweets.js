@@ -44,7 +44,7 @@ const ProductSweets = () => {
                         ))}
                     </article>
                 ) : (
-                    <></>
+                    <>No products here</>
                 )}
             </section>
             <Footer/>
