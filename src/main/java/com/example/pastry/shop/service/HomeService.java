@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class HomeService {
@@ -19,6 +21,7 @@ public class HomeService {
 
     public List<Products> findMostOrderedProducts() {
         List<Products> mostOrderedProducts = this.productRepository.findMostOrderedProducts();
+//        mostOrderedProducts.forEach(p -> p.getShops().setUsers(null));
         return getProducts(mostOrderedProducts);
     }
 
