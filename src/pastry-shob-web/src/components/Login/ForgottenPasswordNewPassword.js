@@ -31,7 +31,6 @@ const ForgottenPasswordNewPassword = () => {
         ajax(`${baseUrl}api/users/register/forgotten-password/new-password`, "PATCH",
             null, requestBody)
             .then(response => {
-                console.log(response)
                 if (response === undefined) {
                     alert("Successful change your password");
                     navigate("/login")
