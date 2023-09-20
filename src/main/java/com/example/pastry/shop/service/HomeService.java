@@ -19,12 +19,15 @@ public class HomeService {
 
     public List<Products> findMostOrderedProducts() {
         List<Products> mostOrderedProducts = this.productRepository.findMostOrderedProducts();
-//        mostOrderedProducts.forEach(p -> p.getShops().setUsers(null));
+        mostOrderedProducts.forEach(p -> p.setUserLikes(null));
+        mostOrderedProducts.forEach(p -> p.getShops().setUsers(null));
         return getProducts(mostOrderedProducts);
     }
 
     public List<Products> findRecommendedProducts() {
         List<Products> recommendedProducts = this.productRepository.recommendedProducts();
+        recommendedProducts.forEach(p -> p.setUserLikes(null));
+        recommendedProducts.forEach(p -> p.getShops().setUsers(null));
         return getProducts(recommendedProducts);
     }
 
