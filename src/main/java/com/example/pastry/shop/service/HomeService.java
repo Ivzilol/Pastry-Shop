@@ -19,7 +19,7 @@ public class HomeService {
 
     public List<Products> findMostOrderedProducts() {
         List<Products> mostOrderedProducts = this.productRepository.findMostOrderedProducts();
-        mostOrderedProducts.forEach(p -> p.getShops().setUsers(null));
+//        mostOrderedProducts.forEach(p -> p.getShops().setUsers(null));
         return getProducts(mostOrderedProducts);
     }
 
