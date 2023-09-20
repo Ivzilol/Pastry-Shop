@@ -40,7 +40,6 @@ public class UsersControllerIntegrationTest {
 
     private static TestRestTemplate restTemplate;
 
-
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
 

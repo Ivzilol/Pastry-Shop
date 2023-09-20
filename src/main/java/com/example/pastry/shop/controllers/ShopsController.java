@@ -50,7 +50,7 @@ public class ShopsController {
     @PatchMapping("/{shopId}")
     public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user,
                                         @PathVariable Long shopId,
-                                        @RequestBody Shops shop) {
+                                          Shops shop) {
         Shops updateShop = shopsService.saveShop(shop, user);
         return ResponseEntity.ok(updateShop);
     }
