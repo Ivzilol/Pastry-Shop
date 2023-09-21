@@ -22,7 +22,7 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
 public class AuthController {
 
-        private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     private final JwtUtil jwtUtil;
 

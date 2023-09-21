@@ -10,6 +10,7 @@ import OrderWindow from "../Orders/OrderWindow";
 import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
+import ChatRoom from "../ChatRoom/ChatRoom";
 
 
 const Homepage = () => {
@@ -209,6 +210,7 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
+            {/*<ChatRoom/>*/}
             {orderDialog &&
                 <div className="home-page-order-dialog">
                     <h4>{t('products-users.choice')}</h4>
