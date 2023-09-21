@@ -7,31 +7,24 @@ const ChatRoom = () => {
 
     const user = useUser();
     const baseUrl = "http://localhost:8080/";
-    const [messages, setMessages] = useState({});
+    const [messages, setMessages] = useState(null);
     const [newMessage, setNewMessage] = useState("")
     const navigate = useNavigate();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // function getMessage() {
-    //     if (user.jwt) {
-    //         ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
-    //             .then(result => {
-    //                 // console.log(result)
-    //                 setMessages(result)
-    //             })
-    //     }
-    // }
 
-    useEffect(() => {
+    function getMessage() {
         if (user.jwt) {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
                 .then(result => {
-                    console.log(result)
+                    // console.log(result)
                     setMessages(result)
-                    console.log(messages)
-                });
+                })
         }
-    }, [user.jwt]);
+    }
+
+    useEffect(() => {
+        getMessage()
+    }, []);
 
     function sentMessage() {
         if (user.jwt) {
