@@ -210,7 +210,7 @@ const Homepage = () => {
         <main className="home-page">
             <NavBar/>
             <OrderWindow/>
-            {/*<ChatRoom/>*/}
+            <ChatRoom/>
             {orderDialog &&
                 <div className="home-page-order-dialog">
                     <h4>{t('products-users.choice')}</h4>
