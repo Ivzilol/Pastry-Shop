@@ -15,7 +15,7 @@ const ChatRoom = () => {
                     setMessage(result);
                 });
         }
-    }, [])
+    }, [user.jwt])
 
     return (
         <div>
