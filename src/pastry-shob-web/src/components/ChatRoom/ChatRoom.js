@@ -8,14 +8,25 @@ const ChatRoom = () => {
     const baseUrl = "http://localhost:8080/";
     const [message, setMessage] = useState(null);
 
-    useEffect(() => {
+
+    function getMessage() {
         if (user.jwt) {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
                 .then(result => {
-                    setMessage(result);
-                });
+                    setMessage(result)
+                })
         }
-    }, [user.jwt])
+    }
+
+    useEffect(() => {
+        getMessage()
+    }, []);
+
+    function sentMessage() {
+        if (user.jwt) {
+        }
+    }
+
 
     return (
         <div>

@@ -1,14 +1,14 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ChatService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 import java.util.Set;
@@ -28,5 +28,18 @@ public class ChatController {
     public ResponseEntity<?> getUserMessages(@AuthenticationPrincipal Users users) {
         Optional<ChatMessages> findChatMessage = this.chatService.findByUserId(users);
         return ResponseEntity.ok(findChatMessage);
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<?> sentMessage(@AuthenticationPrincipal Users user,
+                                         @RequestBody SentMessageDto sentMessageDto) {
+        boolean isSave =  this.chatService.saveMessage(sentMessageDto);
+        if (isSave) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } else {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Invalid message");
+            return ResponseEntity.ok(customResponse);
+        }
     }
 }

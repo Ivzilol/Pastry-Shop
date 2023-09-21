@@ -15,6 +15,9 @@ public class ChatMessages {
     @Column
     private LocalDateTime createdDate;
 
+    @Column
+    private Long adminId;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users sendBy;
@@ -52,5 +55,13 @@ public class ChatMessages {
 
     public void setSendBy(Users sendBy) {
         this.sendBy = sendBy;
+    }
+
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 }

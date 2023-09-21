@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
@@ -19,5 +20,9 @@ public class ChatService {
 
     public Optional<ChatMessages> findByUserId(Users users) {
         return this.chatMessagesRepository.findBySendBy(users);
+    }
+
+    public boolean saveMessage(SentMessageDto sentMessageDto) {
+        return false;
     }
 }
