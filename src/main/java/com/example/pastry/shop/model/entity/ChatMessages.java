@@ -1,6 +1,4 @@
 package com.example.pastry.shop.model.entity;
-
-import com.example.pastry.shop.model.enums.StatusMessage;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,21 +10,10 @@ public class ChatMessages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String senderName;
-
-    @Column
-    private String receiverName;
-
     @Column(columnDefinition = "TEXT")
     private String message;
-
     @Column
     private LocalDateTime createdDate;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private StatusMessage status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -43,22 +30,6 @@ public class ChatMessages {
         this.id = id;
     }
 
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -73,14 +44,6 @@ public class ChatMessages {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public StatusMessage getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusMessage status) {
-        this.status = status;
     }
 
     public Users getSendBy() {

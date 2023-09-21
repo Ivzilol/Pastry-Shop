@@ -1,7 +1,4 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useState} from "react";
-import ajax from "../../Services/FetchService";
 
 const ChatRoom = () => {
 
