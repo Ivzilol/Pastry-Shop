@@ -26,14 +26,14 @@ public class ChatController {
 
     @GetMapping("")
     public ResponseEntity<?> getUserMessages(@AuthenticationPrincipal Users users) {
-        Optional<ChatMessages> findChatMessage = this.chatService.findByUserId(users);
+        Set<ChatMessages> findChatMessage = this.chatService.findByUserId(users);
         return ResponseEntity.ok(findChatMessage);
     }
 
     @PostMapping("/send")
     public ResponseEntity<?> sentMessage(@AuthenticationPrincipal Users user,
                                          @RequestBody SentMessageDto sentMessageDto) {
-        boolean isSave =  this.chatService.saveMessage(sentMessageDto);
+        boolean isSave =  this.chatService.saveMessage(sentMessageDto, user);
         if (isSave) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {

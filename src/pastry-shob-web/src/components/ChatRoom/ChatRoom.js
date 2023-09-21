@@ -7,22 +7,31 @@ const ChatRoom = () => {
 
     const user = useUser();
     const baseUrl = "http://localhost:8080/";
-    const [messages, setMessages] = useState(null);
+    const [messages, setMessages] = useState({});
     const [newMessage, setNewMessage] = useState("")
     const navigate = useNavigate();
 
-    function getMessage() {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // function getMessage() {
+    //     if (user.jwt) {
+    //         ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
+    //             .then(result => {
+    //                 // console.log(result)
+    //                 setMessages(result)
+    //             })
+    //     }
+    // }
+
+    useEffect(() => {
         if (user.jwt) {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
                 .then(result => {
+                    console.log(result)
                     setMessages(result)
-                })
+                    console.log(messages)
+                });
         }
-    }
-
-    useEffect(() => {
-        getMessage()
-    }, []);
+    }, [user.jwt]);
 
     function sentMessage() {
         if (user.jwt) {
@@ -50,7 +59,9 @@ const ChatRoom = () => {
                 {messages ? (
                     <div className="chat-container-messages">
                         {messages.map((message) => (
-                            <p>{message.message}</p>
+                            <div key={message.id}>
+                                <p>{message.message}</p>
+                            </div>
                         ))}
                     </div>
                 ) : (
