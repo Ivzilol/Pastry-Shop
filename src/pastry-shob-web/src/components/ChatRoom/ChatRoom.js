@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 
@@ -10,7 +10,13 @@ const ChatRoom = () => {
     const [messages, setMessages] = useState(null);
     const [newMessage, setNewMessage] = useState("")
     const navigate = useNavigate();
+    const lastMessageRef = useRef(null);
 
+    useEffect(() => {
+        if (lastMessageRef.current) {
+            lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]);
 
     function getMessage() {
         if (user.jwt) {
@@ -36,7 +42,6 @@ const ChatRoom = () => {
                     } else {
                         handleSubmit()
                         getMessage();
-                        return alert("")
                     }
 
                 })
@@ -53,10 +58,10 @@ const ChatRoom = () => {
     return (
         <div className="chat-container">
             <h3>Пишете ни</h3>
-            <div className="chat-container-messages" style={{ marginTop: '40px', overflowY: 'scroll', height: 'calc(100% - 40px)' }}>
+            <div className="chat-container-messages" style={{ marginTop: '40px', overflowY: 'scroll', height: '60%' }}>
                 {messages ? (
                     messages.map((message) => (
-                        <div key={message.id}>
+                        <div key={message.id} ref={lastMessageRef}>
                             <p>{message.message}</p>
                         </div>
                     ))
@@ -71,6 +76,7 @@ const ChatRoom = () => {
                     placeholder="Напиешете съобщение"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+
                 />
                 <button
                     id="submit"
