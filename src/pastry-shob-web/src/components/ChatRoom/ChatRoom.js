@@ -28,6 +28,7 @@ const ChatRoom = () => {
     }
 
 
+
     function sentMessage() {
         if (user.jwt) {
             const requestBody = {
