@@ -16,15 +16,11 @@ const ChatRoom = () => {
         if (user.jwt) {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
                 .then(result => {
-                    // console.log(result)
                     setMessages(result)
                 })
         }
     }
 
-    useEffect(() => {
-        getMessage()
-    }, []);
 
     function sentMessage() {
         if (user.jwt) {
@@ -34,50 +30,57 @@ const ChatRoom = () => {
             ajax(`${baseUrl}api/chatroom/send`, "POST", user.jwt, requestBody)
                 .then((response) => {
                     if (response !== undefined) {
+                        getMessage()
                         return null;
+
                     } else {
+                        handleSubmit()
+                        getMessage();
                         return alert("")
                     }
+
                 })
         } else {
             navigate("/login")
         }
     }
 
+    const handleSubmit = () => {
+        setNewMessage('');
+    }
+
 
     return (
-        <main className="chat">
-            <section className="chat-container">
-                <h1>Chat</h1>
+        <div className="chat-container">
+            <h3>Пишете ни</h3>
+            <div className="chat-container-messages" style={{ marginTop: '40px', overflowY: 'scroll', height: 'calc(100% - 40px)' }}>
                 {messages ? (
-                    <div className="chat-container-messages">
-                        {messages.map((message) => (
-                            <div key={message.id}>
-                                <p>{message.message}</p>
-                            </div>
-                        ))}
-                    </div>
+                    messages.map((message) => (
+                        <div key={message.id}>
+                            <p>{message.message}</p>
+                        </div>
+                    ))
                 ) : (
                     <></>
                 )}
-                <div className="chat-container-input">
-                    <input
-                        type="text"
-                        name="message"
-                        placeholder="Напиешете съобщение"
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                    />
-                    <button
-                        id="submit"
-                        type="button"
-                        onClick={() => sentMessage()}
-                    >
-                        Send
-                    </button>
-                </div>
-            </section>
-        </main>
+            </div>
+            <div className="chat-container-input" style={{ marginTop: '20px' }}>
+                <input
+                    type="text"
+                    name="message"
+                    placeholder="Напиешете съобщение"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                />
+                <button
+                    id="submit"
+                    type="button"
+                    onClick={() => sentMessage()}
+                >
+                    Send
+                </button>
+            </div>
+        </div>
     )
 }
 

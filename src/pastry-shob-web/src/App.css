@@ -1536,8 +1536,8 @@ footer {
 .chat-container {
     position: fixed;
     right: 0;
-    width: 350px;
-    height: 120px;
+    width: 500px;
+    height: 300px;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow-y: auto;
