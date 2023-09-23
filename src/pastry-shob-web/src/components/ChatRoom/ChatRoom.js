@@ -51,6 +51,7 @@ const ChatRoom = () => {
         }
     }
 
+
     const handleSubmit = () => {
         setNewMessage('');
     }
