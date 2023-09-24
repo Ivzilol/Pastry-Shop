@@ -11,10 +11,11 @@ const ChatRoom = () => {
     const [newMessage, setNewMessage] = useState("")
     const navigate = useNavigate();
     const lastMessageRef = useRef(null);
+    const [showMessage, setShowMessage] = useState(true);
 
     useEffect(() => {
         if (lastMessageRef.current) {
-            lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+            lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
         }
     }, [messages]);
 
@@ -23,11 +24,10 @@ const ChatRoom = () => {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
                 .then(result => {
                     setMessages(result)
+                    setShowMessage(true)
                 })
         }
     }
-
-
 
     function sentMessage() {
         if (user.jwt) {
@@ -55,29 +55,47 @@ const ChatRoom = () => {
         setNewMessage('');
     }
 
+    function handleClickCloseMessage() {
+        setShowMessage(false)
+    }
+
+    function handleClickOpenMessage() {
+        setShowMessage(true)
+    }
+
 
     return (
         <div className="chat-container">
             <h3>Пишете ни</h3>
-            <div className="chat-container-messages" style={{ marginTop: '40px', overflowY: 'scroll', height: '60%' }}>
-                {messages ? (
-                    messages.map((message) => (
-                        <div key={message.id} ref={lastMessageRef}>
-                            <p>{message.message}</p>
-                        </div>
-                    ))
-                ) : (
-                    <></>
-                )}
-            </div>
-            <div className="chat-container-input" style={{ marginTop: '20px' }}>
+            <a
+                className="close"
+                id="submit"
+                type="submit"
+                onClick={handleClickCloseMessage}
+            >X</a>
+            {showMessage &&
+                <div className="chat-container-messages"
+                     style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
+                    {messages ? (
+                        messages.map((message) => (
+                            <div key={message.id} ref={lastMessageRef}>
+                                <p>{message.message}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <></>
+                    )}
+
+                </div>
+            }
+            <div className="chat-container-input" style={{marginTop: '20px'}}>
                 <input
                     type="text"
                     name="message"
                     placeholder="Напиешете съобщение"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-
+                    onFocus={handleClickOpenMessage}
                 />
                 <button
                     id="submit"
