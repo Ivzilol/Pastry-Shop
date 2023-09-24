@@ -70,6 +70,12 @@ const ChatRoom = () => {
         setIsVisible(true)
     }
 
+    const something=(event) => {
+        if (event.keyCode === 13) {
+            sentMessage()
+        }
+    }
+
 
     return (
         <main>
@@ -124,6 +130,8 @@ const ChatRoom = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onFocus={handleClickOpenMessage}
                             autoComplete="off"
+                            onKeyDown={(e) => something(e)}
+
                         />
                         <button
                             id="submit"
