@@ -60,6 +60,7 @@ const ChatRoom = () => {
     }
 
     function handleClickOpenMessage() {
+        getMessage()
         setShowMessage(true)
     }
 
