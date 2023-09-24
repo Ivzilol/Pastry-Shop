@@ -75,33 +75,34 @@ const ChatRoom = () => {
                     position: 'fixed',
                     right: 0,
                     width: '27%',
-                    height: '67%',
-                    backgroundColor: 'blue',
+                    height: '61%',
+                    backgroundColor: 'white',
                     zIndex: '9999',
                     overflow: 'auto',
-                    padding: '20px',
+                    padding: '0px',
                     color: 'black',
                     fontStyle: 'italic',
                     borderRadius: '10px',
                     bottom: 0,
-                    marginRight: '50px'
+                    marginRight: '50px',
+                    border: '2px solid #ef7d00'
                 }}>
                     <section className="chat-container-title">
                         <h3>Пишете ни</h3>
-                        <button
+                        <a
                             className="chat-container-close"
                             id="submit"
                             type="submit"
                             onClick={handleClickCloseMessage}
                         >X
-                        </button>
+                        </a>
                     </section>
                     {showMessage &&
                         <div className="chat-container-messages"
                              style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
                             {messages ? (
                                 messages.map((message) => (
-                                    <div key={message.id} ref={lastMessageRef}>
+                                    <div className="chat-container-messages-current" key={message.id} ref={lastMessageRef}>
                                         <p key={message.id}>{message.message}</p>
                                     </div>
                                 ))
@@ -134,11 +135,11 @@ const ChatRoom = () => {
                     position: 'fixed',
                     right: 0,
                     width: '27%',
-                    height: '27%',
-                    backgroundColor: 'blue',
+                    height: '17%',
+                    backgroundColor: 'white',
                     zIndex: '9999',
                     overflow: 'auto',
-                    padding: '20px',
+                    padding: '0px',
                     color: 'black',
                     fontStyle: 'italic',
                     borderRadius: '10px',
@@ -147,13 +148,13 @@ const ChatRoom = () => {
                 }}>
                     <section className="chat-container-title">
                         <h3>Пишете ни</h3>
-                        <button
+                        <a
                             className="chat-container-close"
                             id="submit"
                             type="submit"
                             onClick={handleClickCloseMessage}
                         >X
-                        </button>
+                        </a>
                     </section>
                     {showMessage &&
                         <div className="chat-container-messages"

@@ -1554,20 +1554,66 @@ footer {
 .chat-container-title {
     display: flex;
     justify-content: space-between;
-    background-color: #ef7d00;
-
+    color: black;
+    padding: 5px 5px 5px 20px;
+    border-bottom: 2px solid gray;
 }
 
 .chat-container-close {
-    color: white;
-    font-size: 20px;
+    color: black;
+    font-size: 25px;
     font-style: italic;
+    text-decoration: none;
+    padding-right: 5px;
+}
+
+.chat-container-title h3 {
+    font-size: 26px;
+    padding-left: 10px;
 }
 
 .chat-container-messages {
     background-color: white;
+    padding: 5px 5px 5px 15px;
+    border-radius: 10px;
 }
 
+.chat-container-messages-current {
+}
+
+.chat-container-messages-current p {
+    background-color: #ef7d00;
+    border-radius: 10px;
+    padding: 3px 3px 3px 10px;
+    width: auto;
+}
+
+.chat-container-input {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chat-container-input input{
+    border-radius: 10px;
+    width: 70%;
+    border: none;
+    background-color: #b8b5ad;
+}
+
+.chat-container-input input::placeholder {
+    padding-left: 10px;
+    color: white;
+}
+
+.chat-container-input button {
+    background-color: #ef7d00;
+    border-radius: 10px;
+    width: 20%;
+    padding-bottom: 3px;
+    color: white;
+    font-style: italic;
+    border: none;
+}
 
 .maintenance {
     position: absolute;
