@@ -35,6 +35,9 @@ const ChatRoom = () => {
             const requestBody = {
                 newMessage: newMessage
             }
+            if (newMessage.trim() === '') {
+                return;
+            }
             ajax(`${baseUrl}api/chatroom/send`, "POST", user.jwt, requestBody)
                 .then((response) => {
                     if (response !== undefined) {
@@ -88,7 +91,7 @@ const ChatRoom = () => {
                     border: '2px solid #ef7d00'
                 }}>
                     <section className="chat-container-title">
-                        <h3>Пишете ни</h3>
+                        <h3>Да поговорим</h3>
                         <a
                             className="chat-container-close"
                             id="submit"
@@ -120,6 +123,7 @@ const ChatRoom = () => {
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onFocus={handleClickOpenMessage}
+                            autoComplete="off"
                         />
                         <button
                             id="submit"
