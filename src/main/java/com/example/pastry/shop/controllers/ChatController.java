@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
@@ -25,7 +26,7 @@ public class ChatController {
 
     @GetMapping("")
     public ResponseEntity<?> getUserMessages(@AuthenticationPrincipal Users users) {
-        Set<ChatMessages> findChatMessage = this.chatService.findByUserId(users);
+        Set<GetUserMessagesDTO> findChatMessage = this.chatService.findByUserId(users);
         return ResponseEntity.ok(findChatMessage);
     }
 

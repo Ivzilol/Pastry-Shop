@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
@@ -31,8 +32,8 @@ public class ChatService {
     }
 
 
-    public Set<ChatMessages> findByUserId(Users users) {
-        return this.chatMessagesRepository.findBySendBy(users);
+    public Set<GetUserMessagesDTO> findByUserId(Users users) {
+        return this.chatMessagesRepository.findBySendBy(users.getId());
     }
 
     public boolean saveMessage(SentMessageDto sentMessageDto, Users user) {
