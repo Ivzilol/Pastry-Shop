@@ -115,10 +115,10 @@ const ChatRoom = () => {
                                         <p key={message.id}>{message.message}</p>
                                     </div>
                                 ))
-                            ) : (
-                                <></>
-                            )}
 
+                            ) : (
+                                <>Здравейте, ако имате нужда от съдействие моля пишете ни!</>
+                            )}
                         </div>
                     }
                     <div className="chat-container-input" style={{marginTop: '20px'}}>
