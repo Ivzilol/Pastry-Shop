@@ -1632,6 +1632,20 @@ footer {
     text-align: center;
 }
 
+.message-admin-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    cursor: pointer;
+}
+
+.message-admin-container button {
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+
 @media screen and (max-width: 600px) {
 
     .body {

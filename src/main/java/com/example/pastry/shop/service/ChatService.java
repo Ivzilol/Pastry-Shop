@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
@@ -54,5 +55,9 @@ public class ChatService {
 
     public Set<UnansweredMessagesDTO> findUnansweredMessages(Users user) {
         return this.chatMessagesRepository.findAllUnansweredMessages();
+    }
+
+    public Set<GetMessageByUserDTO> findMessagesByUserId(Long id, Users user) {
+        return null;
     }
 }

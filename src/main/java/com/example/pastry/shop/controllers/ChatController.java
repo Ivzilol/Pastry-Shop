@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
@@ -48,5 +49,12 @@ public class ChatController {
     public ResponseEntity<?> getAllMessage(@AuthenticationPrincipal Users user) {
         Set<UnansweredMessagesDTO> unansweredMessagesDTOS = this.chatService.findUnansweredMessages(user);
         return ResponseEntity.ok(unansweredMessagesDTOS);
+    }
+
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<?> getMessageByUserId(@AuthenticationPrincipal Users user,
+                                                @PathVariable Long id){
+        Set<GetMessageByUserDTO> getMessageByUserDTO = this.chatService.findMessagesByUserId(id, user);
+        return ResponseEntity.ok(getMessageByUserDTO);
     }
 }

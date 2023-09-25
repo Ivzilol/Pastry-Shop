@@ -7,6 +7,8 @@ const ChatRoomsAdmin = () => {
     const user = useUser();
     const baseUrl = "http://localhost:8080/";
     const [allMessage, setAllMessage] = useState(null);
+    const [currentMessage, setCurrentMessage] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
 
     function getAllMessage() {
         ajax(`${baseUrl}api/chatroom/admin/all`, 'GET', user.jwt)
@@ -19,8 +21,32 @@ const ChatRoomsAdmin = () => {
         getAllMessage()
     }, [])
 
+    function getMessageByUser(id) {
+        ajax(`${baseUrl}api/chatroom/admin/${id}`, "GET", user.jwt)
+            .then(messageResponse => {
+                setCurrentMessage(messageResponse)
+            });
+    }
+
     return (
-        <main>Proba</main>
+        <main>
+            {allMessage ? (
+                <section className="message-admin-container">
+                    {allMessage.map((message) => (
+                        <button
+                            id={message.userId}
+                            key={message.userId}
+                            type="button"
+                            onClick={() => getMessageByUser(message.userId)}
+                        >
+                            {message.message}
+                        </button>
+                    ))}
+                </section>
+            ) : (
+                <></>
+            )}
+        </main>
     )
 }
 
