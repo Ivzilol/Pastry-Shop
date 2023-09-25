@@ -34,6 +34,7 @@ import ConfirmRegister from "./components/Register/ConfirmRegister";
 import UserChangePassword from "./components/Users/UserChangePassword";
 import ForgottenPasswordEmail from "./components/Login/ForgottenPasswordEmail";
 import ForgottenPasswordNewPassword from "./components/Login/ForgottenPasswordNewPassword";
+import ChatRoomsAdmin from "./components/ChatRoom/ChatRoomsAdmin";
 
 function App() {
     const user = useUser();
@@ -50,7 +51,6 @@ function App() {
         }
         return [];
     }
-
 
 
     return (
@@ -102,7 +102,7 @@ function App() {
                         </PrivateRoute>
 
                     ) : (
-                            <ShopsViewUser/>
+                        <ShopsViewUser/>
                     )
                 }/>
             <Route
@@ -156,6 +156,17 @@ function App() {
                            </PrivateRoute>
                    }
             />
+            <Route path="/chat-room"
+                   element={
+                       roles.find((role) => role === 'admin')
+                           ?
+                           <PrivateRoute>
+                               <ChatRoomsAdmin/>
+                           </PrivateRoute>
+                           :
+                           <></>
+                   }
+            />
             <Route path={"/orders/tracking"} element={<UserOrderTracking/>}/>
             <Route path="/users/:userId" element={<UserEditProfile/>}/>
             <Route path="users/change-password" element={<UserChangePassword/>}/>
@@ -164,7 +175,7 @@ function App() {
             <Route path="/" element={<Homepage/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
-            <Route path="/register/verify/:verificationCode" element={<ConfirmRegister/>} />
+            <Route path="/register/verify/:verificationCode" element={<ConfirmRegister/>}/>
             <Route path="/api/author" element={<Author/>}></Route>
             <Route path="/products/pies" element={<ProductPies/>}></Route>
             <Route path="/products/buns" element={<ProductBuns/>}></Route>
