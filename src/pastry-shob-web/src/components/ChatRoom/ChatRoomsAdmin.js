@@ -17,7 +17,7 @@ const ChatRoomsAdmin = () => {
 
     useEffect(() => {
         getAllMessage()
-    })
+    }, [])
 
     return (
         <main>Proba</main>

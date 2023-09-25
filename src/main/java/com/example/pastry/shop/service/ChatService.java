@@ -53,6 +53,6 @@ public class ChatService {
     }
 
     public Set<UnansweredMessagesDTO> findUnansweredMessages(Users user) {
-        return null;
+        return this.chatMessagesRepository.findAllUnansweredMessages();
     }
 }
