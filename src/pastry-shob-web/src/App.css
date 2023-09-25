@@ -1657,7 +1657,7 @@ footer {
 .message-admin-container-current-user {
     position: fixed;
     right: 0;
-    width: 27%;
+    width: 35%;
     height: 65%;
     background-color: white;
     z-index: 9999;

@@ -63,6 +63,13 @@ const ChatRoomsAdmin = () => {
         setNewMessageAdmin('');
     }
 
+    function finishChat(id) {
+        ajax(`${baseUrl}api/chatroom/admin/finish/${id}`, "PATCH", user.jwt, null)
+            .then(response => {
+
+            })
+    }
+
     return (
         <main className="message-admin-container">
             <section className="message-admin-container-all-messages">
@@ -113,6 +120,13 @@ const ChatRoomsAdmin = () => {
                             onClick={() => sendMessageAdmin(currentId)}
                         >
                             Send
+                        </button>
+                        <button
+                            id="submit"
+                            type="button"
+                            onClick={() =>  finishChat(currentId)}
+                        >
+                            Answered
                         </button>
                     </div>
                 </section>

@@ -75,4 +75,16 @@ public class ChatService {
         }
         return true;
     }
+
+    public boolean finishChat(Users user, Long id) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            Set<ChatMessages> chatMessages = this.chatMessagesRepository.findAllMessagesById(id);
+            for (ChatMessages current : chatMessages) {
+                current.setItAnswered(true);
+                this.chatMessagesRepository.save(current);
+            }
+        }
+        return true;
+    }
 }

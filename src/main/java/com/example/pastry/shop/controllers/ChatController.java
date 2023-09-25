@@ -67,4 +67,17 @@ public class ChatController {
             return ResponseEntity.ok(customResponse);
         }
     }
+
+    @PatchMapping("/admin/finish/{id}")
+    public ResponseEntity<?> makeChatFinished(@AuthenticationPrincipal Users user,
+                                              @PathVariable Long id) {
+        boolean isFinished = this.chatService.finishChat(user, id);
+        if (isFinished) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } else {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Invalid message");
+            return ResponseEntity.ok(customResponse);
+        }
+    }
 }
