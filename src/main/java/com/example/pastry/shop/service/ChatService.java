@@ -58,6 +58,6 @@ public class ChatService {
     }
 
     public Set<GetMessageByUserDTO> findMessagesByUserId(Long id, Users user) {
-        return null;
+        return this.chatMessagesRepository.findMessagesByUserId(id);
     }
 }

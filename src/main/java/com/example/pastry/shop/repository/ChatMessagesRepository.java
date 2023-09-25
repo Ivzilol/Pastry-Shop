@@ -1,5 +1,6 @@
 package com.example.pastry.shop.repository;
 
+import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.ChatMessages;
@@ -25,4 +26,11 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " where m.isItAnswered = false" +
             " group by userId")
     Set<UnansweredMessagesDTO> findAllUnansweredMessages();
+
+    @Query("select new com.example.pastry.shop.model.dto.GetMessageByUserDTO(" +
+            " m.message as message, m.sendBy.id as userId)" +
+            " from ChatMessages  as m" +
+            " where m.isItAnswered = false" +
+            " and m.sendBy.id = :id")
+    Set<GetMessageByUserDTO> findMessagesByUserId(Long id);
 }
