@@ -1632,14 +1632,14 @@ footer {
     text-align: center;
 }
 
-.message-admin-container {
+.message-admin-container-buttons {
     display: flex;
     flex-direction: column;
     width: 30%;
     cursor: pointer;
 }
 
-.message-admin-container button {
+.message-admin-container-buttons button {
     margin: 10px;
     border-radius: 10px;
     border: none;

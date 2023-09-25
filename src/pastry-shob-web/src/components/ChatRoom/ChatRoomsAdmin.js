@@ -29,9 +29,9 @@ const ChatRoomsAdmin = () => {
     }
 
     return (
-        <main>
+        <main className="message-admin-container">
             {allMessage ? (
-                <section className="message-admin-container">
+                <section className="message-admin-container-buttons">
                     {allMessage.map((message) => (
                         <button
                             id={message.userId}
