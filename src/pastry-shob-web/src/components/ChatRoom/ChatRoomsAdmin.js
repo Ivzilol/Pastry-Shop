@@ -7,7 +7,7 @@ const ChatRoomsAdmin = () => {
     const user = useUser();
     const baseUrl = "http://localhost:8080/";
     const [allMessage, setAllMessage] = useState(null);
-    const [currentMessage, setCurrentMessage] = useState(null);
+    const [currentMessages, setCurrentMessages] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
 
     function getAllMessage() {
@@ -24,28 +24,45 @@ const ChatRoomsAdmin = () => {
     function getMessageByUser(id) {
         ajax(`${baseUrl}api/chatroom/admin/${id}`, "GET", user.jwt)
             .then(messageResponse => {
-                setCurrentMessage(messageResponse)
+                setCurrentMessages(messageResponse)
+                setShowMessage(true)
             });
     }
 
     return (
         <main className="message-admin-container">
-            {allMessage ? (
-                <section className="message-admin-container-buttons">
-                    {allMessage.map((message) => (
-                        <button
-                            id={message.userId}
-                            key={message.userId}
-                            type="button"
-                            onClick={() => getMessageByUser(message.userId)}
-                        >
-                            {message.message}
-                        </button>
-                    ))}
+            <section className="message-admin-container-all-messages">
+                {allMessage ? (
+                    <section className="message-admin-container-buttons">
+                        {allMessage.map((message) => (
+                            <button
+                                id={message.userId}
+                                key={message.userId}
+                                type="button"
+                                onClick={() => getMessageByUser(message.userId)}
+                            >
+                                {message.message}
+                            </button>
+                        ))}
+                    </section>
+                ) : (
+                    <></>
+                )}
+            </section>
+            {showMessage &&
+                <section className="message-admin-container-current-user">
+                    {currentMessages ? (
+                        <div className="message-admin-container-current-user-container">
+                            {currentMessages.map((current) => (
+                                <p key={current.message}
+                                >{current.message}</p>
+                            ))}
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </section>
-            ) : (
-                <></>
-            )}
+            }
         </main>
     )
 }
