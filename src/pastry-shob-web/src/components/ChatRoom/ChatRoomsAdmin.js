@@ -41,7 +41,6 @@ const ChatRoomsAdmin = () => {
 
 
     function sendMessageAdmin(id) {
-        console.log(id)
         const requestBody = {
             newMessageAdmin: newMessageAdmin
         }
@@ -50,8 +49,18 @@ const ChatRoomsAdmin = () => {
         }
         ajax(`${baseUrl}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
             .then(response => {
-
+                if (response !== undefined) {
+                    getMessageByUser(currentId)
+                    handleSubmit()
+                } else {
+                    handleSubmit()
+                    getMessageByUser(currentId);
+                }
             })
+    }
+
+    const handleSubmit = () => {
+        setNewMessageAdmin('');
     }
 
     return (

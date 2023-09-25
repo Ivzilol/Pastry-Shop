@@ -65,11 +65,6 @@ public class ChatService {
     public boolean saveMessageAdmin(SendMessageAdminDTO sendMessageAdminDTO, Long id, Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-//            Set<ChatMessages> currentChatMessages = this.chatMessagesRepository.findAllMessagesById(id);
-//            for (ChatMessages current : currentChatMessages) {
-//                current.setAdminId(user.getId());
-//                this.chatMessagesRepository.save(current);
-//            }
             ChatMessages chatMessages = new ChatMessages();
             chatMessages.setAdminId(user.getId());
             chatMessages.setMessage(sendMessageAdminDTO.getNewMessageAdmin());
