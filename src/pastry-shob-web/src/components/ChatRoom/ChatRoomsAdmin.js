@@ -1,6 +1,6 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import ajax from "../../Services/FetchService";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const ChatRoomsAdmin = () => {
 
@@ -9,6 +9,14 @@ const ChatRoomsAdmin = () => {
     const [allMessage, setAllMessage] = useState(null);
     const [currentMessages, setCurrentMessages] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const lastMessageRef = useRef(null);
+    const [newMessageAdmin, setNewMessageAdmin] = useState("");
+
+    useEffect(() => {
+        if (lastMessageRef.current) {
+            lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
+        }
+    }, [currentMessages]);
 
     function getAllMessage() {
         ajax(`${baseUrl}api/chatroom/admin/all`, 'GET', user.jwt)
@@ -29,6 +37,19 @@ const ChatRoomsAdmin = () => {
             });
     }
 
+    function sendMessageAdmin(id) {
+        const requestBody = {
+            newMessageAdmin: newMessageAdmin
+        }
+        if (newMessageAdmin.trim() === '') {
+            return;
+        }
+        ajax(`${baseUrl}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
+            .then(response => {
+
+            })
+    }
+
     return (
         <main className="message-admin-container">
             <section className="message-admin-container-all-messages">
@@ -38,6 +59,7 @@ const ChatRoomsAdmin = () => {
                             <button
                                 id={message.userId}
                                 key={message.userId}
+                                ref={lastMessageRef}
                                 type="button"
                                 onClick={() => getMessageByUser(message.userId)}
                             >
@@ -52,7 +74,8 @@ const ChatRoomsAdmin = () => {
             {showMessage &&
                 <section className="message-admin-container-current-user">
                     {currentMessages ? (
-                        <div className="message-admin-container-current-user-container">
+                        <div className="message-admin-container-current-user-container"
+                                style={{marginTop: '40px', overflowY: 'scroll', height: '80%'}}>
                             {currentMessages.map((current) => (
                                 <p key={current.message}
                                 >{current.message}</p>
@@ -61,6 +84,23 @@ const ChatRoomsAdmin = () => {
                     ) : (
                         <></>
                     )}
+                    <div>
+                        <input
+                            type="text"
+                            name="message"
+                            placeholder="Напиешете съобщение"
+                            value={newMessageAdmin}
+                            onChange={(e) => setNewMessageAdmin(e.target.value)}
+                            autoComplete="off"
+                        />
+                        <button
+                            id="submit"
+                            type="button"
+                            onClick={() => sendMessageAdmin(currentMessages.id)}
+                        >
+                            Send
+                        </button>
+                    </div>
                 </section>
             }
         </main>

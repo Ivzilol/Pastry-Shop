@@ -70,7 +70,7 @@ const ChatRoom = () => {
         setIsVisible(true)
     }
 
-    const something=(event) => {
+    const sendWithEnter = (event) => {
         if (event.keyCode === 13) {
             sentMessage()
         }
@@ -130,7 +130,7 @@ const ChatRoom = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onFocus={handleClickOpenMessage}
                             autoComplete="off"
-                            onKeyDown={(e) => something(e)}
+                            onKeyDown={(e) => sendWithEnter(e)}
 
                         />
                         <button

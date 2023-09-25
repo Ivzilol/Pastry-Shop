@@ -1550,7 +1550,6 @@ footer {
 /*}*/
 
 
-
 .chat-container-title {
     display: flex;
     justify-content: space-between;
@@ -1594,7 +1593,7 @@ footer {
     justify-content: space-around;
 }
 
-.chat-container-input input{
+.chat-container-input input {
     border-radius: 10px;
     width: 70%;
     border: none;
@@ -1645,6 +1644,21 @@ footer {
     border: none;
 }
 
+.message-admin-container-current-user {
+    position: fixed;
+    right: 0;
+    width: 27%;
+    height: 65%;
+    background-color: white;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+    color: black;
+    border-radius: 10px;
+    bottom: 0;
+    margin-right: 50px;
+    border: 2px solid #ef7d00;
+}
 
 @media screen and (max-width: 600px) {
 
@@ -1699,6 +1713,7 @@ footer {
         width: 75%;
         margin-top: 20px;
     }
+
     .search-result {
         margin-top: 320px;
         align-items: center;
@@ -1843,7 +1858,6 @@ footer {
     /*.shop-art-first-picture-row-one {*/
     /*    width: 300px;*/
     /*}*/
-
     .shop-art-first-picture-row-one-one img {
         width: 150px;
         height: 220px;
@@ -1977,6 +1991,7 @@ footer {
     .ordersUser {
         margin-top: 320px;
     }
+
     .product-details-selected-product {
         width: 300px;
     }
