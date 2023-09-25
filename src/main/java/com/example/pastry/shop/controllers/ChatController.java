@@ -4,7 +4,6 @@ import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
-import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ChatService;
