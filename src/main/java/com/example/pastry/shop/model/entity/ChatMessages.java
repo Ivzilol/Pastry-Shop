@@ -18,6 +18,9 @@ public class ChatMessages {
     @Column
     private Long adminId;
 
+    @Column(columnDefinition = "boolean default false")
+    boolean isItAnswered;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users sendBy;
@@ -63,5 +66,13 @@ public class ChatMessages {
 
     public void setAdminId(Long adminId) {
         this.adminId = adminId;
+    }
+
+    public boolean isItAnswered() {
+        return isItAnswered;
+    }
+
+    public void setItAnswered(boolean itAnswered) {
+        isItAnswered = itAnswered;
     }
 }

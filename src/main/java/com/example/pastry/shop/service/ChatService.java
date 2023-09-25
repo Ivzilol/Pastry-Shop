@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
+import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
@@ -49,5 +50,9 @@ public class ChatService {
         } else {
             return false;
         }
+    }
+
+    public Set<UnansweredMessagesDTO> findUnansweredMessages(Users user) {
+        return null;
     }
 }

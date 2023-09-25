@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.SentMessageDto;
+import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
@@ -41,5 +42,11 @@ public class ChatController {
             customResponse.setCustom("Invalid message");
             return ResponseEntity.ok(customResponse);
         }
+    }
+
+    @GetMapping("/admin/all")
+    public ResponseEntity<?> getAllMessage(@AuthenticationPrincipal Users user) {
+        Set<UnansweredMessagesDTO> unansweredMessagesDTOS = this.chatService.findUnansweredMessages(user);
+        return ResponseEntity.ok(unansweredMessagesDTOS);
     }
 }
