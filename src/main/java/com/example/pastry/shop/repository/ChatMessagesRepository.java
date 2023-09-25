@@ -14,7 +14,7 @@ import java.util.Set;
 public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long> {
 
     @Query("select new com.example.pastry.shop.model.dto.GetUserMessagesDTO(" +
-            " m.message as message)" +
+            " m.id ,m.message as message, m.adminId as adminId)" +
             " from ChatMessages as m" +
             " where m.sendBy.id = :id")
     Set<GetUserMessagesDTO> findBySendBy(Long id);
@@ -33,4 +33,9 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " where m.isItAnswered = false" +
             " and m.sendBy.id = :id")
     Set<GetMessageByUserDTO> findMessagesByUserId(Long id);
+
+    @Query("select m from ChatMessages as m" +
+            " where m.sendBy.id = :id" +
+            " and m.isItAnswered = false")
+    Set<ChatMessages> findAllMessagesById(Long id);
 }

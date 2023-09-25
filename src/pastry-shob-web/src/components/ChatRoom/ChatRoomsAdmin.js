@@ -11,6 +11,7 @@ const ChatRoomsAdmin = () => {
     const [showMessage, setShowMessage] = useState(false);
     const lastMessageRef = useRef(null);
     const [newMessageAdmin, setNewMessageAdmin] = useState("");
+    const [currentId, setCurrentId] = useState(null);
 
     useEffect(() => {
         if (lastMessageRef.current) {
@@ -34,10 +35,13 @@ const ChatRoomsAdmin = () => {
             .then(messageResponse => {
                 setCurrentMessages(messageResponse)
                 setShowMessage(true)
+                setCurrentId(id)
             });
     }
 
+
     function sendMessageAdmin(id) {
+        console.log(id)
         const requestBody = {
             newMessageAdmin: newMessageAdmin
         }
@@ -79,6 +83,7 @@ const ChatRoomsAdmin = () => {
                             {currentMessages.map((current) => (
                                 <p key={current.message}
                                 >{current.message}</p>
+
                             ))}
                         </div>
                     ) : (
@@ -96,7 +101,7 @@ const ChatRoomsAdmin = () => {
                         <button
                             id="submit"
                             type="button"
-                            onClick={() => sendMessageAdmin(currentMessages.id)}
+                            onClick={() => sendMessageAdmin(currentId)}
                         >
                             Send
                         </button>

@@ -111,8 +111,22 @@ const ChatRoom = () => {
                              style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
                             {messages ? (
                                 messages.map((message) => (
-                                    <div className="chat-container-messages-current" key={message.id} ref={lastMessageRef}>
-                                        <p key={message.id}>{message.message}</p>
+                                    <div className="chat-container-messages-current"
+                                         key={message.id}
+                                         ref={lastMessageRef}>
+                                        {
+                                            message.adminId === null
+                                                ?
+                                                <p  key={message.id}
+                                                    className="chat-container-messages-current-user">
+                                                    Вие: {message.message}
+                                                </p>
+                                                :
+                                                <p  key={message.id}
+                                                    className="chat-container-messages-current-admin">
+                                                    Админ: {message.message}
+                                                </p>
+                                        }
                                     </div>
                                 ))
 

@@ -1578,14 +1578,24 @@ footer {
 }
 
 .chat-container-messages-current {
+    width: 100%;
 }
 
 .chat-container-messages-current p {
-    background-color: #ef7d00;
     border-radius: 10px;
     padding: 3px 3px 3px 10px;
     width: auto;
     color: white;
+}
+
+.chat-container-messages-current-user {
+    background-color: #ef7d00;
+    width: 50%;
+}
+
+.chat-container-messages-current-admin {
+    background-color: #04AA6D;
+
 }
 
 .chat-container-input {

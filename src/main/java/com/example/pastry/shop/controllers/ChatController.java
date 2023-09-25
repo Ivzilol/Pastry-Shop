@@ -1,9 +1,6 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
-import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
-import com.example.pastry.shop.model.dto.SentMessageDto;
-import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ChatService;
@@ -55,5 +52,19 @@ public class ChatController {
                                                 @PathVariable Long id){
         Set<GetMessageByUserDTO> getMessageByUserDTO = this.chatService.findMessagesByUserId(id, user);
         return ResponseEntity.ok(getMessageByUserDTO);
+    }
+
+    @PostMapping("/admin/answer/{id}")
+    public ResponseEntity<?> sendMessageAdmin(@AuthenticationPrincipal Users user,
+                                              @PathVariable Long id,
+                                              @RequestBody SendMessageAdminDTO sendMessageAdminDTO) {
+        boolean isSave = this.chatService.saveMessageAdmin(sendMessageAdminDTO, id, user);
+        if (isSave) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } else {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Invalid message");
+            return ResponseEntity.ok(customResponse);
+        }
     }
 }

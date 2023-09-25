@@ -1,13 +1,11 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
-import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
-import com.example.pastry.shop.model.dto.SentMessageDto;
-import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
+import com.example.pastry.shop.repository.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,8 +17,11 @@ public class ChatService {
 
     private final ChatMessagesRepository chatMessagesRepository;
 
-    public ChatService(ChatMessagesRepository chatMessagesRepository) {
+    private final UsersRepository usersRepository;
+
+    public ChatService(ChatMessagesRepository chatMessagesRepository, UsersRepository usersRepository) {
         this.chatMessagesRepository = chatMessagesRepository;
+        this.usersRepository = usersRepository;
     }
 
     private static boolean isAdmin(Users user) {
@@ -59,5 +60,24 @@ public class ChatService {
 
     public Set<GetMessageByUserDTO> findMessagesByUserId(Long id, Users user) {
         return this.chatMessagesRepository.findMessagesByUserId(id);
+    }
+
+    public boolean saveMessageAdmin(SendMessageAdminDTO sendMessageAdminDTO, Long id, Users user) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+//            Set<ChatMessages> currentChatMessages = this.chatMessagesRepository.findAllMessagesById(id);
+//            for (ChatMessages current : currentChatMessages) {
+//                current.setAdminId(user.getId());
+//                this.chatMessagesRepository.save(current);
+//            }
+            ChatMessages chatMessages = new ChatMessages();
+            chatMessages.setAdminId(user.getId());
+            chatMessages.setMessage(sendMessageAdminDTO.getNewMessageAdmin());
+            chatMessages.setCreatedDate(LocalDateTime.now());
+            Optional<Users> userAnsweredId = usersRepository.findById(id);
+            chatMessages.setSendBy(userAnsweredId.get());
+            this.chatMessagesRepository.save(chatMessages);
+        }
+        return true;
     }
 }
