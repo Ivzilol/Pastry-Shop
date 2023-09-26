@@ -12,7 +12,6 @@ const ShopsView = () => {
     useNavigate();
     const user = useUser();
     const {shopId} = useParams()
-// const shopId = window.location.href.split("/shops/")[1];
     const textareaRef = useRef(null);
     const baseUrl = "http://localhost:8080/";
     const [shop, setShop] = useState({
@@ -23,7 +22,7 @@ const ShopsView = () => {
     });
 
     const [, setShopsEnums] = useState([]);
-    const [shopsStatuses, setShopsStatuses] = useState([]);
+    const [, setShopsStatuses] = useState([]);
     const prevShopValue = useRef(shop);
 
     const emptyComment = {
@@ -94,22 +93,7 @@ const ShopsView = () => {
         commentCopy.text = value;
         setComment(commentCopy);
     }
-
-    function updateShop(prop, value) {
-        const newShop = {...shop}
-        newShop[prop] = value;
-        setShop(newShop);
-    }
-
-    function saveShop() {
-        if (shop.status === shopsStatuses[0].status) {
-            updateShop("status", shopsStatuses[1].status)
-        } else {
-            persist();
-        }
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps
     function persist() {
         ajax(`${baseUrl}api/shops/${shopId}`, "PATCH", user.jwt, shop)
             .then(shopData => {
