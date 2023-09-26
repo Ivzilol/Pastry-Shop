@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.CommentDto;
+import com.example.pastry.shop.model.dto.CommentsDTO;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.CommentService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -23,23 +25,39 @@ public class CommentController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto,
-                                                 @AuthenticationPrincipal Users user) {
+    public ResponseEntity<?> createComment(@RequestBody CommentDto commentDto,
+                                           @AuthenticationPrincipal Users user) {
         Comment comment = commentService.save(commentDto, user);
-        return ResponseEntity.ok(comment);
+        CommentsDTO commentsDTO = new CommentsDTO();
+        commentsDTO.setId(comment.getId());
+        commentsDTO.setText(comment.getText());
+        commentsDTO.setCreatedBy(comment.getCreatedBy());
+        return ResponseEntity.ok(commentsDTO);
     }
 
     @PutMapping("{commentId}")
-    public ResponseEntity<Comment> updateComment(@RequestBody CommentDto commentDto,
-                                                 @AuthenticationPrincipal Users user) {
+    public ResponseEntity<?> updateComment(@RequestBody CommentDto commentDto,
+                                           @AuthenticationPrincipal Users user) {
         Comment comment = commentService.save(commentDto, user);
-        return ResponseEntity.ok(comment);
+        CommentsDTO commentsDTO = new CommentsDTO();
+        commentsDTO.setId(comment.getId());
+        commentsDTO.setText(comment.getText());
+        commentsDTO.setCreatedBy(comment.getCreatedBy());
+        return ResponseEntity.ok(commentsDTO);
     }
 
     @GetMapping("")
-    public ResponseEntity<Set<Comment>> getCommentsByShop(@RequestParam Long shopId ) {
+    public ResponseEntity<Set<?>> getCommentsByShop(@RequestParam Long shopId) {
         Set<Comment> comments = commentService.getCommentsByShopId(shopId);
-        return ResponseEntity.ok(comments);
+        Set<Object> response = new HashSet<>();
+        for (Comment current : comments) {
+            CommentsDTO commentsDTO = new CommentsDTO();
+            commentsDTO.setId(current.getId());
+            commentsDTO.setText(current.getText());
+            commentsDTO.setCreatedBy(current.getCreatedBy());
+            response.add(commentsDTO);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("{id}")
