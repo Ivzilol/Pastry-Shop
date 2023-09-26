@@ -38,4 +38,8 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " where m.sendBy.id = :id" +
             " and m.isItAnswered = false")
     Set<ChatMessages> findAllMessagesById(Long id);
+
+    @Query("delete from ChatMessages " +
+            " where isItAnswered = true")
+    void deleteFinishedChat();
 }
