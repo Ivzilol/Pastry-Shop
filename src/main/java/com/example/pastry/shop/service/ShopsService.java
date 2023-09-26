@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.AllShopsDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
@@ -79,8 +80,8 @@ public class ShopsService {
 
 
 
-    public List<Shops> findAll() {
-        return this.shopsRepository.findAll();
+    public List<AllShopsDTO> findAll() {
+        return this.shopsRepository.findAllShops();
     }
 
     private static boolean isAdmin(Users user) {
