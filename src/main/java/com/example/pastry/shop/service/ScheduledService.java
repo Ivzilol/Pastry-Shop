@@ -1,6 +1,5 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.controllers.ChatController;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
 import org.springframework.scheduling.annotation.Scheduled;
