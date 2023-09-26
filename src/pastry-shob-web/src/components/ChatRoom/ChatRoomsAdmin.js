@@ -73,8 +73,16 @@ const ChatRoomsAdmin = () => {
     function handleClickOpenMessage() {
         getMessageByUser(currentId)
         setShowMessage(true)
-
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessageByUser(currentId)
+        }, 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [currentId, getMessageByUser])
 
     return (
         <main className="message-admin-container">
