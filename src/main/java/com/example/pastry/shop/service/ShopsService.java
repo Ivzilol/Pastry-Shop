@@ -1,6 +1,6 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.model.dto.AllShopsDTO;
+import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
@@ -68,7 +68,7 @@ public class ShopsService {
 
 
 
-    public List<AllShopsDTO> findAll() {
+    public List<ShopsDTO> findAll() {
         return this.shopsRepository.findAllShops();
     }
 

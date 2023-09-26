@@ -1,6 +1,6 @@
 package com.example.pastry.shop.model.dto;
 
-    public class AllShopsDTO {
+    public class ShopsDTO {
 
     private Long id;
 
@@ -14,7 +14,7 @@ package com.example.pastry.shop.model.dto;
 
     private String address;
 
-    public AllShopsDTO(Long id, Integer number, String name, String status, String town, String address) {
+    public ShopsDTO(Long id, Integer number, String name, String status, String town, String address) {
         this.id = id;
         this.number = number;
         this.name = name;

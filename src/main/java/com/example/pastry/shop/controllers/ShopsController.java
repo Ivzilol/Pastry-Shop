@@ -1,11 +1,10 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.AllShopsDTO;
+import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.ShopsService;
-import com.example.pastry.shop.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -29,13 +28,17 @@ public class ShopsController {
     @PostMapping("")
     public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
         Shops newShop = shopsService.createShop(user);
-        return ResponseEntity.ok(newShop);
+        ShopsDTO shopsDTO = new ShopsDTO(
+                newShop.getId(), newShop.getNumber(), newShop.getName(),
+                newShop.getStatus(), newShop.getTown(), newShop.getAddress()
+        );
+        return ResponseEntity.ok(shopsDTO);
     }
 
     @GetMapping("")
     public ResponseEntity<?> getShop() {
-        List<AllShopsDTO> allShopsDTO = shopsService.findAll();
-        return ResponseEntity.ok(allShopsDTO);
+        List<ShopsDTO> shopsDTO = shopsService.findAll();
+        return ResponseEntity.ok(shopsDTO);
     }
 
     @GetMapping("/{shopId}")
@@ -50,11 +53,11 @@ public class ShopsController {
                                         @PathVariable Long shopId,
                                         @RequestBody  Shops shop) {
         Shops updateShop = shopsService.saveShop(shop, user);
-        AllShopsDTO allShopsDTO = new AllShopsDTO(
+        ShopsDTO shopsDTO = new ShopsDTO(
                 updateShop.getId(), updateShop.getNumber(), updateShop.getName(),
                 updateShop.getStatus(), updateShop.getTown(), updateShop.getAddress()
         );
-        return ResponseEntity.ok(allShopsDTO);
+        return ResponseEntity.ok(shopsDTO);
     }
 
     @DeleteMapping("/delete/{id}")
