@@ -70,6 +70,12 @@ const ChatRoomsAdmin = () => {
             })
     }
 
+    function handleClickOpenMessage() {
+        getMessageByUser(currentId)
+        setShowMessage(true)
+
+    }
+
     return (
         <main className="message-admin-container">
             <section className="message-admin-container-all-messages">
@@ -112,6 +118,7 @@ const ChatRoomsAdmin = () => {
                             placeholder="Напиешете съобщение"
                             value={newMessageAdmin}
                             onChange={(e) => setNewMessageAdmin(e.target.value)}
+                            onFocus={handleClickOpenMessage}
                             autoComplete="off"
                         />
                         <button
