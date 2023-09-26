@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.service.HomeService;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,16 @@ public class HomeController {
         this.homeService = homeService;
     }
 
+
     @GetMapping("")
     public ResponseEntity<?> getMostOrderedProducts() {
-        List<Products> mostOrderedProducts = this.homeService.findMostOrderedProducts();
-        return ResponseEntity.ok(mostOrderedProducts);
+        List<MostOrderedProductsDTO> mostOrderedProductsDTOS = this.homeService.findMostOrderedProducts();
+        return ResponseEntity.ok(mostOrderedProductsDTOS);
     }
 
     @GetMapping("/home")
     public ResponseEntity<?> getRecommendedProducts() {
-        List<Products> recommendedProducts = this.homeService.findRecommendedProducts();
+        List<MostOrderedProductsDTO> recommendedProducts = this.homeService.findRecommendedProducts();
         return ResponseEntity.ok(recommendedProducts);
     }
 }

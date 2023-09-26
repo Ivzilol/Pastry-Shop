@@ -1,5 +1,6 @@
 package com.example.pastry.shop.repository;
 
+import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,13 +22,6 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     Optional<Products> findByName(String name);
 
     Products findProductById(Long id);
-    @Query("select p from Products as p" +
-            " order by p.numberOrders desc ")
-    List<Products> findMostOrderedProducts();
-
-    @Query("select p from Products as p" +
-            " order by p.numberOrders asc ")
-    List<Products> recommendedProducts();
 
     @Query("select p from Products as p" +
             " where p.categories = 'pie'")
@@ -43,4 +37,15 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     Set<Products> findAllCakes();
 
     Set<Products> findByCategories(String category);
+
+    @Query("select new com.example.pastry.shop.model.dto.MostOrderedProductsDTO(" +
+            " p.id, p.name, p.imageUrl, p.price, p.description as description)" +
+            " from Products as p" +
+            " order by p.numberOrders desc")
+    List<MostOrderedProductsDTO> findMostOrderedProducts();
+    @Query("select new com.example.pastry.shop.model.dto.MostOrderedProductsDTO(" +
+            " p.id, p.name, p.imageUrl, p.price, p.description as description)" +
+            " from Products as p" +
+            " order by p.numberOrders asc")
+    List<MostOrderedProductsDTO> recommendedProducts();
 }

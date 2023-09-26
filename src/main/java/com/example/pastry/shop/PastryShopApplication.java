@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class PastryShopApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(PastryShopApplication.class, args);
     }
 }
