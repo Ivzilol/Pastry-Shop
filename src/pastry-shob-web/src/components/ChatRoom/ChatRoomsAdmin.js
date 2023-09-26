@@ -103,15 +103,29 @@ const ChatRoomsAdmin = () => {
                         <div className="message-admin-container-current-user-container"
                                 style={{marginTop: '40px', overflowY: 'scroll', height: '80%'}}>
                             {currentMessages.map((current) => (
-                                <p key={current.message}
-                                >{current.message}</p>
-
+                                <div className="chat-container-messages-current"
+                                     key={current.id}
+                                     ref={lastMessageRef}>
+                                    {
+                                        current.adminId === null
+                                            ?
+                                            <p  key={current.id}
+                                                className="chat-container-messages-current-user">
+                                                Потребител: {current.message}
+                                            </p>
+                                            :
+                                            <p  key={current.id}
+                                                className="chat-container-messages-current-admin">
+                                                Вие: {current.message}
+                                            </p>
+                                    }
+                                </div>
                             ))}
                         </div>
                     ) : (
                         <></>
                     )}
-                    <div>
+                    <div className="message-admin-container-current-user-container-input">
                         <input
                             type="text"
                             name="message"

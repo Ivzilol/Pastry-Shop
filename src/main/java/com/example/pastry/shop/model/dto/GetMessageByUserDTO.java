@@ -6,9 +6,12 @@ public class GetMessageByUserDTO {
 
     private Long userId;
 
-    public GetMessageByUserDTO(String message, Long userId) {
+    private Long adminId;
+
+    public GetMessageByUserDTO(String message, Long userId, Long adminId) {
         this.message = message;
         this.userId = userId;
+        this.adminId = adminId;
     }
 
     public String getMessage() {
@@ -25,5 +28,13 @@ public class GetMessageByUserDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 }

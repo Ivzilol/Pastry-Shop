@@ -1670,6 +1670,27 @@ footer {
     border: 2px solid #ef7d00;
 }
 
+.message-admin-container-current-user-container-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.message-admin-container-current-user-container-input input {
+    border: 2px solid #ef7d00;
+    border-radius: 10px;
+    width: 50%;
+}
+
+.message-admin-container-current-user-container-input button {
+    border: none;
+    background-color: #ef7d00;
+    color: white;
+    padding: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

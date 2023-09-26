@@ -28,7 +28,7 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
     Set<UnansweredMessagesDTO> findAllUnansweredMessages();
 
     @Query("select new com.example.pastry.shop.model.dto.GetMessageByUserDTO(" +
-            " m.message as message, m.sendBy.id as userId)" +
+            " m.message as message, m.sendBy.id as userId, m.adminId)" +
             " from ChatMessages  as m" +
             " where m.isItAnswered = false" +
             " and m.sendBy.id = :id")
