@@ -34,8 +34,8 @@ public class ShopsController {
 
     @GetMapping("")
     public ResponseEntity<?> getShop() {
-        List<AllShopsDTO> shopsByUsers = shopsService.findAll();
-        return ResponseEntity.ok(shopsByUsers);
+        List<AllShopsDTO> allShopsDTO = shopsService.findAll();
+        return ResponseEntity.ok(allShopsDTO);
     }
 
     @GetMapping("/{shopId}")
@@ -50,7 +50,11 @@ public class ShopsController {
                                         @PathVariable Long shopId,
                                         @RequestBody  Shops shop) {
         Shops updateShop = shopsService.saveShop(shop, user);
-        return ResponseEntity.ok(updateShop);
+        AllShopsDTO allShopsDTO = new AllShopsDTO(
+                updateShop.getId(), updateShop.getNumber(), updateShop.getName(),
+                updateShop.getStatus(), updateShop.getTown(), updateShop.getAddress()
+        );
+        return ResponseEntity.ok(allShopsDTO);
     }
 
     @DeleteMapping("/delete/{id}")

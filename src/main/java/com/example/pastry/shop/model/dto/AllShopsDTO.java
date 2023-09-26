@@ -1,6 +1,6 @@
 package com.example.pastry.shop.model.dto;
 
-public class AllShopsDTO {
+    public class AllShopsDTO {
 
     private Long id;
 
