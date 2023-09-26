@@ -39,7 +39,7 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " and m.isItAnswered = false")
     Set<ChatMessages> findAllMessagesById(Long id);
 
-    @Query("delete from ChatMessages " +
-            " where isItAnswered = true")
-    void deleteFinishedChat();
+    @Query("select m from ChatMessages as m" +
+            " where m.isItAnswered = true")
+    Set<ChatMessages> deleteFinishedChat();
 }

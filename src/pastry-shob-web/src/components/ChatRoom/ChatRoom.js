@@ -20,6 +20,7 @@ const ChatRoom = () => {
         }
     }, [messages]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     function getMessage() {
         if (user.jwt) {
             ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
@@ -76,14 +77,14 @@ const ChatRoom = () => {
         }
     }
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getMessage()
-        }, 1000)
-        return () => {
-            clearInterval(interval)
-        }
-    }, [getMessage])
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         getMessage()
+    //     }, 1000)
+    //     return () => {
+    //         clearInterval(interval)
+    //     }
+    // }, [getMessage])
 
 
     return (
