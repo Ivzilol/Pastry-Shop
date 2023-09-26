@@ -77,14 +77,14 @@ const ChatRoom = () => {
         }
     }
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getMessage()
-    //     }, 1000)
-    //     return () => {
-    //         clearInterval(interval)
-    //     }
-    // }, [getMessage])
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getMessage()
+        }, 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [getMessage])
 
 
     return (
@@ -192,21 +192,6 @@ const ChatRoom = () => {
                         >X
                         </a>
                     </section>
-                    {showMessage &&
-                        <div className="chat-container-messages"
-                             style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
-                            {messages ? (
-                                messages.map((message) => (
-                                    <div key={message.id} ref={lastMessageRef}>
-                                        <p key={message.id}>{message.message}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <></>
-                            )}
-
-                        </div>
-                    }
                     <div className="chat-container-input" style={{marginTop: '20px'}}>
                         <input
                             type="text"
