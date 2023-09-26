@@ -28,7 +28,7 @@ const AdminOrders = () => {
 
 
     function startProcessingOrder(id) {
-        ajax(`${baseUrl}api/orders/admin/${id}`, "POST", user.jwt, {
+        ajax(`${baseUrl}api/orders-processing/admin/${id}`, "POST", user.jwt, {
             id: id,
         })
             .then(() => {
