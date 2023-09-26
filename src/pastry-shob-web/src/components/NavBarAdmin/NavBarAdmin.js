@@ -21,7 +21,7 @@ function NavBarAdmin() {
     return (
         <section className="nav">
             <article className="nav-home">
-                <a href="/">Сладкарницата на Мама</a>
+                <a href="/">Сладкарницата</a>
             </article>
             <div>
                 {user && user.jwt ? (
@@ -104,6 +104,18 @@ function NavBarAdmin() {
                         }}
                     >
                         Profiles
+                    </button>
+                ) : (
+                    <></>
+                )}
+                {user && user.jwt ? (
+                    <button
+                        className="nav-button"
+                        onClick={() => {
+                            navigate("/chat-room");
+                        }}
+                    >
+                        Chats
                     </button>
                 ) : (
                     <></>

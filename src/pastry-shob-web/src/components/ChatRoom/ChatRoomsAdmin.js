@@ -1,6 +1,7 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import ajax from "../../Services/FetchService";
 import {useEffect, useRef, useState} from "react";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 const ChatRoomsAdmin = () => {
 
@@ -86,6 +87,7 @@ const ChatRoomsAdmin = () => {
 
     return (
         <main className="message-admin-container">
+            <NavBarAdmin/>
             <section className="message-admin-container-all-messages">
                 {allMessage ? (
                     <section className="message-admin-container-buttons">

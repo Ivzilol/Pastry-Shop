@@ -1641,6 +1641,10 @@ footer {
     text-align: center;
 }
 
+.message-admin-container-all-messages {
+    margin-top: 70px;
+}
+
 .message-admin-container-buttons {
     display: flex;
     flex-direction: column;
