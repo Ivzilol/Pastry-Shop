@@ -12,6 +12,7 @@ import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
 import ChatRoom from "../ChatRoom/ChatRoom";
 import Maintenance from "../Maintenance/Maintenance";
+import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 
 const Homepage = () => {
@@ -215,7 +216,12 @@ const Homepage = () => {
 
     return (
         <main className="home-page">
-            <NavBar/>
+            {roles.find((role) => role === 'admin')
+                ?
+                <NavBarAdmin/>
+                :
+                <NavBar/>
+            }
             <OrderWindow/>
             {/*<Maintenance/>*/}
             {showChatRoom && <ChatRoom/>}
