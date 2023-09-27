@@ -25,11 +25,8 @@ public class ProductController {
 
     private final ProductsService productsService;
 
-    private final UserService userService;
-
-    public ProductController(ProductsService productsService, UserService userService) {
+    public ProductController(ProductsService productsService) {
         this.productsService = productsService;
-        this.userService = userService;
     }
 
     @PostMapping("/create/admin")
@@ -67,24 +64,23 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/likes")
-    public ResponseEntity<?> getUserLikes(@AuthenticationPrincipal Users user) {
-        Set<Products> product = this.productsService.findProductIsLike(user);
-        return ResponseEntity.ok(product);
-    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
-        Products product = this.productsService.likeProduct(id, user);
-        return ResponseEntity.ok(product);
+        this.productsService.likeProduct(id, user);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Like");
+        return ResponseEntity.ok(customResponse);
     }
 
     @DeleteMapping("/dislike/{id}")
     public ResponseEntity<?> dislikeProduct(@PathVariable Long id,
                                             @AuthenticationPrincipal Users user) {
-        Products product = this.productsService.deleteFromProductsLikes(id, user);
-        return ResponseEntity.ok(product);
+        this.productsService.deleteFromProductsLikes(id, user);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Not Like");
+        return ResponseEntity.ok(customResponse);
     }
 
     @GetMapping("/pies")
