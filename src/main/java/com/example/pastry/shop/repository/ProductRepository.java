@@ -1,5 +1,6 @@
 package com.example.pastry.shop.repository;
 
+import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
@@ -48,4 +49,10 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " from Products as p" +
             " order by p.numberOrders asc")
     List<MostOrderedProductsDTO> recommendedProducts();
+
+    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
+            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
+            " from Products as p" +
+            " where p.id = :productId")
+    Optional<GetProductsDTO> findOrderProductById(Long productId);
 }

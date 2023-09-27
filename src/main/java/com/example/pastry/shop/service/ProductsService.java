@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
+import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -60,12 +61,15 @@ public class ProductsService {
                 .stream().anyMatch(auth -> AuthorityEnum.user.name().equals(auth.getAuthority()));
     }
 
-    public Optional<Products> findById(Long productId) {
-        return productRepository.findById(productId);
+    public Optional<GetProductsDTO> findById(Long productId) {
+        return productRepository.findOrderProductById(productId);
     }
 
-    public Products saveProduct(Products product) {
-        return this.productRepository.save(product);
+    public void saveProduct(Products product, Users user) {
+        if (isAdmin(user)) {
+            product.setShops(shopsRepository.findShop());
+            this.productRepository.save(product);
+        }
     }
 
     public void delete(Long productId) {

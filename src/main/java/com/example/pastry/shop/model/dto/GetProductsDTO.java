@@ -1,7 +1,5 @@
 package com.example.pastry.shop.model.dto;
 
-import java.util.Set;
-
 public class GetProductsDTO {
 
     private Long id;
@@ -10,22 +8,24 @@ public class GetProductsDTO {
 
     private Double price;
 
+    private String categories;
+
     private String description;
 
     private String imageUrl;
 
-    private Set<Object> userLikes;
+    private Long shopId;
 
-    public GetProductsDTO() {
-    }
 
-    public GetProductsDTO(Long id, String name, Double price, String description, String imageUrl, Set<Object> userLikes) {
+
+    public GetProductsDTO(Long id, String name, Double price, String categories, String description, String imageUrl, Long shopId) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.categories = categories;
         this.description = description;
         this.imageUrl = imageUrl;
-        this.userLikes = userLikes;
+        this.shopId = shopId;
     }
 
     public Long getId() {
@@ -68,11 +68,19 @@ public class GetProductsDTO {
         this.imageUrl = imageUrl;
     }
 
-    public Set<Object> getUserLikes() {
-        return userLikes;
+    public String getCategories() {
+        return categories;
     }
 
-    public void setUserLikes(Set<Object> userLikes) {
-        this.userLikes = userLikes;
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 }

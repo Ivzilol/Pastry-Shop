@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
+import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
@@ -36,44 +37,20 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
-        Set<Products> productById = productsService.findByUser(user);
-        for (Products current : productById) {
-            for (Users userC : current.getUserLikes()) {
-                userC.setAuthorities(null);
-                userC.setPassword(null);
-                userC.setFirstName(null);
-                userC.setLastName(null);
-                userC.setPhoneNumber(null);
-                userC.setVerificationCode(null);
-                userC.setEmail(null);
-                userC.setAddress(null);
-            }
-            current.setShops(null);
-        }
-        return ResponseEntity.ok(productById);
-    }
 
     @GetMapping("/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable Long productId) {
-        Optional<Products> productOpt = productsService.findById(productId);
+        Optional<GetProductsDTO> productOpt = productsService.findById(productId);
         return ResponseEntity.ok(productOpt);
     }
 
     @PutMapping("/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
-                                           @RequestBody Products product) {
-        // add admin in this product if it must be changed
-        if (product.getAdmin() != null) {
-            Users admin = product.getAdmin();
-            admin = userService.findUserByUsername(admin.getUsername()).orElse(new Users());
-            if (AuthorityUtil.hasRole(AuthorityEnum.admin.name(), admin)) {
-                product.setAdmin(admin);
-            }
-        }
-        Products updateProduct = productsService.saveProduct(product);
-        return ResponseEntity.ok(updateProduct);
+                                           @RequestBody Products product,
+                                           @AuthenticationPrincipal Users user) {
+
+        this.productsService.saveProduct(product, user);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{productId}")
@@ -135,5 +112,24 @@ public class ProductController {
     public ResponseEntity<?> getSearchProducts(@RequestBody CategoryProductDto categoryProductDto) {
         Set<Products> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
         return ResponseEntity.ok(searchedProducts);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
+        Set<Products> productById = productsService.findByUser(user);
+        for (Products current : productById) {
+            for (Users userC : current.getUserLikes()) {
+                userC.setAuthorities(null);
+                userC.setPassword(null);
+                userC.setFirstName(null);
+                userC.setLastName(null);
+                userC.setPhoneNumber(null);
+                userC.setVerificationCode(null);
+                userC.setEmail(null);
+                userC.setAddress(null);
+            }
+        }
+        productById.forEach(p -> p.getShops().setUsers(null));
+        return ResponseEntity.ok(productById);
     }
 }
