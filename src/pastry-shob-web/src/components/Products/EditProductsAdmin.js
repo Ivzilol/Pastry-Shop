@@ -46,7 +46,8 @@ const EditProductsAdmin = () => {
 
     function DeleteProducts() {
         ajax(`${baseUrl}api/products/${productId}`, "DELETE", user.jwt)
-            .then(() => {
+            .then((response) => {
+                alert(response.custom)
                 navigate("/products")
             });
     }

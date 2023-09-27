@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.AuthorityUtil;
@@ -57,7 +58,9 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         try {
             productsService.delete(productId);
-            return ResponseEntity.ok("Product Delete");
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Product Delete");
+            return ResponseEntity.ok(customResponse);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
