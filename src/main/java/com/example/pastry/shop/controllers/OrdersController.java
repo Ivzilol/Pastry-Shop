@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
+import com.example.pastry.shop.model.dto.OrdersDTO;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
@@ -45,7 +46,7 @@ public class OrdersController {
 
     @GetMapping("")
     public ResponseEntity<?> getOrdersByUser(@AuthenticationPrincipal Users user) {
-        Set<Orders> ordersById = orderService.findByUser(user);
+        Set<OrdersDTO> ordersById = orderService.findByUser(user);
         return ResponseEntity.ok(ordersById);
     }
 

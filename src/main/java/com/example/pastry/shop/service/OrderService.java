@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
+import com.example.pastry.shop.model.dto.OrdersDTO;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
@@ -62,7 +63,7 @@ public class OrderService {
         return newOrder;
     }
 
-    public Set<Orders> findByUser(Users user) {
+    public Set<OrdersDTO> findByUser(Users user) {
         boolean isUser = isUser(user);
         if (isUser) {
             return ordersRepository.findByUsersId(user.getId());
