@@ -138,7 +138,7 @@ const ProductsUser = () => {
     function timerOrderWindow() {
         setTimeout(() => {
             setOrderDialog(false)
-        }, 5000)
+        }, 3000)
     }
 
     return (
