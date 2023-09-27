@@ -39,6 +39,19 @@ public class ProductController {
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
         Set<Products> productById = productsService.findByUser(user);
+        for (Products current : productById) {
+            for (Users userC : current.getUserLikes()) {
+                userC.setAuthorities(null);
+                userC.setPassword(null);
+                userC.setFirstName(null);
+                userC.setLastName(null);
+                userC.setPhoneNumber(null);
+                userC.setVerificationCode(null);
+                userC.setEmail(null);
+                userC.setAddress(null);
+            }
+            current.setShops(null);
+        }
         return ResponseEntity.ok(productById);
     }
 
