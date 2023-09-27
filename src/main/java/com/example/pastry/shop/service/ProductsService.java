@@ -159,7 +159,7 @@ public class ProductsService {
         return this.productRepository.findAllCakes();
     }
 
-    public Set<Products> findSearchedProducts(CategoryProductDto categoryProductDto) {
+    public Set<GetProductsDTO> findSearchedProducts(CategoryProductDto categoryProductDto) {
         return this.productRepository.findByCategories(categoryProductDto.getSelectOptions());
     }
 }

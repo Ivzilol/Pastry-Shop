@@ -109,7 +109,7 @@ public class ProductController {
 
     @PostMapping("/search")
     public ResponseEntity<?> getSearchProducts(@RequestBody CategoryProductDto categoryProductDto) {
-        Set<Products> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
+        Set<GetProductsDTO> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
         return ResponseEntity.ok(searchedProducts);
     }
 
