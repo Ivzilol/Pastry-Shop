@@ -38,7 +38,7 @@ public class OrderProcessingService {
         return this.ordersProcessingRepository.findByUserIdOrderByDateOfReceipt(user.getId());
     }
 
-    public Set<OrdersProcessing> getAllOrders() {
+    public Set<OrdersProcessingDTO> getAllOrders() {
         return this.ordersProcessingRepository.findAllOrders();
     }
 }
