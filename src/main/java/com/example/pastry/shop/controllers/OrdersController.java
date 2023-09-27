@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderProcessingService;
 import com.example.pastry.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,8 @@ public class OrdersController {
 
     private final OrderProcessingService orderProcessingService;
 
+
+
     public OrdersController(OrderService orderService, OrderProcessingService orderProcessingService) {
         this.orderService = orderService;
         this.orderProcessingService = orderProcessingService;
@@ -35,7 +38,9 @@ public class OrdersController {
     public ResponseEntity<?> createOrder(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Orders createOrder = this.orderService.createOrder(id, user);
-        return ResponseEntity.ok(createOrder);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful create order");
+        return ResponseEntity.ok(customResponse);
     }
 
     @GetMapping("")
