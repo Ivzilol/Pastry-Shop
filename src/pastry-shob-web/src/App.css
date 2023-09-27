@@ -926,8 +926,12 @@ footer {
     justify-content: space-around;
 }
 
+.tracking-in-processing {
+    width: 50%;
+}
+
 .tracking-in-processing-order {
-    margin: 10px 0;
+    margin-left: 100px;
     border: #ef7d00;
     border-bottom: 2px solid #ef7d00;
     border-radius: 20px;
@@ -935,6 +939,11 @@ footer {
     font-size: 17px;
     font-style: italic;
     color: #ef7d00;
+    width: 50%;
+}
+
+.tracking-in-send {
+    width: 50%;
 }
 
 .tracking-in-send-order {

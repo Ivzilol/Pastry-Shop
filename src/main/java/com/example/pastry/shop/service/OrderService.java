@@ -112,7 +112,7 @@ public class OrderService {
         return mostBigKey;
     }
 
-    public Set<Orders> findByStatus(Users user) {
+    public Set<OrdersDTO> findByStatus(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
             return this.ordersRepository.findByStatus();

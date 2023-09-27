@@ -210,7 +210,7 @@ const Homepage = () => {
     function timerOrderWindow() {
         setTimeout(() => {
             setOrderDialog(false)
-        }, 5000)
+        }, 3000)
     }
 
 

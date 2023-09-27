@@ -1,5 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
+import com.example.pastry.shop.model.entity.Users;
+
 import java.sql.Time;
 import java.time.LocalDate;
 
@@ -21,8 +23,10 @@ public class OrdersDTO {
 
     private Long keyOrderProduct;
 
+    private Users users;
 
-    public OrdersDTO(Long id, LocalDate dateCreated, LocalDate dateOfDelivery, Time timeOfDelivery, String status, Double price, String productName, Long keyOrderProduct) {
+
+    public OrdersDTO(Long id, LocalDate dateCreated, LocalDate dateOfDelivery, Time timeOfDelivery, String status, Double price, String productName, Long keyOrderProduct, Users users) {
         this.id = id;
         this.dateCreated = dateCreated;
         this.dateOfDelivery = dateOfDelivery;
@@ -31,6 +35,7 @@ public class OrdersDTO {
         this.price = price;
         this.productName = productName;
         this.keyOrderProduct = keyOrderProduct;
+        this.users = users;
     }
 
     public OrdersDTO() {
@@ -98,5 +103,13 @@ public class OrdersDTO {
 
     public void setKeyOrderProduct(Long keyOrderProduct) {
         this.keyOrderProduct = keyOrderProduct;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

@@ -1,9 +1,6 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
-import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
-import com.example.pastry.shop.model.dto.OrdersDTO;
-import com.example.pastry.shop.model.dto.OrdersStatusDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
@@ -60,21 +57,33 @@ public class OrdersController {
     }
 
     @PatchMapping("")
-    public ResponseEntity<Orders> updateStatusOrder(@RequestBody OrdersStatusDTO ordersStatusDTO,
+    public ResponseEntity<?> updateStatusOrder(@RequestBody OrdersStatusDTO ordersStatusDTO,
                                                     @AuthenticationPrincipal Users user) {
         Orders orders = this.orderService.updateStatus(ordersStatusDTO, user);
-        return ResponseEntity.ok(orders);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Confirm order");
+        return ResponseEntity.ok(customResponse);
     }
 
     @GetMapping("/admin")
     public ResponseEntity<?> getAllConfirmedOrders(@AuthenticationPrincipal Users user) {
-        Set<Orders> confirmedOrders = this.orderService.findByStatus(user);
+        Set<OrdersDTO> confirmedOrders = this.orderService.findByStatus(user);
+        for (OrdersDTO current : confirmedOrders) {
+            current.getUsers().setAuthorities(null);
+            current.getUsers().setLikeProducts(null);
+            current.getUsers().setVerificationCode(null);
+        }
         return ResponseEntity.ok(confirmedOrders);
     }
 
     @GetMapping("/admin/send")
     public ResponseEntity<?> getAllSendOrders(@AuthenticationPrincipal Users user) {
-        Set<OrdersProcessing> sendOrders = this.orderProcessingService.findByStatus(user);
+        Set<OrdersProcessingDTO> sendOrders = this.orderProcessingService.findByStatus(user);
+        for (OrdersProcessingDTO current: sendOrders) {
+            current.getUser().setAuthorities(null);
+            current.getUser().setLikeProducts(null);
+            current.getUser().setVerificationCode(null);
+        }
         return ResponseEntity.ok(sendOrders);
     }
 
@@ -82,14 +91,18 @@ public class OrdersController {
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                         @PathVariable Long id) throws ParseException {
         Set<Orders> order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
-        return ResponseEntity.ok(order);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Order send");
+        return ResponseEntity.ok(customResponse);
     }
 
     @PatchMapping("/admin/delivery/{id}")
-    public ResponseEntity<OrdersProcessing> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
+    public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
                                                                   @PathVariable Long id) {
         OrdersProcessing order = this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
-        return ResponseEntity.ok(order);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Order delivery");
+        return ResponseEntity.ok(customResponse);
     }
 
     @GetMapping("/tracking")

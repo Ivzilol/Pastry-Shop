@@ -57,7 +57,7 @@ const UserOrderTracking = () => {
                                         </p>
                                     </div>
                                     :
-                                    <>-------------</>
+                                    <></>
                             ))}
                             <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>
                         </article>
@@ -91,7 +91,7 @@ const UserOrderTracking = () => {
                                         }</p>
                                     </div>
                                     :
-                                    <>-------------</>
+                                    <></>
                             ))}
                             <h4>{t('tracking-main-section.all-price')} {allPriceSend.toFixed(2)} {t('products-users.currency')}</h4>
                         </article>

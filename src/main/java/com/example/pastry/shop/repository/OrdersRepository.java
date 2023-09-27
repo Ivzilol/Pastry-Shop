@@ -18,9 +18,15 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             " where o.status = 'newOrder'")
     Set<Orders> findByUsers(Users user);
 
-    @Query("select o from Orders as o" +
+//    @Query("select o from Orders as o" +
+//            " where o.status = 'confirmed'")
+//    Set<Orders> findByStatus();
+
+    @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
+            " o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct, o.users)" +
+            " from Orders as o" +
             " where o.status = 'confirmed'")
-    Set<Orders> findByStatus();
+    Set<OrdersDTO> findByStatus();
 
     @Query("select o from Orders as o")
     Set<Orders> findAllOrders();
