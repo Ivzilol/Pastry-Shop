@@ -107,13 +107,18 @@ public class OrdersController {
 
     @GetMapping("/tracking")
     public ResponseEntity<?> getConfirmedOrder(@AuthenticationPrincipal Users user) {
-        Set<Orders> confirmedOrder = this.orderService.trackingByStatus(user);
+        Set<OrdersDTO> confirmedOrder = this.orderService.trackingByStatus(user);
         return ResponseEntity.ok(confirmedOrder);
     }
 
     @GetMapping("/history/user")
     public ResponseEntity<?> getOrdersByCurrentUser(@AuthenticationPrincipal Users user) {
-        Set<OrdersProcessing> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
+        Set<OrdersProcessingDTO> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
+        for (OrdersProcessingDTO current: userOrders) {
+            current.getUser().setAuthorities(null);
+            current.getUser().setLikeProducts(null);
+            current.getUser().setVerificationCode(null);
+        }
         return ResponseEntity.ok(userOrders);
     }
 

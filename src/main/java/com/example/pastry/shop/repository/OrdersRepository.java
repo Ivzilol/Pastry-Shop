@@ -33,9 +33,15 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     Set<Orders> findByKeyOrderProduct(Long id);
 
-    @Query("select o from Orders as o" +
-            " where o.users.id = :id")
-    Set<Orders> findConfirmedOrder(Long id);
+//    @Query("select o from Orders as o" +
+//            " where o.users.id = :id")
+//    Set<Orders> findConfirmedOrder(Long id);
+
+    @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
+            "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
+            " from Orders as o" +
+            " where o.users.id = :id and o.status = 'confirmed' or o.status = 'sent'")
+    Set<OrdersDTO> findConfirmedOrder(Long id);
 
     @Query("select o from Orders as o" +
             " where o.users.id = :id")

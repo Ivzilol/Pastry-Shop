@@ -1,6 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
 import com.example.pastry.shop.model.entity.Users;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -8,11 +9,11 @@ import java.time.LocalDate;
 public class OrdersDTO {
 
     private Long id;
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateCreated;
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfDelivery;
-
+    @JsonFormat(pattern = "HH:mm")
     private Time timeOfDelivery;
 
     private String status;
@@ -36,6 +37,17 @@ public class OrdersDTO {
         this.productName = productName;
         this.keyOrderProduct = keyOrderProduct;
         this.users = users;
+    }
+
+    public OrdersDTO(Long id, LocalDate dateCreated, LocalDate dateOfDelivery, Time timeOfDelivery, String status, Double price, String productName, Long keyOrderProduct) {
+        this.id = id;
+        this.dateCreated = dateCreated;
+        this.dateOfDelivery = dateOfDelivery;
+        this.timeOfDelivery = timeOfDelivery;
+        this.status = status;
+        this.price = price;
+        this.productName = productName;
+        this.keyOrderProduct = keyOrderProduct;
     }
 
     public OrdersDTO() {

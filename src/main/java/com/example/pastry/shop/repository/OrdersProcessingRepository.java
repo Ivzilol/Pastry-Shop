@@ -24,7 +24,13 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
 
     Set<OrdersProcessing> findOrderById(Long id);
 
-    Set<OrdersProcessing> findByUserIdOrderByDateOfReceipt(Long id);
+    @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
+            " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, op.user)" +
+            " from OrdersProcessing op" +
+            " where op.user.id = :id" +
+            " order by op.dateOfReceipt")
+    Set<OrdersProcessingDTO> findByUserIdOrderByDateOfReceipt(Long id);
     @Query("select op from OrdersProcessing AS op" +
             " order by op.dateOfDispatch")
     Set<OrdersProcessing> findAllOrders();
