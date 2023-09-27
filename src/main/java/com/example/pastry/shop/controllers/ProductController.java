@@ -85,25 +85,25 @@ public class ProductController {
 
     @GetMapping("/pies")
     public ResponseEntity<?> getPies() {
-        Set<Products> pies = this.productsService.findAllPies();
+        Set<GetProductsDTO> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);
     }
 
     @GetMapping("/buns")
     public ResponseEntity<?> getBuns() {
-        Set<Products> buns = this.productsService.findAllBuns();
+        Set<GetProductsDTO> buns = this.productsService.findAllBuns();
         return ResponseEntity.ok(buns);
     }
 
     @GetMapping("/sweets")
     public ResponseEntity<?> getSweets() {
-        Set<Products> sweets = this.productsService.findAllSweets();
+        Set<GetProductsDTO> sweets = this.productsService.findAllSweets();
         return ResponseEntity.ok(sweets);
     }
 
     @GetMapping("/cakes")
     public ResponseEntity<?> getCakes() {
-        Set<Products> cakes = this.productsService.findAllCakes();
+        Set<GetProductsDTO> cakes = this.productsService.findAllCakes();
         return ResponseEntity.ok(cakes);
     }
 

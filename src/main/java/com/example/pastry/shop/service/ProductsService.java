@@ -143,19 +143,19 @@ public class ProductsService {
         return isTrue;
     }
 
-    public Set<Products> findAllPies() {
+    public Set<GetProductsDTO> findAllPies() {
         return this.productRepository.findAllPies();
     }
 
-    public Set<Products> findAllBuns() {
+    public Set<GetProductsDTO> findAllBuns() {
         return this.productRepository.findAllBuns();
     }
 
-    public Set<Products> findAllSweets() {
+    public Set<GetProductsDTO> findAllSweets() {
         return this.productRepository.findAllSweets();
     }
 
-    public Set<Products> findAllCakes() {
+    public Set<GetProductsDTO> findAllCakes() {
         return this.productRepository.findAllCakes();
     }
 

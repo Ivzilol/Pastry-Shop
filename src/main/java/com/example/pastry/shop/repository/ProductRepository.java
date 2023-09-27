@@ -24,18 +24,26 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
 
     Products findProductById(Long id);
 
-    @Query("select p from Products as p" +
+    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
+            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
+            " from Products as p" +
             " where p.categories = 'pie'")
-    Set<Products> findAllPies();
-    @Query("select p from Products as p" +
+    Set<GetProductsDTO> findAllPies();
+    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
+            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
+            " from Products as p" +
             " where p.categories = 'buns'")
-    Set<Products> findAllBuns();
-    @Query("select p from Products as p" +
+    Set<GetProductsDTO> findAllBuns();
+    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
+            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
+            " from Products as p" +
             " where p.categories = 'sweets'")
-    Set<Products> findAllSweets();
-    @Query("select p from Products as p" +
+    Set<GetProductsDTO> findAllSweets();
+    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
+            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
+            " from Products as p" +
             " where p.categories = 'cake'")
-    Set<Products> findAllCakes();
+    Set<GetProductsDTO> findAllCakes();
 
     Set<Products> findByCategories(String category);
 
