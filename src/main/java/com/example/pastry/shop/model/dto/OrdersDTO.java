@@ -33,6 +33,9 @@ public class OrdersDTO {
         this.keyOrderProduct = keyOrderProduct;
     }
 
+    public OrdersDTO() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -39,9 +39,10 @@ public class OrdersController {
     public ResponseEntity<?> createOrder(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
         Orders createOrder = this.orderService.createOrder(id, user);
-        CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Successful create order");
-        return ResponseEntity.ok(customResponse);
+        OrdersDTO ordersDTO = new OrdersDTO();
+        ordersDTO.setProductName(createOrder.getProductName());
+        ordersDTO.setPrice(createOrder.getPrice());
+        return ResponseEntity.ok(ordersDTO);
     }
 
     @GetMapping("")
@@ -53,7 +54,9 @@ public class OrdersController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProductFromOrders(@PathVariable Long id) {
         this.orderService.removeProduct(id);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Delete product");
+        return ResponseEntity.ok(customResponse);
     }
 
     @PatchMapping("")
