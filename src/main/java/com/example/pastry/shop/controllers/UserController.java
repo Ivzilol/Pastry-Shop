@@ -111,7 +111,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id){
-        Optional<Users> user = this.userService.getUserById(id);
+        Optional<UsersDTO> user = this.userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 

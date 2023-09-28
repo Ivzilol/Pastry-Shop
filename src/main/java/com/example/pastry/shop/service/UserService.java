@@ -183,8 +183,8 @@ public class UserService {
         return this.usersRepository.findUserByUsername(user.getUsername());
     }
 
-    public Optional<Users> getUserById(Long id) {
-        return this.usersRepository.findById(id);
+    public Optional<UsersDTO> getUserById(Long id) {
+        return this.usersRepository.findUserById(id);
     }
 
     public Users validateUser(String verification) {
