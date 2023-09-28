@@ -45,7 +45,7 @@ public class UserController {
     private ResponseEntity<?> verificationUser(@PathVariable String verification) {
         Users user = this.userService.validateUser(verification);
         if (!user.getEmail().isEmpty()) {
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -79,7 +79,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public ResponseEntity<?> getAllUsers(@AuthenticationPrincipal Users user) {
-        List<Users> allUsers = this.userService.findAllUser(user);
+        List<UsersDTO> allUsers = this.userService.findAllUser(user);
         return ResponseEntity.ok(allUsers);
     }
 
@@ -93,8 +93,14 @@ public class UserController {
     @PatchMapping("/admin/promote/{id}")
     public ResponseEntity<?> promoteUser(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
-        this.userService.makeUserAdmin(id, user);
-        return ResponseEntity.ok().build();
+        boolean isPromote = this.userService.makeUserAdmin(id, user);
+        if (isPromote) {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Successful Promote");
+            return ResponseEntity.ok(customResponse);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @GetMapping("")

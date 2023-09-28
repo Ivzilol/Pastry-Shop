@@ -143,16 +143,19 @@ public class UserService {
         }
     }
 
-    public void makeUserAdmin(Long id, Users user) {
+    public boolean makeUserAdmin(Long id, Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
             Authority authority = this.authorityRepository.findByUsersId(id);
             authority.setAuthority("admin");
             this.authorityRepository.save(authority);
+            return true;
+        } else {
+            return false;
         }
     }
 
-    public List<Users> findAllUser(Users user) {
+    public List<UsersDTO> findAllUser(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
             return this.usersRepository.findAllUsers();

@@ -29,8 +29,10 @@ const AdminUsers = () => {
 
     function promoteUser(id) {
         ajax(`${baseUrl}api/users/admin/promote/${id}`, "PATCH", user.jwt)
-            .then(() => {
-                refreshPage()
+            .then((response) => {
+                if (response.custom === 'Successful Promote') {
+                    refreshPage()
+                }
             })
     }
 

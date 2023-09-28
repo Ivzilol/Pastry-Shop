@@ -1,5 +1,6 @@
 package com.example.pastry.shop.repository;
 
+import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +21,13 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " where o.keyOrderProduct = :id" +
             " group by o.keyOrderProduct")
     Optional<Users> findUserBayKey(Long id);
-    @Query("select u from Users as u" +
+
+    @Query("select new com.example.pastry.shop.model.dto.UsersDTO(" +
+            " u.id, u.username, u.firstName, u.lastName, u.email, u.address as address)" +
+            " from Users as u" +
             " join Authority as a on u.id = a.users.id" +
             " where a.authority = 'user'")
-    List<Users> findAllUsers();
+    List<UsersDTO> findAllUsers();
 
     @Query("select u from Users as u" +
             " where u.id = :id")
