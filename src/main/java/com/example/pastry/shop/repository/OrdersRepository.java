@@ -18,9 +18,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             " where o.status = 'newOrder'")
     Set<Orders> findByUsers(Users user);
 
-//    @Query("select o from Orders as o" +
-//            " where o.status = 'confirmed'")
-//    Set<Orders> findByStatus();
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             " o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct, o.users)" +
@@ -33,9 +30,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     Set<Orders> findByKeyOrderProduct(Long id);
 
-//    @Query("select o from Orders as o" +
-//            " where o.users.id = :id")
-//    Set<Orders> findConfirmedOrder(Long id);
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
@@ -50,16 +44,12 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     Set<OrdersDTO> findNotDeliveredOrders(Long id);
 
 
-
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
             " where o.status = 'confirmed' or o.status = 'sent'")
     Set<OrdersDTO> findAllNotSendOrders();
 
-//    @Query("select o from Orders as o" +
-//            " where o.status = 'newOrder' and o.users.id = :id")
-//    Set<Orders> findByUsersId(Long id);
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             " o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
