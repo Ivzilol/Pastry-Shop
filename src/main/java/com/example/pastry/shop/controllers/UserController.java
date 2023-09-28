@@ -30,7 +30,6 @@ public class UserController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-
     private final UsersRepository usersRepository;
 
 
