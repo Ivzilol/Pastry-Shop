@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.AuthCredentialRequest;
+import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.util.JwtUtil;
@@ -38,20 +39,19 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<?> login (@RequestBody AuthCredentialRequest request) {
         Optional<Users> validateUser = ifValidate(request);
+        UsersDTO usersDTO = this.usersRepository.findCurrentUserByUsername(request.getUsername());
         if (validateUser.isPresent()) {
             Authentication authenticate = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
                             request.getUsername(), request.getPassword()
                     ));
             Users users = (Users) authenticate.getPrincipal();
-            users.setPassword(null);
-            users.setVerificationCode(null);
             return ResponseEntity.ok()
                     .header(
                             HttpHeaders.AUTHORIZATION,
                             jwtUtil.generateToken(users)
                     )
-                    .body(users);
+                    .body(usersDTO);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
