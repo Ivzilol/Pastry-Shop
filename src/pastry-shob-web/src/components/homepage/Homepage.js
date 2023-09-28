@@ -11,7 +11,6 @@ import jwt_decode from "jwt-decode";
 import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
 import ChatRoom from "../ChatRoom/ChatRoom";
-import Maintenance from "../Maintenance/Maintenance";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 
