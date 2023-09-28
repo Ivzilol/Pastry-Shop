@@ -218,19 +218,16 @@ public class OrderService {
 
 
     public Set<OrdersDTO> trackingByStatus(Users user) {
-        Long id = user.getId();
-        return this.ordersRepository.findConfirmedOrder(id);
+        return this.ordersRepository.findConfirmedOrder(user.getId());
     }
 
     public Set<OrdersDTO> findOrdersWhichNotDelivered(Users user) {
-        Long id = user.getId();
-        return this.ordersRepository.findNotDeliveredOrders(id);
+        return this.ordersRepository.findNotDeliveredOrders(user.getId());
 
     }
 
     public Set<OrdersDTO> findOrdersWhichConfirmed(Users user) {
-        Long id = user.getId();
-        return this.ordersRepository.findConfirmedOrder(id);
+        return this.ordersRepository.findConfirmedOrder(user.getId());
     }
 
     public Set<OrdersDTO> findAllNotSendOrders() {
