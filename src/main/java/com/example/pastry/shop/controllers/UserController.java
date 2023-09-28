@@ -105,7 +105,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal Users user) {
-        Optional<Users> currentUser = this.userService.getCurrentUser(user);
+        Optional<UsersDTO> currentUser = this.userService.getCurrentUser(user);
         return ResponseEntity.ok(currentUser);
     }
 

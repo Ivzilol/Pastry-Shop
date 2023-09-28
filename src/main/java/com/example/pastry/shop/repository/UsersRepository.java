@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
+
     Optional<Users> findByUsername(String username);
 
     Optional<Users> findByEmail(String email);
@@ -39,4 +40,9 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " where u.username = :username and u.isValidate = true")
     Optional<Users> findByUsernameAndIsValidate(String username);
 
+    @Query("select new com.example.pastry.shop.model.dto.UsersDTO(" +
+            " u.id, u.username, u.firstName, u.lastName, u.email, u.address as address, u.phoneNumber)" +
+            " from Users as u" +
+            " where u.username = :username")
+    Optional<UsersDTO> findUserByUsername(String username);
 }

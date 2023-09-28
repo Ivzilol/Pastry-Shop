@@ -179,8 +179,8 @@ public class UserService {
         }
     }
 
-    public Optional<Users> getCurrentUser(Users user) {
-        return this.usersRepository.findByUsername(user.getUsername());
+    public Optional<UsersDTO> getCurrentUser(Users user) {
+        return this.usersRepository.findUserByUsername(user.getUsername());
     }
 
     public Optional<Users> getUserById(Long id) {
