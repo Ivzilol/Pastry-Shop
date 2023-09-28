@@ -222,26 +222,18 @@ public class OrderService {
         return this.ordersRepository.findConfirmedOrder(id);
     }
 
-    public Set<Orders> findOrdersWhichNotDelivered(Users user) {
+    public Set<OrdersDTO> findOrdersWhichNotDelivered(Users user) {
         Long id = user.getId();
-        Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
-        return allOrders.stream().filter(o ->
-                Objects.equals(o.getStatus(), "newOrder")).collect(Collectors.toSet());
+        return this.ordersRepository.findNotDeliveredOrders(id);
+
     }
 
-    public Set<Orders> findOrdersWhichConfirmed(Users user) {
+    public Set<OrdersDTO> findOrdersWhichConfirmed(Users user) {
         Long id = user.getId();
-        Set<Orders> allOrders = this.ordersRepository.findNotDeliveredOrders(id);
-        Set<Orders> confirmedOrSendOrder = new HashSet<>();
-        for (Orders order : allOrders) {
-            if (order.getStatus().equals("confirmed") || order.getStatus().equals("sent")) {
-                confirmedOrSendOrder.add(order);
-            }
-        }
-        return confirmedOrSendOrder;
+        return this.ordersRepository.findConfirmedOrder(id);
     }
 
-    public Set<Orders> findAllNotSendOrders() {
+    public Set<OrdersDTO> findAllNotSendOrders() {
         return this.ordersRepository.findAllNotSendOrders();
     }
 }

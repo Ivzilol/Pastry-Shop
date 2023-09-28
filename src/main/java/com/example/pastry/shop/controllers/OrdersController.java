@@ -135,22 +135,19 @@ public class OrdersController {
 
     @GetMapping("/status")
     public ResponseEntity<?> getOrdersStatus(@AuthenticationPrincipal Users user) {
-        Set<Orders> userOrder = this.orderService.findOrdersWhichNotDelivered(user);
-        userOrder.forEach(o -> o.setUsers(null));
+        Set<OrdersDTO> userOrder = this.orderService.findOrdersWhichNotDelivered(user);
         return ResponseEntity.ok(userOrder);
     }
 
     @GetMapping("status/confirmed")
     public ResponseEntity<?> getOrderStatusConfirmed(@AuthenticationPrincipal Users user) {
-        Set<Orders> userOrders = this.orderService.findOrdersWhichConfirmed(user);
-        userOrders.forEach(o -> o.setUsers(null));
+        Set<OrdersDTO> userOrders = this.orderService.findOrdersWhichConfirmed(user);
         return ResponseEntity.ok(userOrders);
     }
 
     @GetMapping("status/confirmed/admin")
     public ResponseEntity<?> getNotSendOrders() {
-        Set<Orders> allNotSendOrders = this.orderService.findAllNotSendOrders();
-        allNotSendOrders.forEach(o -> o.setUsers(null));
+        Set<OrdersDTO> allNotSendOrders = this.orderService.findAllNotSendOrders();
         return ResponseEntity.ok(allNotSendOrders);
     }
 
