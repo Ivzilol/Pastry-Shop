@@ -11,9 +11,6 @@ import java.util.Set;
 @Repository
 public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessing, Long> {
 
-//    @Query("select o from OrdersProcessing as o" +
-//            " where o.statusOrder = 'sent'")
-//    Set<OrdersProcessing> findByStatus();
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
             " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
