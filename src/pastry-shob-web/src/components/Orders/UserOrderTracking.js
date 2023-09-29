@@ -69,7 +69,7 @@ const UserOrderTracking = () => {
                                 ?
                                 <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>
                                 :
-                                <h4>Вие нямате поръчка в процес на приготвяне</h4>
+                                <h4>Вие нямате поръчки в процес на приготвяне</h4>
                             }
                         </article>
                     ) : (

@@ -59,8 +59,12 @@ const ShopsView = () => {
     }
 
     function submitComment() {
+        if (comment.text === '') {
+            return;
+        }
         if (comment.id) {
-            ajax(`${baseUrl}api/comments/${comment.id}`, "PUT", user.jwt, comment).then(d => {
+            ajax(`${baseUrl}api/comments/${comment.id}`, "PUT", user.jwt, comment)
+                .then(d => {
                 const commentsCopy = [...comments]
                 const index = commentsCopy.findIndex(comment => comment.id === d.id);
                 commentsCopy[index] = d;
@@ -68,7 +72,8 @@ const ShopsView = () => {
                 setComment(emptyComment);
             })
         } else {
-            ajax(`${baseUrl}api/comments`, 'POST', user.jwt, comment).then(d => {
+            ajax(`${baseUrl}api/comments`, 'POST', user.jwt, comment)
+                .then(d => {
                 const commentsCopy = [...comments]
                 commentsCopy.push(d);
                 setComments(commentsCopy);
