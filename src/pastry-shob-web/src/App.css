@@ -931,7 +931,7 @@ footer {
 }
 
 .tracking-in-processing-order {
-    margin-left: 100px;
+    margin: 10px 0;
     border: #ef7d00;
     border-bottom: 2px solid #ef7d00;
     border-radius: 20px;
@@ -939,7 +939,6 @@ footer {
     font-size: 17px;
     font-style: italic;
     color: #ef7d00;
-    width: 50%;
 }
 
 .tracking-in-send {
@@ -1707,6 +1706,10 @@ footer {
     padding: 3px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.status {
+    display: none;
 }
 
 @media screen and (max-width: 600px) {
