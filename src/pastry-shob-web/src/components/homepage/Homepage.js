@@ -188,7 +188,7 @@ const Homepage = () => {
                 setShowScrollingElement4(true)
                 :
                 setShowScrollingElement4(false)
-            scrollPosition >= 950
+            scrollPosition >= 1330
                 ?
                 setChatRoom(true)
                 :
