@@ -55,6 +55,7 @@ public class UserController {
         userService.createUser(userRegistrationDTO);
         String siteUrl = "http://localhost:3000/register";
         userService.sendVerificationEmail(userRegistrationDTO, siteUrl);
+        UsersDTO usersDTO = this.usersRepository.findCurrentUserByUsername(userRegistrationDTO.getUsername());
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
@@ -68,7 +69,7 @@ public class UserController {
                             HttpHeaders.AUTHORIZATION,
                             jwtUtil.generateToken(user)
                     )
-                    .body(user);
+                    .body(usersDTO);
         } catch (BadCredentialsException exception) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
