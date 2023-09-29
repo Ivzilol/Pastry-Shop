@@ -1563,8 +1563,12 @@ footer {
     display: flex;
     justify-content: space-between;
     color: black;
-    padding: 5px 5px 5px 20px;
+    padding: 5px 5px 5px 70px;
     border-bottom: 2px solid gray;
+}
+
+.chat-container-title h3 {
+    text-decoration: underline;
 }
 
 .chat-container-close {
@@ -1632,11 +1636,12 @@ footer {
 .chat-container-input button {
     background-color: #ef7d00;
     border-radius: 10px;
-    width: 20%;
-    padding-bottom: 3px;
+    width: 23%;
     color: white;
     font-style: italic;
     border: none;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .maintenance {

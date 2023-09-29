@@ -162,5 +162,11 @@
     "address": "Address",
     "phone-number": "Phone number",
     "button": "Registration"
+  },
+  "chat-container": {
+    "h3": "Write us",
+    "p": "Hello, if you need assistance please write to us!",
+    "button": "Send",
+    "placeholder": "Write a message"
   }
 }

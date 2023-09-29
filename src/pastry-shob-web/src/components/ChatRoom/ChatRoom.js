@@ -2,7 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
-
+import {useTranslation} from "react-i18next";
 const ChatRoom = () => {
 
     const user = useUser();
@@ -13,6 +13,7 @@ const ChatRoom = () => {
     const lastMessageRef = useRef(null);
     const [showMessage, setShowMessage] = useState(true);
     const [isVisible, setIsVisible] = useState(true);
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (lastMessageRef.current) {
@@ -107,7 +108,7 @@ const ChatRoom = () => {
                     border: '2px solid #ef7d00'
                 }}>
                     <section className="chat-container-title">
-                        <h3>Да поговорим</h3>
+                        <h3>{t('chat-container.h3')}</h3>
                         <a
                             className="chat-container-close"
                             id="submit"
@@ -141,7 +142,9 @@ const ChatRoom = () => {
                                 ))
 
                             ) : (
-                                <>Здравейте, ако имате нужда от съдействие моля пишете ни!</>
+                                <p className="chat-container-messages-down">
+                                    {t('chat-container.p')}
+                                </p>
                             )}
                         </div>
                     }
@@ -149,7 +152,7 @@ const ChatRoom = () => {
                         <input
                             type="text"
                             name="message"
-                            placeholder="Напиешете съобщение"
+                            placeholder={t('chat-container.placeholder')}
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onFocus={handleClickOpenMessage}
@@ -162,7 +165,7 @@ const ChatRoom = () => {
                             type="button"
                             onClick={() => sentMessage()}
                         >
-                            Send
+                            {t('chat-container.button')}
                         </button>
                     </div>
                 </div>
@@ -183,7 +186,7 @@ const ChatRoom = () => {
                     marginRight: '50px'
                 }}>
                     <section className="chat-container-title">
-                        <h3>Пишете ни</h3>
+                        <h3>{t('chat-container.h3')}</h3>
                         <a
                             className="chat-container-close"
                             id="submit"
@@ -196,7 +199,7 @@ const ChatRoom = () => {
                         <input
                             type="text"
                             name="message"
-                            placeholder="Напиешете съобщение"
+                            placeholder={t('chat-container.placeholder')}
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
                             onFocus={handleClickOpenMessage}
@@ -206,7 +209,7 @@ const ChatRoom = () => {
                             type="button"
                             onClick={() => sentMessage()}
                         >
-                            Send
+                            {t('chat-container.button')}
                         </button>
                     </div>
                 </div>
