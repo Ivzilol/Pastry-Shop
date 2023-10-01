@@ -241,8 +241,7 @@
 
 .products {
     height: 600px;
-    background-image: url(
-    "https://i.imgupx.com/zPzpldZI/333679583_1370979030385235_8353098425062243540_n.jpg");
+    background-color: #b8b5ad;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
