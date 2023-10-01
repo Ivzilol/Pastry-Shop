@@ -93,7 +93,7 @@
     "pay-confirm": "Confirm payment"
   },
   "tracking-main-section": {
-    "data": "From date:",
+    "data": "Date of delivery:",
     "all-price": "Total cost:",
     "process-order": "In process of preparation",
     "process-delivery": "In process of delivery",
