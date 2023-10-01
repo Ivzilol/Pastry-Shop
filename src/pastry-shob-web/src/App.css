@@ -1084,6 +1084,11 @@ footer {
     width: 400px;
 }
 
+.products-edit {
+    background-color: #b8b5ad;
+    height: auto;
+}
+
 .products-edit-container input {
     width: 400px;
 }
