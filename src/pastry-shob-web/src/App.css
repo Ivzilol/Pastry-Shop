@@ -2056,4 +2056,8 @@ footer {
     .login {
         margin-top: 170px;
     }
+
+    .chat-container {
+        display: none;
+    }
 }
