@@ -221,7 +221,7 @@ const Homepage = () => {
                 :
                 <NavBar/>
             }
-            <OrderWindow/>
+            {roles.find((role) => role === 'user') ? <OrderWindow/> : <></>}
             {/*<Maintenance/>*/}
             {showChatRoom && <ChatRoom/>}
             {orderDialog &&
