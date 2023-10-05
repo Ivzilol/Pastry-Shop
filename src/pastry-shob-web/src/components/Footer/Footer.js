@@ -30,7 +30,7 @@ const Footer = () => {
                     <a className="footer-first-item" href="/">{t('footer.footer-third6')}</a>
                 </article>
                 <article className="footer-four">
-                    <a className="footer-first-title" href="/api/author" target="_blank">{t('footer.footer-four')}</a>
+                    <a className="footer-first-title" href="/author" target="_blank">{t('footer.footer-four')}</a>
                     <a className="footer-first-item" href="https://github.com/Ivzilol" target="_blank" rel="noreferrer">Github</a>
                     <a className="footer-first-item" href="https://www.linkedin.com/in/ivaylo-alichkov-7406871a1/" target="_blank" rel="noreferrer">Linkedin</a>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

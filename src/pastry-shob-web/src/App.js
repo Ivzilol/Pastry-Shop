@@ -176,7 +176,7 @@ function App() {
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
             <Route path="/register/verify/:verificationCode" element={<ConfirmRegister/>}/>
-            <Route path="/api/author" element={<Author/>}></Route>
+            <Route path="/author" element={<Author/>}></Route>
             <Route path="/products/pies" element={<ProductPies/>}></Route>
             <Route path="/products/buns" element={<ProductBuns/>}></Route>
             <Route path="/products/sweets" element={<ProductSweets/>}></Route>
