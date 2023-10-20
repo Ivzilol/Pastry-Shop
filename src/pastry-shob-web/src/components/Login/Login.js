@@ -20,7 +20,6 @@ const Login = () => {
     }, [navigate, user]);
 
 
-    // const  baseUrl = require('dotenv').config(process.env.REACT_APP_BASE_URL);
     function sendLoginRequest() {
         const requestBody = {
             "username": username,
