@@ -2,25 +2,25 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
+import baseURL from "../BaseURL/BaseURL";
 
 const EditProductsAdmin = () => {
 
     const user = useUser();
     const {productId} = useParams();
     const navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
+    const [imageUrl, setImageUrl] = useState("");
     const [product, setProduct] = useState({
             name: "",
             price: null,
             categories: "",
             description: "",
-            imageUrl: ""
         }
     );
 
 
     useEffect(() => {
-        ajax(`${baseUrl}api/products/${productId}`, "GET", user.jwt)
+        ajax(`${baseURL}api/products/${productId}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
             })
@@ -37,15 +37,43 @@ const EditProductsAdmin = () => {
         setProduct(newProduct);
     }
 
+    const imageSubmit = (e) => {
+        if (e.target.files[0] && e.target.files[0].name !== "") {
+            setImageUrl(e.target.files[0])
+        }
+    }
+
+
     function persist() {
-        ajax(`${baseUrl}api/products/${productId}`, "PUT", user.jwt, product)
+        const formData = new FormData();
+        formData.append("imageUrl", imageUrl)
+        const dto = {
+            name: product.name,
+            price: product.price,
+            categories: product.categories,
+            description: product.description
+        }
+        formData.append("dto",
+            new Blob([JSON.stringify(dto)], {
+                type: "application/json",
+            })
+        );
+        fetch(`${baseURL}api/products/edit/${productId}`, {
+            method: "PATCH",
+            body: formData
+        })
             .then(productData => {
-                setProduct(productData);
+                console.log(productData)
+                if (productData.status === 200) {
+                    alert("Successful update product!")
+                } else {
+                    alert(productData.custom)
+                }
             })
     }
 
     function DeleteProducts() {
-        ajax(`${baseUrl}api/products/${productId}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/products/${productId}`, "DELETE", user.jwt)
             .then((response) => {
                 alert(response.custom)
                 navigate("/products")
@@ -62,7 +90,7 @@ const EditProductsAdmin = () => {
                             <h5 className="products-edit-item">Name Product</h5>
                             <input
                                 onChange={(e) => updateProduct("name", e.target.value)}
-                                defaultValue={product.name}
+                                value={product.name}
                                 name="name"
                                 id="name"
                                 type="text"
@@ -70,7 +98,7 @@ const EditProductsAdmin = () => {
                             <h5 className="products-edit-item">Price</h5>
                             <input
                                 onChange={(e) => updateProduct("price", e.target.value)}
-                                defaultValue={product.price}
+                                value={product.price}
                                 name="price"
                                 id="price"
                                 type="number"
@@ -78,7 +106,7 @@ const EditProductsAdmin = () => {
                             <h5 className="products-edit-item">Categories</h5>
                             <input
                                 onChange={(e) => updateProduct("categories", e.target.value)}
-                                defaultValue={product.categories}
+                                value={product.categories}
                                 name="categories"
                                 id="categories"
                                 type="text"
@@ -86,43 +114,48 @@ const EditProductsAdmin = () => {
                             <h5 className="products-edit-item">Description</h5>
                             <input
                                 onChange={(e) => updateProduct("description", e.target.value)}
-                                defaultValue={product.description}
+                                value={product.description}
                                 name="description"
                                 id="description"
                                 type="text"
                             />
-                            <h5 className="products-edit-item">URL</h5>
+                            <h5 className="products-edit-item">Old Picture</h5>
+                            <img className="products-edit-item-img" src={product.imageUrl} alt="new"/>
+                            <h5 className="products-edit-item">NEW PICTURE</h5>
                             <input
-                                onChange={(e) => updateProduct("imageUrl", e.target.value)}
-                                defaultValue={product.imageUrl}
-                                name="imageUrl"
+                                className="input-image"
+                                type="file"
+                                accept='image/png, image/jpeg'
+                                size='sm'
                                 id="imageUrl"
-                                type="text"
+                                name="imageUrl"
+                                placeholder="Image"
+                                onChange={imageSubmit}
                             />
-                            <div className="products-edit-button">
-                                <button
-                                    type="submit"
-                                    onClick={() => saveProduct()
-
-                                }
-                                >Edit Product
-                                </button>
-                            </div>
-                            <div className="products-edit-button">
-                                <button
-                                    type="submit"
-                                    onClick={() => navigate("/products")}>
-                                    Products
-                                </button>
-                            </div>
-                            <div className="products-container-item-button">
-                                <button
-                                    id="submit"
-                                    type="button"
-                                    onClick={DeleteProducts}
-                                >
-                                    Delete
-                                </button>
+                            <div className="products-edit-buttons">
+                                <div className="products-edit-button">
+                                    <button
+                                        type="submit"
+                                        onClick={() => saveProduct()}
+                                    >Edit Product
+                                    </button>
+                                </div>
+                                <div className="products-edit-button">
+                                    <button
+                                        type="submit"
+                                        onClick={() => navigate("/products")}>
+                                        Products
+                                    </button>
+                                </div>
+                                <div className="products-edit-button">
+                                    <button
+                                        id="submit"
+                                        type="button"
+                                        onClick={DeleteProducts}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </article>
                     </>

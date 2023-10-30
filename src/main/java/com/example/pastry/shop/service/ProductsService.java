@@ -3,6 +3,7 @@ package com.example.pastry.shop.service;
 import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.dto.GetProductsDTO;
+import com.example.pastry.shop.model.dto.UpdateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -78,11 +79,17 @@ public class ProductsService {
         return productRepository.findOrderProductById(productId);
     }
 
-    public void saveProduct(Products product, Users user) {
-        if (isAdmin(user)) {
-            product.setShops(shopsRepository.findShop());
-            this.productRepository.save(product);
+    public boolean saveProduct(UpdateProductDTO updateProductDTO, Long productId, MultipartFile file) throws IOException {
+        Products updateProduct = this.productRepository.findProductById(productId);
+        updateProduct.setName(updateProductDTO.getName());
+        updateProduct.setPrice(updateProductDTO.getPrice());
+        updateProduct.setCategories(updateProductDTO.getCategories());
+        updateProduct.setDescription(updateProductDTO.getDescription());
+        if (file != null) {
+            updateProduct.setImageUrl(getImage(file));
         }
+        this.productRepository.save(updateProduct);
+        return true;
     }
 
     public void delete(Long productId) {

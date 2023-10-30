@@ -83,9 +83,7 @@ function App() {
             <Route path="/products/:productId"
                    element={
                        roles.find((role) => role === 'admin') ? (
-                           <PrivateRoute>
                                <EditProductsAdmin/>
-                           </PrivateRoute>
                        ) : (
                            <PrivateRoute>
                                <ProductsUser/>

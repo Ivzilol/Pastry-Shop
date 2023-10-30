@@ -1084,9 +1084,30 @@ footer {
     width: 400px;
 }
 
-.products-edit {
-    background-color: #b8b5ad;
+.products-edit-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.products-edit-button {
+    margin-top: 10px;
+    background-color: white;
     height: auto;
+}
+
+.products-edit-button button {
+    background-color: aqua;
+    color: white;
+    padding: 3px;
+    border-radius: 10px;
+    border: none;
+    width: 100px;
+}
+
+.products-edit-item-img {
+    width: 10%;
+    height: 10%;
 }
 
 .products-edit-container input {

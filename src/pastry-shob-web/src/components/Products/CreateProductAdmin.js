@@ -2,7 +2,6 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import {useNavigate} from "react-router-dom";
-import BaseURL from "../BaseURL/BaseURL";
 import baseURL from "../BaseURL/BaseURL";
 
 const CreateProductAdmin = () => {

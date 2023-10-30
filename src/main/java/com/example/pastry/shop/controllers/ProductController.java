@@ -3,6 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.dto.GetProductsDTO;
+import com.example.pastry.shop.model.dto.UpdateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
@@ -44,13 +45,15 @@ public class ProductController {
         return ResponseEntity.ok(productOpt);
     }
 
-    @PutMapping("/{productId}")
+    @PatchMapping( "/edit/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
-                                           @RequestBody Products product,
-                                           @AuthenticationPrincipal Users user) {
-
-        this.productsService.saveProduct(product, user);
-        return ResponseEntity.ok().build();
+                                           @AuthenticationPrincipal Users user,
+                                           @RequestPart(value = "imageUrl") MultipartFile file,
+                                           @RequestPart(value = "dto") UpdateProductDTO updateProductDTO) throws IOException {
+        boolean updateProduct = this.productsService.saveProduct(updateProductDTO, productId, file);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom(updateProduct ? "Successful update product!" : "Unsuccessful update product!");
+        return ResponseEntity.ok(customResponse);
     }
 
     @DeleteMapping("/{productId}")
