@@ -44,7 +44,7 @@ const EditProductsAdmin = () => {
     }
 
 
-    function persist() {
+    function editProductBody() {
         const formData = new FormData();
         formData.append("imageUrl", imageUrl)
         const dto = {
@@ -58,6 +58,11 @@ const EditProductsAdmin = () => {
                 type: "application/json",
             })
         );
+        return formData;
+    }
+
+    function persist() {
+        const formData = editProductBody();
         fetch(`${baseURL}api/products/edit/${productId}`, {
             method: "PATCH",
             body: formData
