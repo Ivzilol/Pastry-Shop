@@ -13,13 +13,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ChatService {
+public class MessageService {
 
     private final ChatMessagesRepository chatMessagesRepository;
 
     private final UsersRepository usersRepository;
 
-    public ChatService(ChatMessagesRepository chatMessagesRepository, UsersRepository usersRepository) {
+    public MessageService(ChatMessagesRepository chatMessagesRepository, UsersRepository usersRepository) {
         this.chatMessagesRepository = chatMessagesRepository;
         this.usersRepository = usersRepository;
     }
