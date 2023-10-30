@@ -11,7 +11,9 @@ import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -24,22 +26,32 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository) {
+    private final CloudinaryService cloudinaryService;
+
+    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryService cloudinaryService) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
+        this.cloudinaryService = cloudinaryService;
     }
 
-    public Products createProduct(CreateProductDTO productDTO) {
+    public Products createProduct(CreateProductDTO productDTO, MultipartFile file) throws IOException {
         Products newProduct = new Products();
         newProduct.setName(productDTO.getName());
         newProduct.setPrice(productDTO.getPrice());
-        newProduct.setDescription(productDTO.getDescription());
         newProduct.setCategories(productDTO.getCategories());
-        newProduct.setImageUrl(productDTO.getImageUrl());
-        Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getShopName());
+        newProduct.setDescription(productDTO.getDescription());
+        Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getName());
         newProduct.setShops(shop.get());
-        productRepository.save(newProduct);
+        newProduct.setImageUrl(getImage(file));
         return newProduct;
+    }
+
+    private String getImage(MultipartFile file) throws IOException {
+        String pictureUrl = "";
+        if (file != null) {
+            pictureUrl = this.cloudinaryService.uploadPicture(file);
+        }
+        return pictureUrl;
     }
 
     public Set<Products> findByUser(Users user) {

@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -26,9 +28,12 @@ public class ProductController {
         this.productsService = productsService;
     }
 
-    @PostMapping("/create/admin")
-    public ResponseEntity<?> createProduct(@RequestBody CreateProductDTO createProductDTO) {
-        this.productsService.createProduct(createProductDTO);
+    @PostMapping(value = "/create/admin", consumes = {"multipart/form-data"})
+    public ResponseEntity<?> createProduct(
+            @RequestPart(value = "imageUrl") MultipartFile file,
+            @RequestPart(value = "dto") CreateProductDTO createProductDTO
+    ) throws IOException {
+        this.productsService.createProduct(createProductDTO, file);
         return ResponseEntity.ok().build();
     }
 

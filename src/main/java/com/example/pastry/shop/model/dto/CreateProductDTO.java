@@ -2,6 +2,7 @@ package com.example.pastry.shop.model.dto;
 
 import com.example.pastry.shop.validation.annotation.UniqueProductName;
 import com.unboundid.util.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
 public class CreateProductDTO {
 
@@ -15,7 +16,7 @@ public class CreateProductDTO {
     @NotNull
     private String description;
     @NotNull
-    private String imageUrl;
+    private MultipartFile imageUrl;
     @NotNull
     private String shopName;
 
@@ -51,11 +52,11 @@ public class CreateProductDTO {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public MultipartFile getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
     }
 
