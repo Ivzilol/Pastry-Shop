@@ -1,7 +1,6 @@
 {
   "name": "pastry-shob-web",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -28,6 +27,7 @@
     "jwt-check-expiration": "^1.0.5",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
+    "net": "^1.0.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
@@ -39,6 +39,7 @@
     "react-scripts": "5.0.1",
     "react-step-progress-bar": "^1.0.3",
     "react-visibility-sensor": "^5.1.1",
+    "sample": "*",
     "sass": "^1.49.8",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",

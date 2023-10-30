@@ -1722,6 +1722,27 @@ footer {
     display: none;
 }
 
+.chat-container {
+    position: fixed;
+    right: 0;
+    width: 27%;
+    height: 61%;
+    background-color: white;
+    z-index: 9999;
+    overflow: auto;
+    padding: 0px;
+    color: black;
+    font-style: italic;
+    border-radius: 10px;
+    bottom: 0;
+    margin-right: 50px;
+    border: 2px solid #ef7d00;
+}
+
+.chat-message-row {
+    list-style: none;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {

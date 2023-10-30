@@ -1,220 +1,271 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useRef, useState} from "react";
-import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
+import SockJS from 'sockjs-client';
+import {over} from 'stompjs';
+import baseURL from "../BaseURL/BaseURL";
+import {useEffect, useState} from "react";
+import jwt_decode from "jwt-decode";
+
+let stompClient = null;
+
+
 const ChatRoom = () => {
 
     const user = useUser();
-    const baseUrl = "http://localhost:8080/";
-    const [messages, setMessages] = useState(null);
-    const [newMessage, setNewMessage] = useState("")
     const navigate = useNavigate();
-    const lastMessageRef = useRef(null);
-    const [showMessage, setShowMessage] = useState(true);
-    const [isVisible, setIsVisible] = useState(true);
-    const {t} = useTranslation();
+    const [roles, setRoles] = useState(null);
+    const [publicChats, setPublicChats] = useState([]);
+    const [userData, setUserData] = useState({
+        username: '',
+        receiverName: '',
+        connected: false,
+        message: ''
+    });
 
     useEffect(() => {
-        if (lastMessageRef.current) {
-            lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
-        }
-    }, [messages]);
+        const decodeJwt = jwt_decode(user.jwt);
+        setRoles(decodeJwt.sub)
+    }, [user.jwt])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    function getMessage() {
-        if (user.jwt) {
-            ajax(`${baseUrl}api/chatroom`, "GET", user.jwt)
-                .then(result => {
-                    setMessages(result)
-                    setShowMessage(true)
-                })
-        }
+    function connect() {
+        let Sock = new SockJS(`${baseURL}ws`);
+        stompClient = over(Sock)
+        stompClient.connect({}, onConnected, onError)
     }
 
-    function sentMessage() {
-        if (user.jwt) {
-            const requestBody = {
-                newMessage: newMessage
+    function onConnected() {
+        console.log('Свързване успешно установено.')
+        setUserData({...userData, "connected": true})
+        stompClient.subscribe(`/chat-rooms/${roles}`, onMessageReceived);
+        userJoin();
+    }
+
+    const userJoin = () => {
+        const chatMessage = {
+            senderName: roles,
+            status: "JOIN"
+        }
+        stompClient.send(`/api/message/${roles}`, {}, JSON.stringify(chatMessage));
+    }
+
+    const onError = (err) => {
+        console.log(err);
+    }
+
+    function onMessageReceived(payload) {
+        const payloadData = JSON.parse(payload.body);
+        publicChats.push(payloadData)
+        setPublicChats([...publicChats]);
+    }
+
+    const handleMessage = (event) => {
+        const {value} = event.target;
+        setUserData({...userData, "message": value});
+    }
+
+    const sendValue = () => {
+        if (stompClient) {
+            const chatMessage = {
+                senderName: roles,
+                message: userData.message,
+                status: "MESSAGE"
             }
-            if (newMessage.trim() === '') {
+            if (userData.message.trim() === "") {
                 return;
             }
-            ajax(`${baseUrl}api/chatroom/send`, "POST", user.jwt, requestBody)
-                .then((response) => {
-                    if (response !== undefined) {
-                        getMessage()
-                        return null;
-
-                    } else {
-                        handleSubmit()
-                        getMessage();
-                    }
-
-                })
-        } else {
-            navigate("/login")
-        }
-    }
-
-    const handleSubmit = () => {
-        setNewMessage('');
-    }
-
-    function handleClickCloseMessage() {
-        setShowMessage(false)
-        setIsVisible(false)
-    }
-
-    function handleClickOpenMessage() {
-        getMessage()
-        setShowMessage(true)
-        setIsVisible(true)
-    }
-
-    const sendWithEnter = (event) => {
-        if (event.keyCode === 13) {
-            sentMessage()
+            console.log(chatMessage);
+            stompClient.send(`/api/message/${roles}`, {}, JSON.stringify(chatMessage));
+            setUserData({...userData, "message": ""})
         }
     }
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            getMessage()
-        }, 1000)
-        return () => {
-            clearInterval(interval)
+        if (roles !== null) {
+            connect();
         }
-    }, [getMessage])
 
+    }, [roles])
 
     return (
         <main>
-            {isVisible ?
-                <div className="chat-container" style={{
-                    position: 'fixed',
-                    right: 0,
-                    width: '27%',
-                    height: '61%',
-                    backgroundColor: 'white',
-                    zIndex: '9999',
-                    overflow: 'auto',
-                    padding: '0px',
-                    color: 'black',
-                    fontStyle: 'italic',
-                    borderRadius: '10px',
-                    bottom: 0,
-                    marginRight: '50px',
-                    border: '2px solid #ef7d00'
-                }}>
-                    <section className="chat-container-title">
-                        <h3>{t('chat-container.h3')}</h3>
-                        <a
-                            className="chat-container-close"
-                            id="submit"
-                            type="submit"
-                            onClick={handleClickCloseMessage}
-                        >X
-                        </a>
-                    </section>
-                    {showMessage &&
-                        <div className="chat-container-messages"
-                             style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
-                            {messages ? (
-                                messages.map((message) => (
-                                    <div className="chat-container-messages-current"
-                                         key={message.id}
-                                         ref={lastMessageRef}>
-                                        {
-                                            message.adminId === null
-                                                ?
-                                                <p  key={message.id}
-                                                    className="chat-container-messages-current-user">
-                                                    Вие: {message.message}
-                                                </p>
-                                                :
-                                                <p  key={message.id}
-                                                    className="chat-container-messages-current-admin">
-                                                    Админ: {message.message}
-                                                </p>
+            <div className="chat-container">
+                {userData.connected ?
+                    <div className="chat-box">
+                        <div className="chat-content">
+                            <ul className="chat-message">
+                                {/*{oldMessages !== null ? oldMessages.map((oldMessage) => (*/}
+                                {/*    <li key={oldMessage.id}*/}
+                                {/*        className="chat-message-row">*/}
+                                {/*        <div*/}
+                                {/*            className="chat-message-data">{oldMessage.username}: {oldMessage.message}</div>*/}
+                                {/*    </li>*/}
+                                {/*)) : (*/}
+                                {/*    <></>*/}
+                                {/*)}*/}
+                                {publicChats.map((chat, index) => (
+                                    <li key={index}
+                                        className="chat-message-row">
+                                        {chat.message !== null
+                                            ?
+                                            <div className="chat-message-data">{chat.senderName}: {chat.message}</div>
+                                            :
+                                            <></>
                                         }
-                                    </div>
-                                ))
-
-                            ) : (
-                                <p className="chat-container-messages-down">
-                                    {t('chat-container.p')}
-                                </p>
-                            )}
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="send-message">
+                                <label>Send message</label>
+                                <input
+                                    type="text"
+                                    className="input-message"
+                                    placeholder="Send Message"
+                                    value={userData.message}
+                                    onChange={handleMessage}
+                                />
+                                <button
+                                    type="button"
+                                    className="send-button"
+                                    onClick={sendValue}
+                                >
+                                    send
+                                </button>
+                            </div>
                         </div>
-                    }
-                    <div className="chat-container-input" style={{marginTop: '20px'}}>
-                        <input
-                            type="text"
-                            name="message"
-                            placeholder={t('chat-container.placeholder')}
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            onFocus={handleClickOpenMessage}
-                            autoComplete="off"
-                            onKeyDown={(e) => sendWithEnter(e)}
-
-                        />
-                        <button
-                            id="submit"
-                            type="button"
-                            onClick={() => sentMessage()}
-                        >
-                            {t('chat-container.button')}
-                        </button>
                     </div>
-                </div>
-                :
-                <div className="chat-container" style={{
-                    position: 'fixed',
-                    right: 0,
-                    width: '27%',
-                    height: '17%',
-                    backgroundColor: 'white',
-                    zIndex: '9999',
-                    overflow: 'auto',
-                    padding: '0px',
-                    color: 'black',
-                    fontStyle: 'italic',
-                    borderRadius: '10px',
-                    bottom: 0,
-                    marginRight: '50px'
-                }}>
-                    <section className="chat-container-title">
-                        <h3>{t('chat-container.h3')}</h3>
-                        <a
-                            className="chat-container-close"
-                            id="submit"
-                            type="submit"
-                            onClick={handleClickCloseMessage}
-                        >X
-                        </a>
-                    </section>
-                    <div className="chat-container-input" style={{marginTop: '20px'}}>
-                        <input
-                            type="text"
-                            name="message"
-                            placeholder={t('chat-container.placeholder')}
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            onFocus={handleClickOpenMessage}
-                        />
-                        <button
-                            id="submit"
-                            type="button"
-                            onClick={() => sentMessage()}
-                        >
-                            {t('chat-container.button')}
-                        </button>
-                    </div>
-                </div>
-            }
+                    :
+                    <></>
+                }
+            </div>
         </main>
+
+
+        // <main>
+        //     {isVisible ?
+        //         <div className="chat-container" style={{
+        //             position: 'fixed',
+        //             right: 0,
+        //             width: '27%',
+        //             height: '61%',
+        //             backgroundColor: 'white',
+        //             zIndex: '9999',
+        //             overflow: 'auto',
+        //             padding: '0px',
+        //             color: 'black',
+        //             fontStyle: 'italic',
+        //             borderRadius: '10px',
+        //             bottom: 0,
+        //             marginRight: '50px',
+        //             border: '2px solid #ef7d00'
+        //         }}>
+        //             <section className="chat-container-title">
+        //                 <h3>{t('chat-container.h3')}</h3>
+        //                 <a
+        //                     className="chat-container-close"
+        //                     id="submit"
+        //                     type="submit"
+        //                     onClick={handleClickCloseMessage}
+        //                 >X
+        //                 </a>
+        //             </section>
+        //             {showMessage &&
+        //                 <div className="chat-container-messages"
+        //                      style={{marginTop: '40px', overflowY: 'scroll', height: '60%'}}>
+        //                     {messages ? (
+        //                         messages.map((message) => (
+        //                             <div className="chat-container-messages-current"
+        //                                  key={message.id}
+        //                                  ref={lastMessageRef}>
+        //                                 {
+        //                                     message.adminId === null
+        //                                         ?
+        //                                         <p  key={message.id}
+        //                                             className="chat-container-messages-current-user">
+        //                                             Вие: {message.message}
+        //                                         </p>
+        //                                         :
+        //                                         <p  key={message.id}
+        //                                             className="chat-container-messages-current-admin">
+        //                                             Админ: {message.message}
+        //                                         </p>
+        //                                 }
+        //                             </div>
+        //                         ))
+        //
+        //                     ) : (
+        //                         <p className="chat-container-messages-down">
+        //                             {t('chat-container.p')}
+        //                         </p>
+        //                     )}
+        //                 </div>
+        //             }
+        //             <div className="chat-container-input" style={{marginTop: '20px'}}>
+        //                 <input
+        //                     type="text"
+        //                     name="message"
+        //                     placeholder={t('chat-container.placeholder')}
+        //                     value={newMessage}
+        //                     onChange={(e) => setNewMessage(e.target.value)}
+        //                     onFocus={handleClickOpenMessage}
+        //                     autoComplete="off"
+        //                     onKeyDown={(e) => sendWithEnter(e)}
+        //
+        //                 />
+        //                 <button
+        //                     id="submit"
+        //                     type="button"
+        //                     onClick={() => sentMessage()}
+        //                 >
+        //                     {t('chat-container.button')}
+        //                 </button>
+        //             </div>
+        //         </div>
+        //         :
+        //         <div className="chat-container" style={{
+        //             position: 'fixed',
+        //             right: 0,
+        //             width: '27%',
+        //             height: '17%',
+        //             backgroundColor: 'white',
+        //             zIndex: '9999',
+        //             overflow: 'auto',
+        //             padding: '0px',
+        //             color: 'black',
+        //             fontStyle: 'italic',
+        //             borderRadius: '10px',
+        //             bottom: 0,
+        //             marginRight: '50px'
+        //         }}>
+        //             <section className="chat-container-title">
+        //                 <h3>{t('chat-container.h3')}</h3>
+        //                 <a
+        //                     className="chat-container-close"
+        //                     id="submit"
+        //                     type="submit"
+        //                     onClick={handleClickCloseMessage}
+        //                 >X
+        //                 </a>
+        //             </section>
+        //             <div className="chat-container-input" style={{marginTop: '20px'}}>
+        //                 <input
+        //                     type="text"
+        //                     name="message"
+        //                     placeholder={t('chat-container.placeholder')}
+        //                     value={newMessage}
+        //                     onChange={(e) => setNewMessage(e.target.value)}
+        //                     onFocus={handleClickOpenMessage}
+        //                 />
+        //                 <button
+        //                     id="submit"
+        //                     type="button"
+        //                     onClick={() => sentMessage()}
+        //                 >
+        //                     {t('chat-container.button')}
+        //                 </button>
+        //             </div>
+        //         </div>
+        //     }
+        // </main>
     )
 }
 
