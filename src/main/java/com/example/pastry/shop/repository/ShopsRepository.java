@@ -16,7 +16,9 @@ public interface ShopsRepository extends JpaRepository<Shops, Long> {
 
     Set<Shops> findByUsers(Users user);
 
-    Optional<Shops> findByName(String name);
+    @Query("select s from Shops as s" +
+            " where s.name = :name")
+    Shops findByName(String name);
 
     @Query("select new com.example.pastry.shop.model.dto.ShopsDTO(" +
             " s.id, s.number, s.name, s.status, s.town, s.address as address)" +

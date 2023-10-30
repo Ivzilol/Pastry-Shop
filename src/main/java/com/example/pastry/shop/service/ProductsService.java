@@ -40,9 +40,10 @@ public class ProductsService {
         newProduct.setPrice(productDTO.getPrice());
         newProduct.setCategories(productDTO.getCategories());
         newProduct.setDescription(productDTO.getDescription());
-        Optional<Shops> shop = this.shopsRepository.findByName(productDTO.getName());
-        newProduct.setShops(shop.get());
+        Shops shop = this.shopsRepository.findByName(productDTO.getShopName());
+        newProduct.setShops(shop);
         newProduct.setImageUrl(getImage(file));
+        this.productRepository.save(newProduct);
         return newProduct;
     }
 
