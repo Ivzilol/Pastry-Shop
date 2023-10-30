@@ -47,7 +47,6 @@ public class ProductController {
 
     @PatchMapping( "/edit/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
-                                           @AuthenticationPrincipal Users user,
                                            @RequestPart(value = "imageUrl") MultipartFile file,
                                            @RequestPart(value = "dto") UpdateProductDTO updateProductDTO) throws IOException {
         boolean updateProduct = this.productsService.saveProduct(updateProductDTO, productId, file);
