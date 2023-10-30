@@ -2,6 +2,8 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import {useNavigate} from "react-router-dom";
+import BaseURL from "../BaseURL/BaseURL";
+import baseURL from "../BaseURL/BaseURL";
 
 const CreateProductAdmin = () => {
     useUser();
@@ -12,35 +14,45 @@ const CreateProductAdmin = () => {
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [shopName, setShopName] = useState("");
-    const baseUrl = "http://localhost:8080/";
+
+    const imageSubmit = (e) => {
+        if (e.target.files[0] && e.target.files[0].name !== "") {
+            setImageUrl(e.target.files[0])
+        }
+    }
 
     function createProduct() {
-        const requestBody = {
+        const formData = new FormData();
+        formData.append("imageUrl", imageUrl)
+        const dto = {
             name: name,
             price: price,
             categories: categories,
             description: description,
-            imageUrl: imageUrl,
             shopName: shopName,
         }
-        fetch(`${baseUrl}api/products/create/admin`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
+
+        formData.append("dto",
+            new Blob([JSON.stringify(dto)], {
+                type: "application/json",
+            })
+        );
+
+        fetch(`${baseURL}api/products/create/admin`, {
             method: "POST",
-            body: JSON.stringify(requestBody),
+            body: formData,
         })
             .then((response) => {
                 if (response.status === 200)
                     return Promise.all([response.json(), response.headers]);
-                    else return Promise.reject("Invalid product");
+                else return Promise.reject("Invalid product");
             })
             .catch((message) => {
                 alert(message)
             })
             .then(() => {
                 navigate("/products")
-        });
+            });
     }
 
 
@@ -60,7 +72,7 @@ const CreateProductAdmin = () => {
                         onChange={(e) => setName(e.target.value)}
                     />
                     <label
-                    htmlFor="price"
+                        htmlFor="price"
                     > Price
                     </label>
                     <input
@@ -97,28 +109,30 @@ const CreateProductAdmin = () => {
                     />
                     <label className="imageUrl">Image</label>
                     <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    placeholder="Image"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
+                        className="input-image"
+                        type="file"
+                        accept='image/png, image/jpeg'
+                        size='sm'
+                        id="imageUrl"
+                        name="imageUrl"
+                        placeholder="Image"
+                        onChange={imageSubmit}
                     />
                     <label className="shopName">Shop Name</label>
                     <input
-                    type="text"
-                    id="ShopId"
-                    name="ShopId"
-                    placeholder="Shop Name"
-                    value={shopName}
-                    onChange={(e) => setShopName(e.target.value)}
+                        type="text"
+                        id="ShopId"
+                        name="ShopId"
+                        placeholder="Shop Name"
+                        value={shopName}
+                        onChange={(e) => setShopName(e.target.value)}
                     />
                     <button
                         id="submit-product"
                         type="button"
                         onClick={() => createProduct()}
                     >
-                    Create Product
+                        Create Product
                     </button>
                 </article>
             </section>
