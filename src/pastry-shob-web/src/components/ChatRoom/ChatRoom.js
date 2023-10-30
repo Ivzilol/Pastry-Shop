@@ -83,7 +83,6 @@ const ChatRoom = () => {
         if (roles !== null) {
             connect();
         }
-
     }, [roles])
 
     return (
