@@ -40,7 +40,6 @@ public class MessageService {
     }
 
 
-
     public boolean finishChat(Users user, Long id) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
@@ -56,11 +55,16 @@ public class MessageService {
     public void saveMessage(Message message, String room) {
         Optional<Users> user = this.usersRepository.findByUsername(message.getSenderName());
         ChatMessages chatMessages = new ChatMessages();
-        if(isUser(user.get())) {
+        if (isUser(user.get())) {
             chatMessages.setMessage(message.getMessage());
             chatMessages.setCreatedDate(LocalDateTime.now());
             chatMessages.setSendBy(user.get());
             this.chatMessagesRepository.save(chatMessages);
         }
+    }
+
+    public Set<UnansweredMessagesDTO> getAllUsersMessages(Users user) {
+        return this.chatMessagesRepository.findAllUnansweredMessages();
+
     }
 }

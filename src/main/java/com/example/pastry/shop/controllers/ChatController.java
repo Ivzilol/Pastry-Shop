@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.Message;
+import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.MessageService;
@@ -13,7 +14,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
 public class ChatController {
 
     private final MessageService messageService;
@@ -31,6 +35,12 @@ public class ChatController {
         if (message.getMessage() != null) {
             messageService.saveMessage(message, room);
         }
+    }
+
+    @GetMapping("api/chat-room/admin/all")
+    public ResponseEntity<?> getAllUsersMessage(@AuthenticationPrincipal Users user) {
+        Set<UnansweredMessagesDTO> unansweredMessagesDTO = this.messageService.getAllUsersMessages(user);
+        return ResponseEntity.ok(unansweredMessagesDTO);
     }
 
     @PatchMapping("/admin/finish/{id}")

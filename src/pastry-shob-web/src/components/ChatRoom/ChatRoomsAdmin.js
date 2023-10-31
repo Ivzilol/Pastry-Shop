@@ -2,11 +2,11 @@ import {useUser} from "../../UserProvider/UserProvider";
 import ajax from "../../Services/FetchService";
 import {useEffect, useRef, useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 const ChatRoomsAdmin = () => {
 
     const user = useUser();
-    const baseUrl = "http://localhost:8080/";
     const [allMessage, setAllMessage] = useState(null);
     const [currentMessages, setCurrentMessages] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
@@ -14,14 +14,14 @@ const ChatRoomsAdmin = () => {
     const [newMessageAdmin, setNewMessageAdmin] = useState("");
     const [currentId, setCurrentId] = useState(null);
 
-    useEffect(() => {
-        if (lastMessageRef.current) {
-            lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
-        }
-    }, [currentMessages]);
+    // useEffect(() => {
+    //     if (lastMessageRef.current) {
+    //         lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
+    //     }
+    // }, [currentMessages]);
 
     function getAllMessage() {
-        ajax(`${baseUrl}api/chatroom/admin/all`, 'GET', user.jwt)
+        ajax(`${baseURL}api/chat-room/admin/all`, 'GET', user.jwt)
             .then(response => {
                 setAllMessage(response);
             });
@@ -31,59 +31,60 @@ const ChatRoomsAdmin = () => {
         getAllMessage()
     }, [])
 
-    function getMessageByUser(id) {
-        ajax(`${baseUrl}api/chatroom/admin/${id}`, "GET", user.jwt)
-            .then(messageResponse => {
-                setCurrentMessages(messageResponse)
-                setShowMessage(true)
-                setCurrentId(id)
-            });
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // function getMessageByUser(id) {
+    //     ajax(`${baseURL}api/chatroom/admin/${id}`, "GET", user.jwt)
+    //         .then(messageResponse => {
+    //             setCurrentMessages(messageResponse)
+    //             setShowMessage(true)
+    //             setCurrentId(id)
+    //         });
+    // }
 
 
-    function sendMessageAdmin(id) {
-        const requestBody = {
-            newMessageAdmin: newMessageAdmin
-        }
-        if (newMessageAdmin.trim() === '') {
-            return;
-        }
-        ajax(`${baseUrl}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
-            .then(response => {
-                if (response !== undefined) {
-                    getMessageByUser(currentId)
-                    handleSubmit()
-                } else {
-                    handleSubmit()
-                    getMessageByUser(currentId);
-                }
-            })
-    }
-
-    const handleSubmit = () => {
-        setNewMessageAdmin('');
-    }
+    // function sendMessageAdmin(id) {
+    //     const requestBody = {
+    //         newMessageAdmin: newMessageAdmin
+    //     }
+    //     if (newMessageAdmin.trim() === '') {
+    //         return;
+    //     }
+    //     ajax(`${baseURL}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
+    //         .then(response => {
+    //             if (response !== undefined) {
+    //                 getMessageByUser(currentId)
+    //                 handleSubmit()
+    //             } else {
+    //                 handleSubmit()
+    //                 getMessageByUser(currentId);
+    //             }
+    //         })
+    // }
+    //
+    // const handleSubmit = () => {
+    //     setNewMessageAdmin('');
+    // }
 
     function finishChat(id) {
-        ajax(`${baseUrl}api/chatroom/admin/finish/${id}`, "PATCH", user.jwt, null)
+        ajax(`${baseURL}api/chatroom/admin/finish/${id}`, "PATCH", user.jwt, null)
             .then(response => {
 
             })
     }
 
-    function handleClickOpenMessage() {
-        getMessageByUser(currentId)
-        setShowMessage(true)
-    }
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getMessageByUser(currentId)
-        }, 1000)
-        return () => {
-            clearInterval(interval)
-        }
-    }, [currentId, getMessageByUser])
+    // function handleClickOpenMessage() {
+    //     getMessageByUser(currentId)
+    //     setShowMessage(true)
+    // }
+    //
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         getMessageByUser(currentId)
+    //     }, 1000)
+    //     return () => {
+    //         clearInterval(interval)
+    //     }
+    // }, [currentId, getMessageByUser])
 
     return (
         <main className="message-admin-container">
@@ -97,7 +98,7 @@ const ChatRoomsAdmin = () => {
                                 key={message.userId}
                                 ref={lastMessageRef}
                                 type="button"
-                                onClick={() => getMessageByUser(message.userId)}
+                                    // onClick={() => getMessageByUser(message.userId)}
                             >
                                 {message.message}
                             </button>
@@ -136,22 +137,22 @@ const ChatRoomsAdmin = () => {
                         <></>
                     )}
                     <div className="message-admin-container-current-user-container-input">
-                        <input
-                            type="text"
-                            name="message"
-                            placeholder="Напиешете съобщение"
-                            value={newMessageAdmin}
-                            onChange={(e) => setNewMessageAdmin(e.target.value)}
-                            onFocus={handleClickOpenMessage}
-                            autoComplete="off"
-                        />
-                        <button
-                            id="submit"
-                            type="button"
-                            onClick={() => sendMessageAdmin(currentId)}
-                        >
-                            Send
-                        </button>
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    name="message"*/}
+                        {/*    placeholder="Напиешете съобщение"*/}
+                        {/*    value={newMessageAdmin}*/}
+                        {/*    onChange={(e) => setNewMessageAdmin(e.target.value)}*/}
+                        {/*    onFocus={handleClickOpenMessage}*/}
+                        {/*    autoComplete="off"*/}
+                        {/*/>*/}
+                        {/*<button*/}
+                        {/*    id="submit"*/}
+                        {/*    type="button"*/}
+                        {/*    onClick={() => sendMessageAdmin(currentId)}*/}
+                        {/*>*/}
+                        {/*    Send*/}
+                        {/*</button>*/}
                         <button
                             id="submit"
                             type="button"
