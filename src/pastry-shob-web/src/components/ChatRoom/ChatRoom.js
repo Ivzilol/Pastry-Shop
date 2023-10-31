@@ -5,6 +5,7 @@ import {over} from 'stompjs';
 import baseURL from "../BaseURL/BaseURL";
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode";
+import ajax from "../../Services/FetchService";
 
 let stompClient = null;
 
@@ -12,9 +13,9 @@ let stompClient = null;
 const ChatRoom = () => {
 
     const user = useUser();
-    const navigate = useNavigate();
     const [roles, setRoles] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
+    const [oldMessages, setOldMessages] = useState(null);
     const [userData, setUserData] = useState({
         username: '',
         receiverName: '',
@@ -79,11 +80,20 @@ const ChatRoom = () => {
         }
     }
 
+    function getOldMessage() {
+        ajax(`${baseURL}api/chat-room/get-messages/${roles}`, "GET", user.jwt)
+            .then((response) => {
+                setOldMessages(response);
+            })
+    }
+
     useEffect(() => {
         if (roles !== null) {
             connect();
+            getOldMessage();
         }
     }, [roles])
+
 
     return (
         <main>
@@ -92,15 +102,22 @@ const ChatRoom = () => {
                     <div className="chat-box">
                         <div className="chat-content">
                             <ul className="chat-message">
-                                {/*{oldMessages !== null ? oldMessages.map((oldMessage) => (*/}
-                                {/*    <li key={oldMessage.id}*/}
-                                {/*        className="chat-message-row">*/}
-                                {/*        <div*/}
-                                {/*            className="chat-message-data">{oldMessage.username}: {oldMessage.message}</div>*/}
-                                {/*    </li>*/}
-                                {/*)) : (*/}
-                                {/*    <></>*/}
-                                {/*)}*/}
+                                {oldMessages !== null ? oldMessages.map((oldMessage) => (
+                                    <li key={oldMessage.id}
+                                        className="chat-message-row">
+                                        <div
+                                            className="chat-message-data">
+                                            {oldMessage.adminId === null
+                                                ?
+                                                <>{oldMessage.username}: {oldMessage.message}</>
+                                                :
+                                                <>Админ: {oldMessage.message}</>
+                                            }
+                                        </div>
+                                    </li>
+                                )) : (
+                                    <></>
+                                )}
                                 {publicChats.map((chat, index) => (
                                     <li key={index}
                                         className="chat-message-row">

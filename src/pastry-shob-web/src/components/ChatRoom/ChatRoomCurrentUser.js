@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import SockJS from "sockjs-client";
 import baseURL from "../BaseURL/BaseURL";
 import {over} from "stompjs";
+import ajax from "../../Services/FetchService";
 
 let stompClient = null;
 
@@ -12,10 +13,10 @@ const ChatRoomCurrentUser = () => {
 
 
     const user = useUser();
-    const navigate = useNavigate();
     const roomCode = window.location.href.split("/chat-room/")[1];
     const [roles, setRoles] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
+    const [oldMessages, setOldMessages] = useState(null);
     const [userData, setUserData] = useState({
         username: '',
         receiverName: '',
@@ -86,57 +87,72 @@ const ChatRoomCurrentUser = () => {
         }
     }, [roles])
 
+    useEffect(() => {
+        ajax(`${baseURL}api/chat-room/get-messages/${roomCode}`, "GET", user.jwt)
+            .then((response) => {
+                setOldMessages(response);
+            })
+    }, [])
 
 
-    return(
-        <main><div className="chat-container">
-            {userData.connected ?
-                <div className="chat-box">
-                    <div className="chat-content">
-                        <ul className="chat-message">
-                            {/*{oldMessages !== null ? oldMessages.map((oldMessage) => (*/}
-                            {/*    <li key={oldMessage.id}*/}
-                            {/*        className="chat-message-row">*/}
-                            {/*        <div*/}
-                            {/*            className="chat-message-data">{oldMessage.username}: {oldMessage.message}</div>*/}
-                            {/*    </li>*/}
-                            {/*)) : (*/}
-                            {/*    <></>*/}
-                            {/*)}*/}
-                            {publicChats.map((chat, index) => (
-                                <li key={index}
-                                    className="chat-message-row">
-                                    {chat.message !== null
-                                        ?
-                                        <div className="chat-message-data">{chat.senderName}: {chat.message}</div>
-                                        :
-                                        <></>
-                                    }
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="send-message">
-                            <input
-                                type="text"
-                                className="input-message"
-                                placeholder="Send Message"
-                                value={userData.message}
-                                onChange={handleMessage}
-                            />
-                            <button
-                                type="button"
-                                className="send-button"
-                                onClick={sendValue}
-                            >
-                                send
-                            </button>
+    return (
+        <main>
+            <div className="chat-container">
+                {userData.connected ?
+                    <div className="chat-box">
+                        <div className="chat-content">
+                            <ul className="chat-message">
+                                {oldMessages !== null ? oldMessages.map((oldMessage) => (
+                                    <li key={oldMessage.id}
+                                        className="chat-message-row">
+                                        <div
+                                            className="chat-message-data">
+                                            {oldMessage.adminId === null
+                                                ?
+                                                <>{oldMessage.username}: {oldMessage.message}</>
+                                                :
+                                                <>Админ: {oldMessage.message}</>
+                                            }
+                                        </div>
+                                    </li>
+                                )) : (
+                                    <></>
+                                )}
+                                {publicChats.map((chat, index) => (
+                                    <li key={index}
+                                        className="chat-message-row">
+                                        {chat.message !== null
+                                            ?
+                                            <div className="chat-message-data">{chat.senderName}: {chat.message}</div>
+                                            :
+                                            <></>
+                                        }
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="send-message">
+                                <input
+                                    type="text"
+                                    className="input-message"
+                                    placeholder="Send Message"
+                                    value={userData.message}
+                                    onChange={handleMessage}
+                                />
+                                <button
+                                    type="button"
+                                    className="send-button"
+                                    onClick={sendValue}
+                                >
+                                    send
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                :
-                <></>
-            }
-        </div></main>
+                    :
+                    <></>
+                }
+            </div>
+        </main>
     )
 }
 

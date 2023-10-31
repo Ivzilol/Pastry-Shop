@@ -73,4 +73,8 @@ public class MessageService {
         return this.chatMessagesRepository.findAllUnansweredMessages();
 
     }
+
+    public Set<ChatMessageDTO> findMessagesByUser(String username) {
+        return this.chatMessagesRepository.findMessagesByUser(username);
+    }
 }
