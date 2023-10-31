@@ -39,42 +39,7 @@ public class MessageService {
         return this.chatMessagesRepository.findBySendBy(users.getId());
     }
 
-    public boolean saveMessage(SentMessageDto sentMessageDto, Users user) {
-        if (!sentMessageDto.getNewMessage().trim().isEmpty() && user.isValidate() && isUser(user)) {
-            ChatMessages chatMessages = new ChatMessages();
-            chatMessages.setMessage(sentMessageDto.getNewMessage());
-            chatMessages.setCreatedDate(LocalDateTime.now());
-            chatMessages.setSendBy(user);
-            this.chatMessagesRepository.save(chatMessages);
-            return true;
-        } else if (!sentMessageDto.getNewMessage().trim().isEmpty() && user.isValidate() && isAdmin(user)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    public Set<UnansweredMessagesDTO> findUnansweredMessages(Users user) {
-        return this.chatMessagesRepository.findAllUnansweredMessages();
-    }
-
-    public Set<GetMessageByUserDTO> findMessagesByUserId(Long id, Users user) {
-        return this.chatMessagesRepository.findMessagesByUserId(id);
-    }
-
-    public boolean saveMessageAdmin(SendMessageAdminDTO sendMessageAdminDTO, Long id, Users user) {
-        boolean isAdmin = isAdmin(user);
-        if (isAdmin) {
-            ChatMessages chatMessages = new ChatMessages();
-            chatMessages.setAdminId(user.getId());
-            chatMessages.setMessage(sendMessageAdminDTO.getNewMessageAdmin());
-            chatMessages.setCreatedDate(LocalDateTime.now());
-            Optional<Users> userAnsweredId = usersRepository.findById(id);
-            chatMessages.setSendBy(userAnsweredId.get());
-            this.chatMessagesRepository.save(chatMessages);
-        }
-        return true;
-    }
 
     public boolean finishChat(Users user, Long id) {
         boolean isAdmin = isAdmin(user);
@@ -86,5 +51,16 @@ public class MessageService {
             }
         }
         return true;
+    }
+
+    public void saveMessage(Message message, String room) {
+        Optional<Users> user = this.usersRepository.findByUsername(message.getSenderName());
+        ChatMessages chatMessages = new ChatMessages();
+        if(isUser(user.get())) {
+            chatMessages.setMessage(message.getMessage());
+            chatMessages.setCreatedDate(LocalDateTime.now());
+            chatMessages.setSendBy(user.get());
+            this.chatMessagesRepository.save(chatMessages);
+        }
     }
 }
