@@ -59,8 +59,14 @@ public class MessageService {
             chatMessages.setMessage(message.getMessage());
             chatMessages.setCreatedDate(LocalDateTime.now());
             chatMessages.setSendBy(user.get());
-            this.chatMessagesRepository.save(chatMessages);
+        } else {
+            chatMessages.setMessage(message.getMessage());
+            chatMessages.setCreatedDate(LocalDateTime.now());
+            Optional<Users> recipient = this.usersRepository.findByUsername(room);
+            chatMessages.setSendBy(recipient.get());
+            chatMessages.setAdminId(user.get().getId());
         }
+        this.chatMessagesRepository.save(chatMessages);
     }
 
     public Set<UnansweredMessagesDTO> getAllUsersMessages(Users user) {

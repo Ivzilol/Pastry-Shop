@@ -1,91 +1,21 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import ajax from "../../Services/FetchService";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import baseURL from "../BaseURL/BaseURL";
-import {useNavigate} from "react-router-dom";
 
 const ChatRoomsAdmin = () => {
 
     const user = useUser();
     const [allMessage, setAllMessage] = useState(null);
-    const [currentMessages, setCurrentMessages] = useState(null);
-    const [showMessage, setShowMessage] = useState(false);
-    const lastMessageRef = useRef(null);
-    const [newMessageAdmin, setNewMessageAdmin] = useState("");
-    const [currentUsername, setCurrentUsername] = useState(null);
 
-    // useEffect(() => {
-    //     if (lastMessageRef.current) {
-    //         lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
-    //     }
-    // }, [currentMessages]);
-
-    function getAllMessage() {
+    useEffect(() => {
         ajax(`${baseURL}api/chat-room/admin/all`, 'GET', user.jwt)
             .then(response => {
                 setAllMessage(response);
             });
-    }
-
-    useEffect(() => {
-        getAllMessage()
     }, [])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // function getMessageByUser(username) {
-    //     ajax(`${baseURL}api/chatroom/admin/${username}`, "GET", user.jwt)
-    //         .then(messageResponse => {
-    //             setCurrentMessages(messageResponse)
-    //             setShowMessage(true)
-    //             setCurrentUsername(username)
-    //         });
-    // }
-
-
-    // function sendMessageAdmin(id) {
-    //     const requestBody = {
-    //         newMessageAdmin: newMessageAdmin
-    //     }
-    //     if (newMessageAdmin.trim() === '') {
-    //         return;
-    //     }
-    //     ajax(`${baseURL}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
-    //         .then(response => {
-    //             if (response !== undefined) {
-    //                 getMessageByUser(currentUsername)
-    //                 handleSubmit()
-    //             } else {
-    //                 handleSubmit()
-    //                 getMessageByUser(currentUsername);
-    //             }
-    //         })
-    // }
-    //
-    // const handleSubmit = () => {
-    //     setNewMessageAdmin('');
-    // }
-
-    function finishChat(id) {
-        ajax(`${baseURL}api/chatroom/admin/finish/${id}`, "PATCH", user.jwt, null)
-            .then(response => {
-
-            })
-    }
-
-    // function handleClickOpenMessage() {
-    //     getMessageByUser(currentUsername)
-    //     setShowMessage(true)
-    // }
-    //
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getMessageByUser(currentUsername)
-    //     }, 1000)
-    //     return () => {
-    //         clearInterval(interval)
-    //     }
-    // }, [currentUsername, getMessageByUser])
 
     return (
         <main className="message-admin-container">
@@ -97,11 +27,10 @@ const ChatRoomsAdmin = () => {
                             <button
                                 id={message.userId}
                                 key={message.userId}
-                                ref={lastMessageRef}
                                 type="button"
-                                    onClick={() => {
-                                        window.location.href = `/chat-room/${message.username}`
-                                    }}
+                                onClick={() => {
+                                    window.location.href = `/chat-room/${message.username}`
+                                }}
                             >
                                 {message.message}
                             </button>
@@ -111,61 +40,6 @@ const ChatRoomsAdmin = () => {
                     <></>
                 )}
             </section>
-            {showMessage &&
-                <section className="message-admin-container-current-user">
-                    {currentMessages ? (
-                        <div className="message-admin-container-current-user-container"
-                                style={{marginTop: '40px', overflowY: 'scroll', height: '80%'}}>
-                            {currentMessages.map((current) => (
-                                <div className="chat-container-messages-current"
-                                     key={current.id}
-                                     ref={lastMessageRef}>
-                                    {
-                                        current.adminId === null
-                                            ?
-                                            <p  key={current.id}
-                                                className="chat-container-messages-current-user">
-                                                Потребител: {current.message}
-                                            </p>
-                                            :
-                                            <p  key={current.id}
-                                                className="chat-container-messages-current-admin">
-                                                Вие: {current.message}
-                                            </p>
-                                    }
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <></>
-                    )}
-                    <div className="message-admin-container-current-user-container-input">
-                        {/*<input*/}
-                        {/*    type="text"*/}
-                        {/*    name="message"*/}
-                        {/*    placeholder="Напиешете съобщение"*/}
-                        {/*    value={newMessageAdmin}*/}
-                        {/*    onChange={(e) => setNewMessageAdmin(e.target.value)}*/}
-                        {/*    onFocus={handleClickOpenMessage}*/}
-                        {/*    autoComplete="off"*/}
-                        {/*/>*/}
-                        {/*<button*/}
-                        {/*    id="submit"*/}
-                        {/*    type="button"*/}
-                        {/*    onClick={() => sendMessageAdmin(currentUsername)}*/}
-                        {/*>*/}
-                        {/*    Send*/}
-                        {/*</button>*/}
-                        <button
-                            id="submit"
-                            type="button"
-                            onClick={() =>  finishChat(currentUsername)}
-                        >
-                            Answered
-                        </button>
-                    </div>
-                </section>
-            }
         </main>
     )
 }

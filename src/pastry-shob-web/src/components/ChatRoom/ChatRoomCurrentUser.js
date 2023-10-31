@@ -116,7 +116,6 @@ const ChatRoomCurrentUser = () => {
                             ))}
                         </ul>
                         <div className="send-message">
-                            <label>Send message</label>
                             <input
                                 type="text"
                                 className="input-message"
