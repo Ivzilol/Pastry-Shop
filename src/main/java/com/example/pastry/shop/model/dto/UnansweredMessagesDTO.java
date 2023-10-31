@@ -6,9 +6,12 @@ public class UnansweredMessagesDTO {
 
     private Long userId;
 
-    public UnansweredMessagesDTO(String message, Long userId) {
+    private String username;
+
+    public UnansweredMessagesDTO(String message, Long userId, String username) {
         this.message = message;
         this.userId = userId;
+        this.username = username;
     }
 
     public String getMessage() {
@@ -25,5 +28,13 @@ public class UnansweredMessagesDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

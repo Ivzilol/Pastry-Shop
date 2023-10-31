@@ -3,6 +3,7 @@ import ajax from "../../Services/FetchService";
 import {useEffect, useRef, useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import baseURL from "../BaseURL/BaseURL";
+import {useNavigate} from "react-router-dom";
 
 const ChatRoomsAdmin = () => {
 
@@ -12,7 +13,7 @@ const ChatRoomsAdmin = () => {
     const [showMessage, setShowMessage] = useState(false);
     const lastMessageRef = useRef(null);
     const [newMessageAdmin, setNewMessageAdmin] = useState("");
-    const [currentId, setCurrentId] = useState(null);
+    const [currentUsername, setCurrentUsername] = useState(null);
 
     // useEffect(() => {
     //     if (lastMessageRef.current) {
@@ -32,12 +33,12 @@ const ChatRoomsAdmin = () => {
     }, [])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // function getMessageByUser(id) {
-    //     ajax(`${baseURL}api/chatroom/admin/${id}`, "GET", user.jwt)
+    // function getMessageByUser(username) {
+    //     ajax(`${baseURL}api/chatroom/admin/${username}`, "GET", user.jwt)
     //         .then(messageResponse => {
     //             setCurrentMessages(messageResponse)
     //             setShowMessage(true)
-    //             setCurrentId(id)
+    //             setCurrentUsername(username)
     //         });
     // }
 
@@ -52,11 +53,11 @@ const ChatRoomsAdmin = () => {
     //     ajax(`${baseURL}api/chatroom/admin/answer/${id}`, "POST", user.jwt, requestBody)
     //         .then(response => {
     //             if (response !== undefined) {
-    //                 getMessageByUser(currentId)
+    //                 getMessageByUser(currentUsername)
     //                 handleSubmit()
     //             } else {
     //                 handleSubmit()
-    //                 getMessageByUser(currentId);
+    //                 getMessageByUser(currentUsername);
     //             }
     //         })
     // }
@@ -73,18 +74,18 @@ const ChatRoomsAdmin = () => {
     }
 
     // function handleClickOpenMessage() {
-    //     getMessageByUser(currentId)
+    //     getMessageByUser(currentUsername)
     //     setShowMessage(true)
     // }
     //
     // useEffect(() => {
     //     const interval = setInterval(() => {
-    //         getMessageByUser(currentId)
+    //         getMessageByUser(currentUsername)
     //     }, 1000)
     //     return () => {
     //         clearInterval(interval)
     //     }
-    // }, [currentId, getMessageByUser])
+    // }, [currentUsername, getMessageByUser])
 
     return (
         <main className="message-admin-container">
@@ -98,7 +99,9 @@ const ChatRoomsAdmin = () => {
                                 key={message.userId}
                                 ref={lastMessageRef}
                                 type="button"
-                                    // onClick={() => getMessageByUser(message.userId)}
+                                    onClick={() => {
+                                        window.location.href = `/chat-room/${message.username}`
+                                    }}
                             >
                                 {message.message}
                             </button>
@@ -149,14 +152,14 @@ const ChatRoomsAdmin = () => {
                         {/*<button*/}
                         {/*    id="submit"*/}
                         {/*    type="button"*/}
-                        {/*    onClick={() => sendMessageAdmin(currentId)}*/}
+                        {/*    onClick={() => sendMessageAdmin(currentUsername)}*/}
                         {/*>*/}
                         {/*    Send*/}
                         {/*</button>*/}
                         <button
                             id="submit"
                             type="button"
-                            onClick={() =>  finishChat(currentId)}
+                            onClick={() =>  finishChat(currentUsername)}
                         >
                             Answered
                         </button>

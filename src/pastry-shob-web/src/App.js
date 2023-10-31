@@ -35,6 +35,7 @@ import UserChangePassword from "./components/Users/UserChangePassword";
 import ForgottenPasswordEmail from "./components/Login/ForgottenPasswordEmail";
 import ForgottenPasswordNewPassword from "./components/Login/ForgottenPasswordNewPassword";
 import ChatRoomsAdmin from "./components/ChatRoom/ChatRoomsAdmin";
+import ChatRoomCurrentUser from "./components/ChatRoom/ChatRoomCurrentUser";
 
 function App() {
     const user = useUser();
@@ -165,6 +166,7 @@ function App() {
                            <></>
                    }
             />
+            <Route path="/chat-room/:username" element={<ChatRoomCurrentUser/>}/>
             <Route path={"/orders/tracking"} element={<UserOrderTracking/>}/>
             <Route path="/users/:userId" element={<UserEditProfile/>}/>
             <Route path="users/change-password" element={<UserChangePassword/>}/>
