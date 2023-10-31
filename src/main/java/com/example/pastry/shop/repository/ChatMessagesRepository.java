@@ -1,7 +1,6 @@
 package com.example.pastry.shop.repository;
 
 import com.example.pastry.shop.model.dto.ChatMessageDTO;
-import com.example.pastry.shop.model.dto.GetMessageByUserDTO;
 import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.ChatMessages;
@@ -28,18 +27,6 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " group by userId")
     Set<UnansweredMessagesDTO> findAllUnansweredMessages();
 
-    @Query("select new com.example.pastry.shop.model.dto.GetMessageByUserDTO(" +
-            " m.message as message, m.sendBy.id as userId, m.adminId)" +
-            " from ChatMessages  as m" +
-            " where m.isItAnswered = false" +
-            " and m.sendBy.id = :id")
-    Set<GetMessageByUserDTO> findMessagesByUserId(Long id);
-
-//    @Query("select m from ChatMessages as m" +
-//            " where m.sendBy.id = :id" +
-//            " and m.isItAnswered = false")
-//    Set<ChatMessages> findAllMessagesById(Long id);
-
     @Query("select m from ChatMessages as m" +
             " where m.isItAnswered = true")
     Set<ChatMessages> deleteFinishedChat();
@@ -50,6 +37,7 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " join Users as u on m.sendBy.id = u.id" +
             " where u.username = :username")
     Set<ChatMessageDTO> findMessagesByUser(String username);
+
     @Query("select m from ChatMessages as m" +
             " join Users as u on m.sendBy.id = u.id" +
             " where u.username = :userUsername" +
