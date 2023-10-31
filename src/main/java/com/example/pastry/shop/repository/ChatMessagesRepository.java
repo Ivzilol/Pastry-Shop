@@ -35,10 +35,10 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " and m.sendBy.id = :id")
     Set<GetMessageByUserDTO> findMessagesByUserId(Long id);
 
-    @Query("select m from ChatMessages as m" +
-            " where m.sendBy.id = :id" +
-            " and m.isItAnswered = false")
-    Set<ChatMessages> findAllMessagesById(Long id);
+//    @Query("select m from ChatMessages as m" +
+//            " where m.sendBy.id = :id" +
+//            " and m.isItAnswered = false")
+//    Set<ChatMessages> findAllMessagesById(Long id);
 
     @Query("select m from ChatMessages as m" +
             " where m.isItAnswered = true")
@@ -50,4 +50,9 @@ public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long
             " join Users as u on m.sendBy.id = u.id" +
             " where u.username = :username")
     Set<ChatMessageDTO> findMessagesByUser(String username);
+    @Query("select m from ChatMessages as m" +
+            " join Users as u on m.sendBy.id = u.id" +
+            " where u.username = :userUsername" +
+            " and m.isItAnswered = false")
+    Set<ChatMessages> findAllMessagesById(String userUsername);
 }

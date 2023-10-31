@@ -50,10 +50,10 @@ public class ChatController {
         return ResponseEntity.ok(chatMessageDTO);
     }
 
-    @PatchMapping("/admin/finish/{id}")
+    @PatchMapping("api/chat-room/admin/finish/{room}")
     public ResponseEntity<?> makeChatFinished(@AuthenticationPrincipal Users user,
-                                              @PathVariable Long id) {
-        boolean isFinished = this.messageService.finishChat(user, id);
+                                              @PathVariable String room) {
+        boolean isFinished = this.messageService.finishChat(user, room);
         if (isFinished) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {

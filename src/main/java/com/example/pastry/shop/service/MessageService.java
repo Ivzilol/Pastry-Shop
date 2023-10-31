@@ -40,10 +40,10 @@ public class MessageService {
     }
 
 
-    public boolean finishChat(Users user, Long id) {
+    public boolean finishChat(Users user, String userUsername) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            Set<ChatMessages> chatMessages = this.chatMessagesRepository.findAllMessagesById(id);
+            Set<ChatMessages> chatMessages = this.chatMessagesRepository.findAllMessagesById(userUsername);
             for (ChatMessages current : chatMessages) {
                 current.setItAnswered(true);
                 this.chatMessagesRepository.save(current);

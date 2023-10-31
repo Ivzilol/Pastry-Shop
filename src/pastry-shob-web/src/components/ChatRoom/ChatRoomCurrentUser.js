@@ -1,5 +1,4 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode";
 import SockJS from "sockjs-client";
@@ -94,6 +93,13 @@ const ChatRoomCurrentUser = () => {
             })
     }, [])
 
+    function makeMessagesAnswered() {
+        ajax(`${baseURL}api/chat-room/admin/finish/${roomCode}`, "PATCH", user.jwt)
+            .then(response => {
+
+            })
+    }
+
 
     return (
         <main>
@@ -144,6 +150,13 @@ const ChatRoomCurrentUser = () => {
                                     onClick={sendValue}
                                 >
                                     send
+                                </button>
+                                <button
+                                    type="button"
+                                    className="send-button"
+                                    onClick={() => makeMessagesAnswered()}
+                                >
+                                    answered
                                 </button>
                             </div>
                         </div>
