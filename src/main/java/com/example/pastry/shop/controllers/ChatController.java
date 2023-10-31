@@ -31,10 +31,12 @@ public class ChatController {
     }
 
     @MessageMapping("/message/{room}")
-    public synchronized void receiveMessage(@Payload Message message, @DestinationVariable String room) {
+    public void receiveMessage(@Payload Message message, @DestinationVariable String room) {
         simpMessagingTemplate.convertAndSend("/chat-rooms/" + room, message);
-        if (message.getMessage() != null) {
-            messageService.saveMessage(message, room);
+        synchronized (this) {
+            if (message.getMessage() != null) {
+                messageService.saveMessage(message, room);
+            }
         }
     }
 
