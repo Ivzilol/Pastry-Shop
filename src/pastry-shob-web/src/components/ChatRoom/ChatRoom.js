@@ -13,7 +13,6 @@ const ChatRoom = () => {
 
     const user = useUser();
     const [roles, setRoles] = useState(null);
-    const [admin, setAdmin] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
     const [chatVisible, setChatVisible] = useState(false);
@@ -27,7 +26,6 @@ const ChatRoom = () => {
     useEffect(() => {
         const decodeJwt = jwt_decode(user.jwt);
         setRoles(decodeJwt.sub)
-        setAdmin(decodeJwt.authorities)
     }, [user.jwt])
 
     function connect() {
@@ -161,7 +159,8 @@ const ChatRoom = () => {
                                                 ?
                                                 <div key={index}
                                                      className="chat-message-row">
-                                                    <div className="chat-message-data" style={adminElement}>
+                                                    <div className="chat-message-data" style={adminElement}
+                                                    >
                                                         {chat.senderName}: {chat.message}
                                                     </div>
                                                 </div>
@@ -197,7 +196,9 @@ const ChatRoom = () => {
             ) : (
                 <button className="chat-closed"
                         onClick={() => setChatVisible(true)}
-                ><div>Пишете ни</div></button>
+                >
+                    <div>Пишете ни</div>
+                </button>
             )}
         </main>
     )

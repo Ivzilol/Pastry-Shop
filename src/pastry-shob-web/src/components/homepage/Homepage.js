@@ -162,7 +162,6 @@ const Homepage = () => {
     const [showScrollingElement2, setShowScrollingElement2] = useState(false);
     const [showScrollingElement3, setShowScrollingElement3] = useState(false);
     const [showScrollingElement4, setShowScrollingElement4] = useState(false);
-    const [showChatRoom, setChatRoom] = useState(false);
 
     useEffect(() => {
         function handleScroll() {
@@ -188,11 +187,6 @@ const Homepage = () => {
                 setShowScrollingElement4(true)
                 :
                 setShowScrollingElement4(false)
-            scrollPosition >= 800
-                ?
-                setChatRoom(true)
-                :
-                <></>
         }
 
         window.addEventListener("scroll", handleScroll);
@@ -223,7 +217,7 @@ const Homepage = () => {
             }
             {roles.find((role) => role === 'user') ? <OrderWindow/> : <></>}
             {/*<Maintenance/>*/}
-            {showChatRoom && <ChatRoom/>}
+            {user.jwt !== null ? <ChatRoom/> : <></>}
             {orderDialog &&
                 <div className="home-page-order-dialog">
                     <h4>{t('products-users.choice')}</h4>
