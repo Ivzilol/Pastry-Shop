@@ -44,7 +44,9 @@ public class UserController {
     private ResponseEntity<?> verificationUser(@PathVariable String verification) {
         Users user = this.userService.validateUser(verification);
         if (!user.getEmail().isEmpty()) {
-            return ResponseEntity.ok().build();
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Successful activate your profile");
+            return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

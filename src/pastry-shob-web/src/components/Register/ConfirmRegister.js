@@ -9,7 +9,11 @@ const ConfirmRegister = () => {
 
     useEffect(() => {
         ajax(`${baseUrl}api/users/register/verify/${verificationCode}`, "POST", null, verificationCode)
-            .then()
+            .then(response => {
+                if (response.custom === 'Successful activate your profile') {
+                    alert(response.custom);
+                }
+            })
     }, [verificationCode])
 
     return (
