@@ -13,6 +13,7 @@ const ChatRoom = () => {
 
     const user = useUser();
     const [roles, setRoles] = useState(null);
+    const [admin, setAdmin] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
     const [userData, setUserData] = useState({
@@ -25,6 +26,7 @@ const ChatRoom = () => {
     useEffect(() => {
         const decodeJwt = jwt_decode(user.jwt);
         setRoles(decodeJwt.sub)
+        setAdmin(decodeJwt.authorities)
     }, [user.jwt])
 
     function connect() {
@@ -89,7 +91,7 @@ const ChatRoom = () => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
     }
 
 
@@ -152,11 +154,16 @@ const ChatRoom = () => {
                                     chat.message !== null
                                         ?
                                         <div key={index}
-                                             className="chat-message-row"
-                                        >
-                                            {<div className="chat-message-data"
-                                                  key={index}
-                                            >{chat.senderName}: {chat.message}</div>
+                                             className="chat-message-row">
+                                            {admin === 'admin'
+                                                ?
+                                                <div className="chat-message-data" style={adminElement}>
+                                                    {chat.senderName}: {chat.message}
+                                                </div>
+                                                :
+                                                <div className="chat-message-data" style={userElement}>
+                                                    {chat.senderName}: {chat.message}
+                                                </div>
                                             }
                                         </div>
                                         :

@@ -14,6 +14,7 @@ const ChatRoomCurrentUser = () => {
     const user = useUser();
     const roomCode = window.location.href.split("/chat-room/")[1];
     const [roles, setRoles] = useState(null);
+    const [admin, setAdmin] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
     const [userData, setUserData] = useState({
@@ -26,6 +27,7 @@ const ChatRoomCurrentUser = () => {
     useEffect(() => {
         const decodeJwt = jwt_decode(user.jwt);
         setRoles(decodeJwt.sub)
+        setAdmin(decodeJwt.authorities)
     }, [user.jwt])
 
     function connect() {
@@ -157,7 +159,15 @@ const ChatRoomCurrentUser = () => {
                                         ?
                                         <div key={index}
                                              className="chat-message-row">
-                                            {<div className="chat-message-data">{chat.senderName}: {chat.message}</div>
+                                            {   admin !== 'admin'
+                                                ?
+                                                <div className="chat-message-data" style={userElement}>
+                                                    {chat.senderName}: {chat.message}
+                                                </div>
+                                                :
+                                                <div className="chat-message-data" style={adminElement}>
+                                                    {chat.senderName}: {chat.message}
+                                                </div>
                                             }
                                         </div>
                                         :
