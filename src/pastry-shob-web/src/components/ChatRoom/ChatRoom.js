@@ -2,7 +2,7 @@ import {useUser} from "../../UserProvider/UserProvider";
 import SockJS from 'sockjs-client';
 import {over} from 'stompjs';
 import baseURL from "../BaseURL/BaseURL";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import jwt_decode from "jwt-decode";
 import ajax from "../../Services/FetchService";
 
@@ -86,6 +86,13 @@ const ChatRoom = () => {
             })
     }
 
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+
     useEffect(() => {
         if (roles !== null) {
             connect();
@@ -94,62 +101,73 @@ const ChatRoom = () => {
     }, [roles])
 
 
+
     return (
-        <main>
+        <main className="chat" onMouseEnter={scrollToBottom}>
             <div className="chat-container">
                 {userData.connected ?
                     <div className="chat-box">
                         <div className="chat-content">
-                            <ul className="chat-message">
-                                {oldMessages !== null ? oldMessages.map((oldMessage) => (
-                                    <li key={oldMessage.id}
-                                        className="chat-message-row">
+                            <div className="chat-message">
+                                {oldMessages !== null ? oldMessages.map((oldMessage, index) => (
+                                    <div key={oldMessage.id}
+                                         className="chat-message-row"
+                                         ref={messagesEndRef}
+                                    >
                                         <div
-                                            className="chat-message-data">
+                                            className="chat-message-data"
+                                            key={oldMessage.id}
+                                        >
                                             {oldMessage.adminId === null
                                                 ?
-                                                <>{oldMessage.username}: {oldMessage.message}</>
+                                                <div key={oldMessage.id}
+                                                >{oldMessage.username}: {oldMessage.message}</div>
                                                 :
-                                                <>Админ: {oldMessage.message}</>
+                                                <div key={oldMessage.id}
+                                                >Админ: {oldMessage.message}</div>
                                             }
                                         </div>
-                                    </li>
+                                    </div>
                                 )) : (
-                                    <></>
+                                    <div className="empty-message"></div>
                                 )}
                                 {publicChats.map((chat, index) => (
-                                    <li key={index}
-                                        className="chat-message-row">
-                                        {chat.message !== null
-                                            ?
-                                            <div className="chat-message-data">{chat.senderName}: {chat.message}</div>
-                                            :
-                                            <></>
-                                        }
-                                    </li>
+                                    chat.message !== null
+                                        ?
+                                        <div key={index}
+                                             className="chat-message-row"
+                                        >
+                                            {<div className="chat-message-data"
+                                                  key={index}
+                                            >{chat.senderName}: {chat.message}</div>
+                                            }
+                                        </div>
+                                        :
+                                        <></>
                                 ))}
-                            </ul>
-                            <div className="send-message">
-                                <input
-                                    type="text"
-                                    className="input-message"
-                                    placeholder="Send Message"
-                                    value={userData.message}
-                                    onChange={handleMessage}
-                                />
-                                <button
-                                    type="button"
-                                    className="send-button"
-                                    onClick={sendValue}
-                                >
-                                    send
-                                </button>
                             </div>
                         </div>
                     </div>
                     :
                     <></>
                 }
+            </div>
+            <div className="send-message">
+                <input
+                    type="text"
+                    className="input-message"
+                    placeholder="Send Message"
+                    value={userData.message}
+                    onChange={handleMessage}
+                    onFocus={scrollToBottom}
+                />
+                <button
+                    type="button"
+                    className="send-button"
+                    onClick={sendValue}
+                >
+                    send
+                </button>
             </div>
         </main>
     )

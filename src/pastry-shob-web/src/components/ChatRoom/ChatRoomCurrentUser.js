@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import jwt_decode from "jwt-decode";
 import SockJS from "sockjs-client";
 import baseURL from "../BaseURL/BaseURL";
@@ -100,17 +100,25 @@ const ChatRoomCurrentUser = () => {
             })
     }
 
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
 
     return (
-        <main>
+        <main className="chat" onMouseEnter={scrollToBottom}>
             <div className="chat-container">
                 {userData.connected ?
                     <div className="chat-box">
                         <div className="chat-content">
-                            <ul className="chat-message">
+                            <div className="chat-message">
                                 {oldMessages !== null ? oldMessages.map((oldMessage) => (
-                                    <li key={oldMessage.id}
-                                        className="chat-message-row">
+                                    <div key={oldMessage.id}
+                                         className="chat-message-row"
+                                         ref={messagesEndRef}
+                                    >
                                         <div
                                             className="chat-message-data">
                                             {oldMessage.adminId === null
@@ -120,50 +128,51 @@ const ChatRoomCurrentUser = () => {
                                                 <>Админ: {oldMessage.message}</>
                                             }
                                         </div>
-                                    </li>
+                                    </div>
                                 )) : (
-                                    <></>
+                                    <div className="empty-message"></div>
                                 )}
                                 {publicChats.map((chat, index) => (
-                                    <li key={index}
-                                        className="chat-message-row">
-                                        {chat.message !== null
-                                            ?
-                                            <div className="chat-message-data">{chat.senderName}: {chat.message}</div>
-                                            :
-                                            <></>
-                                        }
-                                    </li>
+                                    chat.message !== null
+                                        ?
+                                        <div key={index}
+                                             className="chat-message-row">
+                                            {<div className="chat-message-data">{chat.senderName}: {chat.message}</div>
+                                            }
+                                        </div>
+                                        :
+                                        <></>
                                 ))}
-                            </ul>
-                            <div className="send-message">
-                                <input
-                                    type="text"
-                                    className="input-message"
-                                    placeholder="Send Message"
-                                    value={userData.message}
-                                    onChange={handleMessage}
-                                />
-                                <button
-                                    type="button"
-                                    className="send-button"
-                                    onClick={sendValue}
-                                >
-                                    send
-                                </button>
-                                <button
-                                    type="button"
-                                    className="send-button"
-                                    onClick={() => makeMessagesAnswered()}
-                                >
-                                    answered
-                                </button>
                             </div>
                         </div>
                     </div>
                     :
                     <></>
                 }
+            </div>
+            <div className="send-message">
+                <input
+                    type="text"
+                    className="input-message"
+                    placeholder="Send Message"
+                    value={userData.message}
+                    onChange={handleMessage}
+                    onFocus={scrollToBottom}
+                />
+                <button
+                    type="button"
+                    className="send-button"
+                    onClick={sendValue}
+                >
+                    send
+                </button>
+                <button
+                    type="button"
+                    className="send-button"
+                    onClick={makeMessagesAnswered}
+                >
+                    answered
+                </button>
             </div>
         </main>
     )
