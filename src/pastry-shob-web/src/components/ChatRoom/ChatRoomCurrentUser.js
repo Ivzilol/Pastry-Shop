@@ -5,6 +5,7 @@ import SockJS from "sockjs-client";
 import baseURL from "../BaseURL/BaseURL";
 import {over} from "stompjs";
 import ajax from "../../Services/FetchService";
+import ChatRoomsAdmin from "./ChatRoomsAdmin";
 
 let stompClient = null;
 
@@ -106,7 +107,7 @@ const ChatRoomCurrentUser = () => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"})
     }
 
     const adminElement = {
@@ -123,76 +124,79 @@ const ChatRoomCurrentUser = () => {
 
 
     return (
-        <main className="chat" onMouseEnter={scrollToBottom}>
-            <div className="chat-container">
-                {userData.connected ?
-                    <div className="chat-box">
-                        <div className="chat-content">
-                            <div className="chat-message">
-                                {oldMessages !== null ? oldMessages.map((oldMessage) => (
-                                    <div key={oldMessage.id}
-                                         className="chat-message-row"
-                                         ref={messagesEndRef}
-                                    >
-                                        <div
-                                            className="chat-message-data">
-                                            {oldMessage.adminId === null
+        <main>
+            <ChatRoomsAdmin/>
+            <section className="chat" onMouseEnter={scrollToBottom}>
+                <div className="chat-container">
+                    {userData.connected ?
+                        <div className="chat-box">
+                            <div className="chat-content">
+                                <div className="chat-message">
+                                    {oldMessages !== null ? oldMessages.map((oldMessage) => (
+                                        <div key={oldMessage.id}
+                                             className="chat-message-row"
+                                             ref={messagesEndRef}
+                                        >
+                                            <div
+                                                className="chat-message-data">
+                                                {oldMessage.adminId === null
                                                     ?
                                                     <div key={oldMessage.id} style={adminElement}
                                                     >{oldMessage.username}: {oldMessage.message}</div>
                                                     :
                                                     <div key={oldMessage.id} style={adminElement}
                                                     >АДМИН: {oldMessage.message}</div>
-                                            }
-                                        </div>
-                                    </div>
-                                )) : (
-                                    <div className="empty-message"></div>
-                                )}
-                                {publicChats.map((chat, index) => (
-                                    chat.message !== null
-                                        ?
-                                        <div key={index}
-                                             className="chat-message-row">
-                                            <div className="chat-message-data" style={adminElement}>
-                                                {chat.senderName}: {chat.message}
+                                                }
                                             </div>
                                         </div>
-                                        :
-                                        <></>
-                                ))}
+                                    )) : (
+                                        <div className="empty-message"></div>
+                                    )}
+                                    {publicChats.map((chat, index) => (
+                                        chat.message !== null
+                                            ?
+                                            <div key={index}
+                                                 className="chat-message-row">
+                                                <div className="chat-message-data" style={adminElement}>
+                                                    {chat.senderName}: {chat.message}
+                                                </div>
+                                            </div>
+                                            :
+                                            <></>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    :
-                    <></>
-                }
-            </div>
-            <div className="send-message">
-                <input
-                    type="text"
-                    className="input-message"
-                    placeholder="Send Message"
-                    value={userData.message}
-                    onChange={handleMessage}
-                    onFocus={scrollToBottom}
-                    onKeyDown={(e) => sendWithEnter(e)}
-                />
-                <button
-                    type="button"
-                    className="send-button"
-                    onClick={sendValue}
-                >
-                    send
-                </button>
-                <button
-                    type="button"
-                    className="send-button"
-                    onClick={makeMessagesAnswered}
-                >
-                    answered
-                </button>
-            </div>
+                        :
+                        <></>
+                    }
+                </div>
+                <div className="send-message">
+                    <input
+                        type="text"
+                        className="input-message"
+                        placeholder="Send Message"
+                        value={userData.message}
+                        onChange={handleMessage}
+                        onFocus={scrollToBottom}
+                        onKeyDown={(e) => sendWithEnter(e)}
+                    />
+                    <button
+                        type="button"
+                        className="send-button"
+                        onClick={sendValue}
+                    >
+                        send
+                    </button>
+                    <button
+                        type="button"
+                        className="send-button"
+                        onClick={makeMessagesAnswered}
+                    >
+                        answered
+                    </button>
+                </div>
+            </section>
         </main>
     )
 }
