@@ -121,37 +121,41 @@ const ChatRoom = () => {
         <main>
             {chatVisible ? (
                 <section className="chat" onMouseEnter={scrollToBottom}>
-                    <button className="search-result-close-button"
+                    <button className="search-result-close-button-chat"
                             type="button"
                             onClick={() => setChatVisible(false)}
-                    >Затвори</button>
+                    >Затвори
+                    </button>
                     <div className="chat-container">
                         {userData.connected ?
                             <div className="chat-box">
                                 <div className="chat-content">
                                     <div className="chat-message">
-                                        {oldMessages !== null ? oldMessages.map((oldMessage, index) => (
-                                            <div key={oldMessage.id}
-                                                 className="chat-message-row"
-                                                 ref={messagesEndRef}
-                                            >
-                                                <div
-                                                    className="chat-message-data"
-                                                    key={oldMessage.id}
+                                        {oldMessages.length > 0
+                                            ?
+                                            oldMessages.map((oldMessage) => (
+                                                <div key={oldMessage.id}
+                                                     className="chat-message-row"
+                                                     ref={messagesEndRef}
                                                 >
-                                                    {oldMessage.adminId === null
-                                                        ?
-                                                        <div key={oldMessage.id} style={adminElement}
-                                                        >{oldMessage.username}: {oldMessage.message}</div>
-                                                        :
-                                                        <div key={oldMessage.id} style={adminElement}
-                                                        >АДМИН: {oldMessage.message}</div>
-                                                    }
+                                                    <div
+                                                        className="chat-message-data"
+                                                        key={oldMessage.id}
+                                                    >
+                                                        {oldMessage.adminId === null
+                                                            ?
+                                                            <div key={oldMessage.id} style={adminElement}
+                                                            >{oldMessage.username}: {oldMessage.message}</div>
+                                                            :
+                                                            <div key={oldMessage.id} style={adminElement}
+                                                            >АДМИН: {oldMessage.message}</div>
+                                                        }
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )) : (
-                                            <div className="empty-message"></div>
-                                        )}
+                                            )) : (
+                                                <div className="empty-chat">Здравейет, ако имате нужда от сдействие,
+                                                    моля пишете ни!</div>
+                                            )}
                                         {publicChats.map((chat, index) => (
                                             chat.message !== null
                                                 ?
@@ -162,7 +166,7 @@ const ChatRoom = () => {
                                                     </div>
                                                 </div>
                                                 :
-                                                <></>
+                                                <div className="empty-message"></div>
                                         ))}
                                     </div>
                                 </div>

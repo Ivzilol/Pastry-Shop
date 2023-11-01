@@ -290,7 +290,7 @@ const Homepage = () => {
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
-                    <button className="search-result-close-button"
+                    <button className="search-result-close-button-chat"
                             onClick={closeDialog}>{t('search-result-close-button')}</button>
                     {searchResult ? (
                         <div className="search-result-container">

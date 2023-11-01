@@ -1660,10 +1660,10 @@ footer {
     position: fixed;
     right: 0;
     width: 35%;
-    height: 69%;
+    height: 67.5%;
     background-color: white;
     z-index: 9999;
-    padding: 20px;
+    padding: 10px 20px 0 20px;
     color: black;
     border-radius: 10px;
     bottom: 0;
@@ -1682,6 +1682,7 @@ footer {
     max-height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
+
 }
 
 .chat-content {
@@ -1743,7 +1744,21 @@ footer {
     overflow-x: hidden;
 }
 
+.search-result-close-button-chat {
+    width: 100px;
+    background-color: #ef7d00;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    font-style: italic;
+    margin-left: 150px;
+}
 
+.empty-chat {
+    font-style: italic;
+}
 
 @media screen and (max-width: 600px) {
 
