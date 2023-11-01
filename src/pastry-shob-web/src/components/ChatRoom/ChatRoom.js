@@ -197,7 +197,7 @@ const ChatRoom = () => {
             ) : (
                 <button className="chat-closed"
                         onClick={() => setChatVisible(true)}
-                >Chat</button>
+                ><div>Пишете ни</div></button>
             )}
         </main>
     )
