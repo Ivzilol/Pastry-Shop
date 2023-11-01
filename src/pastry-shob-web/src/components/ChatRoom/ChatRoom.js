@@ -100,6 +100,13 @@ const ChatRoom = () => {
         }
     }, [roles])
 
+    const userElement = {
+        backgroundColor: 'aqua'
+    }
+
+    const adminElement = {
+        backgroundColor: 'orange'
+    }
 
 
     return (
@@ -120,10 +127,10 @@ const ChatRoom = () => {
                                         >
                                             {oldMessage.adminId === null
                                                 ?
-                                                <div key={oldMessage.id}
+                                                <div key={oldMessage.id} style={userElement}
                                                 >{oldMessage.username}: {oldMessage.message}</div>
                                                 :
-                                                <div key={oldMessage.id}
+                                                <div key={oldMessage.id} style={adminElement}
                                                 >Админ: {oldMessage.message}</div>
                                             }
                                         </div>
