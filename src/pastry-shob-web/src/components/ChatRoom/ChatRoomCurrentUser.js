@@ -17,6 +17,7 @@ const ChatRoomCurrentUser = () => {
     const [admin, setAdmin] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
+
     const [userData, setUserData] = useState({
         username: '',
         receiverName: '',
