@@ -101,11 +101,21 @@ const ChatRoom = () => {
     }, [roles])
 
     const userElement = {
-        backgroundColor: 'aqua'
+        backgroundColor: 'green',
+        borderRadius: '10px',
+        paddingLeft: '10px'
     }
 
     const adminElement = {
-        backgroundColor: 'orange'
+        backgroundColor: 'orange',
+        borderRadius: '10px',
+        paddingLeft: '10px'
+    }
+
+    const sendWithEnter = (e) => {
+        if (e.keyCode === 13) {
+            sendValue()
+        }
     }
 
 
@@ -167,6 +177,7 @@ const ChatRoom = () => {
                     value={userData.message}
                     onChange={handleMessage}
                     onFocus={scrollToBottom}
+                    onKeyDown={(e) => sendWithEnter(e)}
                 />
                 <button
                     type="button"

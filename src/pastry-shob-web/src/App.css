@@ -1695,6 +1695,7 @@ footer {
     padding: 5px;
     border-radius: 5px;
     background-color: #f2f2f2;
+    color: white;
 }
 
 .chat-message-data {

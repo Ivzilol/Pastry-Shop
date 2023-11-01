@@ -106,6 +106,24 @@ const ChatRoomCurrentUser = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }
 
+    const userElement = {
+        backgroundColor: 'green',
+        borderRadius: '10px',
+        paddingLeft: '10px'
+    }
+
+    const adminElement = {
+        backgroundColor: 'orange',
+        borderRadius: '10px',
+        paddingLeft: '10px'
+    }
+
+    const sendWithEnter = (e) => {
+        if (e.keyCode === 13) {
+            sendValue()
+        }
+    }
+
 
     return (
         <main className="chat" onMouseEnter={scrollToBottom}>
@@ -123,9 +141,11 @@ const ChatRoomCurrentUser = () => {
                                             className="chat-message-data">
                                             {oldMessage.adminId === null
                                                 ?
-                                                <>{oldMessage.username}: {oldMessage.message}</>
+                                                <div key={oldMessage.id} style={userElement}
+                                                >{oldMessage.username}: {oldMessage.message}</div>
                                                 :
-                                                <>Админ: {oldMessage.message}</>
+                                                <div key={oldMessage.id} style={adminElement}
+                                                >Админ: {oldMessage.message}</div>
                                             }
                                         </div>
                                     </div>
@@ -158,6 +178,7 @@ const ChatRoomCurrentUser = () => {
                     value={userData.message}
                     onChange={handleMessage}
                     onFocus={scrollToBottom}
+                    onKeyDown={(e) => sendWithEnter(e)}
                 />
                 <button
                     type="button"
