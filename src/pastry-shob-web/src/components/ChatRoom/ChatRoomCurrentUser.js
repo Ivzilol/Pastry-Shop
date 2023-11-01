@@ -15,7 +15,6 @@ const ChatRoomCurrentUser = () => {
     const user = useUser();
     const roomCode = window.location.href.split("/chat-room/")[1];
     const [roles, setRoles] = useState(null);
-    const [admin, setAdmin] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
 
@@ -29,7 +28,6 @@ const ChatRoomCurrentUser = () => {
     useEffect(() => {
         const decodeJwt = jwt_decode(user.jwt);
         setRoles(decodeJwt.sub)
-        setAdmin(decodeJwt.authorities)
     }, [user.jwt])
 
     function connect() {
