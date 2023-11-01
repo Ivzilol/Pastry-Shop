@@ -151,7 +151,7 @@ const ChatRoom = () => {
                                                     </div>
                                                 </div>
                                             )) : (
-                                                <div className="empty-chat">Здравейет, ако имате нужда от сдействие,
+                                                <div className="empty-chat">Здравейет, ако имате нужда от съдействие,
                                                     моля пишете ни!</div>
                                             )}
                                         {publicChats.map((chat, index) => (
