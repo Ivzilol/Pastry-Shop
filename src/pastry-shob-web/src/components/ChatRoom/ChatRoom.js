@@ -102,11 +102,6 @@ const ChatRoom = () => {
         }
     }, [roles])
 
-    const userElement = {
-        backgroundColor: 'green',
-        borderRadius: '10px',
-        paddingLeft: '10px'
-    }
 
     const adminElement = {
         backgroundColor: 'orange',
@@ -139,11 +134,11 @@ const ChatRoom = () => {
                                         >
                                             {oldMessage.adminId === null
                                                 ?
-                                                <div key={oldMessage.id} style={userElement}
+                                                <div key={oldMessage.id} style={adminElement}
                                                 >{oldMessage.username}: {oldMessage.message}</div>
                                                 :
                                                 <div key={oldMessage.id} style={adminElement}
-                                                >Админ: {oldMessage.message}</div>
+                                                >АДМИН: {oldMessage.message}</div>
                                             }
                                         </div>
                                     </div>
@@ -155,16 +150,9 @@ const ChatRoom = () => {
                                         ?
                                         <div key={index}
                                              className="chat-message-row">
-                                            {admin === 'admin'
-                                                ?
-                                                <div className="chat-message-data" style={adminElement}>
-                                                    {chat.senderName}: {chat.message}
-                                                </div>
-                                                :
-                                                <div className="chat-message-data" style={userElement}>
-                                                    {chat.senderName}: {chat.message}
-                                                </div>
-                                            }
+                                            <div className="chat-message-data" style={adminElement}>
+                                                {chat.senderName}: {chat.message}
+                                            </div>
                                         </div>
                                         :
                                         <></>
