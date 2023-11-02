@@ -8,6 +8,7 @@ import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -119,6 +120,12 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
+        Set<Products> productById = getProducts(user);
+        return ResponseEntity.ok(productById);
+    }
+
+    @NotNull
+    private Set<Products> getProducts(Users user) {
         Set<Products> productById = productsService.findByUser(user);
         for (Products current : productById) {
             for (Users userC : current.getUserLikes()) {
@@ -133,6 +140,6 @@ public class ProductController {
             }
         }
         productById.forEach(p -> p.getShops().setUsers(null));
-        return ResponseEntity.ok(productById);
+        return productById;
     }
 }

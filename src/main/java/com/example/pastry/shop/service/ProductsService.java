@@ -182,4 +182,5 @@ public class ProductsService {
     public Set<GetProductsDTO> findSearchedProducts(CategoryProductDto categoryProductDto) {
         return this.productRepository.findByCategories(categoryProductDto.getSelectOptions());
     }
+
 }
