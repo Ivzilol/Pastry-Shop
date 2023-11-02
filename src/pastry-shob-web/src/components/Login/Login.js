@@ -48,6 +48,9 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
 
+    function closeDialog() {
+        setDialogVisible(false)
+    }
 
     return (
         <main className="login">
@@ -68,6 +71,7 @@ const Login = () => {
                                 size="lg"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                onFocus={closeDialog}
                             />
                         </Form.Group>
                     </Col>
@@ -84,6 +88,7 @@ const Login = () => {
                                 size="lg"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onFocus={closeDialog}
                             />
                             {dialogVisible &&
                                 <h5 className="login-invalid">{t('login.error')}
