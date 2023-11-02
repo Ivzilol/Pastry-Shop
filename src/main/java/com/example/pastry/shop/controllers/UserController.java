@@ -55,8 +55,7 @@ public class UserController {
     @PostMapping("/register")
     private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
         userService.createUser(userRegistrationDTO);
-        String siteUrl = "http://localhost:3000/register";
-        userService.sendVerificationEmail(userRegistrationDTO, siteUrl);
+        userService.sendVerificationEmail(userRegistrationDTO);
         UsersDTO usersDTO = this.usersRepository.findCurrentUserByUsername(userRegistrationDTO.getUsername());
         try {
             Authentication authentication = authenticationManager

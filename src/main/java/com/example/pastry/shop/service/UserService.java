@@ -34,6 +34,10 @@ public class UserService {
 
     private final AuthenticationManager authenticationManager;
 
+    private static final String VERIFICATION_MAIL_URL = "http://localhost:3000/register";
+
+    private static final String FORGOTTEN_PASSWORD_URL = "http://localhost:3000/forgotten-password/";
+
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
         this.usersRepository = usersRepository;
@@ -98,14 +102,14 @@ public class UserService {
         return newUser;
     }
 
-    public void sendVerificationEmail(UserRegistrationDTO userRegistrationDTO, String siteUrl) throws MessagingException, UnsupportedEncodingException {
+    public void sendVerificationEmail(UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
         Optional<Users> user = this.usersRepository.findByEmail(userRegistrationDTO.getEmail());
         String subject = "Successful Registration";
         String senderName = "Pastry Shop Team";
         String mailContent = "<h4>Dear " + userRegistrationDTO.getFirstName()
                 + " " + userRegistrationDTO.getLastName() + ",</h4>";
         mailContent += "<p>Thank you for registration</p>";
-        String verifyUrl = siteUrl + "/verify/" + user.get().getVerificationCode();
+        String verifyUrl = VERIFICATION_MAIL_URL + "/verify/" + user.get().getVerificationCode();
         mailContent += "<p>Please click on the \"ACTIVATE\" link to activate your account.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">ACTIVATE</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
@@ -220,13 +224,12 @@ public class UserService {
     }
 
     public void sendEmailNewPassword(Optional<Users> email) throws MessagingException, UnsupportedEncodingException {
-        String siteUrl = "http://localhost:3000/forgotten-password/";
         String subject = "Forgotten password";
         String senderName = "Pastry Shop Team";
         String mailContent = "<h4>Dear " + email.get().getFirstName()
                 + " " + email.get().getLastName() + ",</h4>";
         mailContent += "<p>You have requested a generate new password.</p>";
-        String verifyUrl = siteUrl + email.get().getVerificationCode();
+        String verifyUrl = FORGOTTEN_PASSWORD_URL + email.get().getVerificationCode();
         mailContent += "<p>Please click on the \" NEW PASSWORD\" link to generate new password.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">NEW PASSWORD</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
