@@ -196,7 +196,6 @@ public class ProductsService {
             productsDTO.setLikes(product.getLikes());
             productsDTO.setName(product.getName());
             productsDTO.setPrice(product.getPrice());
-//            productsDTO.setShops(product.getShops());
             Set<Users> users = new HashSet<>(product.getUserLikes());
             Set<UsersLikesDTO> usersLikesDTOS = new HashSet<>();
             users.forEach(u -> {
