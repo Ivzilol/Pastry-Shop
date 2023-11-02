@@ -2,11 +2,11 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const OrderWindow = () => {
 
     const user = useUser();
-    const baseUrl = "http://localhost:8080/";
     const [order, setOrder] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
@@ -14,7 +14,7 @@ const OrderWindow = () => {
 
     useEffect(() => {
         if (user.jwt) {
-            ajax(`${baseUrl}api/orders/status`, "GET", user.jwt)
+            ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
                 .then(result => {
                     setOrder(result);
                     if (result.length > 0) {
@@ -26,7 +26,7 @@ const OrderWindow = () => {
 
     useEffect(() => {
         if (user.jwt) {
-            ajax(`${baseUrl}api/orders/status/confirmed`, "GET", user.jwt)
+            ajax(`${baseURL}api/orders/status/confirmed`, "GET", user.jwt)
                 .then(result => {
                     setOrder(result);
                     if (result.length > 0) {
