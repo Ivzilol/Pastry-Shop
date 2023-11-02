@@ -56,9 +56,9 @@ const Register = () => {
                 else return Promise.reject("Invalid attempt");
             })
             .then(() => {
-                user.setJwt(user.jwt);
-                setSuccessfulRegistration("You have registered successfully, please check your email for activation");
-                setSuccessfulRegistrationDialog(true);
+                alert("You have registered successfully, please check your email for activation");
+                navigate("/login");
+
             })
             .catch((message) => {
                 setUnsuccessfulRegistrationDialog(true);

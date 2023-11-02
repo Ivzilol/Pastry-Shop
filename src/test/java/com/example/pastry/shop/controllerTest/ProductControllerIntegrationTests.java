@@ -62,7 +62,7 @@ public class ProductControllerIntegrationTests {
         createProductDTO.setPrice(21.99);
         createProductDTO.setDescription("Най Вкусната баница");
         createProductDTO.setCategories("pie");
-        createProductDTO.setImageUrl("https://i.ibb.co/QM6sBZh/333679583-1370979030385235-8353098425062243540-n.jpg");
+//        createProductDTO.setImageUrl("https://i.ibb.co/QM6sBZh/333679583-1370979030385235-8353098425062243540-n.jpg");
         createProductDTO.setShopName("Sladcarnicata na Mama");
         Products result = restTemplate.postForObject(baseUrl + "/create/admin", createProductDTO, Products.class);
         Assertions.assertEquals("Баница", result.getName());

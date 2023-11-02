@@ -2,6 +2,7 @@ package com.example.pastry.shop.repository;
 
 import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
+import com.example.pastry.shop.model.dto.ProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -69,4 +70,6 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " from Products as p" +
             " where p.id = :productId")
     Optional<GetProductsDTO> findOrderProductById(Long productId);
+
+
 }

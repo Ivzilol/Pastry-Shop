@@ -1,9 +1,6 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.CategoryProductDto;
-import com.example.pastry.shop.model.dto.CreateProductDTO;
-import com.example.pastry.shop.model.dto.GetProductsDTO;
-import com.example.pastry.shop.model.dto.UpdateProductDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -120,26 +118,27 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
-        Set<Products> productById = getProducts(user);
-        return ResponseEntity.ok(productById);
+//        Set<Products> productById = getProducts(user);
+        List<ProductsDTO> productsDTOS = this.productsService.getProductsForDTO(user);
+        return ResponseEntity.ok(productsDTOS);
     }
 
-    @NotNull
-    private Set<Products> getProducts(Users user) {
-        Set<Products> productById = productsService.findByUser(user);
-        for (Products current : productById) {
-            for (Users userC : current.getUserLikes()) {
-                userC.setAuthorities(null);
-                userC.setPassword(null);
-                userC.setFirstName(null);
-                userC.setLastName(null);
-                userC.setPhoneNumber(null);
-                userC.setVerificationCode(null);
-                userC.setEmail(null);
-                userC.setAddress(null);
-            }
-        }
-        productById.forEach(p -> p.getShops().setUsers(null));
-        return productById;
-    }
+//    @NotNull
+//    private Set<Products> getProducts(Users user) {
+//        Set<Products> productById = productsService.findByUser(user);
+//        for (Products current : productById) {
+//            for (Users userC : current.getUserLikes()) {
+//                userC.setAuthorities(null);
+//                userC.setPassword(null);
+//                userC.setFirstName(null);
+//                userC.setLastName(null);
+//                userC.setPhoneNumber(null);
+//                userC.setVerificationCode(null);
+//                userC.setEmail(null);
+//                userC.setAddress(null);
+//            }
+//        }
+//        productById.forEach(p -> p.getShops().setUsers(null));
+//        return productById;
+//    }
 }

@@ -1,9 +1,6 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.model.dto.CategoryProductDto;
-import com.example.pastry.shop.model.dto.CreateProductDTO;
-import com.example.pastry.shop.model.dto.GetProductsDTO;
-import com.example.pastry.shop.model.dto.UpdateProductDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -15,9 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -183,4 +178,34 @@ public class ProductsService {
         return this.productRepository.findByCategories(categoryProductDto.getSelectOptions());
     }
 
+    public List<ProductsDTO> getProductsForDTO(Users user) {
+       Set<Products> products = this.productRepository.findByUser(user);
+       List<ProductsDTO> returnDTO = new ArrayList<>();
+       for (Products product : products) {
+           ProductsDTO productsDTO = new ProductsDTO();
+           productsDTO.setId(product.getId());
+           productsDTO.setCategories(product.getCategories());
+           productsDTO.setDescription(product.getDescription());
+           productsDTO.setImageUrl(product.getImageUrl());
+           productsDTO.setLikes(product.getLikes());
+           productsDTO.setName(product.getName());
+           productsDTO.setPrice(product.getPrice());
+           Set<Users> users = new HashSet<>(product.getUserLikes());
+           users.forEach(u -> {
+               u.setAuthorities(null);
+               u.setPassword(null);
+               u.setFirstName(null);
+               u.setLastName(null);
+               u.setPhoneNumber(null);
+               u.setVerificationCode(null);
+               u.setEmail(null);
+               u.setAddress(null);
+
+           });
+           productsDTO.setUserLikes(users);
+           returnDTO.add(productsDTO);
+       }
+       returnDTO.sort(Comparator.comparing(ProductsDTO::getId));
+       return returnDTO;
+    }
 }

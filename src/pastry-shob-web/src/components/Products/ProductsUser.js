@@ -35,20 +35,23 @@ const ProductsUser = () => {
     useEffect(() => {
         ajax(`${baseUrl}api/products`, "GET", user.jwt)
             .then(productsData => {
+                console.log(productsData)
                 setProducts(productsData);
             });
-        ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
-            .then(result => {
-                if (result.length > 0) {
-                    setOrderWindow(true);
-                }
-            });
-        ajax(`${baseURL}api/orders/status/confirmed`, "GET", user.jwt)
-            .then(result => {
-                if (result.length > 0) {
-                    setOrderWindow(true);
-                }
-            });
+        if (user.jwt) {
+            ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
+                .then(result => {
+                    if (result.length > 0) {
+                        setOrderWindow(true);
+                    }
+                });
+            ajax(`${baseURL}api/orders/status/confirmed`, "GET", user.jwt)
+                .then(result => {
+                    if (result.length > 0) {
+                        setOrderWindow(true);
+                    }
+                });
+        }
 
         if (!user.jwt) navigate("/login")
     }, [navigate, user.jwt]);
