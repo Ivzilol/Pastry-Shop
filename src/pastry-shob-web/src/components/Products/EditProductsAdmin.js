@@ -68,7 +68,6 @@ const EditProductsAdmin = () => {
             body: formData
         })
             .then(productData => {
-                console.log(productData)
                 if (productData.status === 200) {
                     alert("Successful update product!")
                 } else {
