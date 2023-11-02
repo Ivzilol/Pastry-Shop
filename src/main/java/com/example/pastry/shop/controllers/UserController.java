@@ -56,7 +56,7 @@ public class UserController {
     private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
         userService.createUser(userRegistrationDTO);
         userService.sendVerificationEmail(userRegistrationDTO);
-        UsersDTO usersDTO = this.usersRepository.findCurrentUserByUsername(userRegistrationDTO.getUsername());
+        UsersDTO  usersDTO = this.userService.findCurrentUser(userRegistrationDTO.getUsername());
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(

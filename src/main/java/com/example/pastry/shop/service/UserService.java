@@ -259,4 +259,8 @@ public class UserService {
             return true;
         }
     }
+
+    public UsersDTO findCurrentUser(String username) {
+        return this.usersRepository.findCurrentUserByUsername(username);
+    }
 }
