@@ -118,27 +118,7 @@ public class ProductController {
 
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
-//        Set<Products> productById = getProducts(user);
         List<ProductsDTO> productsDTOS = this.productsService.getProductsForDTO(user);
         return ResponseEntity.ok(productsDTOS);
     }
-
-//    @NotNull
-//    private Set<Products> getProducts(Users user) {
-//        Set<Products> productById = productsService.findByUser(user);
-//        for (Products current : productById) {
-//            for (Users userC : current.getUserLikes()) {
-//                userC.setAuthorities(null);
-//                userC.setPassword(null);
-//                userC.setFirstName(null);
-//                userC.setLastName(null);
-//                userC.setPhoneNumber(null);
-//                userC.setVerificationCode(null);
-//                userC.setEmail(null);
-//                userC.setAddress(null);
-//            }
-//        }
-//        productById.forEach(p -> p.getShops().setUsers(null));
-//        return productById;
-//    }
 }

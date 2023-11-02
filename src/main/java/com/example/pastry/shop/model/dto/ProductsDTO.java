@@ -29,7 +29,7 @@ public class ProductsDTO {
 
     private Double price;
 
-    private Set<Users> userLikes;
+    private Set<UsersLikesDTO> userLikes;
 
     public ProductsDTO() {
     }

@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -179,33 +180,35 @@ public class ProductsService {
     }
 
     public List<ProductsDTO> getProductsForDTO(Users user) {
-       Set<Products> products = this.productRepository.findByUser(user);
-       List<ProductsDTO> returnDTO = new ArrayList<>();
-       for (Products product : products) {
-           ProductsDTO productsDTO = new ProductsDTO();
-           productsDTO.setId(product.getId());
-           productsDTO.setCategories(product.getCategories());
-           productsDTO.setDescription(product.getDescription());
-           productsDTO.setImageUrl(product.getImageUrl());
-           productsDTO.setLikes(product.getLikes());
-           productsDTO.setName(product.getName());
-           productsDTO.setPrice(product.getPrice());
-           Set<Users> users = new HashSet<>(product.getUserLikes());
-           users.forEach(u -> {
-               u.setAuthorities(null);
-               u.setPassword(null);
-               u.setFirstName(null);
-               u.setLastName(null);
-               u.setPhoneNumber(null);
-               u.setVerificationCode(null);
-               u.setEmail(null);
-               u.setAddress(null);
-
-           });
-           productsDTO.setUserLikes(users);
-           returnDTO.add(productsDTO);
-       }
-       returnDTO.sort(Comparator.comparing(ProductsDTO::getId));
+        List<ProductsDTO> returnDTO = getProductsDTOS(user);
+        returnDTO.sort(Comparator.comparing(ProductsDTO::getId));
        return returnDTO;
+    }
+
+    @NotNull
+    private List<ProductsDTO> getProductsDTOS(Users user) {
+        Set<Products> products = this.productRepository.findByUser(user);
+        List<ProductsDTO> returnDTO = new ArrayList<>();
+        for (Products product : products) {
+            ProductsDTO productsDTO = new ProductsDTO();
+            productsDTO.setId(product.getId());
+            productsDTO.setCategories(product.getCategories());
+            productsDTO.setDescription(product.getDescription());
+            productsDTO.setImageUrl(product.getImageUrl());
+            productsDTO.setLikes(product.getLikes());
+            productsDTO.setName(product.getName());
+            productsDTO.setPrice(product.getPrice());
+            Set<Users> users = new HashSet<>(product.getUserLikes());
+            Set<UsersLikesDTO> usersLikesDTOS = new HashSet<>();
+            users.forEach(u -> {
+                UsersLikesDTO dto = new UsersLikesDTO();
+                dto.setId(u.getId());
+                dto.setUsername(u.getUsername());
+                usersLikesDTOS.add(dto);
+            });
+            productsDTO.setUserLikes(usersLikesDTOS);
+            returnDTO.add(productsDTO);
+        }
+        return returnDTO;
     }
 }
