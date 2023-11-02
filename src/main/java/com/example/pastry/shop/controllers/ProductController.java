@@ -67,6 +67,12 @@ public class ProductController {
         }
     }
 
+    @GetMapping("")
+    public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
+        List<ProductsDTO> productsDTOS = this.productsService.getProductsForDTO(user);
+        return ResponseEntity.ok(productsDTOS);
+    }
+
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
@@ -116,9 +122,4 @@ public class ProductController {
         return ResponseEntity.ok(searchedProducts);
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
-        List<ProductsDTO> productsDTOS = this.productsService.getProductsForDTO(user);
-        return ResponseEntity.ok(productsDTOS);
-    }
 }
