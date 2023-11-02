@@ -22,12 +22,12 @@ ReactJS frontend application where users can find and order products. In order t
 react-frontend uses Semantic UI React as CSS-styled framework.
 
 - backend
-
 -Java 17+
-
 -JWT
+-WebSockets
 
 - frontend
 
--React 
+-React
 -NodeJs.v.18
+-sockjs
