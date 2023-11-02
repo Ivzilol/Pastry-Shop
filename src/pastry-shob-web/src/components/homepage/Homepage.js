@@ -12,6 +12,7 @@ import OrderWindowAdmin from "../Orders/OrderWindowAdmin";
 import {useTranslation} from "react-i18next";
 import ChatRoom from "../ChatRoom/ChatRoom";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 
 const Homepage = () => {
@@ -25,8 +26,8 @@ const Homepage = () => {
     const [recommendedProducts, setRecommendedProducts] = useState(null);
     const [showEvent, setShowEvent] = useState(null);
     const [roles, setRoles] = useState(getRolesFromJWT());
+    const [orderWindow, setOrderWindow] = useState(false);
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         setRoles(getRolesFromJWT())
@@ -42,20 +43,23 @@ const Homepage = () => {
 
 
     useEffect(() => {
-        ajax(`${baseUrl}api/`, "GET", user.jwt)
+        ajax(`${baseURL}api/`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
-
-    }, [user.jwt]);
-
-    useEffect(() => {
-        ajax(`${baseUrl}api/home`, "GET", user.jwt)
+        ajax(`${baseURL}api/home`, "GET", user.jwt)
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
             });
+        ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
+            .then(result => {
+                if (result.length > 0) {
+                    setOrderWindow(true);
+                }
+            });
 
     }, [user.jwt]);
+
 
     function handleClickOpenProductDetails(id) {
         setOpen(true);
@@ -67,7 +71,7 @@ const Homepage = () => {
     }
 
     function getCurrentProduct(id) {
-        ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
+        ajax(`${baseURL}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setCurrentProduct(productData);
             });
@@ -79,13 +83,14 @@ const Homepage = () => {
                 alert("Admin cant order products");
                 return;
             }
-            ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
+            ajax(`${baseURL}api/orders/${id}`, "POST", user.jwt, product)
                 .then(productData => {
                     setProduct(productData);
                     setOrderDialogProductName(productData.productName)
                     setOrderDialogProductDescription(productData.price)
                     setOrderDialog(true);
                     timerOrderWindow();
+                    setOrderWindow(true);
                 })
         } else {
             window.location.href = "/login";
@@ -146,7 +151,7 @@ const Homepage = () => {
         const requestBody = {
             selectOptions: selectOptions
         }
-        ajax(`${baseUrl}api/products/search`, "POST", user.jwt, requestBody)
+        ajax(`${baseURL}api/products/search`, "POST", user.jwt, requestBody)
             .then(productsData => {
                 setSearchResult(productsData);
                 setDialogVisible(true);
@@ -207,6 +212,7 @@ const Homepage = () => {
     }
 
 
+
     return (
         <main className="home-page">
             {roles.find((role) => role === 'admin')
@@ -215,7 +221,7 @@ const Homepage = () => {
                 :
                 <NavBar/>
             }
-            {roles.find((role) => role === 'user') ? <OrderWindow/> : <></>}
+            {roles.find((role) => role === 'user') && orderWindow ? <OrderWindow/> : <></>}
             {/*<Maintenance/>*/}
             {user.jwt !== null ? <ChatRoom/> : <></>}
             {orderDialog &&

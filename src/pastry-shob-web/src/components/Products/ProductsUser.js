@@ -11,6 +11,7 @@ import Footer from "../Footer/Footer";
 import jwt_decode from "jwt-decode";
 import OrderWindow from "../Orders/OrderWindow";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 
 const ProductsUser = () => {
@@ -21,6 +22,7 @@ const ProductsUser = () => {
     let navigate = useNavigate();
     const {t} = useTranslation();
     const baseUrl = "http://localhost:8080/";
+    const [orderWindow, setOrderWindow] = useState(false);
     const [product, setProduct] = useState({
             name: "",
             price: null,
@@ -34,6 +36,12 @@ const ProductsUser = () => {
         ajax(`${baseUrl}api/products`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
+            });
+        ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
+            .then(result => {
+                if (result.length > 0) {
+                    setOrderWindow(true);
+                }
             });
 
         if (!user.jwt) navigate("/login")
@@ -55,7 +63,7 @@ const ProductsUser = () => {
         ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
-
+                setOrderWindow(true);
             })
     }
 
@@ -144,7 +152,7 @@ const ProductsUser = () => {
     return (
         <main className="products-users">
             <NavBar/>
-            <OrderWindow/>
+            {orderWindow ? <OrderWindow/> : <></>}
             {orderDialog &&
                 <div className="home-page-order-dialog">
                     <h4>{t('products-users.choice')}</h4>
