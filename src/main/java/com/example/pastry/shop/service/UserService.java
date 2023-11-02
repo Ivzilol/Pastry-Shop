@@ -263,4 +263,8 @@ public class UserService {
     public UsersDTO findCurrentUser(String username) {
         return this.usersRepository.findCurrentUserByUsername(username);
     }
+
+    public Optional<Users> findCurrentUserByEmail(String email) {
+        return this.usersRepository.findByEmail(email);
+    }
 }

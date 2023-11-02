@@ -21,7 +21,7 @@ const UserChangePassword = () => {
         }
         ajax(`${baseUrl}api/users/change-password`, "PATCH", user.jwt, requestBody)
             .then((response) => {
-                if (response !== undefined) {
+                if (response === 'Successful change your password') {
                     return alert("You have successfully changed your password, please login with your new password"),
                         user.setJwt(null),
                         window.location.href = "/login"

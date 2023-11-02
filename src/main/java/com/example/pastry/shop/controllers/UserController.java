@@ -2,7 +2,6 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
@@ -24,20 +23,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = {"http://localhost:3000/", "http://localhost:8080/", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "false", allowedHeaders = "true")
+@CrossOrigin(origins = {"http://localhost:3000/", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "false", allowedHeaders = "true")
 public class UserController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-    private final UsersRepository usersRepository;
 
 
-    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil, UsersRepository usersRepository) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
-        this.usersRepository = usersRepository;
     }
 
     @PostMapping("/register/verify/{verification}")
@@ -130,17 +127,18 @@ public class UserController {
                                             @AuthenticationPrincipal Users user) {
         boolean userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
         if (userChangePass) {
-            Optional<Users> userForBack = this.usersRepository.findByUsername(user.getUsername());
-            return ResponseEntity.ok(userForBack);
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom("Successful change your password");
+            return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.ok(null);
         }
     }
     @PostMapping("/register/forgotten-password")
     public ResponseEntity<?> forgottenPasswordEmail(@RequestBody ForgottenPasswordEmailDto forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
-        Optional<Users> email = this.usersRepository.findByEmail(forgottenPasswordDto.getEmail());
-        if (email.isPresent()) {
-            this.userService.sendEmailNewPassword(email);
+        Optional<Users> user = this.userService.findCurrentUserByEmail(forgottenPasswordDto.getEmail());
+        if (user.isPresent()) {
+            this.userService.sendEmailNewPassword(user);
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             CustomResponse customResponse = new CustomResponse();
