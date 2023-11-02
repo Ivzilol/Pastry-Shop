@@ -23,11 +23,15 @@ react-frontend uses Semantic UI React as CSS-styled framework.
 
 - backend
 -Java 17+
+
 -JWT
+
 -WebSockets
 
 - frontend
 
 -React
+
 -NodeJs.v.18
+
 -sockjs
