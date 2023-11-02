@@ -51,13 +51,14 @@ const Homepage = () => {
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
             });
-        ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
-            .then(result => {
-                if (result.length > 0) {
-                    setOrderWindow(true);
-                }
-            });
-
+        if (user.jwt) {
+            ajax(`${baseURL}api/orders/status`, "GET", user.jwt)
+                .then(result => {
+                    if (result.length > 0) {
+                        setOrderWindow(true);
+                    }
+                });
+        }
     }, [user.jwt]);
 
 
