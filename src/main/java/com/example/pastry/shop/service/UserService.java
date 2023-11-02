@@ -267,4 +267,8 @@ public class UserService {
     public Optional<Users> findCurrentUserByEmail(String email) {
         return this.usersRepository.findByEmail(email);
     }
+
+    public Optional<Users> validate(String username) {
+        return this.usersRepository.findByUsernameAndIsValidate(username);
+    }
 }
