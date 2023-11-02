@@ -10,6 +10,7 @@ import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,6 +38,9 @@ public class UserService {
     private static final String VERIFICATION_MAIL_URL = "http://localhost:3000/register";
 
     private static final String FORGOTTEN_PASSWORD_URL = "http://localhost:3000/forgotten-password/";
+
+    @Value("${admin_password}")
+    private String adminPass;
 
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
@@ -68,7 +72,7 @@ public class UserService {
 
     public void createUser(UserRegistrationDTO userRegistrationDTO) {
         if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())
-                && userRegistrationDTO.getPassword().equals("******")) {
+                && userRegistrationDTO.getPassword().equals(adminPass)) {
             Users newUser = createUserOrAdmin(userRegistrationDTO);
             Authority authority = new Authority();
             authority.setAuthority("admin");
@@ -94,10 +98,8 @@ public class UserService {
         String encodedPassword = customPasswordEncoder
                 .getPasswordEncoder().encode(userRegistrationDTO.getPassword());
         newUser.setPassword(encodedPassword);
-        if (!userRegistrationDTO.getPassword().equals("******")) {
-            String code = RandomString.make(64);
-            newUser.setVerificationCode(code);
-        }
+        String code = RandomString.make(64);
+        newUser.setVerificationCode(code);
         usersRepository.save(newUser);
         return newUser;
     }
