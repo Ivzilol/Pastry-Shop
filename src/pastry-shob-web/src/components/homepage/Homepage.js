@@ -58,6 +58,12 @@ const Homepage = () => {
                         setOrderWindow(true);
                     }
                 });
+            ajax(`${baseURL}api/orders/status/confirmed`, "GET", user.jwt)
+                .then(result => {
+                    if (result.length > 0) {
+                        setOrderWindow(true);
+                    }
+                });
         }
     }, [user.jwt]);
 

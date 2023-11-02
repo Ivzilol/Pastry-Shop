@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
+@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
 public class OrdersController {
 
 
@@ -68,29 +68,26 @@ public class OrdersController {
     @GetMapping("/admin")
     public ResponseEntity<?> getAllConfirmedOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> confirmedOrders = this.orderService.findByStatus(user);
-        for (OrdersDTO current : confirmedOrders) {
-            current.getUsers().setAuthorities(null);
-            current.getUsers().setLikeProducts(null);
-            current.getUsers().setVerificationCode(null);
-        }
+        extracted(confirmedOrders);
         return ResponseEntity.ok(confirmedOrders);
     }
+
 
     @GetMapping("/admin/send")
     public ResponseEntity<?> getAllSendOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> sendOrders = this.orderProcessingService.findByStatus(user);
-        for (OrdersProcessingDTO current: sendOrders) {
-            current.getUser().setAuthorities(null);
-            current.getUser().setLikeProducts(null);
-            current.getUser().setVerificationCode(null);
-        }
+        extractedOrderProcessing(sendOrders);
         return ResponseEntity.ok(sendOrders);
+    }
+
+    private static void extractedOrderProcessing(Set<OrdersProcessingDTO> sendOrders) {
+        extractedOrderProcessingDto(sendOrders);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                         @PathVariable Long id) throws ParseException {
-        Set<Orders> order = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
+        this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Order send");
         return ResponseEntity.ok(customResponse);
@@ -99,7 +96,7 @@ public class OrdersController {
     @PatchMapping("/admin/delivery/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
                                                                   @PathVariable Long id) {
-        OrdersProcessing order = this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
+        this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Order delivery");
         return ResponseEntity.ok(customResponse);
@@ -114,22 +111,15 @@ public class OrdersController {
     @GetMapping("/history/user")
     public ResponseEntity<?> getOrdersByCurrentUser(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
-        for (OrdersProcessingDTO current: userOrders) {
-            current.getUser().setAuthorities(null);
-            current.getUser().setLikeProducts(null);
-            current.getUser().setVerificationCode(null);
-        }
+        extractedOrderProcessingDto(userOrders);
         return ResponseEntity.ok(userOrders);
     }
+
 
     @GetMapping("/history/admin")
     public ResponseEntity<?> getAllOrders() {
         Set<OrdersProcessingDTO> allOrders = this.orderProcessingService.getAllOrders();
-        for (OrdersProcessingDTO current: allOrders) {
-            current.getUser().setAuthorities(null);
-            current.getUser().setLikeProducts(null);
-            current.getUser().setVerificationCode(null);
-        }
+        extractedOrderProcessingDto(allOrders);
         return ResponseEntity.ok(allOrders);
     }
 
@@ -149,6 +139,22 @@ public class OrdersController {
     public ResponseEntity<?> getNotSendOrders() {
         Set<OrdersDTO> allNotSendOrders = this.orderService.findAllNotSendOrders();
         return ResponseEntity.ok(allNotSendOrders);
+    }
+
+    private static void extracted(Set<OrdersDTO> confirmedOrders) {
+        for (OrdersDTO current : confirmedOrders) {
+            current.getUsers().setAuthorities(null);
+            current.getUsers().setLikeProducts(null);
+            current.getUsers().setVerificationCode(null);
+        }
+    }
+
+    private static void extractedOrderProcessingDto(Set<OrdersProcessingDTO> userOrders) {
+        for (OrdersProcessingDTO current: userOrders) {
+            current.getUser().setAuthorities(null);
+            current.getUser().setLikeProducts(null);
+            current.getUser().setVerificationCode(null);
+        }
     }
 
 }
