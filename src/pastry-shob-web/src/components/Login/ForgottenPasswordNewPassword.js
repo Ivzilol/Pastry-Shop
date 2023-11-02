@@ -51,6 +51,11 @@ const ForgottenPasswordNewPassword = () => {
         setShowPassword(!showPassword);
     };
 
+    function closeDialog() {
+        setDialogVisible(false)
+        setDialogErrorWrongFilling(false)
+    }
+
     return (
         <main className="forgotten-password-send">
             <NavBar/>
@@ -68,6 +73,7 @@ const ForgottenPasswordNewPassword = () => {
                     placeholder="New Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 <a className="forgotten-password-send-show-password"
                     onClick={togglePasswordVisibility}>
@@ -85,6 +91,7 @@ const ForgottenPasswordNewPassword = () => {
                     placeholder="Confirm New Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 <a className="forgotten-password-send-show-password"
                    onClick={togglePasswordVisibility}>

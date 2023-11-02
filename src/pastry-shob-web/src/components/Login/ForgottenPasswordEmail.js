@@ -40,6 +40,11 @@ const ForgottenPasswordEmail = () => {
         setEmail("");
     }
 
+    function closeDialog() {
+        setDialogVisible(false)
+        setEmptyEmailDialog(false)
+    }
+
     return (
         <main className="user-forgotten-password">
             <NavBar/>
@@ -55,6 +60,7 @@ const ForgottenPasswordEmail = () => {
                     placeholder="Enter your Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 {dialogVisible &&
                     <h5 className="forgotten-password-invalid">{error}
