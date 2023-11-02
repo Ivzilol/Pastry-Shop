@@ -1,6 +1,7 @@
 package com.example.pastry.shop.model.dto;
 
 
+import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,8 @@ public class ProductsDTO {
     private String name;
 
     private Double price;
+
+    private Shops shops;
 
     private Set<UsersLikesDTO> userLikes;
 

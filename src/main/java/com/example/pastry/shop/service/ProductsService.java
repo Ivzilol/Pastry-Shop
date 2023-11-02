@@ -180,9 +180,7 @@ public class ProductsService {
     }
 
     public List<ProductsDTO> getProductsForDTO(Users user) {
-        List<ProductsDTO> returnDTO = getProductsDTOS(user);
-        returnDTO.sort(Comparator.comparing(ProductsDTO::getId));
-       return returnDTO;
+       return getProductsDTOS(user);
     }
 
     @NotNull
@@ -198,6 +196,7 @@ public class ProductsService {
             productsDTO.setLikes(product.getLikes());
             productsDTO.setName(product.getName());
             productsDTO.setPrice(product.getPrice());
+//            productsDTO.setShops(product.getShops());
             Set<Users> users = new HashSet<>(product.getUserLikes());
             Set<UsersLikesDTO> usersLikesDTOS = new HashSet<>();
             users.forEach(u -> {

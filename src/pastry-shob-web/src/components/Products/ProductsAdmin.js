@@ -13,6 +13,7 @@ const ProductsAdmin = () => {
     useEffect(() => {
         ajax(`${baseUrl}api/products`, "GET", user.jwt)
             .then(productsData => {
+                console.log(productsData)
                 setProducts(productsData);
             });
 
@@ -41,7 +42,7 @@ const ProductsAdmin = () => {
                             <p className="products-container-item">Product categories: {product.categories}</p>
                             <p className="products-container-item">Product description: {product.description}</p>
                             <img className="product-img" src={product.imageUrl} alt="new"/>
-                            <p className="products-container-item">Product shopName: {product.shops.name}</p>
+                            {/*<p className="products-container-item">Product shopName: {product.shops.name}</p>*/}
                             <div className="products-container-item-button">
                                 <button
                                     id="submit"

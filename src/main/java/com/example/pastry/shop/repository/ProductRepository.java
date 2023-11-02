@@ -18,7 +18,8 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select p from Products AS p")
     Set<Products> findByAdmin(Users user);
 
-    @Query("select p from Products AS p")
+    @Query("select p from Products AS p" +
+            " order by p.id")
     Set<Products> findByUser(Users user);
 
     @Query("select p from Products as p" +
