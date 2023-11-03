@@ -1,16 +1,16 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
+import baseURL from "../BaseURL/BaseURL";
 
 const OrderWindowAdmin = () => {
     const user = useUser();
-    const baseUrl = "http://localhost:8080/";
     const [order, setOrder] = useState(null);
     const [dialogVisibleConfirmed, setDialogVisibleConfirmed] = useState(false);
 
     useEffect(() => {
         if (user.jwt) {
-            ajax(`${baseUrl}api/orders/status/confirmed/admin`, "GET", user.jwt)
+            ajax(`${baseURL}api/orders/status/confirmed/admin`, "GET", user.jwt)
                 .then(result => {
                     setOrder(result);
                     if (result.length > 0) {
