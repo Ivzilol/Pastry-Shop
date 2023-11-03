@@ -2,14 +2,15 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 const AdminUsers = () => {
     const user = useUser();
     const [users, setUsers] = useState("");
-    const baseUrl = "http://localhost:8080/";
+
 
     useEffect(() => {
-        ajax(`${baseUrl}api/users/admin`, "GET", user.jwt)
+        ajax(`${baseURL}api/users/admin`, "GET", user.jwt)
             .then(userData => {
                 setUsers(userData);
             })
@@ -21,14 +22,14 @@ const AdminUsers = () => {
         }
 
     function deleteUser(id) {
-        ajax(`${baseUrl}api/users/admin/${id}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/users/admin/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage()
             })
     }
 
     function promoteUser(id) {
-        ajax(`${baseUrl}api/users/admin/promote/${id}`, "PATCH", user.jwt)
+        ajax(`${baseURL}api/users/admin/promote/${id}`, "PATCH", user.jwt)
             .then((response) => {
                 if (response.custom === 'Successful Promote') {
                     refreshPage()
