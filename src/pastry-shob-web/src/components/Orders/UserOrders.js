@@ -4,6 +4,7 @@ import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserOrders = () => {
     const user = useUser();
@@ -21,10 +22,9 @@ const UserOrders = () => {
     let discount = allPrice - (allPrice * 0.20);
 
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
             });
@@ -32,7 +32,7 @@ const UserOrders = () => {
     }, [navigate, user.jwt]);
 
     function removeProductFromOrder(id) {
-        ajax(`${baseUrl}api/orders/${id}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/orders/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage()
             })
@@ -43,7 +43,7 @@ const UserOrders = () => {
     }
 
     function confirmOrder() {
-        ajax(`${baseUrl}api/orders`, "PATCH", user.jwt, {
+        ajax(`${baseURL}api/orders`, "PATCH", user.jwt, {
             status: "confirmed"
         })
             .then(() => {
