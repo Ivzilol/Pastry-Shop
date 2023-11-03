@@ -7,17 +7,17 @@ import ShopArt from "../ShopArt/ShopArt";
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const ShopsViewUser = () => {
 
     const user = useUser();
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
     const {t} = useTranslation();
 
     useEffect(() => {
-        ajax(`${baseUrl}api/shops`, "GET", user.jwt)
+        ajax(`${baseURL}api/shops`, "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
             });
