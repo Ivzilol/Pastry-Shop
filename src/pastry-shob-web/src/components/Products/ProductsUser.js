@@ -21,7 +21,6 @@ const ProductsUser = () => {
     const [roles, setRoles] = useState(getRolesFromJWT());
     let navigate = useNavigate();
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
     const [orderWindow, setOrderWindow] = useState(false);
     const [product, setProduct] = useState({
             name: "",
@@ -33,7 +32,7 @@ const ProductsUser = () => {
     );
 
     useEffect(() => {
-        ajax(`${baseUrl}api/products`, "GET", user.jwt)
+        ajax(`${baseURL}api/products`, "GET", user.jwt)
             .then(productsData => {
                 console.log(productsData)
                 setProducts(productsData);
@@ -57,7 +56,7 @@ const ProductsUser = () => {
     }, [navigate, user.jwt]);
 
     function orderProduct(id) {
-        ajax(`${baseUrl}api/products/${id}`, "GET", user.jwt)
+        ajax(`${baseURL}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setProduct(productData);
                 setOrderDialogProductName(productData.name)
@@ -69,7 +68,7 @@ const ProductsUser = () => {
     }
 
     function orderProducts(id) {
-        ajax(`${baseUrl}api/orders/${id}`, "POST", user.jwt, product)
+        ajax(`${baseURL}api/orders/${id}`, "POST", user.jwt, product)
             .then(productData => {
                 setProduct(productData);
                 setOrderWindow(true);
@@ -81,7 +80,7 @@ const ProductsUser = () => {
     }
 
     function likeProduct(id) {
-        ajax(`${baseUrl}api/products/${id}`, "PATCH", user.jwt)
+        ajax(`${baseURL}api/products/${id}`, "PATCH", user.jwt)
             .then(() => {
                 refreshPage();
             })
@@ -102,7 +101,7 @@ const ProductsUser = () => {
     }
 
     function dislikeProduct(id) {
-        ajax(`${baseUrl}api/products/dislike/${id}`, "Delete", user.jwt)
+        ajax(`${baseURL}api/products/dislike/${id}`, "Delete", user.jwt)
             .then(() => {
                 refreshPage();
             })
