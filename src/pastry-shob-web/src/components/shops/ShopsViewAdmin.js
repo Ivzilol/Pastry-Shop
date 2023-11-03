@@ -5,15 +5,15 @@ import StatusBadge from "../StatusBadge/StatusBadge";
 import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 const ShopsViewAdmin = () => {
 
     const user = useUser();
     const [shops, setShops] = useState(null);
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/shops`, "GET", user.jwt)
+        ajax(`${baseURL}api/shops`, "GET", user.jwt)
             .then(shopData => {
                 setShops(shopData);
             });
@@ -21,7 +21,7 @@ const ShopsViewAdmin = () => {
     }, [navigate, user.jwt])
 
     function createShop() {
-        ajax(`${baseUrl}api/shops`, "POST", user.jwt).then((shop) => {
+        ajax(`${baseURL}api/shops`, "POST", user.jwt).then((shop) => {
             window.location.href = `/shops/${shop.id}`
         });
     }
@@ -31,7 +31,7 @@ const ShopsViewAdmin = () => {
     }
 
     function deleteShop(id) {
-        ajax(`${baseUrl}api/shops/delete/${id}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/shops/delete/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage()
             })
