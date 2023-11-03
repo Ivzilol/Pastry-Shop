@@ -7,13 +7,13 @@ import NavBar from "../NavBar/NavBar";
 import ShopArt from "../ShopArt/ShopArt";
 import Footer from "../Footer/Footer";
 import OrderWindow from "../Orders/OrderWindow";
+import baseURL from "../BaseURL/BaseURL";
 
 const ShopsView = () => {
     useNavigate();
     const user = useUser();
     const {shopId} = useParams()
     const textareaRef = useRef(null);
-    const baseUrl = "http://localhost:8080/";
     const [shop, setShop] = useState({
         town: "",
         address: "",
@@ -52,7 +52,7 @@ const ShopsView = () => {
     }
 
     function handleDeleteComment(commentId) {
-        ajax(`${baseUrl}api/comments/user/${commentId}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/comments/user/${commentId}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage();
             });
@@ -63,7 +63,7 @@ const ShopsView = () => {
             return;
         }
         if (comment.id) {
-            ajax(`${baseUrl}api/comments/${comment.id}`, "PUT", user.jwt, comment)
+            ajax(`${baseURL}api/comments/${comment.id}`, "PUT", user.jwt, comment)
                 .then(d => {
                 const commentsCopy = [...comments]
                 const index = commentsCopy.findIndex(comment => comment.id === d.id);
@@ -72,7 +72,7 @@ const ShopsView = () => {
                 setComment(emptyComment);
             })
         } else {
-            ajax(`${baseUrl}api/comments`, 'POST', user.jwt, comment)
+            ajax(`${baseURL}api/comments`, 'POST', user.jwt, comment)
                 .then(d => {
                 const commentsCopy = [...comments]
                 commentsCopy.push(d);
@@ -83,7 +83,7 @@ const ShopsView = () => {
     }
 
     useEffect(() => {
-        ajax(`${baseUrl}api/comments?shopId=${shopId}`,
+        ajax(`${baseURL}api/comments?shopId=${shopId}`,
             'GET',
             user.jwt,
             null)
@@ -100,7 +100,7 @@ const ShopsView = () => {
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
     function persist() {
-        ajax(`${baseUrl}api/shops/${shopId}`, "PATCH", user.jwt, shop)
+        ajax(`${baseURL}api/shops/${shopId}`, "PATCH", user.jwt, shop)
             .then(shopData => {
                     setShop(shopData);
                 }
@@ -115,7 +115,7 @@ const ShopsView = () => {
     }, [persist, shop])
 
     useEffect(() => {
-        ajax(`${baseUrl}api/shops/${shopId}`, "GET", user.jwt)
+        ajax(`${baseURL}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
                 let shopData = shopResponse.shops;
                 if (shopData.town === null) shopData.town = ""
