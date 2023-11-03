@@ -3,6 +3,7 @@ import {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserChangePassword = () => {
     const user = useUser();
@@ -11,7 +12,6 @@ const UserChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false);
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     function changePassword() {
         const requestBody = {
@@ -19,7 +19,7 @@ const UserChangePassword = () => {
             newPassword: newPassword,
             confirmNewPassword: confirmNewPassword
         }
-        ajax(`${baseUrl}api/users/change-password`, "PATCH", user.jwt, requestBody)
+        ajax(`${baseURL}api/users/change-password`, "PATCH", user.jwt, requestBody)
             .then((response) => {
                 if (response === 'Successful change your password') {
                     return alert("You have successfully changed your password, please login with your new password"),
