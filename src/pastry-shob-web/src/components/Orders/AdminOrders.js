@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 const AdminOrders = () => {
     const user = useUser();
@@ -12,10 +13,9 @@ const AdminOrders = () => {
     const [sentOrders, setSendOrders] = useState(null);
     const [dateDelivery, setDateDelivery] = useState("");
     const [timeDelivery, setTimeDelivery] = useState("");
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/admin`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders/admin`, "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData)
             });
@@ -28,7 +28,7 @@ const AdminOrders = () => {
 
 
     function startProcessingOrder(id) {
-        ajax(`${baseUrl}api/orders-processing/admin/${id}`, "POST", user.jwt, {
+        ajax(`${baseURL}api/orders-processing/admin/${id}`, "POST", user.jwt, {
             id: id,
         })
             .then(() => {
@@ -37,7 +37,7 @@ const AdminOrders = () => {
     }
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/admin/send`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders/admin/send`, "GET", user.jwt)
             .then(ordersData => {
                 setSendOrders(ordersData);
             });
@@ -51,7 +51,7 @@ const AdminOrders = () => {
             dateDelivery: dateDelivery,
             timeDelivery: timeDelivery
         }
-        fetch(`${baseUrl}api/orders/${id}`, {
+        fetch(`${baseURL}api/orders/${id}`, {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -64,7 +64,7 @@ const AdminOrders = () => {
     }
 
     function confirmOrderDelivery(id) {
-        ajax(`${baseUrl}api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
+        ajax(`${baseURL}api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
             status: "delivery"
         })
             .then(() => {
