@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import NavBar from "../NavBar/NavBar";
 import ajax from "../../Services/FetchService";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserOrderTracking = () => {
 
@@ -18,10 +19,9 @@ const UserOrderTracking = () => {
     let allPriceProcessing = 0;
     let allPriceSend = 0;
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/tracking`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders/tracking`, "GET", user.jwt)
             .then(orderData => {
                 setOrder(orderData)
                 if (orderData.length > 0) {
