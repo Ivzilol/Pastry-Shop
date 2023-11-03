@@ -4,13 +4,13 @@ import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserEditProfile = () => {
     const user = useUser();
     const userId = window.location.href.split("/users/")[1];
     let navigate = useNavigate();
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
     const [currentUser, setCurrentUser] = useState({
         username: "",
         firstName: "",
@@ -21,7 +21,7 @@ const UserEditProfile = () => {
     });
 
     useEffect(() => {
-        ajax(`${baseUrl}api/users/${userId}`, "GET", user.jwt)
+        ajax(`${baseURL}api/users/${userId}`, "GET", user.jwt)
             .then(userResponse => {
                 setCurrentUser(userResponse);
             });
@@ -46,7 +46,7 @@ const UserEditProfile = () => {
             alert("Format cannot contain empty fields");
             return;
         }
-        ajax(`${baseUrl}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
+        ajax(`${baseURL}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
             .then(userData => {
                 if (userData.custom === 'Successful update user!') {
                     alert("Successful update your personal info, please login again in your profile")
