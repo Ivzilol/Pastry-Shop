@@ -159,7 +159,9 @@ const ChatRoom = () => {
                                                 ?
                                                 <div key={index}
                                                      className="chat-message-row">
-                                                    <div className="chat-message-data" style={adminElement}
+                                                    <div className="chat-message-data"
+                                                         key={index}
+                                                         style={adminElement}
                                                     >
                                                         {chat.senderName}: {chat.message}
                                                     </div>
