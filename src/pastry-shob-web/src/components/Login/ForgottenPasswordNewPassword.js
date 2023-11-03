@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const ForgottenPasswordNewPassword = () => {
     const {verificationCode} = useParams();
@@ -15,7 +16,6 @@ const ForgottenPasswordNewPassword = () => {
     const [errorWrongFilling, setErrorWrongFilling] = useState("");
     const navigate = useNavigate();
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/"
 
     function setNewPassword() {
         const requestBody = {
@@ -28,7 +28,7 @@ const ForgottenPasswordNewPassword = () => {
             setDialogErrorWrongFilling(true);
             return;
         }
-        ajax(`${baseUrl}api/users/register/forgotten-password/new-password`, "PATCH",
+        ajax(`${baseURL}api/users/register/forgotten-password/new-password`, "PATCH",
             null, requestBody)
             .then(response => {
                 if (response === undefined) {
