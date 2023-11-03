@@ -2,15 +2,15 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 const AdminOrdersHistory = () => {
 
     const user = useUser();
     const [orders, setOrders] = useState(null);
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/history/admin`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders/history/admin`, "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData);
             });
