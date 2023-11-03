@@ -3,17 +3,16 @@ import {useUser} from "../../UserProvider/UserProvider";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
+import baseURL from "../BaseURL/BaseURL";
 
 const ProductsAdmin = () => {
     const user = useUser()
     const [products, setProducts] = useState(null);
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/products`, "GET", user.jwt)
+        ajax(`${baseURL}api/products`, "GET", user.jwt)
             .then(productsData => {
-                console.log(productsData)
                 setProducts(productsData);
             });
 
