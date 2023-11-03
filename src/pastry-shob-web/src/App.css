@@ -1771,8 +1771,15 @@ footer {
     margin-left: 150px;
 }
 
+
+
+
 .empty-chat {
     font-style: italic;
+}
+
+.search-no-result {
+    color: white;
 }
 
 @media screen and (max-width: 600px) {

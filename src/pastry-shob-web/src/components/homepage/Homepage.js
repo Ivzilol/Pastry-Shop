@@ -297,9 +297,9 @@ const Homepage = () => {
             {roles.find((role) => role === 'admin') ? <OrderWindowAdmin/> : <></>}
             {dialogVisible && (
                 <div className="search-result">
-                    <button className="search-result-close-button-chat"
+                    <button className="search-result-close-button"
                             onClick={closeDialog}>{t('search-result-close-button')}</button>
-                    {searchResult ? (
+                    {searchResult.length > 0 ? (
                         <div className="search-result-container">
                             {searchResult.map((product) => (
                                 <div id={product.id}
@@ -322,7 +322,7 @@ const Homepage = () => {
                             ))}
                         </div>
                     ) : (
-                        <></>
+                        <div className="search-no-result">Моля изберете категория</div>
                     )}
                 </div>
             )}
