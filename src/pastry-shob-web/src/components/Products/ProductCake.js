@@ -4,14 +4,14 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import Footer from "../Footer/Footer";
+import baseURL from "../BaseURL/BaseURL";
 
 const ProductCake = () => {
     const user = useUser()
     const [cakes, setCakes] = useState(null);
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
     useEffect(() => {
-        ajax(`${baseUrl}api/products/cakes`, "GET", user.jwt)
+        ajax(`${baseURL}api/products/cakes`, "GET", user.jwt)
             .then(cakesData => {
                 setCakes(cakesData)
             })
