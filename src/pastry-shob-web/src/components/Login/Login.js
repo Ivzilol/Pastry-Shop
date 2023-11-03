@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useUser} from "../../UserProvider/UserProvider";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const Login = () => {
     const user = useUser();
@@ -13,7 +14,6 @@ const Login = () => {
     const [dialogVisible, setDialogVisible] = useState(false);
     let navigate = useNavigate();
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         if (user.jwt) navigate("/")
@@ -25,7 +25,7 @@ const Login = () => {
             "username": username,
             "password": password,
         };
-        fetch(`${baseUrl}api/auth/login`, {
+        fetch(`${baseURL}api/auth/login`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
