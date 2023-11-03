@@ -1,7 +1,6 @@
 package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
-import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.OrdersProcessingRepository;
