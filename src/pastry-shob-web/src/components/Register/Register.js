@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 
 const Register = () => {
@@ -25,7 +26,6 @@ const Register = () => {
     const [successfulRegistration, setSuccessfulRegistration] = useState("");
     const [unsuccessfulRegistrationDialog, setUnsuccessfulRegistrationDialog] = useState(false)
     const [unsuccessfulRegistration, setUnsuccessfulRegistration] = useState("");
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
         if (user.jwt) navigate("/");
@@ -43,7 +43,7 @@ const Register = () => {
             phoneNumber: phoneNumber
         }
 
-        fetch(`${baseUrl}api/users/register`, {
+        fetch(`${baseURL}api/users/register`, {
             headers: {
                 "Content-Type": "application/json",
             },
