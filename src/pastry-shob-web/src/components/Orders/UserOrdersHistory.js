@@ -3,16 +3,16 @@ import ajax from "../../Services/FetchService";
 import {useUser} from "../../UserProvider/UserProvider";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserOrdersHistory = () => {
 
     const user = useUser();
     const [orders, setOrders] = useState(null);
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/orders/history/user`, "GET", user.jwt)
+        ajax(`${baseURL}api/orders/history/user`, "GET", user.jwt)
             .then(ordersData => {
                 setOrders(ordersData);
             });
