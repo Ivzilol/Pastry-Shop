@@ -3,13 +3,13 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
+import baseURL from "../BaseURL/BaseURL";
 
 const ShopEditAdmin = () => {
 
     const user = useUser();
     const shopId = window.location.href.split("/shops/")[1];
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
     const [shop, setShop] = useState({
         town: "",
         address: "",
@@ -21,7 +21,7 @@ const ShopEditAdmin = () => {
     const [, setShopStatus] = useState([]);
     useRef(shop);
     useEffect(() => {
-        ajax(`${baseUrl}api/shops/${shopId}`, "GET", user.jwt)
+        ajax(`${baseURL}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
                 let shopData = shopResponse.shops;
                 if (shopData.town === null) shopData.town = "";
@@ -39,7 +39,7 @@ const ShopEditAdmin = () => {
     }
 
     function editShop() {
-        ajax(`${baseUrl}api/shops/${shopId}`, "PATCH", user.jwt, shop)
+        ajax(`${baseURL}api/shops/${shopId}`, "PATCH", user.jwt, shop)
             .then(shopData => {
                 setShop(shopData);
             })
@@ -57,7 +57,7 @@ const ShopEditAdmin = () => {
     const [allComments, setAllComments] = useState([]);
 
     useEffect(() => {
-        ajax(`${baseUrl}api/comments?shopId=${shopId}`, "GET", user.jwt)
+        ajax(`${baseURL}api/comments?shopId=${shopId}`, "GET", user.jwt)
             .then(commentsData => {
                 setAllComments(commentsData);
             })
@@ -80,7 +80,7 @@ const ShopEditAdmin = () => {
     }
 
     function DeleteComment(id) {
-        ajax(`${baseUrl}api/comments/${id}`, "DELETE", user.jwt)
+        ajax(`${baseURL}api/comments/${id}`, "DELETE", user.jwt)
             .then(() => {
                 refreshPage();
             });
@@ -88,7 +88,7 @@ const ShopEditAdmin = () => {
 
     function submitComment() {
         if (comment.id) {
-            ajax(`${baseUrl}api/comment/${comment.id}`, "PUT", user.jwt, comment)
+            ajax(`${baseURL}api/comment/${comment.id}`, "PUT", user.jwt, comment)
                 .then(d => {
                     const commentsCopy = [...allComments];
                     const index = commentsCopy.findIndex(comment => comment.id === d.id);
@@ -97,7 +97,7 @@ const ShopEditAdmin = () => {
                     setComment(emptyComment);
                 })
         } else {
-            ajax(`${baseUrl}api/comments`, "POST", user.jwt, comment)
+            ajax(`${baseURL}api/comments`, "POST", user.jwt, comment)
                 .then(d => {
                     const commentCopy = [...allComments];
                     commentCopy.push(d);
