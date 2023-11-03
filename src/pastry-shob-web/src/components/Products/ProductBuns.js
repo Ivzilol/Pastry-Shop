@@ -4,14 +4,14 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ajax from "../../Services/FetchService";
 import Footer from "../Footer/Footer";
+import baseURL from "../BaseURL/BaseURL";
 
 const ProductBuns = () => {
     const user = useUser()
     const [buns, setBuns] = useState(null);
     let navigate = useNavigate();
-    const baseUrl = "http://localhost:8080/";
     useEffect(() => {
-        ajax(`${baseUrl}api/products/buns`, "GET", user.jwt)
+        ajax(`${baseURL}api/products/buns`, "GET", user.jwt)
             .then(piesData => {
                 setBuns(piesData)
             })
