@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const ForgottenPasswordEmail = () => {
 
-    const baseUrl = "http://localhost:8080/";
     const [email, setEmail] = useState("");
     const [dialogVisible, setDialogVisible] = useState(false);
     const [emptyEmailDialog, setEmptyEmailDialog] = useState(false);
@@ -23,7 +23,7 @@ const ForgottenPasswordEmail = () => {
             email: email
         }
 
-        ajax(`${baseUrl}api/users/register/forgotten-password`, "POST", null, requestBody)
+        ajax(`${baseURL}api/users/register/forgotten-password`, "POST", null, requestBody)
             .then((response) => {
                 if (response === undefined) {
                     alert("Please check your Email");
