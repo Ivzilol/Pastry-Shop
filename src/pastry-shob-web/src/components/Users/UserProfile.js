@@ -5,16 +5,16 @@ import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import OrderWindow from "../Orders/OrderWindow";
 import {useTranslation} from "react-i18next";
+import baseURL from "../BaseURL/BaseURL";
 
 const UserProfile = () => {
     const user = useUser();
     const [currentUser, setCurrentUser] = useState(null);
     let navigate = useNavigate();
     const {t} = useTranslation();
-    const baseUrl = "http://localhost:8080/";
 
     useEffect(() => {
-        ajax(`${baseUrl}api/users`, "GET", user.jwt)
+        ajax(`${baseURL}api/users`, "GET", user.jwt)
             .then(userData => {
                 setCurrentUser(userData);
             })
