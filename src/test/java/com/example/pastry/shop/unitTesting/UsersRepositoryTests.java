@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
@@ -45,22 +46,22 @@ public class UsersRepositoryTests {
         authority.setAuthority("user");
         authority.setUsers(user);
         this.authorityRepository.save(authority);
+        Users user2 = new Users();
+        user2.setUsername("Gosho");
+        user2.setFirstName("Georgi");
+        user2.setLastName("Georgiev");
+        user2.setAddress("Sofiq");
+        user2.setEmail("gosho@abv.bg");
+        user2.setPhoneNumber("0887665544");
+        user2.setPassword("asdasd");
+        user2.setVerificationCode(RandomString.make(64));
+        this.usersRepository.save(user2);
+        Authority authority2 = new Authority();
+        authority2.setAuthority("user");
+        authority2.setUsers(user2);
+        this.authorityRepository.save(authority2);
     }
 
-    @Test
-    public void UserRepositoryTest_SaveAll_ReturnUser() {
-        Users user = new Users();
-        user.setUsername("Ivoooooo");
-        user.setFirstName("Ivaylo");
-        user.setLastName("Alichkov");
-        user.setAddress("Samokov");
-        user.setEmail("ivo@abv.bg");
-        user.setPhoneNumber("0887580832");
-        user.setPassword("asdasd");
-        user.setVerificationCode(RandomString.make(64));
-        Users saveUser = usersRepository.save(user);
-        Assertions.assertEquals(saveUser.getUsername(), "Ivoooooo");
-    }
 
     @Test
     public void testFindByUsername(){
@@ -102,5 +103,11 @@ public class UsersRepositoryTests {
         Assertions.assertEquals(userDTO.get().getUsername(), "Pesho");
         Assertions.assertEquals(userDTO.get().getEmail(), "pesho@abv.bg");
         Assertions.assertEquals(userDTO.get().getPhoneNumber(), "0887580832");
+    }
+
+    @Test
+    public void testFindAllUsers() {
+        List<UsersDTO> usersDTOS = this.usersRepository.findAllUsers();
+        Assertions.assertEquals(usersDTOS.size(), 2);
     }
 }
