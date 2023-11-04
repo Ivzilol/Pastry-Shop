@@ -31,8 +31,10 @@ const AdminOrders = () => {
         ajax(`${baseURL}api/orders-processing/admin/${id}`, "POST", user.jwt, {
             id: id,
         })
-            .then(() => {
-                refreshPage()
+            .then((response) => {
+                if (response.custom === 'Successful start processing order') {
+                    confirmOrder(id);
+                }
             })
     }
 
@@ -59,8 +61,8 @@ const AdminOrders = () => {
             body: JSON.stringify(requestBody)
 
         })
-            .then((response) => {
-                alert(response.custom)
+            .then(() => {
+                refreshPage()
             });
     }
 
@@ -137,7 +139,6 @@ const AdminOrders = () => {
                                                 <button className="orders-admin-button"
                                                         onClick={() => {
                                                             startProcessingOrder(order.keyOrderProduct)
-                                                            confirmOrder(order.keyOrderProduct)
                                                         }}
                                                 >Изпрати поръчката
                                                 </button>

@@ -113,9 +113,7 @@ function App() {
                             <ShopEditAdmin/>
                         </PrivateRoute>
                         :
-                        <PrivateRoute>
                             <ShopsView/>
-                        </PrivateRoute>
                 }/>
             <Route path="/orders"
                    element={

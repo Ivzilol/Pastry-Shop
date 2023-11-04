@@ -2,7 +2,6 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Orders;
-import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderProcessingService;
@@ -23,7 +22,6 @@ public class OrdersController {
     private final OrderService orderService;
 
     private final OrderProcessingService orderProcessingService;
-
 
 
     public OrdersController(OrderService orderService, OrderProcessingService orderProcessingService) {
@@ -58,8 +56,8 @@ public class OrdersController {
 
     @PatchMapping("")
     public ResponseEntity<?> updateStatusOrder(@RequestBody OrdersStatusDTO ordersStatusDTO,
-                                                    @AuthenticationPrincipal Users user) {
-        Orders orders = this.orderService.updateStatus(ordersStatusDTO, user);
+                                               @AuthenticationPrincipal Users user) {
+        this.orderService.updateStatus(ordersStatusDTO, user);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Confirm order");
         return ResponseEntity.ok(customResponse);
@@ -86,7 +84,7 @@ public class OrdersController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
-                                                        @PathVariable Long id) throws ParseException {
+                                                   @PathVariable Long id) throws ParseException {
         this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Order send");
@@ -95,7 +93,7 @@ public class OrdersController {
 
     @PatchMapping("/admin/delivery/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
-                                                                  @PathVariable Long id) {
+                                                   @PathVariable Long id) {
         this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Order delivery");
@@ -150,7 +148,7 @@ public class OrdersController {
     }
 
     private static void extractedOrderProcessingDto(Set<OrdersProcessingDTO> userOrders) {
-        for (OrdersProcessingDTO current: userOrders) {
+        for (OrdersProcessingDTO current : userOrders) {
             current.getUser().setAuthorities(null);
             current.getUser().setLikeProducts(null);
             current.getUser().setVerificationCode(null);

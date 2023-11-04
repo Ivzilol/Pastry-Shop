@@ -26,7 +26,7 @@ import java.util.Set;
 
     @Column(nullable = false, name = "last_name")
     private String lastName;
-    @JsonIgnore
+//    @JsonIgnore
     @Column(nullable = false)
     private String password;
 

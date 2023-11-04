@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.entity.Orders;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,8 @@ public class OrdersProcessingController {
     @PostMapping("/admin/{id}")
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id) {
         Set<Orders> currentOrders = this.orderService.findByUsersId(id);
-        return ResponseEntity.ok(currentOrders);
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful start processing order");
+        return ResponseEntity.ok(customResponse);
     }
 }
