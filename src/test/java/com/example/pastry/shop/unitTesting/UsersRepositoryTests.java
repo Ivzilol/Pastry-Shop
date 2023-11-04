@@ -89,6 +89,8 @@ public class UsersRepositoryTests {
 
     @Test
     public void testIsUserValidate() {
-
+        Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
+        userByUsername.get().setValidate(true);
+        Assertions.assertTrue(userByUsername.get().isValidate());
     }
 }
