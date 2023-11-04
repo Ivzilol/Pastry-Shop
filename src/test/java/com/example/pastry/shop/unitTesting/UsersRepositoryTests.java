@@ -67,10 +67,28 @@ public class UsersRepositoryTests {
     }
 
     @Test
-    public void findByEmail() {
+    public void testFindByEmail() {
         Optional<Users> findByEmail = this.usersRepository.findByEmail("pesho@abv.bg");
         Assertions.assertEquals(findByEmail.get().getEmail(), "pesho@abv.bg");
     }
 
+    @Test
+    public void testFindByUserId() {
+        Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
+        Users userById = this.usersRepository.findByUserId(userByUsername.get().getId());
+        Assertions.assertEquals(userById.getUsername(), "Pesho");
+    }
 
+    @Test
+    public void testFindByVerificationCode(){
+        Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
+        Users userByVerificationCode = this.usersRepository
+                .findByVerificationCode(userByUsername.get().getVerificationCode());
+        Assertions.assertEquals(userByVerificationCode.getUsername(), "Pesho");
+    }
+
+    @Test
+    public void testIsUserValidate() {
+
+    }
 }
