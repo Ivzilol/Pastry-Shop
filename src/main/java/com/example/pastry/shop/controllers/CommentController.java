@@ -1,7 +1,7 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
-import com.example.pastry.shop.model.dto.CommentsDTO;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.CommentService;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -28,30 +27,32 @@ public class CommentController {
     @PostMapping("")
     public ResponseEntity<?> createComment(@RequestBody CommentDto commentDto,
                                            @AuthenticationPrincipal Users user) {
-        Comment comment = commentService.save(commentDto, user);
-        CommentsDTO commentsDTO = new CommentsDTO();
-        commentsDTO.setId(comment.getId());
-        commentsDTO.setText(comment.getText());
-        commentsDTO.setCreatedBy(comment.getCreatedBy());
+        CommentAllDTO commentsDTO = getCommentAllDTO(commentDto, user);
         return ResponseEntity.ok(commentsDTO);
     }
+
 
     @PutMapping("{commentId}")
     public ResponseEntity<?> updateComment(@RequestBody CommentDto commentDto,
                                            @AuthenticationPrincipal Users user) {
+        CommentAllDTO commentsDTO = getCommentAllDTO(commentDto, user);
+        return ResponseEntity.ok(commentsDTO);
+    }
+
+    @NotNull
+    private CommentAllDTO getCommentAllDTO(CommentDto commentDto, Users user) {
         Comment comment = commentService.save(commentDto, user);
-        CommentsDTO commentsDTO = new CommentsDTO();
+        CommentAllDTO commentsDTO = new CommentAllDTO();
         commentsDTO.setId(comment.getId());
         commentsDTO.setText(comment.getText());
-        commentsDTO.setCreatedBy(comment.getCreatedBy());
-        return ResponseEntity.ok(commentsDTO);
+        commentsDTO.setCreatedBy(comment.getCreatedBy().getUsername());
+        return commentsDTO;
     }
 
     @GetMapping("")
     public ResponseEntity<Set<?>> getCommentsByShop(@RequestParam Long shopId) {
-        Set<Comment> comments = commentService.getCommentsByShopId(shopId);
-        Set<Object> response = getObjects(comments);
-        return ResponseEntity.ok(response);
+        Set<CommentAllDTO> comments = commentService.getCommentsByShopId(shopId);
+        return ResponseEntity.ok(comments);
     }
 
 
@@ -70,18 +71,5 @@ public class CommentController {
     public ResponseEntity<?> deleteUserComment(@PathVariable Long id) {
         commentService.deleteComment(id);
         return (ResponseEntity<?>) ResponseEntity.ok();
-    }
-
-    @NotNull
-    private static Set<Object> getObjects(Set<Comment> comments) {
-        Set<Object> response = new HashSet<>();
-        for (Comment current : comments) {
-            CommentsDTO commentsDTO = new CommentsDTO();
-            commentsDTO.setId(current.getId());
-            commentsDTO.setText(current.getText());
-            commentsDTO.setCreatedBy(current.getCreatedBy());
-            response.add(commentsDTO);
-        }
-        return response;
     }
 }

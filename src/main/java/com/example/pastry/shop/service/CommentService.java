@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Shops;
@@ -36,7 +37,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public Set<Comment> getCommentsByShopId(Long shopId) {
+    public Set<CommentAllDTO> getCommentsByShopId(Long shopId) {
         return commentRepository.findByShopId(shopId);
     }
 

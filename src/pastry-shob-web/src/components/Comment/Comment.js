@@ -16,9 +16,9 @@ const Comment = (props) => {
     return (
         <div className="comments">
             <div className="comments-view-comment">
-                <strong>{createdBy.username}:
+                <strong>{createdBy}:
                     {
-                        decodingJwt.sub === createdBy.username ?
+                        decodingJwt.sub === createdBy ?
                             <>
                                 <span
                                     onClick={() => emitEditComment(id)}
