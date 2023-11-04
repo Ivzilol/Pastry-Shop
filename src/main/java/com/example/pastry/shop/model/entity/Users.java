@@ -50,7 +50,7 @@ import java.util.Set;
     private List<Authority> authorities = new ArrayList<>();
 
     @ManyToMany(mappedBy = "userLikes", fetch = FetchType.EAGER)
-    @JsonIgnore
+//    @JsonIgnore
     private Set<Products> likeProducts;
 
     public Users() {

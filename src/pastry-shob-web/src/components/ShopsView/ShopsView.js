@@ -88,7 +88,6 @@ const ShopsView = () => {
             user.jwt,
             null)
             .then(commentsData => {
-                console.log(commentsData)
                 setComments(commentsData)
             });
     }, [shopId, user.jwt])
