@@ -165,13 +165,13 @@ public class OrderService {
     }
 
 
-    public OrdersProcessing updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
+    public Set<OrdersProcessing> updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
         Set<OrdersProcessing> orders = this.ordersProcessingRepository.findOrderById(id);
         getStatus(orderStatusDeliveryAdmin, orders);
         Long keyOrder = getKeyOrder(orders);
         Set<Orders> ordersForChangeStatus = this.ordersRepository.findByKeyOrderProduct(keyOrder);
         setStatusAndDate(orders, ordersForChangeStatus);
-        return (OrdersProcessing) orders;
+        return orders;
     }
 
     private void setStatusAndDate(Set<OrdersProcessing> orders, Set<Orders> ordersForChangeStatus) {
