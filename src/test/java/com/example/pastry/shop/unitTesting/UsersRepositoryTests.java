@@ -63,7 +63,7 @@ public class UsersRepositoryTests {
 
 
     @Test
-    public void testFindByUsername(){
+    public void testFindByUsername() {
         Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
         Assertions.assertEquals(userByUsername.get().getUsername(), "Pesho");
     }
@@ -82,7 +82,7 @@ public class UsersRepositoryTests {
     }
 
     @Test
-    public void testFindByVerificationCode(){
+    public void testFindByVerificationCode() {
         Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
         Users userByVerificationCode = this.usersRepository
                 .findByVerificationCode(userByUsername.get().getVerificationCode());
@@ -126,8 +126,66 @@ public class UsersRepositoryTests {
         Assertions.assertEquals(usersDTO.getPhoneNumber(), "0887580832");
     }
 
-    @Test()
+    @Test
     public void testUsernameIsBusy() {
+        Assertions.assertThrows(Exception.class,
+                () -> {
+                    Users user = new Users();
+                    user.setUsername("Pesho");
+                    user.setFirstName("Petat");
+                    user.setLastName("Petrov");
+                    user.setAddress("Sofiq");
+                    user.setEmail("pesho@abv.bg");
+                    user.setPhoneNumber("0887580832");
+                    user.setPassword("asdasd");
+                    user.setVerificationCode(RandomString.make(64));
+                    this.usersRepository.save(user);
+                    Authority authority = new Authority();
+                    authority.setAuthority("user");
+                    authority.setUsers(user);
+                    this.authorityRepository.save(authority);
+                });
+    }
 
+    @Test
+    public void testEmailIsBusy() {
+        Assertions.assertThrows(Exception.class,
+                () -> {
+                    Users user = new Users();
+                    user.setUsername("Ivo");
+                    user.setFirstName("Petat");
+                    user.setLastName("Petrov");
+                    user.setAddress("Sofiq");
+                    user.setEmail("pesho@abv.bg");
+                    user.setPhoneNumber("0887580832");
+                    user.setPassword("asdasd");
+                    user.setVerificationCode(RandomString.make(64));
+                    this.usersRepository.save(user);
+                    Authority authority = new Authority();
+                    authority.setAuthority("user");
+                    authority.setUsers(user);
+                    this.authorityRepository.save(authority);
+                });
+    }
+
+    @Test
+    public void testUsernameIsNull() {
+        Assertions.assertThrows(Exception.class,
+                () -> {
+                    Users user = new Users();
+                    user.setUsername(null);
+                    user.setFirstName("Petat");
+                    user.setLastName("Petrov");
+                    user.setAddress("Sofiq");
+                    user.setEmail("pesho@abv.bg");
+                    user.setPhoneNumber("0887580832");
+                    user.setPassword("asdasd");
+                    user.setVerificationCode(RandomString.make(64));
+                    this.usersRepository.save(user);
+                    Authority authority = new Authority();
+                    authority.setAuthority("user");
+                    authority.setUsers(user);
+                    this.authorityRepository.save(authority);
+                });
     }
 }
