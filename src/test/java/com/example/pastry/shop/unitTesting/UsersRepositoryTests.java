@@ -1,7 +1,6 @@
 package com.example.pastry.shop.unitTesting;
 
 
-import com.example.pastry.shop.model.dto.UserDTO;
 import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
@@ -109,5 +108,26 @@ public class UsersRepositoryTests {
     public void testFindAllUsers() {
         List<UsersDTO> usersDTOS = this.usersRepository.findAllUsers();
         Assertions.assertEquals(usersDTOS.size(), 2);
+    }
+
+    @Test
+    public void testFindUserById() {
+        Optional<UsersDTO> user = this.usersRepository.findUserByUsername("Pesho");
+        Optional<UsersDTO> usersDTO = this.usersRepository.findUserById(user.get().getId());
+        Assertions.assertEquals(usersDTO.get().getUsername(), "Pesho");
+    }
+
+    @Test
+    public void testFindCurrentUserByUsername() {
+        Optional<UsersDTO> user = this.usersRepository.findUserByUsername("Pesho");
+        UsersDTO usersDTO = this.usersRepository.findCurrentUserByUsername(user.get().getUsername());
+        Assertions.assertEquals(usersDTO.getUsername(), "Pesho");
+        Assertions.assertEquals(usersDTO.getEmail(), "pesho@abv.bg");
+        Assertions.assertEquals(usersDTO.getPhoneNumber(), "0887580832");
+    }
+
+    @Test()
+    public void testUsernameIsBusy() {
+
     }
 }
