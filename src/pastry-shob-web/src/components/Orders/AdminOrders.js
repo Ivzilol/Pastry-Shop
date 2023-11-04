@@ -59,7 +59,8 @@ const AdminOrders = () => {
             body: JSON.stringify(requestBody)
 
         })
-            .then(() => {
+            .then((response) => {
+                alert(response.custom)
             });
     }
 

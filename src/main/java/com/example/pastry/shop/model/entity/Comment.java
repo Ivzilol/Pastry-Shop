@@ -23,7 +23,6 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private Users createdBy;
 
-    @JsonIgnore
     @ManyToOne
     private Shops shops;
 

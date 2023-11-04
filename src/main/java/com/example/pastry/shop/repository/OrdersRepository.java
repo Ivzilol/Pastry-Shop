@@ -28,6 +28,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders as o")
     Set<Orders> findAllOrders();
 
+    @Query("select o from Orders as o" +
+            " where o.keyOrderProduct = :id")
     Set<Orders> findByKeyOrderProduct(Long id);
 
 

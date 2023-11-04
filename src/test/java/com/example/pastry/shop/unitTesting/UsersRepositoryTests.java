@@ -1,13 +1,11 @@
 package com.example.pastry.shop.unitTesting;
 
 
-import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.UsersRepository;
-import com.example.pastry.shop.service.UserService;
 import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
