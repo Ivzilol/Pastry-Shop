@@ -1,6 +1,8 @@
 package com.example.pastry.shop.unitTesting;
 
 
+import com.example.pastry.shop.model.dto.UserDTO;
+import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.AuthorityRepository;
@@ -92,5 +94,13 @@ public class UsersRepositoryTests {
         Optional<Users> userByUsername = this.usersRepository.findByUsername("Pesho");
         userByUsername.get().setValidate(true);
         Assertions.assertTrue(userByUsername.get().isValidate());
+    }
+
+    @Test
+    public void testFindUserByUsername() {
+        Optional<UsersDTO> userDTO = this.usersRepository.findUserByUsername("Pesho");
+        Assertions.assertEquals(userDTO.get().getUsername(), "Pesho");
+        Assertions.assertEquals(userDTO.get().getEmail(), "pesho@abv.bg");
+        Assertions.assertEquals(userDTO.get().getPhoneNumber(), "0887580832");
     }
 }
