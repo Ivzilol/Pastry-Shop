@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -62,8 +63,8 @@ public class ShopsService {
     }
 
 
-    public Optional<Shops> findById(Long shopId) {
-        return shopsRepository.findById(shopId);
+    public Optional<ShopDTO> findById(Long shopId) {
+        return shopsRepository.findShopById(shopId);
     }
 
 

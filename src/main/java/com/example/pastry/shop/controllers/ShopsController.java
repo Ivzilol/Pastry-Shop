@@ -1,10 +1,12 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.ShopsService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +29,7 @@ public class ShopsController {
 
     @PostMapping("")
     public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
-        Shops newShop = shopsService.createShop(user);
-        ShopsDTO shopsDTO = new ShopsDTO(
-                newShop.getId(), newShop.getNumber(), newShop.getName(),
-                newShop.getStatus(), newShop.getTown(), newShop.getAddress()
-        );
-        return ResponseEntity.ok(shopsDTO);
+        return getShopsDTOResponseEntity(shopsService.createShop(user));
     }
 
     @GetMapping("")
@@ -43,19 +40,22 @@ public class ShopsController {
 
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable Long shopId) {
-        Optional<Shops> shopOpt = shopsService.findById(shopId);
-        ShopResponseDTO response = new ShopResponseDTO(shopOpt.orElse(new Shops()));
-        return ResponseEntity.ok(response);
+        Optional<ShopDTO> shopOpt = shopsService.findById(shopId);
+        return ResponseEntity.ok(shopOpt);
     }
 
     @PatchMapping("/{shopId}")
     public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user,
                                         @PathVariable Long shopId,
                                         @RequestBody  Shops shop) {
-        Shops updateShop = shopsService.saveShop(shop, user);
+        return getShopsDTOResponseEntity(shopsService.saveShop(shop, user));
+    }
+
+    @NotNull
+    private ResponseEntity<ShopsDTO> getShopsDTOResponseEntity(Shops shopsService) {
         ShopsDTO shopsDTO = new ShopsDTO(
-                updateShop.getId(), updateShop.getNumber(), updateShop.getName(),
-                updateShop.getStatus(), updateShop.getTown(), updateShop.getAddress()
+                shopsService.getId(), shopsService.getNumber(), shopsService.getName(),
+                shopsService.getStatus(), shopsService.getTown(), shopsService.getAddress()
         );
         return ResponseEntity.ok(shopsDTO);
     }

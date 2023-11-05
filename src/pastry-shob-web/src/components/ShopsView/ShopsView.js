@@ -21,8 +21,6 @@ const ShopsView = () => {
         status: ""
     });
 
-    const [, setShopsEnums] = useState([]);
-    const [, setShopsStatuses] = useState([]);
     const prevShopValue = useRef(shop);
 
     const emptyComment = {
@@ -116,12 +114,11 @@ const ShopsView = () => {
     useEffect(() => {
         ajax(`${baseURL}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
-                let shopData = shopResponse.shops;
+                console.log(shopResponse)
+                let shopData = shopResponse;
                 if (shopData.town === null) shopData.town = ""
                 if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
-                setShopsEnums(shopResponse.shopsEnums);
-                setShopsStatuses(shopResponse.statusEnums);
             });
     }, [shopId, user.jwt]);
 

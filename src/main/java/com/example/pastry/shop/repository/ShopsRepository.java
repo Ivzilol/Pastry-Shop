@@ -1,5 +1,6 @@
 package com.example.pastry.shop.repository;
 
+import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
@@ -27,4 +28,9 @@ public interface ShopsRepository extends JpaRepository<Shops, Long> {
 
     @Query("select s from Shops as s")
     Shops findShop();
+
+    @Query("select new com.example.pastry.shop.model.dto.ShopDTO(" +
+            "s.id, s.town, s.address, s.number, s.status) " +
+            " from Shops as s")
+    Optional<ShopDTO> findShopById(Long shopId);
 }
