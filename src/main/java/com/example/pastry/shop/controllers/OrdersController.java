@@ -66,7 +66,6 @@ public class OrdersController {
     @GetMapping("/admin")
     public ResponseEntity<?> getAllConfirmedOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> confirmedOrders = this.orderService.findByStatus(user);
-        extracted(confirmedOrders);
         return ResponseEntity.ok(confirmedOrders);
     }
 
@@ -130,13 +129,5 @@ public class OrdersController {
     public ResponseEntity<?> getNotSendOrders() {
         Set<OrdersDTO> allNotSendOrders = this.orderService.findAllNotSendOrders();
         return ResponseEntity.ok(allNotSendOrders);
-    }
-
-    private static void extracted(Set<OrdersDTO> confirmedOrders) {
-        for (OrdersDTO current : confirmedOrders) {
-            current.getUsers().setAuthorities(null);
-            current.getUsers().setLikeProducts(null);
-            current.getUsers().setVerificationCode(null);
-        }
     }
 }

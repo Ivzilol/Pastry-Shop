@@ -112,7 +112,14 @@ public class OrderService {
     public Set<OrdersDTO> findByStatus(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            return this.ordersRepository.findByStatus();
+            Set<OrdersDTO> returned = this.ordersRepository.findByStatus();
+            for (OrdersDTO current : returned) {
+                current.getUsers().setPassword(null);
+                current.getUsers().setAuthorities(null);
+                current.getUsers().setLikeProducts(null);
+                current.getUsers().setVerificationCode(null);
+            }
+            return returned;
         } else {
             return null;
         }

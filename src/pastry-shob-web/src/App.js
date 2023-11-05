@@ -113,15 +113,13 @@ function App() {
                             <ShopEditAdmin/>
                         </PrivateRoute>
                         :
-                            <ShopsView/>
+                        <ShopsView/>
                 }/>
             <Route path="/orders"
                    element={
                        roles.find((role) => role === 'admin')
                            ?
-                           <PrivateRoute>
-                               <AdminOrders/>
-                           </PrivateRoute>
+                           <AdminOrders/>
                            :
                            <PrivateRoute>
                                <UserOrders/>

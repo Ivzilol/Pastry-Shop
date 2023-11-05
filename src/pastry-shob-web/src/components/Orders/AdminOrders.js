@@ -17,6 +17,7 @@ const AdminOrders = () => {
     useEffect(() => {
         ajax(`${baseURL}api/orders/admin`, "GET", user.jwt)
             .then(ordersData => {
+                console.log(ordersData)
                 setOrders(ordersData)
             });
         if (!user.jwt) navigate('/login')
@@ -33,7 +34,7 @@ const AdminOrders = () => {
         })
             .then((response) => {
                 if (response.custom === 'Successful start processing order') {
-                    confirmOrder(id);
+                    refreshPage()
                 }
             })
     }
@@ -48,6 +49,10 @@ const AdminOrders = () => {
 
 
     function confirmOrder(id) {
+        if (dateDelivery === "" || timeDelivery === "") {
+            alert("Put data and time on delivery")
+            return;
+        }
         const requestBody = {
             status: "sent",
             dateDelivery: dateDelivery,
@@ -62,7 +67,7 @@ const AdminOrders = () => {
 
         })
             .then(() => {
-                refreshPage()
+                startProcessingOrder(id)
             });
     }
 
@@ -138,7 +143,7 @@ const AdminOrders = () => {
                                                 />
                                                 <button className="orders-admin-button"
                                                         onClick={() => {
-                                                            startProcessingOrder(order.keyOrderProduct)
+                                                            confirmOrder(order.keyOrderProduct)
                                                         }}
                                                 >Изпрати поръчката
                                                 </button>
