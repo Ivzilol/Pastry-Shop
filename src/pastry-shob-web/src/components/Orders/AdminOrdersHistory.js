@@ -38,7 +38,7 @@ const AdminOrdersHistory = () => {
                                     <td>{order.dateOfReceipt}</td>
                                     <td>{Number(order.totalPrice).toFixed(2)}</td>
                                     <td>{order.statusOrder}</td>
-                                    <td>{order.user.username}</td>
+                                    <td>{order.username}</td>
                                 </tr>
                             ))}
                         </>

@@ -40,7 +40,7 @@ const UserOrdersHistory = () => {
                                     <td>{order.dateOfDispatch}</td>
                                     <td>{Number(order.totalPrice).toFixed(2)}</td>
                                     <td>{order.statusOrder}</td>
-                                    <td>{order.user.username}</td>
+                                    <td>{order.username}</td>
                                 </tr>
                             ))}
                         </>

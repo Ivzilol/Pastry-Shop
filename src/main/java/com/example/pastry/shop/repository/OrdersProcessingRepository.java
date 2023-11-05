@@ -14,8 +14,9 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
             " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
-            " op.dateOfDispatch, op.keyOrder as keyOrder, op.user)" +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
             " from OrdersProcessing op" +
+            " join Users as u on op.user.id = u.id" +
             " where op.statusOrder = 'sent'")
     Set<OrdersProcessingDTO> findByStatus();
 
@@ -23,15 +24,17 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
             " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
-            " op.dateOfDispatch, op.keyOrder as keyOrder, op.user)" +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
             " from OrdersProcessing op" +
+            " join Users as u on op.user.id = u.id" +
             " where op.user.id = :id" +
             " order by op.dateOfReceipt")
     Set<OrdersProcessingDTO> findByUserIdOrderByDateOfReceipt(Long id);
     @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
             " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
-            " op.dateOfDispatch, op.keyOrder as keyOrder, op.user)" +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
             " from OrdersProcessing op" +
+            " join Users as u on op.user.id = u.id" +
             " order by op.dateOfDispatch")
     Set<OrdersProcessingDTO> findAllOrders();
 }

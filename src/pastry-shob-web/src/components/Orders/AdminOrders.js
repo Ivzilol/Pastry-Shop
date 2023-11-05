@@ -165,8 +165,8 @@ const AdminOrders = () => {
                                     <div className="confirmed-orders-list-container-details"
                                          id={sendOrders.id}
                                     >
-                                        <h5>Получател: {sendOrders.user.firstName} {sendOrders.user.lastName}</h5>
-                                        <p>Адрес: {sendOrders.user.address}</p>
+                                        <h5>Получател: {sendOrders.firstName} {sendOrders.lastName}</h5>
+                                        <p>Адрес: {sendOrders.address}</p>
                                         <p>Обща цена: {Number(sendOrders.totalPrice).toFixed(2)} лв.</p>
                                         <button className="orders-admin-button"
                                                 onClick={() => confirmOrderDelivery(sendOrders.id)}

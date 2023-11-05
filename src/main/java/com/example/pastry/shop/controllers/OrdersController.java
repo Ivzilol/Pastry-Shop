@@ -74,12 +74,7 @@ public class OrdersController {
     @GetMapping("/admin/send")
     public ResponseEntity<?> getAllSendOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> sendOrders = this.orderProcessingService.findByStatus(user);
-        extractedOrderProcessing(sendOrders);
         return ResponseEntity.ok(sendOrders);
-    }
-
-    private static void extractedOrderProcessing(Set<OrdersProcessingDTO> sendOrders) {
-        extractedOrderProcessingDto(sendOrders);
     }
 
     @PatchMapping("/{id}")
@@ -109,7 +104,6 @@ public class OrdersController {
     @GetMapping("/history/user")
     public ResponseEntity<?> getOrdersByCurrentUser(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
-        extractedOrderProcessingDto(userOrders);
         return ResponseEntity.ok(userOrders);
     }
 
@@ -117,7 +111,6 @@ public class OrdersController {
     @GetMapping("/history/admin")
     public ResponseEntity<?> getAllOrders() {
         Set<OrdersProcessingDTO> allOrders = this.orderProcessingService.getAllOrders();
-        extractedOrderProcessingDto(allOrders);
         return ResponseEntity.ok(allOrders);
     }
 
@@ -146,13 +139,4 @@ public class OrdersController {
             current.getUsers().setVerificationCode(null);
         }
     }
-
-    private static void extractedOrderProcessingDto(Set<OrdersProcessingDTO> userOrders) {
-        for (OrdersProcessingDTO current : userOrders) {
-            current.getUser().setAuthorities(null);
-            current.getUser().setLikeProducts(null);
-            current.getUser().setVerificationCode(null);
-        }
-    }
-
 }
