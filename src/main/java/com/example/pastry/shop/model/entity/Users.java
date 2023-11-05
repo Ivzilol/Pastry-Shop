@@ -26,7 +26,7 @@ import java.util.Set;
 
     @Column(nullable = false, name = "last_name")
     private String lastName;
-//    @JsonIgnore
+
     @Column(nullable = false)
     private String password;
 
@@ -50,7 +50,6 @@ import java.util.Set;
     private List<Authority> authorities = new ArrayList<>();
 
     @ManyToMany(mappedBy = "userLikes", fetch = FetchType.EAGER)
-//    @JsonIgnore
     private Set<Products> likeProducts;
 
     public Users() {
