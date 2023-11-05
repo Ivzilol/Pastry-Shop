@@ -2,7 +2,6 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
-import com.example.pastry.shop.model.dto.ShopResponseDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.service.ShopsService;
