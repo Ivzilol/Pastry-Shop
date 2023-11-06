@@ -55,11 +55,6 @@ import java.util.Set;
     public Users() {
     }
 
-    public Users(String testUsername, String testPassword, ArrayList<Object> objects) {
-
-    }
-
-
     public Long getId() {
         return id;
     }
