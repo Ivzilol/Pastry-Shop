@@ -17,18 +17,14 @@ const ShopEditAdmin = () => {
         status: ""
     });
 
-    const [, setShopEnum] = useState([]);
-    const [, setShopStatus] = useState([]);
     useRef(shop);
     useEffect(() => {
         ajax(`${baseURL}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
-                let shopData = shopResponse.shops;
+                let shopData = shopResponse;
                 if (shopData.town === null) shopData.town = "";
                 if (shopData.address === null) shopData.address = "";
                 setShop(shopData);
-                setShopEnum(shopResponse.shopsEnums);
-                setShopStatus(shopResponse.statusEnums);
             });
     }, [shopId, user.jwt]);
 

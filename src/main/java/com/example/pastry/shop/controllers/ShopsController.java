@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ShopsService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,14 @@ public class ShopsController {
     public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user,
                                         @PathVariable Long shopId,
                                         @RequestBody  Shops shop) {
-        return getShopsDTOResponseEntity(shopsService.saveShop(shop, user));
+        boolean isUpdate =  this.shopsService.updateShop(shop, shopId, user);
+        CustomResponse customResponse = new CustomResponse();
+        if (isUpdate) {
+            customResponse.setCustom("Successful update shop");
+        } else {
+            customResponse.setCustom("Unsuccessful update shop");
+        }
+        return ResponseEntity.ok(customResponse);
     }
 
     @NotNull

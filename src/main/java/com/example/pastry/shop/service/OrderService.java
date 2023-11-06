@@ -57,6 +57,7 @@ public class OrderService {
         newOrder.setPrice(product.get().getPrice());
         newOrder.setProductName(product.get().getName());
         ordersRepository.save(newOrder);
+        productRepository.save(productIncreaseNumberOrders);
         return newOrder;
     }
 

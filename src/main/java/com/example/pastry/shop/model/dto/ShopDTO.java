@@ -9,6 +9,8 @@ public class ShopDTO {
 
     private Long id;
 
+    private String name;
+
     private String town;
 
     private String address;
@@ -17,8 +19,9 @@ public class ShopDTO {
 
     private String status;
 
-    public ShopDTO(Long id, String town, String address, Integer number, String status) {
+    public ShopDTO(Long id, String name, String town, String address, Integer number, String status) {
         this.id = id;
+        this.name = name;
         this.town = town;
         this.address = address;
         this.number = number;

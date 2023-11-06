@@ -98,4 +98,15 @@ public class ShopsService {
         }
         return shop;
     }
+
+    public boolean updateShop(Shops shop, Long shopId, Users user) {
+        Optional<Shops> currentShop = this.shopsRepository.findById(shopId);
+        currentShop.get().setId(shop.getId());
+        currentShop.get().setAddress(shop.getAddress());
+        currentShop.get().setName(shop.getName());
+        currentShop.get().setTown(shop.getTown());
+        currentShop.get().setUsers(user);
+        this.shopsRepository.save(currentShop.get());
+        return true;
+    }
 }

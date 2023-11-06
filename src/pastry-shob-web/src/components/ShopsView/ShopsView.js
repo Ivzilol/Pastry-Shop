@@ -17,8 +17,7 @@ const ShopsView = () => {
     const [shop, setShop] = useState({
         town: "",
         address: "",
-        number: null,
-        status: ""
+        number: null
     });
 
     const prevShopValue = useRef(shop);
@@ -105,9 +104,7 @@ const ShopsView = () => {
     }
 
     useEffect(() => {
-        if (prevShopValue.current.status !== shop.status) {
             persist();
-        }
         prevShopValue.current = shop;
     }, [persist, shop])
 

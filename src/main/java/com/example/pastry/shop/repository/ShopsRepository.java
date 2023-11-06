@@ -27,7 +27,7 @@ public interface ShopsRepository extends JpaRepository<Shops, Long> {
     List<ShopsDTO> findAllShops();
 
     @Query("select new com.example.pastry.shop.model.dto.ShopDTO(" +
-            "s.id, s.town, s.address, s.number, s.status) " +
+            "s.id, s.name, s.town, s.address, s.number, s.status) " +
             " from Shops as s")
     Optional<ShopDTO> findShopById(Long shopId);
 }
