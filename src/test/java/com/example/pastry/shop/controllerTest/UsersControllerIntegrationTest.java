@@ -29,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class UsersControllerIntegrationTest {
+
+    //always start first test -> testRegisterUsers()
     @LocalServerPort
     private int port;
 
@@ -91,7 +93,7 @@ public class UsersControllerIntegrationTest {
         }
     }
 
-    //all start first test -> testRegisterUsers()
+    //always start first test -> testRegisterUsers()
     @Test
     public void testRegisterUsers() {
         Assertions.assertEquals(3, testH2RepositoryUsers.findAll().size());
@@ -183,7 +185,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
-    public void updateUser() throws Exception {
+    public void updateUser() {
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
         updateUserDTO.setUsername("Victor");
@@ -194,5 +196,35 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setPhoneNumber("0898776655");
         CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
         Assertions.assertEquals(customResponse.getCustom(), "Successful update user!");
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testUnsuccessfulUpdateUser_HaveUserWithSameUsername() {
+        Long userId = 2L;
+        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
+        updateUserDTO.setUsername("Ivo");
+        updateUserDTO.setFirstName("Victor");
+        updateUserDTO.setLastName("Victorov");
+        updateUserDTO.setEmail("victor@abv.bg");
+        updateUserDTO.setAddress("Sofiq");
+        updateUserDTO.setPhoneNumber("0898776655");
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        Assertions.assertEquals(customResponse.getCustom(), "Unsuccessful update user!");
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testUnsuccessfulUpdateUser_HaveUserWithSameEmail() {
+        Long userId = 2L;
+        UpdateUserDTO updateUserDTO = new UpdateUserDTO();
+        updateUserDTO.setUsername("Victor");
+        updateUserDTO.setFirstName("Victor");
+        updateUserDTO.setLastName("Victorov");
+        updateUserDTO.setEmail("ivo@abv.bg");
+        updateUserDTO.setAddress("Sofiq");
+        updateUserDTO.setPhoneNumber("0898776655");
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        Assertions.assertEquals(customResponse.getCustom(), "Unsuccessful update user!");
     }
 }
