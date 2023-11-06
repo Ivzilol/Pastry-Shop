@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -51,6 +52,9 @@ public class UsersControllerIntegrationTest {
     @Autowired
     private TestH2RepositoryAuthority testH2RepositoryAuthority;
 
+    @Value("${admin_password}")
+    private String adminPassword;
+
     @BeforeAll
     public static void init() {
         restTemplate = new TestRestTemplate();
@@ -68,8 +72,8 @@ public class UsersControllerIntegrationTest {
             registrationDto.setEmail("gundi@abv.bg");
             registrationDto.setAddress("Sofiq");
             registrationDto.setPhoneNumber("0887778899");
-            registrationDto.setPassword("Ivailo7325");
-            registrationDto.setConfirmPassword("Ivailo7325");
+            registrationDto.setPassword(adminPassword);
+            registrationDto.setConfirmPassword(adminPassword);
             Users response = restTemplate.postForObject(baseUrl + "/register", registrationDto, Users.class);
             UserRegistrationDTO registrationDto2 = new UserRegistrationDTO();
             registrationDto2.setUsername("Victor");
