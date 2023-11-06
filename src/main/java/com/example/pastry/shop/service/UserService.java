@@ -98,6 +98,7 @@ public class UserService {
         newUser.setPhoneNumber(userRegistrationDTO.getPhoneNumber());
         String encodedPassword = customPasswordEncoder
                 .getPasswordEncoder().encode(userRegistrationDTO.getPassword());
+        newUser.setPassword(encodedPassword);
         String code = RandomString.make(64);
         newUser.setVerificationCode(code);
         usersRepository.save(newUser);
