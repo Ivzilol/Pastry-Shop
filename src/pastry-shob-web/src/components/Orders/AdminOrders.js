@@ -17,7 +17,6 @@ const AdminOrders = () => {
     useEffect(() => {
         ajax(`${baseURL}api/orders/admin`, "GET", user.jwt)
             .then(ordersData => {
-                console.log(ordersData)
                 setOrders(ordersData)
             });
         if (!user.jwt) navigate('/login')
