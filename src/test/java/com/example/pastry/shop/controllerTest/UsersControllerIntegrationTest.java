@@ -1,5 +1,6 @@
 package com.example.pastry.shop.controllerTest;
 
+import com.example.pastry.shop.model.dto.ChangePasswordDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
@@ -7,6 +8,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +18,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -30,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UsersControllerIntegrationTest {
 
-    //always start first test -> testRegisterUsers()
+    //always start first test -> testRegisterUsers() independently to create users in db
     @LocalServerPort
     private int port;
 
@@ -93,7 +97,7 @@ public class UsersControllerIntegrationTest {
         }
     }
 
-    //always start first test -> testRegisterUsers()
+    //always start first test -> testRegisterUsers() independently
     @Test
     public void testRegisterUsers() {
         Assertions.assertEquals(3, testH2RepositoryUsers.findAll().size());
@@ -194,7 +198,8 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setEmail("victor@abv.bg");
         updateUserDTO.setAddress("Sofiq");
         updateUserDTO.setPhoneNumber("0898776655");
-        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}",
+                updateUserDTO, CustomResponse.class, userId);
         Assertions.assertEquals(customResponse.getCustom(), "Successful update user!");
     }
 
@@ -209,7 +214,8 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setEmail("victor@abv.bg");
         updateUserDTO.setAddress("Sofiq");
         updateUserDTO.setPhoneNumber("0898776655");
-        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}",
+                updateUserDTO, CustomResponse.class, userId);
         Assertions.assertEquals(customResponse.getCustom(), "Unsuccessful update user!");
     }
 
@@ -224,7 +230,38 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setEmail("ivo@abv.bg");
         updateUserDTO.setAddress("Sofiq");
         updateUserDTO.setPhoneNumber("0898776655");
-        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}",
+                updateUserDTO, CustomResponse.class, userId);
         Assertions.assertEquals(customResponse.getCustom(), "Unsuccessful update user!");
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testChangePassword() throws Exception {
+        ChangePasswordDto changePasswordDto = new ChangePasswordDto();
+        changePasswordDto.setOldPassword("asdasd");
+        changePasswordDto.setNewPassword("asdasd");
+        changePasswordDto.setConfirmNewPassword("asdasd");
+        String jsonRequest = new ObjectMapper().writeValueAsString(changePasswordDto);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/change-password")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Successful change your password")).andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testUnsuccessfulChangePassword_PasswordNotMatch() throws Exception {
+        ChangePasswordDto changePasswordDto = new ChangePasswordDto();
+        changePasswordDto.setOldPassword("asdasd");
+        changePasswordDto.setNewPassword("asdasd");
+        changePasswordDto.setConfirmNewPassword("123456");
+        String jsonRequest = new ObjectMapper().writeValueAsString(changePasswordDto);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/change-password")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
