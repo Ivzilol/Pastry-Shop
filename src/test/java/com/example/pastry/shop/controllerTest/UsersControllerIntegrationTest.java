@@ -122,6 +122,8 @@ public class UsersControllerIntegrationTest {
                         .value("Victorov"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].email")
                         .value("victor@abv.bg"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].address")
+                        .value("Sofiq"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].username")
                         .value("Ivo"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].firstName")
@@ -130,18 +132,31 @@ public class UsersControllerIntegrationTest {
                         .value("Alichkov"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].email")
                         .value("ivo@abv.bg"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].address")
+                        .value("Sofiq"))
                 .andReturn();
-
-
     }
 
     @Test
     @WithUserDetails("Victor")
     public void getCurrentUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
-                .andExpect(status().isOk());
-        Optional<Users> user = testH2RepositoryUsers.findById(2L);
-        Assertions.assertEquals("Victor", user.get().getUsername());
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl ))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id")
+                        .value("2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username")
+                        .value("Victor"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName")
+                        .value("Victor"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName")
+                        .value("Victorov"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
+                        .value("victor@abv.bg"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address")
+                        .value("Sofiq"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumber")
+                        .value("0898776655"))
+                .andReturn();
     }
 
     @Test
