@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +23,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,7 +91,7 @@ public class UsersControllerIntegrationTest {
         }
     }
 
-
+    //all start first test -> testRegisterUsers()
     @Test
     public void testRegisterUsers() {
         Assertions.assertEquals(3, testH2RepositoryUsers.findAll().size());
@@ -140,7 +140,7 @@ public class UsersControllerIntegrationTest {
     @Test
     @WithUserDetails("Victor")
     public void getCurrentUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl ))
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id")
                         .value("2"))
@@ -163,9 +163,22 @@ public class UsersControllerIntegrationTest {
     public void testGetUserById() throws Exception {
         Long id = 2L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{id}", id))
-                .andExpect(status().isOk());
-        Optional<Users> user = testH2RepositoryUsers.findById(id);
-        Assertions.assertEquals("Victor", user.get().getUsername());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id")
+                        .value("2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username")
+                        .value("Victor"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName")
+                        .value("Victor"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName")
+                        .value("Victorov"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
+                        .value("victor@abv.bg"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.address")
+                        .value("Sofiq"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumber")
+                        .value("0898776655"))
+                .andReturn();
     }
 
     @Test
@@ -177,17 +190,9 @@ public class UsersControllerIntegrationTest {
         updateUserDTO.setFirstName("Victor");
         updateUserDTO.setLastName("Victorov");
         updateUserDTO.setEmail("victor@abv.bg");
-        updateUserDTO.setAddress("Samokov");
-        Users user = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, Users.class, userId);
-
-        Assertions.assertEquals("Samokov", user.getAddress());
+        updateUserDTO.setAddress("Sofiq");
+        updateUserDTO.setPhoneNumber("0898776655");
+        CustomResponse customResponse = restTemplate.patchForObject(baseUrl + "/edit/{id}", updateUserDTO, CustomResponse.class, userId);
+        Assertions.assertEquals(customResponse.getCustom(), "Successful update user!");
     }
-
-//    @Test
-//    public void testAuthentication() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("http://localhost/api/auth/validate")
-//                .with(SecurityMockMvcRequestPostProcessors.user("Tosho").roles("admin")))
-//                .andExpect(MockMvcResultMatchers.status().isOk());
-//
-//    }
 }
