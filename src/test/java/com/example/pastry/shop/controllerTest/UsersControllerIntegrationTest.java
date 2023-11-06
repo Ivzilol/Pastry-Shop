@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllerTest;
 
 import com.example.pastry.shop.model.dto.ChangePasswordDto;
+import com.example.pastry.shop.model.dto.ForgottenPasswordEmailDto;
 import com.example.pastry.shop.model.dto.UpdateUserDTO;
 import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Authority;
@@ -23,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -267,5 +267,17 @@ public class UsersControllerIntegrationTest {
                         .content(jsonRequest)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testSendEmailForgottenPassword() throws Exception {
+        ForgottenPasswordEmailDto forgottenPasswordEmailDto = new ForgottenPasswordEmailDto();
+        forgottenPasswordEmailDto.setEmail("victor@abv.bg");
+        String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordEmailDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register/forgotten-password")
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isAccepted());
     }
 }
