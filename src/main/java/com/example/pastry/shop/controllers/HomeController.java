@@ -21,7 +21,6 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-
     @GetMapping("")
     public ResponseEntity<?> getMostOrderedProducts() {
         List<MostOrderedProductsDTO> mostOrderedProductsDTOS = this.homeService.findMostOrderedProducts();
