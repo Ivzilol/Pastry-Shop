@@ -75,7 +75,10 @@ public class ShopControllerIntegrationTest {
     public void testShopById() throws Exception {
         Long shopId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{shopId}", shopId))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name")
+                        .value("Sladcarnicata na Mama"))
+                .andReturn();
     }
 
     @Test

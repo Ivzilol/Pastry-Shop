@@ -6,7 +6,4 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TestH2RepositoryUsers extends JpaRepository<Users, Long> {
 
-    @Query("select u from Users as u" +
-            " where u.id = :userId")
-    Users findUser(Long userId);
 }

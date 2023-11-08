@@ -108,7 +108,7 @@ public class UsersRepositoryTests {
     @Test
     public void testFindAllUsers() {
         List<UsersDTO> usersDTOS = this.usersRepository.findAllUsers();
-        Assertions.assertEquals(usersDTOS.size(), 2);
+        Assertions.assertEquals(usersDTOS.size(), 4);
     }
 
     @Test
