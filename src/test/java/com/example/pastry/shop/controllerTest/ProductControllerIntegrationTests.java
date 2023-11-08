@@ -1,7 +1,9 @@
 package com.example.pastry.shop.controllerTest;
 
+import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -127,6 +130,24 @@ public class ProductControllerIntegrationTests {
     @Test
     public void testGetCategories() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/pies"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
+                        .value("Козунак"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name")
+                        .value("Погача"))
+                .andReturn();
+    }
+
+    @Test
+    public void testSearch() throws Exception {
+        CategoryProductDto categoryProductDto = new CategoryProductDto();
+        categoryProductDto.setSelectOptions("pie");
+        String jsonRequest = new ObjectMapper().writeValueAsString(categoryProductDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/search")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
                         .value("Баница"))
