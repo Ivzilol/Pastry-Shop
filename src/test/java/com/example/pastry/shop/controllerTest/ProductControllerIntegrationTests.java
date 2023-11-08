@@ -101,6 +101,20 @@ public class ProductControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
+    public void testGetUserLikes() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[3].name")
+                        .value("Плато сладки"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[7].name")
+                        .value("Мъфини"))
+                .andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Victor")
     public void testDislikeProduct() throws Exception {
         Long productId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/dislike/{id}", productId))
