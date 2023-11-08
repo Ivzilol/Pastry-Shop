@@ -90,7 +90,7 @@ public class ProductController {
         return ResponseEntity.ok(customResponse);
     }
 
-    @GetMapping("/pies")
+        @GetMapping("/pies")
     public ResponseEntity<?> getPies() {
         Set<GetProductsDTO> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);

@@ -123,4 +123,17 @@ public class ProductControllerIntegrationTests {
                         .value("Not Like"))
                 .andReturn();
     }
+
+    @Test
+    public void testGetCategories() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/pies"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
+                        .value("Козунак"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name")
+                        .value("Погача"))
+                .andReturn();
+    }
 }
