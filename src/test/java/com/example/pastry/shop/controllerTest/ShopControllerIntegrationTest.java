@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,6 +23,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -83,18 +87,21 @@ public class ShopControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Tosho")
-    public void testUpdateShop() {
-        Long userId = 1L;
-        List<Shops> allShops = testH2RepositoryShops.findAll();
-        Long shopId = allShops.stream().findFirst().get().getId();
-        Optional<Users> userById = testH2RepositoryUsers.findById(userId);
+    public void testUpdateShop() throws Exception {
+        Long shopId = 1L;
         Shops shop = new Shops();
-        shop.setUsers(userById.get());
-        shop.setName("Test");
-        shop.setTown("TestTown");
-        shop.setAddress("test");
-        Shops shopForUpdate = restTemplate.patchForObject(baseUrl + "/{shopId}", shop, Shops.class, shopId);
-        Assertions.assertEquals("Test", shopForUpdate.getName());
+        shop.setId(1L);
+        shop.setTown("Sofiq");
+        shop.setAddress("str. AlaBala");
+        shop.setName("Sladcarnicata na Mama");
+        String jsonRequest = new ObjectMapper().writeValueAsString(shop);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{shopId}", shopId)
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Successful update shop")).andReturn();
+
     }
 
     @Test
