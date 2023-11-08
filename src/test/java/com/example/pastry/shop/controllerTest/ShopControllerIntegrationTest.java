@@ -56,14 +56,19 @@ public class ShopControllerIntegrationTest {
     @Test
     @WithUserDetails("Tosho")
     public void testCreateShop() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        if (this.testH2RepositoryShops.count() == 0) {
+            mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
+                    .andExpect(MockMvcResultMatchers.status().isOk());
+        }
     }
 
     @Test
     public void testGetShop() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
+                        .value("Sladcarnicata na Mama"))
+                .andReturn();
     }
 
     @Test
@@ -80,7 +85,7 @@ public class ShopControllerIntegrationTest {
         List<Shops> allShops = testH2RepositoryShops.findAll();
         Long shopId = allShops.stream().findFirst().get().getId();
         Optional<Users> userById = testH2RepositoryUsers.findById(userId);
-        Shops shop  = new Shops();
+        Shops shop = new Shops();
         shop.setUsers(userById.get());
         shop.setName("Test");
         shop.setTown("TestTown");
