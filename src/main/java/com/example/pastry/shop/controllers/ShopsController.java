@@ -29,7 +29,8 @@ public class ShopsController {
 
     @PostMapping("")
     public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
-        return getShopsDTOResponseEntity(shopsService.createShop(user));
+        shopsService.createShop(user);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("")

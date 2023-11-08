@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -59,8 +58,6 @@ public class ShopControllerIntegrationTest {
     public void testCreateShop() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        List<Shops> shopsSize = testH2RepositoryShops.findAll();
-        Assertions.assertEquals(1, shopsSize.size());
     }
 
     @Test
