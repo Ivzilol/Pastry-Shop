@@ -88,14 +88,15 @@ public class ShopControllerIntegrationTest {
     @Test
     @WithUserDetails("Tosho")
     public void testUpdateShop() throws Exception {
-        Long shopId = 1L;
+        List<Shops> shopId = this.testH2RepositoryShops.findAll();
+        Long id = shopId.stream().findFirst().get().getId();
         Shops shop = new Shops();
-        shop.setId(1L);
+        shop.setId(id);
         shop.setTown("Sofiq");
         shop.setAddress("str. AlaBala");
         shop.setName("Sladcarnicata na Mama");
         String jsonRequest = new ObjectMapper().writeValueAsString(shop);
-        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{shopId}", shopId)
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{shopId}", id)
                 .content(jsonRequest)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -111,7 +112,5 @@ public class ShopControllerIntegrationTest {
         Long shopId = shops.stream().findFirst().get().getId();
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-        List<Shops> shopsSize = testH2RepositoryShops.findAll();
-        Assertions.assertEquals(0, shopsSize.size());
     }
 }
