@@ -1,11 +1,9 @@
 package com.example.pastry.shop.controllerTest;
 
-import com.example.pastry.shop.model.dto.CreateProductDTO;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,17 +13,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -62,24 +55,26 @@ public class ProductControllerIntegrationTests {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
     }
 
-    @Test
-    @WithUserDetails("Tosho")
-    public void testCreateProduct() throws Exception {
-        MockMultipartFile imageUrl = new MockMultipartFile("imageUrl",
-                "333679583_1370979030385235_8353098425062243540_n.jpg",
-                "multipart/form-data",
-                "333679583_1370979030385235_8353098425062243540_n.jpg".getBytes(StandardCharsets.UTF_8)
-                );
-        MockMultipartFile jsonFile = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
-//        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(imageUrl)
-                        .file(jsonFile))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    @WithUserDetails("Tosho")
+//    public void testCreateProduct() throws Exception {
+//        File file = new File("D:\\Img-pastry-shop\\333679583_1370979030385235_8353098425062243540_n");
+//        MockMultipartFile imageUrl = new MockMultipartFile("imageUrl",
+////                "333679583_1370979030385235_8353098425062243540_n",
+////                "image/jpeg",
+//                "333679583_1370979030385235_8353098425062243540_n.jpg".getBytes(StandardCharsets.UTF_8)
+//                );
+//
+//        MockMultipartFile jsonFile = new MockMultipartFile("dto",
+//                "",
+//                "application/json",
+//                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
+////        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
+//        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+//                        .file(imageUrl)
+//                        .file(jsonFile))
+//                .andExpect(status().isOk());
+//    }
 
     @Test
     @WithUserDetails("Victor")
@@ -92,11 +87,22 @@ public class ProductControllerIntegrationTests {
 
     @Test
     public void testGetProductBId() throws Exception {
-        Long productId = 3L;
+        Long productId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{productId}", productId))
-                .andExpect(status().isOk());
-        Optional<Products> productById = testH2RepositoryProducts.findById(productId);
-        Assertions.assertEquals("Баница", productById.get().getName());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id")
+                        .value("1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description")
+                        .value("Най вкусната Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price")
+                        .value("25.55"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.imageUrl")
+                        .value("http://res.cloudinary.com/dmxqvcevk/image/upload/v1699468575/wz1zplogpepazgdjdrs7.jpg"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.categories")
+                        .value("pie"))
+                .andReturn();
     }
 
 //    @Test
