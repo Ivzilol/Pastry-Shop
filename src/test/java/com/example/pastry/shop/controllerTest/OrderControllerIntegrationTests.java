@@ -162,4 +162,16 @@ public class OrderControllerIntegrationTests {
                         .value("Successful start processing order"))
                 .andReturn();
     }
+
+    @Test
+    @WithUserDetails("Tosho")
+    public void testGetAllSendOrders() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin/send"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
+                        .value("sent"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
+                        .value("20.44"))
+                .andReturn();
+    }
 }
