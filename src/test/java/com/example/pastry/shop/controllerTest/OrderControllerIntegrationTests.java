@@ -67,4 +67,18 @@ public class OrderControllerIntegrationTests {
                 .andReturn();
         Assertions.assertEquals(1, this.testH2RepositoryOrders.count());
     }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testGetOrderByUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
+                        .value("25.55"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
+                .value("newOrder"))
+                .andReturn();
+    }
 }
