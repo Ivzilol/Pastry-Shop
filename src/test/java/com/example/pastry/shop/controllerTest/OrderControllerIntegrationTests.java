@@ -39,6 +39,8 @@ public class OrderControllerIntegrationTests {
 
     private String baseUrl = "http://localhost";
 
+    private String ordersProcessingUrl = "http://localhost";
+
     @Autowired
     private TestH2RepositoryProducts testH2RepositoryProducts;
 
@@ -57,6 +59,7 @@ public class OrderControllerIntegrationTests {
     @BeforeEach
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/orders");
+        ordersProcessingUrl = ordersProcessingUrl.concat(":").concat(port + "").concat("/api/orders-processing");
     }
 
     @Test
@@ -147,6 +150,16 @@ public class OrderControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Order send"))
+                .andReturn();
+    }
+
+    @Test
+    public void testStartProcessingOrder() throws Exception {
+        Long orderId = 1L;
+        mockMvc.perform(MockMvcRequestBuilders.post(ordersProcessingUrl + "/admin/{id}", orderId))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Successful start processing order"))
                 .andReturn();
     }
 }
