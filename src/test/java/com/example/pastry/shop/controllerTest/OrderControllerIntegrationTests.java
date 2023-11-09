@@ -164,18 +164,20 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @WithUserDetails("Ivo")
+    @WithUserDetails("Tosho")
+    @Order(7)
     public void testGetAllConfirmedOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
-                        .value("Плато сладки"))
+                        .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("confirmed"))
                 .andReturn();
     }
 
     @Test
+    @Order(8)
     public void testChangeOrderStatus_Send() throws Exception {
         Long orderId = 1L;
         OrderStatusSendAdmin orderStatusSendAdmin = new OrderStatusSendAdmin();
@@ -193,6 +195,7 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
+    @Order(9)
     public void testStartProcessingOrder() throws Exception {
         Long orderId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.post(ordersProcessingUrl + "/admin/{id}", orderId))
@@ -204,19 +207,21 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Tosho")
+    @Order(10)
     public void testGetAllSendOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin/send"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value("20.44"))
+                        .value("16.168"))
                 .andReturn();
     }
 
     @Test
+    @Order(11)
     public void testUpdateStatusDelivery() throws Exception {
-        Long orderId = 1L;
+        Long orderId = 2L;
         OrderStatusDeliveryAdmin orderStatusDeliveryAdmin = new OrderStatusDeliveryAdmin();
         orderStatusDeliveryAdmin.setStatus("delivery");
         String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusDeliveryAdmin);
@@ -226,6 +231,17 @@ public class OrderControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Order delivery"))
+                .andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Ivo")
+    @Order(12)
+    public void testUserOrderHistory() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/history/user"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].username")
+                        .value("Ivo"))
                 .andReturn();
     }
 }
