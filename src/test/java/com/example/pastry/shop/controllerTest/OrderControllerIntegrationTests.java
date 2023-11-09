@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllerTest;
 
 
+import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.testRepository.TestH2RepositoryOrders;
@@ -145,8 +146,8 @@ public class OrderControllerIntegrationTests {
         orderStatusSendAdmin.setTimeDelivery("16:00");
         String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusSendAdmin);
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{id}", orderId)
-                .content(jsonRequest)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Order send"))
@@ -172,6 +173,21 @@ public class OrderControllerIntegrationTests {
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
                         .value("20.44"))
+                .andReturn();
+    }
+
+    @Test
+    public void testUpdateStatusDelivery() throws Exception {
+        Long orderId = 1L;
+        OrderStatusDeliveryAdmin orderStatusDeliveryAdmin = new OrderStatusDeliveryAdmin();
+        orderStatusDeliveryAdmin.setStatus("delivery");
+        String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusDeliveryAdmin);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/admin/delivery/{id}", orderId)
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Order delivery"))
                 .andReturn();
     }
 }
