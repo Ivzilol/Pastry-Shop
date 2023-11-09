@@ -51,4 +51,10 @@ public class HomeControllerIntegrationTests {
                         .value("Плато сладки"))
                 .andReturn();
     }
+
+    @Test
+    public void testGetRecommendedProducts() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/home"))
+                .andExpect(status().isOk());
+    }
 }
