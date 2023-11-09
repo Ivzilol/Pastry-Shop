@@ -60,7 +60,7 @@ public class CommentController {
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         try {
             commentService.deleteComment(id);
-            return (ResponseEntity<?>) ResponseEntity.ok();
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -70,6 +70,6 @@ public class CommentController {
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserComment(@PathVariable Long id) {
         commentService.deleteComment(id);
-        return (ResponseEntity<?>) ResponseEntity.ok();
+        return ResponseEntity.ok().build();
     }
 }

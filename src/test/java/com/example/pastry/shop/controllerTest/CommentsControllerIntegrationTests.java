@@ -102,4 +102,18 @@ public class CommentsControllerIntegrationTests {
                         .value("Пробен коментар"))
                 .andReturn();
     }
+
+    @Test
+    public void testDeleteCommentFromAdmin() throws Exception {
+        Long id = 7L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteCommentFromUser() throws Exception {
+        Long id = 6L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/user/{id}", id))
+                .andExpect(status().isOk());
+    }
 }
