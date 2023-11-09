@@ -244,4 +244,44 @@ public class OrderControllerIntegrationTests {
                         .value("Ivo"))
                 .andReturn();
     }
+
+    @Test
+    @WithUserDetails("Tosho")
+    @Order(13)
+    public void testAdminHistoryOrders() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/history/admin"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].username")
+                        .value("Ivo"))
+                .andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    @Order(14)
+    public void testNotConfirmedOrderByUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].productName")
+                        .value("Праскови"))
+                .andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    @Order(15)
+    public void testConfirmedOrdersByUser() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status/confirmed"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithUserDetails("Victor")
+    @Order(16)
+    public void testNotSendOrdersAdmin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status/confirmed/admin"))
+                .andExpect(status().isOk());
+    }
 }
