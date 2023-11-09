@@ -89,4 +89,17 @@ public class OrderControllerIntegrationTests {
                 .value("newOrder"))
                 .andReturn();
     }
+
+    @Test
+    @WithUserDetails("Victor")
+    public void testDeleteOrderByUser() throws Exception {
+        Long id = 9L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Delete product"))
+                .andReturn();
+    }
+
+
 }
