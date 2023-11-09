@@ -57,15 +57,23 @@ public class OrderControllerIntegrationTests {
     @Test
     @WithUserDetails("Victor")
     public void testCreateOrder() throws Exception {
-        Long productId = 1L;
-        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId))
+        Long productId1 = 1L;
+        Long productId2 = 2L;
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId1))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
                         .value("25.55"))
                 .andReturn();
-        Assertions.assertEquals(1, this.testH2RepositoryOrders.count());
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
+                        .value("Праскови"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price")
+                        .value("31.0"))
+                .andReturn();
+        Assertions.assertEquals(2, this.testH2RepositoryOrders.count());
     }
 
     @Test
