@@ -157,4 +157,13 @@ public class ProductControllerIntegrationTests {
                         .value("Погача"))
                 .andReturn();
     }
+    @Test
+    public void testDeleteProduct() throws Exception {
+        Long productId = 8L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{productId}", productId))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Product Delete"))
+                .andReturn();
+    }
 }
