@@ -27,4 +27,11 @@ public class OrderStatusSendAdmin {
         return timeDelivery;
     }
 
+    public void setDateDelivery(String dateDelivery) {
+        this.dateDelivery = dateDelivery;
+    }
+
+    public void setTimeDelivery(String timeDelivery) {
+        this.timeDelivery = timeDelivery;
+    }
 }

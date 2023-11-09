@@ -1,6 +1,7 @@
 package com.example.pastry.shop.controllerTest;
 
 
+import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.testRepository.TestH2RepositoryOrders;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
@@ -129,6 +130,23 @@ public class OrderControllerIntegrationTests {
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("confirmed"))
+                .andReturn();
+    }
+
+    @Test
+    public void testChangeOrderStatus_Send() throws Exception {
+        Long orderId = 1L;
+        OrderStatusSendAdmin orderStatusSendAdmin = new OrderStatusSendAdmin();
+        orderStatusSendAdmin.setStatus("sent");
+        orderStatusSendAdmin.setDateDelivery("2023-11-09");
+        orderStatusSendAdmin.setTimeDelivery("16:00");
+        String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusSendAdmin);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{id}", orderId)
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Order send"))
                 .andReturn();
     }
 }
