@@ -25,31 +25,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ProductControllerIntegrationTests {
 
-    @LocalServerPort
-    private int port;
-    @Autowired
-    private MockMvc mockMvc;
+        @LocalServerPort
+        private int port;
+        @Autowired
+        private MockMvc mockMvc;
 
-    private static TestRestTemplate restTemplate;
+        private static TestRestTemplate restTemplate;
 
-    private String baseUrl = "http://localhost";
+        private String baseUrl = "http://localhost";
 
-    @Autowired
-    private TestH2RepositoryProducts testH2RepositoryProducts;
+        @Autowired
+        private TestH2RepositoryProducts testH2RepositoryProducts;
 
-    @Autowired
-    private TestH2RepositoryUsers testH2RepositoryUsers;
+        @Autowired
+        private TestH2RepositoryUsers testH2RepositoryUsers;
 
-    @BeforeAll
-    public static void init() {
-        restTemplate = new TestRestTemplate();
-        restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-    }
+        @BeforeAll
+        public static void init() {
+            restTemplate = new TestRestTemplate();
+            restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        }
 
-    @BeforeEach
-    public void setUp() {
-        baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
-    }
+        @BeforeEach
+        public void setUp() {
+            baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
+        }
 
     //    @Test
 //    @WithUserDetails("Tosho")
