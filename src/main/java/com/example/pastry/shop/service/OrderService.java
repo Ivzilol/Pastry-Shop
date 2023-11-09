@@ -82,7 +82,7 @@ public class OrderService {
 
 
     public Set<Orders> updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-        Set<Orders> byUsers = this.ordersRepository.findByUsers(user);
+        Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId());
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
         setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);

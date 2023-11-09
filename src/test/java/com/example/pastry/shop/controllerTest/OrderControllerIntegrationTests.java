@@ -62,6 +62,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(1)
     public void testCreateOrder() throws Exception {
         Long productId1 = 1L;
         Long productId2 = 2L;
@@ -83,23 +84,49 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @WithUserDetails("Victor")
+    @WithUserDetails("Ivo")
+    @Order(2)
+    public void testCreateOrderSecondUser() throws Exception {
+        Long productId1 = 3L;
+        Long productId2 = 4L;
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId1))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
+                        .value("Козунак"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price")
+                        .value("20.21"))
+                .andReturn();
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
+                        .value("Плато сладки"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price")
+                        .value("18.88"))
+                .andReturn();
+        Assertions.assertEquals(4, this.testH2RepositoryOrders.count());
+    }
+
+
+    @Test
+    @WithUserDetails("Ivo")
+    @Order(3)
     public void testGetOrderByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
-                        .value("Баница"))
+                        .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
-                        .value("25.55"))
+                        .value("20.21"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("newOrder"))
                 .andReturn();
     }
 
     @Test
-    @WithUserDetails("Victor")
+    @WithUserDetails("Ivo")
+    @Order(4)
     public void testDeleteOrderByUser() throws Exception {
-        Long id = 2L;
+        Long id = 16L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
@@ -108,7 +135,8 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @WithUserDetails("Victor")
+    @WithUserDetails("Ivo")
+    @Order(5)
     public void testUpdateStatusOrder() throws Exception {
         OrdersStatusDTO ordersStatusDTO = new OrdersStatusDTO();
         ordersStatusDTO.setStatus("confirmed");
@@ -123,12 +151,25 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @WithUserDetails("Tosho")
+    @WithUserDetails("Ivo")
+    @Order(6)
+    public void testTrackingOrder() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/tracking"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
+                        .value("confirmed"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
+                        .value("Козунак"))
+                .andReturn();
+    }
+
+    @Test
+    @WithUserDetails("Ivo")
     public void testGetAllConfirmedOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
-                        .value("Баница"))
+                        .value("Плато сладки"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("confirmed"))
                 .andReturn();

@@ -15,8 +15,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     @Query("select o from Orders as o" +
             " join Users as u on o.users.id = u.id" +
-            " where o.status = 'newOrder'")
-    Set<Orders> findByUsers(Users user);
+            " where o.status = 'newOrder' and u.id = :userId")
+    Set<Orders> findByUsers(Long userId);
 
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
