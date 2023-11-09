@@ -4,9 +4,7 @@ import com.example.pastry.shop.model.dto.CategoryProductDto;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductControllerIntegrationTests {
 
         @LocalServerPort
@@ -159,7 +158,7 @@ public class ProductControllerIntegrationTests {
     }
     @Test
     public void testDeleteProduct() throws Exception {
-        Long productId = 8L;
+        Long productId = 9L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{productId}", productId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")

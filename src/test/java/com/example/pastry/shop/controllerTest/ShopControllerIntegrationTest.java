@@ -4,9 +4,7 @@ import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.testRepository.TestH2RepositoryShops;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ShopControllerIntegrationTest {
 
     @LocalServerPort
@@ -58,6 +57,8 @@ public class ShopControllerIntegrationTest {
     @WithUserDetails("Tosho")
     public void testCreateShop() throws Exception {
         if (this.testH2RepositoryShops.count() == 0) {
+            mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
+                    .andExpect(MockMvcResultMatchers.status().isOk());
             mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
                     .andExpect(MockMvcResultMatchers.status().isOk());
         }
@@ -105,9 +106,8 @@ public class ShopControllerIntegrationTest {
     @Test
     @WithUserDetails("Tosho")
     public void deleteShop() throws Exception {
-        List<Shops> shops = testH2RepositoryShops.findAll();
-        Long shopId = shops.stream().findFirst().get().getId();
+        Long shopId = 2L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

@@ -10,10 +10,7 @@ import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsersControllerIntegrationTest {
 
     //always start first test -> testRegisterUsers() independently to create users in db
@@ -64,6 +62,12 @@ public class UsersControllerIntegrationTest {
     @BeforeEach
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/users");
+    }
+
+    //always start first test -> testRegisterUsers() independently
+    @Test
+    @Order(1)
+    public void testRegisterUsers() {
         if (this.testH2RepositoryUsers.count() == 0) {
             UserRegistrationDTO registrationDto = new UserRegistrationDTO();
             registrationDto.setUsername("Tosho");
@@ -99,11 +103,6 @@ public class UsersControllerIntegrationTest {
             Assertions.assertEquals("Victor", response2.getUsername());
             Assertions.assertEquals("Ivo", response3.getUsername());
         }
-    }
-
-    //always start first test -> testRegisterUsers() independently
-    @Test
-    public void testRegisterUsers() {
         Assertions.assertEquals(3, testH2RepositoryUsers.findAll().size());
         Assertions.assertEquals(3, testH2RepositoryAuthority.findAll().size());
         List<Authority> admins = testH2RepositoryAuthority.findAll()
@@ -121,6 +120,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Tosho")
+    @Order(2)
     public void testGetAllUsers() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
                 .andExpect(status().isOk())
@@ -149,6 +149,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(3)
     public void getCurrentUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
@@ -170,6 +171,7 @@ public class UsersControllerIntegrationTest {
     }
 
     @Test
+    @Order(4)
     public void testGetUserById() throws Exception {
         Long id = 2L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{id}", id))
@@ -193,6 +195,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(5)
     public void updateUser() {
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
@@ -209,6 +212,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(6)
     public void testUnsuccessfulUpdateUser_HaveUserWithSameUsername() {
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
@@ -225,6 +229,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(7)
     public void testUnsuccessfulUpdateUser_HaveUserWithSameEmail() {
         Long userId = 2L;
         UpdateUserDTO updateUserDTO = new UpdateUserDTO();
@@ -241,6 +246,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(8)
     public void testChangePassword() throws Exception {
         ChangePasswordDto changePasswordDto = new ChangePasswordDto();
         changePasswordDto.setOldPassword("asdasd");
@@ -257,6 +263,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(9)
     public void testUnsuccessfulChangePassword_PasswordNotMatch() throws Exception {
         ChangePasswordDto changePasswordDto = new ChangePasswordDto();
         changePasswordDto.setOldPassword("asdasd");
@@ -271,6 +278,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(10)
     public void testSendEmailForgottenPassword() throws Exception {
         ForgottenPasswordEmailDto forgottenPasswordEmailDto = new ForgottenPasswordEmailDto();
         forgottenPasswordEmailDto.setEmail("victor@abv.bg");
