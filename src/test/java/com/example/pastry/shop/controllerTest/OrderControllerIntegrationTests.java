@@ -1,9 +1,12 @@
 package com.example.pastry.shop.controllerTest;
 
 
+import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.testRepository.TestH2RepositoryOrders;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -86,7 +90,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
                         .value("25.55"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
-                .value("newOrder"))
+                        .value("newOrder"))
                 .andReturn();
     }
 
@@ -101,5 +105,18 @@ public class OrderControllerIntegrationTests {
                 .andReturn();
     }
 
-
+    @Test
+    @WithUserDetails("Victor")
+    public void testUpdateStatusOrder() throws Exception {
+        OrdersStatusDTO ordersStatusDTO = new OrdersStatusDTO();
+        ordersStatusDTO.setStatus("confirmed");
+        String jsonRequest = new ObjectMapper().writeValueAsString(ordersStatusDTO);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl)
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Confirm order"))
+                .andReturn();
+    }
 }
