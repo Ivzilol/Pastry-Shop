@@ -7,7 +7,6 @@ import com.example.pastry.shop.model.dto.OrdersStatusDTO;
 import com.example.pastry.shop.testRepository.TestH2RepositoryOrders;
 import com.example.pastry.shop.testRepository.TestH2RepositoryProducts;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
