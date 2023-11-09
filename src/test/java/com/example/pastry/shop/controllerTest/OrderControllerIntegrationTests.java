@@ -119,4 +119,16 @@ public class OrderControllerIntegrationTests {
                         .value("Confirm order"))
                 .andReturn();
     }
+
+    @Test
+    @WithUserDetails("Tosho")
+    public void testGetAllConfirmedOrders() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
+                        .value("Баница"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
+                        .value("confirmed"))
+                .andReturn();
+    }
 }

@@ -59,7 +59,7 @@ public class OrdersController {
                                                @AuthenticationPrincipal Users user) {
         this.orderService.updateStatus(ordersStatusDTO, user);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Confirm order");
+            customResponse.setCustom("Confirm order");
         return ResponseEntity.ok(customResponse);
     }
 
