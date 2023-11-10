@@ -1,6 +1,6 @@
 package com.example.pastry.shop.config;
 
-import com.example.pastry.shop.util.MessageInterceptor;
+import com.example.pastry.shop.util.ProductInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -24,6 +24,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MessageInterceptor()).addPathPatterns("/message/{room}");
+        registry.addInterceptor(new ProductInterceptor()).addPathPatterns("/api/products");
     }
 }
