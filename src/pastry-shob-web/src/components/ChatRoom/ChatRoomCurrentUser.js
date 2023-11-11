@@ -6,6 +6,7 @@ import baseURL from "../BaseURL/BaseURL";
 import {over} from "stompjs";
 import ajax from "../../Services/FetchService";
 import ChatRoomsAdmin from "./ChatRoomsAdmin";
+import {useNavigate} from "react-router-dom";
 
 let stompClient = null;
 
@@ -13,6 +14,7 @@ const ChatRoomCurrentUser = () => {
 
 
     const user = useUser();
+    const navigate = useNavigate();
     const roomCode = window.location.href.split("/chat-room/")[1];
     const [roles, setRoles] = useState(null);
     const [publicChats, setPublicChats] = useState([]);
@@ -97,8 +99,8 @@ const ChatRoomCurrentUser = () => {
 
     function makeMessagesAnswered() {
         ajax(`${baseURL}api/chat-room/admin/finish/${roomCode}`, "PATCH", user.jwt)
-            .then(response => {
-
+            .then(() => {
+                navigate("/chat-room")
             })
     }
 
