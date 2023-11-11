@@ -21,14 +21,14 @@ public class OrdersInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(@NotNull HttpServletRequest request,
                            @NotNull HttpServletResponse response,
-                           @NotNull Object handler, ModelAndView modelAndView) throws Exception {
+                           @NotNull Object handler, ModelAndView modelAndView) {
 
     }
 
     @Override
     public void afterCompletion(@NotNull HttpServletRequest request,
                                 @NotNull HttpServletResponse response,
-                                @NotNull Object handler, Exception ex) throws Exception {
+                                @NotNull Object handler, Exception ex) {
 
     }
 }
