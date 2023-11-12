@@ -173,6 +173,7 @@ public class OrderService {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
             currentOrder.setDateOfDelivery(localDate);
             currentOrder.setTimeOfDelivery(timeDelivery);
+            currentOrder.setStatus("sent");
             this.ordersRepository.save(currentOrder);
         }
     }

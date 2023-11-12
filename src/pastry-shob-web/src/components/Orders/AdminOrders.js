@@ -65,7 +65,8 @@ const AdminOrders = () => {
             body: JSON.stringify(requestBody)
 
         })
-            .then(() => {
+            .then((response) => {
+                console.log(response)
                 startProcessingOrder(id)
             });
     }
