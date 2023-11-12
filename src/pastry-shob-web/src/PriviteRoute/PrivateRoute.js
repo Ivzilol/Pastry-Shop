@@ -29,17 +29,6 @@ const PrivateRoute = (props) => {
     ) : (
         <Navigate to="/login"/>
     );
-
-
-    // if (user && user.jwt) {
-    //     ajax(`/api/auth/validate`, "get", user.jwt).then((isValid) => {
-    //         setIsValid(isValid);
-    //         setIsLoading(false);
-    //     });
-    // } else {
-    //     return <Navigate to="/login" />;
-    // }
-
 };
 
 export default PrivateRoute;
