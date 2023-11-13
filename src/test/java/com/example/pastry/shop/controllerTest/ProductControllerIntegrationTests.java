@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.mock.web.MockMultipartFile;
@@ -51,7 +52,7 @@ public class ProductControllerIntegrationTests {
 
     @BeforeEach
     public void setUp() {
-            baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
+        baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
     }
 
     @Test
@@ -189,5 +190,25 @@ public class ProductControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Product Delete"))
                 .andReturn();
+    }
+
+    @Test
+    @Order(9)
+    public void testUpdateProduct() throws Exception {
+        Long productId = 1L;
+        MockMultipartFile dto = new MockMultipartFile(
+                "dto",
+                "",
+                "application/json",
+                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .multipart(baseUrl + "/edit/{productId}", productId)
+                        .file(dto)
+                        .with(request -> {
+                            request.setMethod(HttpMethod.PATCH.name());
+                            return request;
+                        })
+        ).andExpect(status().isOk());
     }
 }

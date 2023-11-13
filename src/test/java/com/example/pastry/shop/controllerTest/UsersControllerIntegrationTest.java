@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UsersControllerIntegrationTest {
 
-    //always start first test -> testRegisterUsers() independently to create users in db
     @LocalServerPort
     private int port;
 

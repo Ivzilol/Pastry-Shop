@@ -59,15 +59,6 @@ public class ShopsController {
         return ResponseEntity.ok(customResponse);
     }
 
-    @NotNull
-    private ResponseEntity<ShopsDTO> getShopsDTOResponseEntity(Shops shopsService) {
-        ShopsDTO shopsDTO = new ShopsDTO(
-                shopsService.getId(), shopsService.getNumber(), shopsService.getName(),
-                shopsService.getStatus(), shopsService.getTown(), shopsService.getAddress()
-        );
-        return ResponseEntity.ok(shopsDTO);
-    }
-
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteShop(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
