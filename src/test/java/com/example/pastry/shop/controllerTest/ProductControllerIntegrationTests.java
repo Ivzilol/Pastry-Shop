@@ -51,48 +51,50 @@ public class ProductControllerIntegrationTests {
 
     @BeforeEach
     public void setUp() {
-        baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
+            baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
     }
 
     @Test
     @Order(1)
     @WithUserDetails("Tosho")
     public void testCreateProduct() throws Exception {
-        MockMultipartFile product1 = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(product1))
-                .andExpect(status().isOk());
-        MockMultipartFile product2 = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Праскови\", \"description\": \"Най вкусните сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"31\"}".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(product2))
-                .andExpect(status().isOk());
-        MockMultipartFile product3 = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Козунак\", \"description\": \"Козуначен хляб\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"20.21\"}".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(product3))
-                .andExpect(status().isOk());
-        MockMultipartFile product4 = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(product4))
-                .andExpect(status().isOk());
-        MockMultipartFile product5 = new MockMultipartFile("dto",
-                "",
-                "application/json",
-                "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
-        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-                        .file(product5))
-                .andExpect(status().isOk());
+        if (testH2RepositoryProducts.count() == 0) {
+            MockMultipartFile product1 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                            .file(product1))
+                    .andExpect(status().isOk());
+            MockMultipartFile product2 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Праскови\", \"description\": \"Най вкусните сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"31\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                            .file(product2))
+                    .andExpect(status().isOk());
+            MockMultipartFile product3 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Козунак\", \"description\": \"Козуначен хляб\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"20.21\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                            .file(product3))
+                    .andExpect(status().isOk());
+            MockMultipartFile product4 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                            .file(product4))
+                    .andExpect(status().isOk());
+            MockMultipartFile product5 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                            .file(product5))
+                    .andExpect(status().isOk());
+        }
     }
 
     @Test

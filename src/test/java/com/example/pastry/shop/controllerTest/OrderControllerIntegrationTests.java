@@ -16,6 +16,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -39,6 +40,7 @@ public class OrderControllerIntegrationTests {
 
     private String ordersProcessingUrl = "http://localhost";
 
+    private String productsBaseUrl = "http://localhost";
     @Autowired
     private TestH2RepositoryProducts testH2RepositoryProducts;
 
@@ -58,11 +60,55 @@ public class OrderControllerIntegrationTests {
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/orders");
         ordersProcessingUrl = ordersProcessingUrl.concat(":").concat(port + "").concat("/api/orders-processing");
+        productsBaseUrl = productsBaseUrl.concat(":").concat(port + "").concat("/api/products");
+    }
+
+    @Test
+    @Order(1)
+    @WithUserDetails("Tosho")
+    public void products() throws Exception {
+        if (testH2RepositoryProducts.count() == 0) {
+            MockMultipartFile product1 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
+                            .file(product1))
+                    .andExpect(status().isOk());
+            MockMultipartFile product2 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Праскови\", \"description\": \"Най вкусните сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"31\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
+                            .file(product2))
+                    .andExpect(status().isOk());
+            MockMultipartFile product3 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Козунак\", \"description\": \"Козуначен хляб\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"20.21\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
+                            .file(product3))
+                    .andExpect(status().isOk());
+            MockMultipartFile product4 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
+                            .file(product4))
+                    .andExpect(status().isOk());
+            MockMultipartFile product5 = new MockMultipartFile("dto",
+                    "",
+                    "application/json",
+                    "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+            mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
+                            .file(product5))
+                    .andExpect(status().isOk());
+        }
     }
 
     @Test
     @WithUserDetails("Victor")
-    @Order(1)
+    @Order(2)
     public void testCreateOrder() throws Exception {
         Long productId1 = 1L;
         Long productId2 = 2L;
@@ -85,7 +131,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(2)
+    @Order(3)
     public void testCreateOrderSecondUser() throws Exception {
         Long productId1 = 3L;
         Long productId2 = 4L;
@@ -109,7 +155,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(3)
+    @Order(4)
     public void testGetOrderByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
@@ -124,7 +170,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(4)
+    @Order(5)
     public void testDeleteOrderByUser() throws Exception {
         Long id = 4L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
@@ -136,7 +182,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(5)
+    @Order(6)
     public void testUpdateStatusOrder() throws Exception {
         OrdersStatusDTO ordersStatusDTO = new OrdersStatusDTO();
         ordersStatusDTO.setStatus("confirmed");
@@ -152,7 +198,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(6)
+    @Order(7)
     public void testTrackingOrder() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/tracking"))
                 .andExpect(status().isOk())
@@ -165,7 +211,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Tosho")
-    @Order(7)
+    @Order(8)
     public void testGetAllConfirmedOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin"))
                 .andExpect(status().isOk())
@@ -177,7 +223,7 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     public void testChangeOrderStatus_Send() throws Exception {
         Long orderId = 1L;
         OrderStatusSendAdmin orderStatusSendAdmin = new OrderStatusSendAdmin();
@@ -195,7 +241,7 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     public void testStartProcessingOrder() throws Exception {
         Long orderId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.post(ordersProcessingUrl + "/admin/{id}", orderId))
@@ -207,7 +253,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Tosho")
-    @Order(10)
+    @Order(11)
     public void testGetAllSendOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin/send"))
                 .andExpect(status().isOk())
@@ -219,7 +265,7 @@ public class OrderControllerIntegrationTests {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     public void testUpdateStatusDelivery() throws Exception {
         Long orderId = 1L;
         OrderStatusDeliveryAdmin orderStatusDeliveryAdmin = new OrderStatusDeliveryAdmin();
@@ -236,7 +282,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Ivo")
-    @Order(12)
+    @Order(13)
     public void testUserOrderHistory() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/history/user"))
                 .andExpect(status().isOk())
@@ -247,7 +293,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Tosho")
-    @Order(13)
+    @Order(14)
     public void testAdminHistoryOrders() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/history/admin"))
                 .andExpect(status().isOk())
@@ -258,7 +304,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
-    @Order(14)
+    @Order(15)
     public void testNotConfirmedOrderByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status"))
                 .andExpect(status().isOk())
@@ -271,7 +317,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
-    @Order(15)
+    @Order(16)
     public void testConfirmedOrdersByUser() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status/confirmed"))
                 .andExpect(status().isOk());
@@ -279,7 +325,7 @@ public class OrderControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
-    @Order(16)
+    @Order(17)
     public void testNotSendOrdersAdmin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status/confirmed/admin"))
                 .andExpect(status().isOk());
