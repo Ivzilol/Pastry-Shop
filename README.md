@@ -3,13 +3,19 @@
 
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/32f8fff9988007445e3f307563b6d391e04edb24/src/main/resources/static/img/main_picture.png)
 
-Table of Contents 
+<h4>Content</h4>Content 
 Features
+
 Project requirements
+
 Getting Started
+
 Technologies Used
+
 Demo
+
 License
+
 More pictures
 
 This project consists of two applications: one is a Spring Boot Rest API called pastry-shop-backend and another is a ReactJS application called pastry-shop-frontend
