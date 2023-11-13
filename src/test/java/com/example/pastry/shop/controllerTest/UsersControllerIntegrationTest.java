@@ -356,4 +356,16 @@ public class UsersControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
     }
+
+    @Test
+    @Order(15)
+    @WithUserDetails("Tosho")
+    public void testPromoteUser() throws Exception {
+        Long userId = 4L;
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/admin/promote/{id}", userId))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Successful Promote"))
+                .andReturn();
+    }
 }
