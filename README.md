@@ -100,4 +100,10 @@ https://sladkarnicata-na-mama.azurewebsites.net/
 <h3>More pictures</h3>
 <hr>
 
-![Примерна снимка]()
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture1.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture2.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture3.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture5.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture6.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/baa2a7b58e17ab5fc22a57dd77b7bbcc6500d64c/src/main/resources/static/img/picture7.png)
+
