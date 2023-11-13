@@ -341,4 +341,19 @@ public class UsersControllerIntegrationTest {
                         .value("Pesho"))
                 .andReturn();
     }
+
+    @Test
+    @Order(14)
+    public void testForgottenPasswordSendLink() throws Exception {
+        ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto = new ForgottenPasswordNewPasswordDto();
+        Users user = this.testH2RepositoryUsers.findByUsername("Pesho");
+        forgottenPasswordNewPasswordDto.setVerificationCode(user.getVerificationCode());
+        forgottenPasswordNewPasswordDto.setPassword("asdasd");
+        forgottenPasswordNewPasswordDto.setConfirmPassword("asdasd");
+        String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordNewPasswordDto);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/register/forgotten-password/new-password")
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isAccepted());
+    }
 }

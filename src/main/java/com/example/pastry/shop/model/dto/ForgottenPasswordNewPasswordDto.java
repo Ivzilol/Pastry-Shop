@@ -1,7 +1,5 @@
 package com.example.pastry.shop.model.dto;
 
-import jakarta.validation.constraints.Size;
-
 public class ForgottenPasswordNewPasswordDto {
 
     private String verificationCode;
