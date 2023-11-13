@@ -59,6 +59,7 @@ Created by me application is intended to serve as a portfolio for me, as althoug
 Enjoy
 
 <h3>Technologies Used</h3>
+<hr>
 
 - Java 17
 
@@ -85,4 +86,14 @@ Enjoy
 - Spring Boot Mail for sending emails
 
 - And more...
+
+<h3>Demo</h3>
+<hr>
+
+https://sladkarnicata-na-mama.azurewebsites.net/
+
+<h3>License</h3>
+<hr>
+
+- MIT License
 
