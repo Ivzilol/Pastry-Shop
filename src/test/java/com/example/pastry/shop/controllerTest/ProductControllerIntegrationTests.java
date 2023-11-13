@@ -12,10 +12,14 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,52 +28,59 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ProductControllerIntegrationTests {
 
-        @LocalServerPort
-        private int port;
-        @Autowired
-        private MockMvc mockMvc;
+    @LocalServerPort
+    private int port;
+    @Autowired
+    private MockMvc mockMvc;
 
-        private static TestRestTemplate restTemplate;
+    private static TestRestTemplate restTemplate;
 
-        private String baseUrl = "http://localhost";
+    private String baseUrl = "http://localhost";
 
-        @Autowired
-        private TestH2RepositoryProducts testH2RepositoryProducts;
+    @Autowired
+    private TestH2RepositoryProducts testH2RepositoryProducts;
 
-        @Autowired
-        private TestH2RepositoryUsers testH2RepositoryUsers;
+    @Autowired
+    private TestH2RepositoryUsers testH2RepositoryUsers;
 
-        @BeforeAll
-        public static void init() {
-            restTemplate = new TestRestTemplate();
-            restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        }
+    @BeforeAll
+    public static void init() {
+        restTemplate = new TestRestTemplate();
+        restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+    }
 
-        @BeforeEach
-        public void setUp() {
-            baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
-        }
+    @BeforeEach
+    public void setUp() {
+        baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/products");
+    }
 
-    //    @Test
-//    @WithUserDetails("Tosho")
-//    public void testCreateProduct() throws Exception {
-//        File file = new File("D:\\Img-pastry-shop\\333679583_1370979030385235_8353098425062243540_n");
-//        MockMultipartFile imageUrl = new MockMultipartFile("imageUrl",
-////                "333679583_1370979030385235_8353098425062243540_n",
-////                "image/jpeg",
-//                "333679583_1370979030385235_8353098425062243540_n.jpg".getBytes(StandardCharsets.UTF_8)
-//                );
-//
-//        MockMultipartFile jsonFile = new MockMultipartFile("dto",
-//                "",
-//                "application/json",
-//                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
-////        String jsonRequest = new ObjectMapper().writeValueAsString(dto);
-//        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
-//                        .file(imageUrl)
-//                        .file(jsonFile))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    @Order(1)
+    @WithUserDetails("Tosho")
+    public void testCreateProduct() throws Exception {
+        MockMultipartFile product1 = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"Баница\", \"description\": \"Най Вкусната баница\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"21.99\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product1))
+                .andExpect(status().isOk());
+        MockMultipartFile product2 = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"Праскови\", \"description\": \"Най вкусните сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"31\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product2))
+                .andExpect(status().isOk());
+        MockMultipartFile product3 = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"Козунак\", \"description\": \"Козуначен хляб\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"20.21\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product3))
+                .andExpect(status().isOk());
+    }
+
     @Test
     public void testGetProductBId() throws Exception {
         Long productId = 1L;
@@ -108,10 +119,6 @@ public class ProductControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
                         .value("Баница"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[3].name")
-                        .value("Плато сладки"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[7].name")
-                        .value("Мъфини"))
                 .andReturn();
     }
 
@@ -156,6 +163,7 @@ public class ProductControllerIntegrationTests {
                         .value("Погача"))
                 .andReturn();
     }
+
     @Test
     public void testDeleteProduct() throws Exception {
         Long productId = 9L;

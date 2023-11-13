@@ -28,7 +28,7 @@ public class ProductController {
 
     @PostMapping(value = "/create/admin", consumes = {"multipart/form-data"})
     public ResponseEntity<?> createProduct(
-            @RequestPart(value = "imageUrl") MultipartFile file,
+            @RequestPart(value = "imageUrl", required = false) MultipartFile file,
             @RequestPart(value = "dto") CreateProductDTO createProductDTO
     ) throws IOException {
         this.productsService.createProduct(createProductDTO, file);
