@@ -60,31 +60,31 @@ Enjoy
 
 <h3>Technologies Used</h3>
 
--- Java 17
+- Java 17
 
--- Spring Boot 3.1.3
+- Spring Boot 3.1.3
 
--- Spring Security
+- Spring Security
 
--- Spring Batch
+- Spring Batch
 
--- Spring Data JPA
+- Spring Data JPA
 
--- Jwt.io
+- Jwt.io
 
--- Web Sockets
+- Web Sockets
 
--- React, Bootstrap for React
+- React, Bootstrap for React
 
--- HTML, CSS, JavaScript
+- HTML, CSS, JavaScript
 
--- SockJS client and StompJS
+- SockJS client and StompJS
 
--- MySQL
+- MySQL
 
--- Cloudinary for managing images
+- Cloudinary for managing images
 
--- Spring Boot Mail for sending emails
+- Spring Boot Mail for sending emails
 
--- And more...
+- And more...
 
