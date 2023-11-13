@@ -5,17 +5,17 @@
 
 <h4>Content</h4>
 
-Features
+- Features
 
-Project requirements
+- Project requirements
 
-Getting Started
+- Getting Started
 
-Technologies Used
+- Technologies Used
 
-Demo
+- Demo
 
-License
+- License
 
 More pictures
 
