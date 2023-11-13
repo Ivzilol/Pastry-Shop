@@ -8,6 +8,7 @@ import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.With;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -367,5 +368,14 @@ public class UsersControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Successful Promote"))
                 .andReturn();
+    }
+
+    @Test
+    @Order(16)
+    @WithUserDetails("Tosho")
+    public void testDeleteUser() throws Exception {
+        Long userId = 4L;
+        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/admin/{id}", userId))
+                .andExpect(status().isOk());
     }
 }
