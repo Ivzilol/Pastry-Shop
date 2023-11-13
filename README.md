@@ -26,7 +26,7 @@ This project consists of two applications: one is a Spring Boot Rest API called 
 The app is created with a portfolio in mind and mimics an online pastry shop for ordering and delivering confectionery products.
 
 
-<h3>Applications</h3>
+<h3>Project requirements</h3>
 
 - spring-backend
 
