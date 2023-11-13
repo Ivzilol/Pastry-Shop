@@ -41,6 +41,7 @@ public class ShopControllerIntegrationTest {
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
 
+
     @BeforeAll
     public static void init() {
         restTemplate = new TestRestTemplate();
@@ -54,6 +55,7 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
+    @Order(1)
     @WithUserDetails("Tosho")
     public void testCreateShop() throws Exception {
         if (this.testH2RepositoryShops.count() == 0) {
@@ -104,6 +106,7 @@ public class ShopControllerIntegrationTest {
     }
 
     @Test
+    @Order(2)
     @WithUserDetails("Tosho")
     public void deleteShop() throws Exception {
         Long shopId = 2L;

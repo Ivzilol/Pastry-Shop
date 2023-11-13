@@ -105,14 +105,14 @@ public class CommentsControllerIntegrationTests {
 
     @Test
     public void testDeleteCommentFromAdmin() throws Exception {
-        Long id = 7L;
+        Long id = 1L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testDeleteCommentFromUser() throws Exception {
-        Long id = 6L;
+        Long id = 2L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/user/{id}", id))
                 .andExpect(status().isOk());
     }
