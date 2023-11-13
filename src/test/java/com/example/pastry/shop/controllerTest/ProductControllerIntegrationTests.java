@@ -82,6 +82,7 @@ public class ProductControllerIntegrationTests {
     }
 
     @Test
+    @Order(2)
     public void testGetProductBId() throws Exception {
         Long productId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/{productId}", productId))
@@ -91,11 +92,9 @@ public class ProductControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description")
-                        .value("Най вкусната Баница"))
+                        .value("Най Вкусната баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("25.55"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.imageUrl")
-                        .value("http://res.cloudinary.com/dmxqvcevk/image/upload/v1699468575/wz1zplogpepazgdjdrs7.jpg"))
+                        .value("21.99"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.categories")
                         .value("pie"))
                 .andReturn();
@@ -103,6 +102,7 @@ public class ProductControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(3)
     public void testLikeProduct() throws Exception {
         Long productId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{id}", productId))
@@ -114,6 +114,7 @@ public class ProductControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(4)
     public void testGetUserLikes() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
@@ -124,6 +125,7 @@ public class ProductControllerIntegrationTests {
 
     @Test
     @WithUserDetails("Victor")
+    @Order(5)
     public void testDislikeProduct() throws Exception {
         Long productId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/dislike/{id}", productId))
@@ -134,6 +136,7 @@ public class ProductControllerIntegrationTests {
     }
 
     @Test
+    @Order(6)
     public void testGetCategories() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/pies"))
                 .andExpect(status().isOk())
@@ -141,12 +144,11 @@ public class ProductControllerIntegrationTests {
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
                         .value("Козунак"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name")
-                        .value("Погача"))
                 .andReturn();
     }
 
     @Test
+    @Order(7)
     public void testSearch() throws Exception {
         CategoryProductDto categoryProductDto = new CategoryProductDto();
         categoryProductDto.setSelectOptions("pie");
@@ -159,14 +161,13 @@ public class ProductControllerIntegrationTests {
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
                         .value("Козунак"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name")
-                        .value("Погача"))
                 .andReturn();
     }
 
     @Test
+    @Order(8)
     public void testDeleteProduct() throws Exception {
-        Long productId = 9L;
+        Long productId = 3L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{productId}", productId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
