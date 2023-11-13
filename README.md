@@ -66,8 +66,6 @@ Enjoy
 
 - Spring Security
 
-- Spring Batch
-
 - Spring Data JPA
 
 - Jwt.io
