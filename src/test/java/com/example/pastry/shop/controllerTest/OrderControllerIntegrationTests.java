@@ -71,7 +71,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("25.55"))
+                        .value("21.99"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
@@ -126,7 +126,7 @@ public class OrderControllerIntegrationTests {
     @WithUserDetails("Ivo")
     @Order(4)
     public void testDeleteOrderByUser() throws Exception {
-        Long id = 16L;
+        Long id = 4L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
@@ -214,14 +214,14 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value("16.168"))
+                        .value("20.21"))
                 .andReturn();
     }
 
     @Test
     @Order(11)
     public void testUpdateStatusDelivery() throws Exception {
-        Long orderId = 2L;
+        Long orderId = 1L;
         OrderStatusDeliveryAdmin orderStatusDeliveryAdmin = new OrderStatusDeliveryAdmin();
         orderStatusDeliveryAdmin.setStatus("delivery");
         String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusDeliveryAdmin);

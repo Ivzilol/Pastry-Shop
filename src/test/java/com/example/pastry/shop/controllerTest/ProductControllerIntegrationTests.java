@@ -79,6 +79,20 @@ public class ProductControllerIntegrationTests {
         mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
                         .file(product3))
                 .andExpect(status().isOk());
+        MockMultipartFile product4 = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product4))
+                .andExpect(status().isOk());
+        MockMultipartFile product5 = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product5))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -167,7 +181,7 @@ public class ProductControllerIntegrationTests {
     @Test
     @Order(8)
     public void testDeleteProduct() throws Exception {
-        Long productId = 3L;
+        Long productId = 5L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{productId}", productId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
