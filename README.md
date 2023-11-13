@@ -100,4 +100,4 @@ https://sladkarnicata-na-mama.azurewebsites.net/
 <h3>More pictures</h3>
 <hr>
 
-![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/d89050e9a9bad41d8d2b3f84788200cb93ac71f7/src/main/resources/static/img/picture1.png)
+![Примерна снимка]()
