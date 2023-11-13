@@ -1,14 +1,12 @@
 package com.example.pastry.shop.controllerTest;
 
-import com.example.pastry.shop.model.dto.ChangePasswordDto;
-import com.example.pastry.shop.model.dto.ForgottenPasswordEmailDto;
-import com.example.pastry.shop.model.dto.UpdateUserDTO;
-import com.example.pastry.shop.model.dto.UserRegistrationDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +40,8 @@ public class UsersControllerIntegrationTest {
 
     private String baseUrl = "http://localhost";
 
+    private String authBaseURL = "http://localhost";
+
     private static TestRestTemplate restTemplate;
 
     @Autowired
@@ -62,6 +62,7 @@ public class UsersControllerIntegrationTest {
     @BeforeEach
     public void setUp() {
         baseUrl = baseUrl.concat(":").concat(port + "").concat("/api/users");
+        authBaseURL = authBaseURL.concat(":").concat(port + "").concat("/api/auth");
     }
 
     //always start first test -> testRegisterUsers() independently
@@ -287,5 +288,37 @@ public class UsersControllerIntegrationTest {
                 .content(jsonRequest)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
+    }
+
+    @Test
+    @Order(11)
+    public void testRegUser() throws Exception {
+        if (this.testH2RepositoryUsers.count() == 3) {
+            UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+            registrationDto.setUsername("Pesho");
+            registrationDto.setFirstName("Petur");
+            registrationDto.setLastName("Petrov");
+            registrationDto.setEmail("pesho@abv.bg");
+            registrationDto.setAddress("Sofiq");
+            registrationDto.setPhoneNumber("0898776655");
+            registrationDto.setPassword("asdasd");
+            registrationDto.setConfirmPassword("asdasd");
+            String jsonRequest = new ObjectMapper().writeValueAsString(registrationDto);
+            mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register")
+                            .content(jsonRequest)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.username")
+                            .value("Pesho"))
+                    .andReturn();
+        }
+    }
+
+    @Test
+    public void testLoginUser() throws JsonProcessingException {
+        AuthCredentialRequest authCredentialRequest = new AuthCredentialRequest();
+        authCredentialRequest.setUsername("Pesho");
+        authCredentialRequest.setPassword("asdasd");
+        String jsonRequest = new ObjectMapper().writeValueAsString(authCredentialRequest);
     }
 }
