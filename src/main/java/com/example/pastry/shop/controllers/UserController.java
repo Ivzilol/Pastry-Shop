@@ -42,7 +42,7 @@ public class UserController {
         Users user = this.userService.validateUser(verification);
         if (!user.getEmail().isEmpty()) {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Successful activate your profile");
+                customResponse.setCustom("Successful activate your profile");
             return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

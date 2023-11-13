@@ -315,10 +315,30 @@ public class UsersControllerIntegrationTest {
     }
 
     @Test
-    public void testLoginUser() throws JsonProcessingException {
+    @Order(12)
+    public void testActivateUser() throws Exception {
+        Users user = this.testH2RepositoryUsers.findByUsername("Pesho");
+        String verification = user.getVerificationCode();
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register/verify/{verification}", verification))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value("Successful activate your profile"))
+                .andReturn();
+    }
+
+    @Test
+    @Order(13)
+    public void testLoginUser() throws Exception {
         AuthCredentialRequest authCredentialRequest = new AuthCredentialRequest();
         authCredentialRequest.setUsername("Pesho");
         authCredentialRequest.setPassword("asdasd");
         String jsonRequest = new ObjectMapper().writeValueAsString(authCredentialRequest);
+        mockMvc.perform(MockMvcRequestBuilders.post(authBaseURL + "/login")
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.username")
+                        .value("Pesho"))
+                .andReturn();
     }
 }

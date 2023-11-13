@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TestH2RepositoryUsers extends JpaRepository<Users, Long> {
 
+    Users findByUsername(String pesho);
 }
