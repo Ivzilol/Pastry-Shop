@@ -1,7 +1,7 @@
 <h1>ReactJS-Spring-Boot-Full-Stack-App</h1>
 <h3>Welcome to Mom's Candy Store, an app that simulates online ordering and delivery of confectionery.</h3>
-![Uploading image.png…]()
 
+![img]([images/example.png](https://github.com/Ivzilol/Pastry-Shop/blob/master/src/main/resources/static/img/img.png))
 
 Table of Contents 
 Features
