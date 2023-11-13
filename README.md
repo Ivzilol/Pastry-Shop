@@ -58,3 +58,20 @@ Created by me application is intended to serve as a portfolio for me, as althoug
 
 Enjoy
 
+<h3>Technologies Used</h3>
+
+-- Java 17
+-- Spring Boot 3.1.3
+-- Spring Security
+-- Spring Batch
+-- Spring Data JPA
+-- Jwt.io
+-- Web Sockets
+-- React, Bootstrap for React
+-- HTML, CSS, JavaScript
+-- SockJS client and StompJS
+-- MySQL
+-- Cloudinary for managing images
+-- Spring Boot Mail for sending emails
+-- And more...
+
