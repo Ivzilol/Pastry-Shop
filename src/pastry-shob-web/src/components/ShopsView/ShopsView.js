@@ -50,8 +50,10 @@ const ShopsView = () => {
 
     function handleDeleteComment(commentId) {
         ajax(`${baseURL}api/comments/user/${commentId}`, "DELETE", user.jwt)
-            .then(() => {
-                refreshPage();
+            .then((response) => {
+                if (response.custom === 'Successful delete message') {
+                    refreshPage()
+                }
             });
     }
 

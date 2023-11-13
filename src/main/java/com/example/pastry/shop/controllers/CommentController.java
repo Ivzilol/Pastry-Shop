@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.CommentService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -70,6 +71,9 @@ public class CommentController {
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserComment(@PathVariable Long id) {
         commentService.deleteComment(id);
-        return ResponseEntity.ok().build();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful delete message");
+        return ResponseEntity.ok().body(customResponse);
+
     }
 }
