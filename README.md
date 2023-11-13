@@ -50,7 +50,7 @@ Created by me application is intended to serve as a portfolio for me, as althoug
    
 4. Build and run the project pastry-shop using maven
 
-5. Build and run the project pastry-shop-web using npm. Follow these step first: 1) npm install 2) go to \boxerclub-bg-rest-client 3) npm start.
+5. Build and run the project pastry-shop-web using npm. Follow these step first: 1) npm install 2) go to \pastry-shop-web 3) npm start.
 
 6. Access the web application by visiting http://localhost:3000 in your web browser.
 
