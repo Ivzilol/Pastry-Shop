@@ -41,6 +41,7 @@ Created by me application is intended to serve as a portfolio for me, as althoug
 
 <h3>Getting Started</h3>
 <hr>
+
 1. Clone the repository to your local machine.
 
 2. Configure your MySQL database by updating the application.properties file.
