@@ -3,7 +3,9 @@
 
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/32f8fff9988007445e3f307563b6d391e04edb24/src/main/resources/static/img/main_picture.png)
 
-<h4>Content</h4>Content 
+<h4>Content</h4>
+Content 
+
 Features
 
 Project requirements
