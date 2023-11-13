@@ -1,25 +1,29 @@
 <h1>ReactJS-Spring-Boot-Full-Stack-App</h1>
-<h3>Welcome to Mom's Candy Store, an app that simulates online ordering and delivery of confectionery.</h3>
+<h3>Welcome to Mom's Sweet Shop, an app that simulates online ordering and delivery of confectionery.</h3>
 
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/32f8fff9988007445e3f307563b6d391e04edb24/src/main/resources/static/img/main_picture.png)
 
-Table of Contents 
-Features
-Project requirements
-Getting Started
-Technologies Used
-Demo
-License
-More pictures
+<h3>Content</h3>
 
+- Features
+
+- Project requirements
+
+- Getting Started
+
+- Technologies Used
+
+- Demo
+
+- License
+
+- More pictures
+
+
+<h3>Features</h3>
+<hr>
 This project consists of two applications: one is a Spring Boot Rest API called pastry-shop-backend and another is a ReactJS application called pastry-shop-frontend
 The app is created with a portfolio in mind and mimics an online pastry shop for ordering and delivering confectionery products.
-
-
-<h3>Applications</h3>
-
-- spring-backend
-
 Spring Boot Web Java backend application that exposes a REST API to manage deliveries. Its secured endpoints can just be accessed if an access token (JWT) is provided.
 In the application there are user/admin roles, the processing of the requests made by the user is carried out by the administrator.
 
@@ -27,24 +31,69 @@ spring-backend stores its data in a MySql database.
 
 spring-backend has the following endpoints
 
-- react-frontend
-
 ReactJS frontend application where users can find and order products. In order to access the application, user must login using his/her username and password. All the requests coming from react-frontend to secured endpoints in spring-backend have a access token (JWT) that is generated when user / business logs in.
 
 react-frontend uses Semantic UI React as CSS-styled framework.
 
-- backend
+<h3>Project requirements</h3>
+<hr>
+Created by me application is intended to serve as a portfolio for me, as although the products presented in it to be real, when ordering from the app there will be no real delivery even though it tracks the various order/delivery cycles of the product.
+
+<h3>Getting Started</h3>
+<hr>
+
+1. Clone the repository to your local machine.
+
+2. Configure your MySQL database by updating the application.properties file.
   
--- Java 17
+3. Configure environment variables by updating the application.properties file.
+   
+4. Build and run the project pastry-shop using maven
 
--- JWT
+5. Build and run the project pastry-shop-web using npm. Follow these step first: 1) npm install 2) go to \pastry-shop-web 3) npm start.
 
--- WebSockets
+6. Access the web application by visiting http://localhost:3000 in your web browser.
 
-- frontend
+7. Create admin and user accounts, manage products, and place orders as needed.
 
--- React
+Enjoy
 
--- NodeJs.v.18
+<h3>Technologies Used</h3>
+<hr>
 
--- sockjs
+- Java 17
+
+- Spring Boot 3.0.2
+
+- Spring Security
+
+- Spring Data JPA
+
+- Jwt.io
+
+- Web Sockets
+
+- React, Bootstrap for React
+
+- HTML, CSS, JavaScript
+
+- SockJS client and StompJS
+
+- MySQL
+
+- Cloudinary for managing images
+
+- Spring Boot Mail for sending emails
+
+- And more...
+
+<h3>Demo</h3>
+<hr>
+
+https://sladkarnicata-na-mama.azurewebsites.net/
+
+<h3>License</h3>
+<hr>
+
+- MIT License
+
