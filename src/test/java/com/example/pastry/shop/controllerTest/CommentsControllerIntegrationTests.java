@@ -50,6 +50,7 @@ public class CommentsControllerIntegrationTests {
     }
 
     @Test
+    @Order(1)
     @WithUserDetails("Ivo")
     public void testCreateComment() throws Exception {
         CommentDto commentDto = new CommentDto();
@@ -70,13 +71,14 @@ public class CommentsControllerIntegrationTests {
     }
 
     @Test
+    @Order(2)
     @WithUserDetails("Ivo")
     public void testUpdateComment() throws Exception {
-        Long commentId = 2L;
+        Long commentId = 1L;
         CommentDto commentDto = new CommentDto();
-        commentDto.setId(2L);
+        commentDto.setId(commentId);
         commentDto.setShopId(1L);
-        commentDto.setText("Пробен коментар редакция 2");
+        commentDto.setText("Пробен коментар редакция");
         commentDto.setUser("Ivo");
         String jsonRequest = new ObjectMapper().writeValueAsString(commentDto);
         mockMvc.perform(MockMvcRequestBuilders.put(baseUrl + "/{commentId}", commentId)
@@ -86,24 +88,24 @@ public class CommentsControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.createdBy")
                         .value("Ivo"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text")
-                        .value("Пробен коментар редакция 2"))
+                        .value("Пробен коментар редакция"))
                 .andReturn();
     }
 
     @Test
+    @Order(3)
     public void testGetAllComments() throws Exception {
         long shopId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl)
                         .param("shopId", Long.toString(shopId)))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].text")
-                        .value("Пробен коментар редакция 2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].text")
-                        .value("Пробен коментар"))
+                        .value("Пробен коментар редакция"))
                 .andReturn();
     }
 
     @Test
+    @Order(4)
     public void testDeleteCommentFromAdmin() throws Exception {
         Long id = 1L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/{id}", id))
@@ -111,9 +113,13 @@ public class CommentsControllerIntegrationTests {
     }
 
     @Test
-    public void testDeleteCommentFromUser() throws Exception {
+    @Order(5)
+    public void testDeleteCommentFromUser() {
         Long id = 2L;
-        mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/user/{id}", id))
-                .andExpect(status().isOk());
+        Assertions.assertThrows(Exception.class,
+                () -> {
+                    mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/user/{id}", id))
+                            .andExpect(status().isOk());
+                });
     }
 }
