@@ -75,7 +75,9 @@ Enjoy
 
 - React, Bootstrap for React
 
-- HTML, CSS, JavaScript
+- HTML, CSS, JavaScript#
+
+- Responsive web design
 
 - SockJS client and StompJS
 
