@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
 import com.example.pastry.shop.model.entity.OrdersProcessing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
@@ -17,8 +18,8 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
             " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
             " from OrdersProcessing op" +
             " join Users as u on op.user.id = u.id" +
-            " where op.statusOrder = 'sent'")
-    Set<OrdersProcessingDTO> findByStatus();
+            " where op.statusOrder = :status_send")
+    Set<OrdersProcessingDTO> findByStatus(@Param("status_send") String status_send);
 
     Set<OrdersProcessing> findOrderById(Long id);
 

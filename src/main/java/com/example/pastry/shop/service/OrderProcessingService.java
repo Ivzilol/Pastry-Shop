@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.OrdersProcessingRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -13,6 +14,9 @@ public class OrderProcessingService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
+    @Value("${status_send}")
+    private String statusSend;
+
     public OrderProcessingService(OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersProcessingRepository = ordersProcessingRepository;
     }
@@ -21,7 +25,7 @@ public class OrderProcessingService {
     public Set<OrdersProcessingDTO> findByStatus(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            return this.ordersProcessingRepository.findByStatus();
+            return this.ordersProcessingRepository.findByStatus(statusSend);
         } else {
             return null;
         }
