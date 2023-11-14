@@ -14,6 +14,7 @@ import com.example.pastry.shop.repository.OrdersRepository;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -36,6 +37,9 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     private final OrdersProcessingRepository ordersProcessingRepository;
+
+    @Value("${status_confirmed}")
+    private String statusConf;
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
@@ -113,7 +117,7 @@ public class OrderService {
     public Set<OrdersDTO> findByStatus(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            Set<OrdersDTO> returned = this.ordersRepository.findByStatus();
+            Set<OrdersDTO> returned = this.ordersRepository.findByStatus(statusConf);
             for (OrdersDTO current : returned) {
                 current.getUsers().setPassword(null);
                 current.getUsers().setAuthorities(null);

@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.OrdersDTO;
 import com.example.pastry.shop.model.entity.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
@@ -21,8 +22,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             " o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct, o.users)" +
             " from Orders as o" +
-            " where o.status = 'confirmed'")
-    Set<OrdersDTO> findByStatus();
+            " where o.status = :status_conf")
+    Set<OrdersDTO> findByStatus(@Param("status_conf") String status_conf);
 
     @Query("select o from Orders as o")
     Set<Orders> findAllOrders();
