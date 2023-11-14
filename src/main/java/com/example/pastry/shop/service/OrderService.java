@@ -40,6 +40,10 @@ public class OrderService {
 
     @Value("${status_confirmed}")
     private String statusConf;
+    @Value("${status_new_order}")
+    private String newOrder;
+    @Value("${status_send}")
+    private String statusSend;
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
@@ -68,7 +72,7 @@ public class OrderService {
     public Set<OrdersDTO> findByUser(Users user) {
         boolean isUser = isUser(user);
         if (isUser) {
-            return ordersRepository.findByUsersId(user.getId());
+            return ordersRepository.findByUsersId(user.getId(), newOrder);
         } else {
             return null;
         }
@@ -86,7 +90,7 @@ public class OrderService {
 
 
     public Set<Orders> updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-        Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId());
+        Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), newOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
         setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);
@@ -235,19 +239,19 @@ public class OrderService {
 
 
     public Set<OrdersDTO> trackingByStatus(Users user) {
-        return this.ordersRepository.findConfirmedOrder(user.getId());
+        return this.ordersRepository.findConfirmedOrder(user.getId(), statusConf, statusSend);
     }
 
     public Set<OrdersDTO> findOrdersWhichNotDelivered(Users user) {
-        return this.ordersRepository.findNotDeliveredOrders(user.getId());
+        return this.ordersRepository.findNotDeliveredOrders(user.getId(), newOrder);
 
     }
 
     public Set<OrdersDTO> findOrdersWhichConfirmed(Users user) {
-        return this.ordersRepository.findConfirmedOrder(user.getId());
+        return this.ordersRepository.findConfirmedOrder(user.getId(), statusConf, statusSend);
     }
 
     public Set<OrdersDTO> findAllNotSendOrders() {
-        return this.ordersRepository.findAllNotSendOrders();
+        return this.ordersRepository.findAllNotSendOrders(statusConf, statusSend);
     }
 }

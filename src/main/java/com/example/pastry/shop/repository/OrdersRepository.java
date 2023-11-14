@@ -15,8 +15,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     @Query("select o from Orders as o" +
             " join Users as u on o.users.id = u.id" +
-            " where o.status = 'newOrder' and u.id = :userId")
-    Set<Orders> findByUsers(Long userId);
+            " where o.status = :new_order and u.id = :userId")
+    Set<Orders> findByUsers(Long userId, @Param("new_order") String new_order);
 
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
@@ -36,26 +36,26 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
-            " where o.users.id = :id and o.status = 'confirmed' or o.status = 'sent'")
-    Set<OrdersDTO> findConfirmedOrder(Long id);
+            " where o.users.id = :id and o.status = :status_conf or o.status = :status_send")
+    Set<OrdersDTO> findConfirmedOrder(Long id, @Param("status_conf") String status_conf, @Param("status_send") String status_send);
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
-            " where o.users.id = :id and o.status = 'newOrder'")
-    Set<OrdersDTO> findNotDeliveredOrders(Long id);
+            " where o.users.id = :id and o.status = :new_order")
+    Set<OrdersDTO> findNotDeliveredOrders(Long id, @Param("new_order") String new_order);
 
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
-            " where o.status = 'confirmed' or o.status = 'sent'")
-    Set<OrdersDTO> findAllNotSendOrders();
+            " where o.status = :status_conf or o.status = :status_send")
+    Set<OrdersDTO> findAllNotSendOrders(@Param("status_conf") String status_conf, @Param("status_send") String status_send);
 
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             " o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
-            " where o.status = 'newOrder' and o.users.id = :id")
-    Set<OrdersDTO> findByUsersId(Long id);
+            " where o.status = :new_order and o.users.id = :id")
+    Set<OrdersDTO> findByUsersId(Long id, @Param("new_order") String new_order);
 }
