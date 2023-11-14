@@ -9,6 +9,7 @@ import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,18 @@ public class ProductsService {
     private final ShopsRepository shopsRepository;
 
     private final CloudinaryService cloudinaryService;
+
+    @Value("${category_p}")
+    String category_p;
+
+    @Value("${category_b}")
+    String category_b;
+
+    @Value("${category_s}")
+    String category_s;
+
+    @Value("${category_c}")
+    String category_c;
 
     public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryService cloudinaryService) {
         this.productRepository = productRepository;
@@ -160,19 +173,19 @@ public class ProductsService {
     }
 
     public Set<GetProductsDTO> findAllPies() {
-        return this.productRepository.findAllPies();
+        return this.productRepository.findAllPies(category_p);
     }
 
     public Set<GetProductsDTO> findAllBuns() {
-        return this.productRepository.findAllBuns();
+        return this.productRepository.findAllBuns(category_b);
     }
 
     public Set<GetProductsDTO> findAllSweets() {
-        return this.productRepository.findAllSweets();
+        return this.productRepository.findAllSweets(category_s);
     }
 
     public Set<GetProductsDTO> findAllCakes() {
-        return this.productRepository.findAllCakes();
+        return this.productRepository.findAllCakes(category_c);
     }
 
     public Set<GetProductsDTO> findSearchedProducts(CategoryProductDto categoryProductDto) {

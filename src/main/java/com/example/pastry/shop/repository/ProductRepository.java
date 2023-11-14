@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,23 +32,23 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
     @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
             " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
             " from Products as p" +
-            " where p.categories = 'pie'")
-    Set<GetProductsDTO> findAllPies();
+            " where p.categories = :category_p")
+    Set<GetProductsDTO> findAllPies(@Param("category_p") String category_p);
     @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
             " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
             " from Products as p" +
-            " where p.categories = 'buns'")
-    Set<GetProductsDTO> findAllBuns();
+            " where p.categories = :category_b")
+    Set<GetProductsDTO> findAllBuns(@Param("category_b") String category_b);
     @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
             " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
             " from Products as p" +
-            " where p.categories = 'sweets'")
-    Set<GetProductsDTO> findAllSweets();
+            " where p.categories = :category_s")
+    Set<GetProductsDTO> findAllSweets(@Param("category_s") String category_s);
     @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
             " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
             " from Products as p" +
-            " where p.categories = 'cake'")
-    Set<GetProductsDTO> findAllCakes();
+            " where p.categories = :category_c")
+    Set<GetProductsDTO> findAllCakes(@Param("category_c") String category_c);
 
     @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
             " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
