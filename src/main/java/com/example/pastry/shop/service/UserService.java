@@ -42,6 +42,9 @@ public class UserService {
     @Value("${admin_password}")
     private String adminPass;
 
+    @Value("${auth_u}")
+    private String auth_u;
+
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
         this.usersRepository = usersRepository;
@@ -165,7 +168,7 @@ public class UserService {
     public List<UsersDTO> findAllUser(Users user) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
-            return this.usersRepository.findAllUsers();
+            return this.usersRepository.findAllUsers(auth_u);
         } else {
             return null;
         }

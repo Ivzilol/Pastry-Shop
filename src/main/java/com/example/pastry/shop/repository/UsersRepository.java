@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             " u.id, u.username, u.firstName, u.lastName, u.email, u.address as address)" +
             " from Users as u" +
             " join Authority as a on u.id = a.users.id" +
-            " where a.authority = 'user'")
-    List<UsersDTO> findAllUsers();
+            " where a.authority = :auth_u")
+    List<UsersDTO> findAllUsers(@Param("auth_u") String auth_u);
 
     @Query("select u from Users as u" +
             " where u.id = :id")
