@@ -239,13 +239,7 @@ public class UserService {
         mailContent += "<p>Please click on the \" NEW PASSWORD\" link to generate new password.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">NEW PASSWORD</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("ivailoali@gmail.com", senderName);
-        helper.setTo(email.get().getEmail());
-        helper.setSubject(subject);
-        helper.setText(mailContent, true);
-        javaMailSender.send(message);
+        UserTopClientService.sendMail(email, subject, senderName, mailContent, javaMailSender);
     }
 
     public boolean forgottenPasswordSetNew(ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {

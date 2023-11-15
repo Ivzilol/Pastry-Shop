@@ -36,6 +36,17 @@ public class UserTopClientService {
         mailContent += "<h3>You get an additional 10 percent off your next order</h3>";
         mailContent += "<h4>We are expecting you!</h4>";
         mailContent += "<p>Mom's sweet shop team<p/>";
+        sendMail(user, subject, senderName, mailContent);
+    }
+
+    private void sendMail(Optional<Users> user, String subject, String senderName,
+                          String mailContent) throws MessagingException, UnsupportedEncodingException {
+        sendMail(user, subject, senderName, mailContent, javaMailSender);
+    }
+
+    public static void sendMail(Optional<Users> user, String subject, String senderName,
+                                String mailContent, JavaMailSender javaMailSender)
+            throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom("ivailoali@gmail.com", senderName);
