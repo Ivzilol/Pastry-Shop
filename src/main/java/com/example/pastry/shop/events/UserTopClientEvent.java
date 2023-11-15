@@ -1,4 +1,4 @@
-package com.example.pastry.shop.event;
+package com.example.pastry.shop.events;
 
 import org.springframework.context.ApplicationEvent;
 

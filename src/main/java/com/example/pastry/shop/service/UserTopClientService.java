@@ -1,6 +1,6 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.event.UserTopClientEvent;
+import com.example.pastry.shop.events.UserTopClientEvent;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
 import jakarta.mail.MessagingException;

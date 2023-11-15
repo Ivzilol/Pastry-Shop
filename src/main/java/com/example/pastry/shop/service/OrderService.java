@@ -1,6 +1,6 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.event.UserTopClientEvent;
+import com.example.pastry.shop.events.UserTopClientEvent;
 import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersDTO;
@@ -54,7 +54,7 @@ public class OrderService {
     @Value("${status_delivery}")
     private String statusDelivery;
 
-    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher applicationEventPublisher, ApplicationEventPublisher appEventPublisher) {
+    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher appEventPublisher) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productRepository = productRepository;
