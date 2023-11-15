@@ -40,10 +40,15 @@ public class OrderService {
 
     @Value("${status_confirmed}")
     private String statusConf;
+
     @Value("${status_new_order}")
-    private String newOrder;
+    private String statusNewOrder;
+
     @Value("${status_send}")
     private String statusSend;
+
+    @Value("${status_delivery}")
+    private String statusDelivery;
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
         this.ordersRepository = ordersRepository;
@@ -61,7 +66,7 @@ public class OrderService {
         Optional<Products> product = productRepository.findById(id);
         Products productIncreaseNumberOrders = this.productRepository.findProductById(id);
         productIncreaseNumberOrders.setNumberOrders(productIncreaseNumberOrders.getNumberOrders() + 1);
-        newOrder.setStatus("newOrder");
+        newOrder.setStatus(statusNewOrder);
         newOrder.setPrice(product.get().getPrice());
         newOrder.setProductName(product.get().getName());
         ordersRepository.save(newOrder);
@@ -72,7 +77,7 @@ public class OrderService {
     public Set<OrdersDTO> findByUser(Users user) {
         boolean isUser = isUser(user);
         if (isUser) {
-            return ordersRepository.findByUsersId(user.getId(), newOrder);
+            return ordersRepository.findByUsersId(user.getId(), statusNewOrder);
         } else {
             return null;
         }
@@ -90,7 +95,7 @@ public class OrderService {
 
 
     public Set<Orders> updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-        Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), newOrder);
+        Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), statusNewOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
         setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);
@@ -155,7 +160,7 @@ public class OrderService {
             ordersProcessing.setTotalPrice(totalPrice);
             Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
             ordersProcessing.setUser(currentUser.get());
-            ordersProcessing.setStatusOrder("sent");
+            ordersProcessing.setStatusOrder(statusSend);
             ordersProcessing.setDateOfDispatch(LocalDate.now());
             ordersProcessing.setKeyOrder(id);
             this.ordersProcessingRepository.save(ordersProcessing);
@@ -181,7 +186,7 @@ public class OrderService {
             currentOrder.setStatus(orderStatusSendAdmin.getStatus());
             currentOrder.setDateOfDelivery(localDate);
             currentOrder.setTimeOfDelivery(timeDelivery);
-            currentOrder.setStatus("sent");
+            currentOrder.setStatus(statusSend);
             this.ordersRepository.save(currentOrder);
         }
     }
@@ -214,7 +219,7 @@ public class OrderService {
     private LocalDate getLocalDate(Set<Orders> ordersForChangeStatus) {
         LocalDate dateRecipe = null;
         for (Orders currentOrder : ordersForChangeStatus) {
-            currentOrder.setStatus("delivery");
+            currentOrder.setStatus(statusDelivery);
             this.ordersRepository.save(currentOrder);
             dateRecipe = currentOrder.getDateOfDelivery();
         }
@@ -243,7 +248,7 @@ public class OrderService {
     }
 
     public Set<OrdersDTO> findOrdersWhichNotDelivered(Users user) {
-        return this.ordersRepository.findNotDeliveredOrders(user.getId(), newOrder);
+        return this.ordersRepository.findNotDeliveredOrders(user.getId(), statusNewOrder);
 
     }
 
