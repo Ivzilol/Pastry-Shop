@@ -73,6 +73,8 @@ Enjoy
 
 - Web Sockets
 
+- Multithreading
+
 - React, Bootstrap for React
 
 - HTML, CSS, JavaScript#
