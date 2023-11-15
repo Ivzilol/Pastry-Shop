@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.event.UserTopClientEvent;
 import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersDTO;
@@ -15,6 +16,7 @@ import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -38,6 +40,8 @@ public class OrderService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
+    private final ApplicationEventPublisher appEventPublisher;
+
     @Value("${status_confirmed}")
     private String statusConf;
 
@@ -50,11 +54,12 @@ public class OrderService {
     @Value("${status_delivery}")
     private String statusDelivery;
 
-    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository) {
+    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher applicationEventPublisher, ApplicationEventPublisher appEventPublisher) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
+        this.appEventPublisher = appEventPublisher;
     }
 
 
@@ -99,6 +104,12 @@ public class OrderService {
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
         setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);
+        double allPrice = byUsers.stream().mapToDouble(Orders::getPrice).sum();
+        if (allPrice >= 100) {
+            appEventPublisher.publishEvent(new UserTopClientEvent(
+                    "userTopClient", user.getEmail()
+            ));
+        }
         return byUsers;
     }
 
