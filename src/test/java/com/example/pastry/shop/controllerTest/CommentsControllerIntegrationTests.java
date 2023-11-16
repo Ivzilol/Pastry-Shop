@@ -1,9 +1,7 @@
 package com.example.pastry.shop.controllerTest;
 
-import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
 import com.example.pastry.shop.testRepository.TestH2RepositoryComments;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
