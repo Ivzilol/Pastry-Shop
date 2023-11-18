@@ -92,7 +92,7 @@ public class MessageServiceTest {
     }
 
     @Test
-    public void testSaveMessage() {
+    public void testSaveUserMessage() {
         when(mockUserRepository.findByUsername("Victor")).thenReturn(Optional.of(testUsers));
         Message testMessage = new Message();
         testMessage.setMessage("Test Message");
