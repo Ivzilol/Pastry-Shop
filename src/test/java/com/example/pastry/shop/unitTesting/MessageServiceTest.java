@@ -2,19 +2,24 @@ package com.example.pastry.shop.unitTesting;
 
 import com.example.pastry.shop.model.dto.Message;
 import com.example.pastry.shop.model.entity.Authority;
+import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.service.MessageService;
 import net.bytebuddy.utility.RandomString;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +41,9 @@ public class MessageServiceTest {
     private static Authority testAuthorityAdmin;
 
     private static MessageService testMessageService;
+
+    @Captor
+    private ArgumentCaptor<ChatMessages> chatMessagesArgumentCaptor;
 
     public MessageServiceTest() {
     }
@@ -98,7 +106,8 @@ public class MessageServiceTest {
         testMessage.setMessage("Test Message");
         testMessage.setSenderName("Victor");
         testMessageService.saveMessage(testMessage, testUsers.getUsername());
-        verify(mockChatMessageRepository).save(any());
+        verify(mockChatMessageRepository).save(chatMessagesArgumentCaptor.capture());
+        ChatMessages saveChatMessage = chatMessagesArgumentCaptor.getValue();
+        Assertions.assertEquals("Test Message", saveChatMessage.getMessage());
     }
-
 }
