@@ -191,7 +191,9 @@ const Register = () => {
     return (
         <>
             <NavBar/>
-            {isLoading ? <Loading/> :
+            {isLoading ?
+                <Loading/>
+                :
                 <section className="register">
                     <article className="register-form">
                         <h1>{t('register.h1')}</h1>

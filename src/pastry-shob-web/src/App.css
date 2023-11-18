@@ -110,6 +110,7 @@
     margin-top: 60px;
 }
 
+
 .register .register-form {
     color: white;
     display: flex;
@@ -123,8 +124,8 @@
     border-radius: 10px;
     padding: 5px;
     width: 400px;
-    background: none;
     border: 2px solid gray;
+    background-color: black;
 }
 
 .register .register-form input::placeholder {
