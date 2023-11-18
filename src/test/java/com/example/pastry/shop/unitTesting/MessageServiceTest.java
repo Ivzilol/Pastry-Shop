@@ -1,6 +1,8 @@
 package com.example.pastry.shop.unitTesting;
 
+import com.example.pastry.shop.model.dto.ChatMessageDTO;
 import com.example.pastry.shop.model.dto.Message;
+import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
@@ -17,12 +19,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -120,5 +121,17 @@ public class MessageServiceTest {
         testMessage.setMessage("Answer Admin");
         testMessage.setSenderName("Admin");
         testMessageService.saveMessage(testMessage, "Victor");
+    }
+
+    @Test
+    @Order(3)
+    public void testFindAllUnansweredMessage(){
+        when(testMessageService.getAllUsersMessages(testUserAdmin)).thenReturn(null);
+    }
+
+    @Test
+    @Order(4)
+    public void testGetUserMessage() {
+        when(testMessageService.findMessagesByUser(testUsers.getUsername())).thenReturn(null);
     }
 }
