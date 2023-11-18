@@ -1,46 +1,53 @@
 package com.example.pastry.shop.unitTesting;
 
+import com.example.pastry.shop.model.dto.Message;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
 import com.example.pastry.shop.repository.UsersRepository;
+import com.example.pastry.shop.service.MessageService;
 import net.bytebuddy.utility.RandomString;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class MessageServiceTest {
 
-    @Mock
-    private UsersRepository mockUserRepository;
+    private static UsersRepository mockUserRepository;
+    private static ChatMessagesRepository mockChatMessageRepository;
+    private static AuthorityRepository mockAuthorityRepository;
 
-    @Mock
-    private ChatMessagesRepository mockChatMessageRepository;
+    private static Users testUsers;
+    private static Authority testAuthority;
+    private static Users testUserAdmin;
+    private static Authority testAuthorityAdmin;
 
-    @Mock
-    private AuthorityRepository mockAuthorityRepository;
+    private static MessageService testMessageService;
 
-    private Users testUsers;
-
-    private Authority testAuthority;
-
-    private Users testUserAdmin;
-
-    private Authority testAuthorityAdmin;
+    public MessageServiceTest() {
+    }
 
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUp() {
+        mockUserRepository = mock(UsersRepository.class);
+        mockChatMessageRepository = mock(ChatMessagesRepository.class);
+        mockAuthorityRepository = mock(AuthorityRepository.class);
+        testMessageService = new MessageService(mockChatMessageRepository, mockUserRepository);
+
         testUsers = new Users();
         testUsers.setId(1L);
         testUsers.setUsername("Victor");
@@ -79,11 +86,19 @@ public class MessageServiceTest {
         authoritiesAdmin.add(testAuthorityAdmin);
         testUserAdmin.setAuthorities(authoritiesAdmin);
 
+        when(mockUserRepository.findByUserId(1L)).thenReturn(testUsers);
+        when(mockUserRepository.findByUserId(2L)).thenReturn(testUserAdmin);
+
     }
 
     @Test
-    public void testMessage() {
-        System.out.println();
+    public void testSaveMessage() {
+        when(mockUserRepository.findByUsername("Victor")).thenReturn(Optional.of(testUsers));
+        Message testMessage = new Message();
+        testMessage.setMessage("Test Message");
+        testMessage.setSenderName("Victor");
+        testMessageService.saveMessage(testMessage, testUsers.getUsername());
+        verify(mockChatMessageRepository).save(any());
     }
 
 }
