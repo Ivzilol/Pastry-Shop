@@ -1,25 +1,29 @@
-import {DropdownButton, Dropdown} from "react-bootstrap";
-import * as i18 from "i18next";
-import {useState} from "react";
+import {Form} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 const LanguagePicker = () => {
 
 
-    const languageHandlerChange = (lang) => {
-        i18.changeLanguage(lang);
-        document.getElementById('selectedLanguage').textContent = lang;
-        localStorage.setItem('selectedLanguage', lang);
-    }
+    const { i18n } = useTranslation();
+
+    const handleLangChange = (evt) => {
+        const lang = evt.target.value;
+        localStorage.setItem("lang", lang);
+        i18n.changeLanguage(lang);
+    };
 
     return (
-        <div className="language-picker">
-            <DropdownButton title={<span id="selectedLanguage">Език</span>} className="language-picker--dropdown"
-                            variant="warning">
-                <Dropdown.Item onClick={() => languageHandlerChange('en')}>English</Dropdown.Item>
-                <Dropdown.Item onClick={() => languageHandlerChange('bg')}>Български</Dropdown.Item>
-            </DropdownButton>
-        </div>
-    )
+        <Form.Select
+            style={{ width: "4rem", position: 'fixed', right: '0', marginRight: '10px' }}
+            size='sm'
+            aria-label='Default select example'
+            onChange={handleLangChange}
+            value={localStorage.getItem("lang")}>
+            <option label='Select language'>Select language</option>
+            <option value='bg'>BG</option>
+            <option value='en'>EN</option>
+        </Form.Select>
+    );
 }
 
 export default LanguagePicker;
