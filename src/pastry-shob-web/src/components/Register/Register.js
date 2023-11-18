@@ -6,6 +6,7 @@ import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
 import baseURL from "../BaseURL/BaseURL";
+import Loading from "../Loading/Loading";
 
 
 const Register = () => {
@@ -26,12 +27,14 @@ const Register = () => {
     const [successfulRegistration, setSuccessfulRegistration] = useState("");
     const [unsuccessfulRegistrationDialog, setUnsuccessfulRegistrationDialog] = useState(false)
     const [unsuccessfulRegistration, setUnsuccessfulRegistration] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (user.jwt) navigate("/");
     }, [navigate, user]);
 
     function createAndLoginUser() {
+        setIsLoading(true)
         const requestBody = {
             username: username,
             password: password,
@@ -51,6 +54,7 @@ const Register = () => {
             body: JSON.stringify(requestBody),
         })
             .then((response) => {
+                setIsLoading(false)
                 if (response.status === 200)
                     return Promise.all([response.json(), response.headers]);
                 else return Promise.reject("Invalid attempt");
@@ -187,145 +191,148 @@ const Register = () => {
     return (
         <>
             <NavBar/>
-            <section className="register">
-                <article className="register-form">
-                    <h1>{t('register.h1')}</h1>
-                    <label
-                        htmlFor="username"
-                    >{t('register.username')}
-                    </label>
-                    <input
-                        type="text"
-                        id="username"
-                        autoComplete="off"
-                        name="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        onBlur={validateUsername}
-                    />
-                    {error.username &&
-                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
-                    }
-
-                    <label form="password">{t('register.password')}</label>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onBlur={validatePassword}
-                    />
-                    <a className="forgotten-password-send-show-password-register"
-                       onClick={togglePasswordVisibility}>
-                        {showPassword ? t('login.hide-password') : t('login.show-password')}
-                    </a>
-                    {error.password &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
-                    }
-                    <label form="confirmPassword">{t('register.confirm-password')}</label>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        placeholder="ConfirmPassword"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        onBlur={validateConfirmPassword}
-                    />
-                    <a className="forgotten-password-send-show-password-register"
-                       onClick={togglePasswordVisibility}>
-                        {showPassword ? t('login.hide-password') : t('login.show-password')}
-                    </a>
-                    {error.confirmPassword &&
-                        <span id="validate-username"><FontAwesomeIcon
-                            icon={faInfoCircle}/> {error.confirmPassword}</span>
-                    }
-                    <label form="firstName">{t('register.name')}</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        placeholder="First Name"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        onBlur={validateFirstName}
-                    />
-                    {error.firstName &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
-                    }
-                    <label form="lastName">{t('register.last-name')}</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        placeholder="Last Name"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        onBlur={validateLastName}
-                    />
-                    {error.lastName &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
-                    }
-                    <label form="email">{t('register.email')}</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={validateEmail}
-                    />
-                    {error.email &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
-                    }
-                    <label form="address">{t('register.address')}</label>
-                    <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        placeholder="Address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        onBlur={validateAddress}
-                    />
-                    {error.address &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
-                    }
-                    <label form="phoneNumber">{t('register.phone-number')}</label>
-                    <input
-                        type="text"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        placeholder="PhoneNumber"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        onBlur={validatePhoneNumber}
-                    />
-                    {error.phoneNumber &&
-                        <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.phoneNumber}</span>
-                    }
-                    {successfulRegistrationDialog &&
-                        <h5 className="registration-message-successful">{successfulRegistration}
-                        </h5>
-                    }
-                    {unsuccessfulRegistrationDialog &&
-                        <h5 className="registration-message-unsuccessful">{unsuccessfulRegistration}
-                        </h5>
-                    }
-                    <button
-                        id="submit"
-                        type="button"
-                        onClick={() => createAndLoginUser()
+            {isLoading ? <Loading/> :
+                <section className="register">
+                    <article className="register-form">
+                        <h1>{t('register.h1')}</h1>
+                        <label
+                            htmlFor="username"
+                        >{t('register.username')}
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            autoComplete="off"
+                            name="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            onBlur={validateUsername}
+                        />
+                        {error.username &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
                         }
-                    >
-                        {t('register.button')}
-                    </button>
-                </article>
-            </section>
+
+                        <label form="password">{t('register.password')}</label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            onBlur={validatePassword}
+                        />
+                        <a className="forgotten-password-send-show-password-register"
+                           onClick={togglePasswordVisibility}>
+                            {showPassword ? t('login.hide-password') : t('login.show-password')}
+                        </a>
+                        {error.password &&
+                            <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
+                        }
+                        <label form="confirmPassword">{t('register.confirm-password')}</label>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="ConfirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onBlur={validateConfirmPassword}
+                        />
+                        <a className="forgotten-password-send-show-password-register"
+                           onClick={togglePasswordVisibility}>
+                            {showPassword ? t('login.hide-password') : t('login.show-password')}
+                        </a>
+                        {error.confirmPassword &&
+                            <span id="validate-username"><FontAwesomeIcon
+                                icon={faInfoCircle}/> {error.confirmPassword}</span>
+                        }
+                        <label form="firstName">{t('register.name')}</label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            placeholder="First Name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            onBlur={validateFirstName}
+                        />
+                        {error.firstName &&
+                            <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
+                        }
+                        <label form="lastName">{t('register.last-name')}</label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            placeholder="Last Name"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            onBlur={validateLastName}
+                        />
+                        {error.lastName &&
+                            <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
+                        }
+                        <label form="email">{t('register.email')}</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={validateEmail}
+                        />
+                        {error.email &&
+                            <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
+                        }
+                        <label form="address">{t('register.address')}</label>
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            placeholder="Address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            onBlur={validateAddress}
+                        />
+                        {error.address &&
+                            <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
+                        }
+                        <label form="phoneNumber">{t('register.phone-number')}</label>
+                        <input
+                            type="text"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="PhoneNumber"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            onBlur={validatePhoneNumber}
+                        />
+                        {error.phoneNumber &&
+                            <span id="validate-username"><FontAwesomeIcon
+                                icon={faInfoCircle}/> {error.phoneNumber}</span>
+                        }
+                        {successfulRegistrationDialog &&
+                            <h5 className="registration-message-successful">{successfulRegistration}
+                            </h5>
+                        }
+                        {unsuccessfulRegistrationDialog &&
+                            <h5 className="registration-message-unsuccessful">{unsuccessfulRegistration}
+                            </h5>
+                        }
+                        <button
+                            id="submit"
+                            type="button"
+                            onClick={() => createAndLoginUser()
+                            }
+                        >
+                            {t('register.button')}
+                        </button>
+                    </article>
+                </section>
+            }
         </>
     )
 }
