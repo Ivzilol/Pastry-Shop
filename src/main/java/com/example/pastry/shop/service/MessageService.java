@@ -35,11 +35,6 @@ public class MessageService {
     }
 
 
-    public Set<GetUserMessagesDTO> findByUserId(Users users) {
-        return this.chatMessagesRepository.findBySendBy(users.getId());
-    }
-
-
     public boolean finishChat(Users user, String userUsername) {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {

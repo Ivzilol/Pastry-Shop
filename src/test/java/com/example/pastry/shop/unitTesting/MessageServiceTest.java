@@ -9,9 +9,7 @@ import com.example.pastry.shop.repository.ChatMessagesRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.service.MessageService;
 import net.bytebuddy.utility.RandomString;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -29,6 +27,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MessageServiceTest {
 
     private static UsersRepository mockUserRepository;
@@ -100,6 +99,7 @@ public class MessageServiceTest {
     }
 
     @Test
+    @Order(1)
     public void testSaveUserMessage() {
         when(mockUserRepository.findByUsername("Victor")).thenReturn(Optional.of(testUsers));
         Message testMessage = new Message();
@@ -109,5 +109,16 @@ public class MessageServiceTest {
         verify(mockChatMessageRepository).save(chatMessagesArgumentCaptor.capture());
         ChatMessages saveChatMessage = chatMessagesArgumentCaptor.getValue();
         Assertions.assertEquals("Test Message", saveChatMessage.getMessage());
+    }
+
+    @Test
+    @Order(2)
+    public void testSaveAdminMessage() {
+        when(mockUserRepository.findByUsername("Admin")).thenReturn(Optional.of(testUserAdmin));
+        when(mockUserRepository.findByUsername("Victor")).thenReturn(Optional.of(testUsers));
+        Message testMessage = new Message();
+        testMessage.setMessage("Answer Admin");
+        testMessage.setSenderName("Admin");
+        testMessageService.saveMessage(testMessage, "Victor");
     }
 }
