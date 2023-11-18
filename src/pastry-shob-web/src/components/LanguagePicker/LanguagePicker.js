@@ -14,7 +14,7 @@ const LanguagePicker = () => {
 
     return (
         <Form.Select
-            style={{ width: "4rem", position: 'fixed', right: '0', marginRight: '10px' }}
+            style={{ width: "4rem", position: 'fixed', right: '0', marginRight: '10px', backgroundColor: '#ef7d00' }}
             size='sm'
             aria-label='Default select example'
             onChange={handleLangChange}
