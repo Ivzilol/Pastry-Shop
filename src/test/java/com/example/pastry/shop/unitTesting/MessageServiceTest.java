@@ -1,8 +1,6 @@
 package com.example.pastry.shop.unitTesting;
 
-import com.example.pastry.shop.model.dto.ChatMessageDTO;
 import com.example.pastry.shop.model.dto.Message;
-import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import com.example.pastry.shop.model.entity.Users;
@@ -22,7 +20,6 @@ import org.mockito.quality.Strictness;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.Mockito.*;
 
@@ -39,8 +36,8 @@ public class MessageServiceTest {
     private static Authority testAuthority;
     private static Users testUserAdmin;
     private static Authority testAuthorityAdmin;
-
     private static MessageService testMessageService;
+
 
     @Captor
     private ArgumentCaptor<ChatMessages> chatMessagesArgumentCaptor;
@@ -117,10 +114,14 @@ public class MessageServiceTest {
     public void testSaveAdminMessage() {
         when(mockUserRepository.findByUsername("Admin")).thenReturn(Optional.of(testUserAdmin));
         when(mockUserRepository.findByUsername("Victor")).thenReturn(Optional.of(testUsers));
-        Message testMessage = new Message();
-        testMessage.setMessage("Answer Admin");
-        testMessage.setSenderName("Admin");
-        testMessageService.saveMessage(testMessage, "Victor");
+        Message testMessageAdmin = new Message();
+        testMessageAdmin.setMessage("Answer Admin");
+        testMessageAdmin.setSenderName("Admin");
+        testMessageService.saveMessage(testMessageAdmin, testUsers.getUsername());
+        verify(mockChatMessageRepository, times(2))
+                .save(chatMessagesArgumentCaptor.capture());
+        ChatMessages saveAdminMessage = chatMessagesArgumentCaptor.getValue();
+        Assertions.assertEquals("Answer Admin", saveAdminMessage.getMessage());
     }
 
     @Test
