@@ -89,6 +89,8 @@ Enjoy
 
 - Spring Boot Mail for sending emails
 
+- Swagger springdoc-openapi v2.2.0 
+
 - And more...
 
 <h3>Demo</h3>
