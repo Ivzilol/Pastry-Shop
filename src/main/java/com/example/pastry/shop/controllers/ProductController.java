@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
+@Tag(name = "Products")
 public class ProductController {
 
     private final ProductsService productsService;

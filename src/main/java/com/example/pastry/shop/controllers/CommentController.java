@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.CommentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/comments")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
+@Tag(name = "Comments")
 public class CommentController {
 
     private final CommentService commentService;

@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.MessageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
+@Tag(name = "Chat")
 public class ChatController {
 
     private final MessageService messageService;

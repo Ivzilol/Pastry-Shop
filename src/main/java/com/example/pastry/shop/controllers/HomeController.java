@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
 import com.example.pastry.shop.service.HomeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
+@Tag(name = "Home")
 public class HomeController {
 
     private final HomeService homeService;

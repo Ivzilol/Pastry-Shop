@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderProcessingService;
 import com.example.pastry.shop.service.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
+@Tag(name = "Orders")
 public class OrdersController {
 
 

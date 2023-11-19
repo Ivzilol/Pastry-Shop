@@ -5,6 +5,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.JwtUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = {"http://localhost:3000/", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "false", allowedHeaders = "true")
+@Tag(name = "Users")
 public class UserController {
 
     private final UserService userService;
