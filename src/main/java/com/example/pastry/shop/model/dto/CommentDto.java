@@ -41,12 +41,4 @@ public class CommentDto {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "CommentDto{" +
-                "shopId=" + shopId +
-                ", text='" + text + '\'' +
-                ", user='" + user + '\'' +
-                '}';
-    }
 }
