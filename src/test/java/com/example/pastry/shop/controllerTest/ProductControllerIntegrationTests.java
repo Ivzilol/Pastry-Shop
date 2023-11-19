@@ -19,9 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -210,5 +207,17 @@ public class ProductControllerIntegrationTests {
                             return request;
                         })
         ).andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(10)
+    public void testGetCategoriesSweets() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/sweets"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name")
+                        .value("Праскови"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
+                        .value("Плато сладки"))
+                .andReturn();
     }
 }

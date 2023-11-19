@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,7 +30,7 @@ public class ProductController {
     @PostMapping(value = "/create/admin", consumes = {"multipart/form-data"})
     public ResponseEntity<?> createProduct(
             @RequestPart(value = "imageUrl", required = false) MultipartFile file,
-            @RequestPart(value = "dto") CreateProductDTO createProductDTO
+            @RequestPart(value = "dto") @Valid CreateProductDTO createProductDTO
     ) throws IOException {
         this.productsService.createProduct(createProductDTO, file);
         return ResponseEntity.ok().build();

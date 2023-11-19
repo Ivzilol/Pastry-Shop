@@ -45,9 +45,6 @@ public class OrderControllerIntegrationTests {
     private TestH2RepositoryProducts testH2RepositoryProducts;
 
     @Autowired
-    private TestH2RepositoryUsers testH2RepositoryUsers;
-
-    @Autowired
     private TestH2RepositoryOrders testH2RepositoryOrders;
 
     @BeforeAll
@@ -99,7 +96,7 @@ public class OrderControllerIntegrationTests {
             MockMultipartFile product5 = new MockMultipartFile("dto",
                     "",
                     "application/json",
-                    "{\"name\": \"Плато сладки\", \"description\": \"Плато сладки\", \"categories\": \"sweets\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"18.88\"}".getBytes());
+                    "{\"name\": \"Погача\", \"description\": \"Погача от хрупкаво тесто\", \"categories\": \"pie\", \"shopName\": \"Sladcarnicata na Mama\", \"price\": \"14.44\"}".getBytes());
             mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
                             .file(product5))
                     .andExpect(status().isOk());
@@ -260,7 +257,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value("16.168"))
+                        .value("20.21"))
                 .andReturn();
     }
 
