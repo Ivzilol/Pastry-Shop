@@ -17,6 +17,8 @@
 
 - License
 
+- Documentation
+
 - More pictures
 
 
@@ -102,6 +104,11 @@ https://sladkarnicata-na-mama.azurewebsites.net/
 <hr>
 
 - MIT License
+
+<h3>Documentation</h3>
+<hr>
+
+After start App can see documentation on this link: http://localhost:8080/swagger-ui/index.html#/
 
 <h3>More pictures</h3>
 <hr>
