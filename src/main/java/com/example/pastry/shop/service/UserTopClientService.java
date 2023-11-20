@@ -17,7 +17,6 @@ import java.util.Optional;
 public class UserTopClientService {
 
     private final JavaMailSender javaMailSender;
-
     private final UsersRepository usersRepository;
 
     public UserTopClientService(JavaMailSender javaMailSender, UsersRepository usersRepository) {
