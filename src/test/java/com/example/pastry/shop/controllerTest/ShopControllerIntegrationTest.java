@@ -46,8 +46,10 @@ public class ShopControllerIntegrationTest {
     @Autowired
     private TestH2RepositoryUsers testH2RepositoryUsers;
 
+
     @Value("${admin_password}")
     private String adminPassword;
+    
 
     @BeforeAll
     public static void init() {

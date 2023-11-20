@@ -22,6 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -252,12 +255,16 @@ public class OrderControllerIntegrationTests {
     @WithUserDetails("Tosho")
     @Order(11)
     public void testGetAllSendOrders() throws Exception {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/admin/send"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value("20.21"))
+                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
                 .andReturn();
     }
 
