@@ -55,7 +55,7 @@ public class OrderService {
     @Value("${status_delivery}")
     private String statusDelivery;
 
-    private Set<Orders> orders;
+    private Set<Orders> ordersInProcessing;
 
     public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher appEventPublisher, Set<Orders> orders) {
         this.ordersRepository = ordersRepository;
@@ -63,7 +63,7 @@ public class OrderService {
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
         this.appEventPublisher = appEventPublisher;
-        this.orders = orders;
+        this.ordersInProcessing = orders;
     }
 
 
@@ -103,7 +103,7 @@ public class OrderService {
     }
 
 
-    public Set<Orders> updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
+    public void updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), statusNewOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
@@ -114,7 +114,6 @@ public class OrderService {
                     "userTopClient", user.getEmail()
             ));
         }
-        return byUsers;
     }
 
     private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey) {
@@ -162,7 +161,7 @@ public class OrderService {
     public Set<Orders> findByUsersId(Long id) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         synchronized (this) {
-            Set<Orders> byOrderKey = new HashSet<>(orders);
+            Set<Orders> byOrderKey = new HashSet<>(ordersInProcessing);
             double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
 
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -184,14 +183,14 @@ public class OrderService {
     }
 
     public Set<Orders> getOrdersByKey(Long id) {
-        orders = new HashSet<>();
+        ordersInProcessing = new HashSet<>();
         Set<Orders> orderForProcessing = this.ordersRepository.findByKeyOrderProduct(id);
-        orders.addAll(orderForProcessing);
+        ordersInProcessing.addAll(orderForProcessing);
         return orderForProcessing;
     }
 
 
-    public Set<Orders> updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
+    public void updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
         synchronized (this) {
             Set<Orders> orders = getOrdersByKey(id);
             LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
@@ -199,7 +198,6 @@ public class OrderService {
             java.sql.Time timeDelivery = new java.sql.Time(formatter
                     .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
             setStatusTimeAndDate(orderStatusSendAdmin, orders, localDate, timeDelivery);
-            return orders;
         }
     }
 
@@ -214,14 +212,13 @@ public class OrderService {
     }
 
 
-    public Set<OrdersProcessing> updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
+    public void updateStatusDelivery(OrderStatusDeliveryAdmin orderStatusDeliveryAdmin, Long id) {
         synchronized (this) {
             Set<OrdersProcessing> orders = this.ordersProcessingRepository.findOrderById(id);
             getStatus(orderStatusDeliveryAdmin, orders);
             Long keyOrder = getKeyOrder(orders);
             Set<Orders> ordersForChangeStatus = getOrdersByKey(keyOrder);
             setStatusAndDate(orders, ordersForChangeStatus);
-            return orders;
         }
     }
 
