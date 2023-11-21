@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -54,12 +55,15 @@ public class OrderService {
     @Value("${status_delivery}")
     private String statusDelivery;
 
-    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher appEventPublisher) {
+    private Set<Orders> orders;
+
+    public OrderService(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher appEventPublisher, Set<Orders> orders) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
         this.appEventPublisher = appEventPublisher;
+        this.orders = orders;
     }
 
 
@@ -158,7 +162,7 @@ public class OrderService {
     public Set<Orders> findByUsersId(Long id) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         synchronized (this) {
-            Set<Orders> byOrderKey = this.ordersRepository.findByKeyOrderProduct(id);
+            Set<Orders> byOrderKey = new HashSet<>(orders);
             double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
 
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -179,10 +183,16 @@ public class OrderService {
         }
     }
 
+    public Set<Orders> getOrdersByKey(Long id) {
+        Set<Orders> orderForProcessing = this.ordersRepository.findByKeyOrderProduct(id);
+        orders.addAll(orderForProcessing);
+        return orderForProcessing;
+    }
+
 
     public Set<Orders> updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
         synchronized (this) {
-            Set<Orders> orders = this.ordersRepository.findByKeyOrderProduct(id);
+            Set<Orders> orders = getOrdersByKey(id);
             LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
             DateFormat formatter = new SimpleDateFormat("HH:mm");
             java.sql.Time timeDelivery = new java.sql.Time(formatter
@@ -208,7 +218,7 @@ public class OrderService {
             Set<OrdersProcessing> orders = this.ordersProcessingRepository.findOrderById(id);
             getStatus(orderStatusDeliveryAdmin, orders);
             Long keyOrder = getKeyOrder(orders);
-            Set<Orders> ordersForChangeStatus = this.ordersRepository.findByKeyOrderProduct(keyOrder);
+            Set<Orders> ordersForChangeStatus = getOrdersByKey(keyOrder);
             setStatusAndDate(orders, ordersForChangeStatus);
             return orders;
         }
