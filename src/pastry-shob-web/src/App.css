@@ -1805,6 +1805,12 @@ footer {
     text-decoration: underline;
 }
 
+.not-found-text {
+    background-color: black;
+    border-radius: 10px;
+    padding: 4px 10px;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {
