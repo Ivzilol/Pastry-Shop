@@ -85,6 +85,8 @@ Enjoy
 
 - SockJS client and StompJS
 
+- Aspect-Oriented Programming
+
 - MySQL
 
 - Cloudinary for managing images
