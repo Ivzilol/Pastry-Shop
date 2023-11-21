@@ -17,7 +17,6 @@ public class OrderProcessingAspect {
 
     @Before("PointCuts.orderProcessing() && args(id)")
     public void findByKeyOrder(Long id) {
-        System.out.println("Before order processing for user ID: " + id);
         orderService.getOrdersByKey(id);
     }
 }
