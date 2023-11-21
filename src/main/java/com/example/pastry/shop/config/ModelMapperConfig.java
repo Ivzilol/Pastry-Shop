@@ -16,47 +16,23 @@ import java.time.format.DateTimeFormatter;
 @Configuration
 public class ModelMapperConfig {
 
-    @Bean
-    public Gson gson() {
-        return new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .create();
-    }
 
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        modelMapper.addConverter(new Converter<String, LocalDate>() {
-            @Override
-            public LocalDate convert(MappingContext<String, LocalDate> mappingContext) {
+        modelMapper.addConverter((Converter<String, LocalDate>) mappingContext
+                -> LocalDate
+                .parse(mappingContext.getSource(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-                LocalDate parse = LocalDate
-                        .parse(mappingContext.getSource(),
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        modelMapper.addConverter((Converter<String, LocalDateTime>) mappingContext
+                -> LocalDateTime.parse(mappingContext.getSource(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-                return parse;
-            }
-        });
-
-        modelMapper.addConverter(new Converter<String, LocalDateTime>() {
-            @Override
-            public LocalDateTime convert(MappingContext<String, LocalDateTime> mappingContext) {
-                LocalDateTime parse = LocalDateTime.parse(mappingContext.getSource(),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                return parse;
-            }
-        });
-
-        modelMapper.addConverter(new Converter<String, LocalTime>() {
-            @Override
-            public LocalTime convert(MappingContext<String, LocalTime> mappingContext) {
-                LocalTime parse = LocalTime.parse(mappingContext.getSource(),
-                        DateTimeFormatter.ofPattern("HH:mm:ss"));
-                return parse;
-            }
-        });
+        modelMapper.addConverter((Converter<String, LocalTime>) mappingContext
+                -> LocalTime.parse(mappingContext.getSource(),
+                DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         return modelMapper;
     }
