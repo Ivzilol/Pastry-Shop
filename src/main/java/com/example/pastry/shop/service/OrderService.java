@@ -184,6 +184,7 @@ public class OrderService {
     }
 
     public Set<Orders> getOrdersByKey(Long id) {
+        orders = new HashSet<>();
         Set<Orders> orderForProcessing = this.ordersRepository.findByKeyOrderProduct(id);
         orders.addAll(orderForProcessing);
         return orderForProcessing;
