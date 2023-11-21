@@ -1784,6 +1784,27 @@ footer {
     color: white;
 }
 
+.not-found {
+    background-image: url("http://res.cloudinary.com/dmxqvcevk/image/upload/v1699876594/yseoe5nierp5no4crtwg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: auto;
+    height: 100vh;
+}
+
+.not-found {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.not-found-link {
+    color: white;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 600px) {
 
     .body {
