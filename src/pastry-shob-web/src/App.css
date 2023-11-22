@@ -1774,8 +1774,6 @@ footer {
 }
 
 
-
-
 .empty-chat {
     font-style: italic;
 }
@@ -1809,6 +1807,22 @@ footer {
     background-color: black;
     border-radius: 10px;
     padding: 4px 10px;
+}
+
+.global-error {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -30%);
+    z-index: 9999;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+iframe {
+    display: none;
 }
 
 @media screen and (max-width: 600px) {
