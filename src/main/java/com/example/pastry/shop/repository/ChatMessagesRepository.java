@@ -1,7 +1,6 @@
 package com.example.pastry.shop.repository;
 
 import com.example.pastry.shop.model.dto.ChatMessageDTO;
-import com.example.pastry.shop.model.dto.GetUserMessagesDTO;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
 import com.example.pastry.shop.model.entity.ChatMessages;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,12 +11,6 @@ import java.util.Set;
 
 @Repository
 public interface ChatMessagesRepository extends JpaRepository<ChatMessages, Long> {
-
-    @Query("select new com.example.pastry.shop.model.dto.GetUserMessagesDTO(" +
-            " m.id ,m.message as message, m.adminId as adminId)" +
-            " from ChatMessages as m" +
-            " where m.sendBy.id = :id")
-    Set<GetUserMessagesDTO> findBySendBy(Long id);
 
 
     @Query("select new com.example.pastry.shop.model.dto.UnansweredMessagesDTO(" +
