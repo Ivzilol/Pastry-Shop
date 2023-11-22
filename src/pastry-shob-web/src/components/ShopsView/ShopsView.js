@@ -64,20 +64,20 @@ const ShopsView = () => {
         if (comment.id) {
             ajax(`${baseURL}api/comments/${comment.id}`, "PUT", user.jwt, comment)
                 .then(d => {
-                const commentsCopy = [...comments]
-                const index = commentsCopy.findIndex(comment => comment.id === d.id);
-                commentsCopy[index] = d;
-                setComments(commentsCopy);
-                setComment(emptyComment);
-            })
+                    const commentsCopy = [...comments]
+                    const index = commentsCopy.findIndex(comment => comment.id === d.id);
+                    commentsCopy[index] = d;
+                    setComments(commentsCopy);
+                    setComment(emptyComment);
+                });
         } else {
             ajax(`${baseURL}api/comments`, 'POST', user.jwt, comment)
                 .then(d => {
-                const commentsCopy = [...comments]
-                commentsCopy.push(d);
-                setComments(commentsCopy);
-                setComment(emptyComment);
-            });
+                    const commentsCopy = [...comments]
+                    commentsCopy.push(d);
+                    setComments(commentsCopy);
+                    setComment(emptyComment);
+                });
         }
     }
 
@@ -96,6 +96,7 @@ const ShopsView = () => {
         commentCopy.text = value;
         setComment(commentCopy);
     }
+
 // eslint-disable-next-line react-hooks/exhaustive-deps
     function persist() {
         ajax(`${baseURL}api/shops/${shopId}`, "PATCH", user.jwt, shop)
@@ -106,21 +107,19 @@ const ShopsView = () => {
     }
 
     useEffect(() => {
-            persist();
+        persist();
         prevShopValue.current = shop;
     }, [persist, shop])
 
     useEffect(() => {
         ajax(`${baseURL}api/shops/${shopId}`, "GET", user.jwt)
             .then(shopResponse => {
-                console.log(shopResponse)
                 let shopData = shopResponse;
                 if (shopData.town === null) shopData.town = ""
                 if (shopData.address === null) shopData.address = ""
                 setShop(shopData);
             });
     }, [shopId, user.jwt]);
-
 
 
     useEffect(() => {
@@ -133,13 +132,13 @@ const ShopsView = () => {
 
 
     return (
-        <main className="user-comments-container">
-            <NavBar/>
-            <ShopArt/>
-            <OrderWindow/>
-            <div className="comments"
+            <main className="user-comments-container">
+                <NavBar/>
+                <ShopArt/>
+                <OrderWindow/>
+                <div className="comments"
 
-            >
+                >
                         <textarea placeholder="Напиешете Вашето мнение тук..."
                                   className="comments-textarea"
                                   ref={textareaRef}
@@ -147,24 +146,24 @@ const ShopsView = () => {
                                   value={comment.text}
                         >
                         </textarea>
-                <button className="user-comments-container-button"
-                        onClick={() => submitComment()}
-                >Post Comment
-                </button>
-            </div>
-            <div className="comments-view">
-                {comments.map(currentComment => (
-                    <Comment
-                        createdBy={currentComment.createdBy}
-                        text={currentComment.text}
-                        emitDeleteComment={handleDeleteComment}
-                        emitEditComment={handleEditComment}
-                        id={currentComment.id}
-                    />
-                ))}
-            </div>
-            <Footer/>
-        </main>
+                    <button className="user-comments-container-button"
+                            onClick={() => submitComment()}
+                    >Post Comment
+                    </button>
+                </div>
+                <div className="comments-view">
+                    {comments.map(currentComment => (
+                        <Comment
+                            createdBy={currentComment.createdBy}
+                            text={currentComment.text}
+                            emitDeleteComment={handleDeleteComment}
+                            emitEditComment={handleEditComment}
+                            id={currentComment.id}
+                        />
+                    ))}
+                </div>
+                <Footer/>
+            </main>
     );
 };
 
