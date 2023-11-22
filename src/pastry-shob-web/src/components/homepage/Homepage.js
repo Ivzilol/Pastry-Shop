@@ -91,7 +91,10 @@ const Homepage = () => {
         ajax(`${baseURL}api/products/${id}`, "GET", user.jwt)
             .then(productData => {
                 setCurrentProduct(productData);
-            });
+            })
+            .catch(error => {
+                setGlobalError(true);
+            })
     }
 
     function orderProducts(id) {
@@ -108,6 +111,9 @@ const Homepage = () => {
                     setOrderDialog(true);
                     timerOrderWindow();
                     setOrderWindow(true);
+                })
+                .catch(error => {
+                    setGlobalError(true)
                 })
         } else {
             window.location.href = "/login";
@@ -172,7 +178,10 @@ const Homepage = () => {
             .then(productsData => {
                 setSearchResult(productsData);
                 setDialogVisible(true);
-            });
+            })
+            .catch(() => {
+                setGlobalError(true)
+            })
     }
 
     const closeDialog = () => {
