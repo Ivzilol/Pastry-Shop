@@ -122,5 +122,4 @@ public class ProductController {
         Set<GetProductsDTO> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
         return ResponseEntity.ok(searchedProducts);
     }
-
 }
