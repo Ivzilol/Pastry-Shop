@@ -1809,16 +1809,26 @@ footer {
     padding: 4px 10px;
 }
 
+.error-global {
+    background-image: url("http://res.cloudinary.com/dmxqvcevk/image/upload/v1699876594/yseoe5nierp5no4crtwg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: auto;
+    height: 100vh;
+}
+
 .global-error {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-30%, -30%);
+    transform: translate(-50%, -50%);
     z-index: 9999;
-    background-color: white;
     padding: 20px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: white;
+
 }
 
 iframe {
