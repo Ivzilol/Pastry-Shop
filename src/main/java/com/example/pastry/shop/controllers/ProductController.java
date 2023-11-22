@@ -45,7 +45,7 @@ public class ProductController {
         return ResponseEntity.ok(productOpt);
     }
 
-    @PatchMapping( "/edit/{productId}")
+    @PatchMapping("/edit/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
                                            @RequestPart(value = "imageUrl", required = false) MultipartFile file,
                                            @RequestPart(value = "dto") UpdateProductDTO updateProductDTO) throws IOException {
@@ -93,7 +93,7 @@ public class ProductController {
         return ResponseEntity.ok(customResponse);
     }
 
-        @GetMapping("/pies")
+    @GetMapping("/pies")
     public ResponseEntity<?> getPies() {
         Set<GetProductsDTO> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);
