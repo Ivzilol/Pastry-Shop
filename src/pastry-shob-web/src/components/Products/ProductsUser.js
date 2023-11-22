@@ -87,6 +87,9 @@ const ProductsUser = () => {
             .then(() => {
                 refreshPage();
             })
+            .catch(() => {
+                setGlobalError(true)
+            })
     }
 
     useEffect(() => {
@@ -107,6 +110,9 @@ const ProductsUser = () => {
         ajax(`${baseURL}api/products/dislike/${id}`, "Delete", user.jwt)
             .then(() => {
                 refreshPage();
+            })
+            .catch(() => {
+                setGlobalError(true);
             })
     }
 
