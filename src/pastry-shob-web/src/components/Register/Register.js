@@ -55,8 +55,6 @@ const Register = () => {
                     alert("You have registered successfully, please check your email for activation");
                     navigate("/login");
                 } else {
-                    setUnsuccessfulRegistrationDialog(true);
-                    setUnsuccessfulRegistration("Unsuccessfully registration");
                     setRegisterError(response)
                     setRegError(true);
                 }
