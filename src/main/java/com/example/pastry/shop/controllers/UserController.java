@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.pastry.shop.common.ExceptionMessages.PASSWORD_NOT_MATCH_REGISTRATION_ERROR;
+
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = {"http://localhost:3000/", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "false", allowedHeaders = "true")
@@ -68,7 +70,7 @@ public class UserController {
             return ResponseEntity.ok().body(errorsRegistrationDTO);
         }
         if (!userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
-            errorsRegistrationDTO.setConfirmPasswordError("Passwords must match");
+            errorsRegistrationDTO.setConfirmPasswordError(PASSWORD_NOT_MATCH_REGISTRATION_ERROR);
             return ResponseEntity.ok().body(errorsRegistrationDTO);
         }
         return null;
