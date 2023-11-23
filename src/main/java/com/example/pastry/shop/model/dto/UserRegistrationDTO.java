@@ -23,7 +23,7 @@ public class UserRegistrationDTO {
     private String confirmPassword;
 
     @UniqueEmail
-    @Email(message = "Email cannot be empty")
+    @Email(message = "Please enter a valid email")
     @NotBlank(message = "Email cannot be empty")
     private String email;
 

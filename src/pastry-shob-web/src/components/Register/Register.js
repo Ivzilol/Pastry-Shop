@@ -51,7 +51,6 @@ const Register = () => {
         ajax(`${baseURL}api/users/register`, "POST", null, requestBody)
             .then((response) => {
                 setIsLoading(false)
-                console.log(response)
                 if (!isNaN(response.id)) {
                     alert("You have registered successfully, please check your email for activation");
                     navigate("/login");

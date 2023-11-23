@@ -10,13 +10,9 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -58,28 +54,13 @@ public class UserController {
     @PostMapping("/register")
     private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO,
                                         BindingResult result) throws MessagingException, UnsupportedEncodingException {
-        ResponseEntity<ErrorsRegistrationDTO> errorsRegistrationDTO = errorRegistration(userRegistrationDTO, result);
+        ResponseEntity<ErrorsRegistrationDTO> errorsRegistrationDTO =
+                errorRegistration(userRegistrationDTO, result);
         if (errorsRegistrationDTO != null) return errorsRegistrationDTO;
         userService.createUser(userRegistrationDTO);
         userService.sendVerificationEmail(userRegistrationDTO);
         UsersDTO usersDTO = this.userService.findCurrentUser(userRegistrationDTO.getUsername());
-        try {
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(
-                                    userRegistrationDTO.getUsername(), userRegistrationDTO.getPassword()
-                            )
-                    );
-            Users user = (Users) authentication.getPrincipal();
-            user.setPassword(null);
-            return ResponseEntity.ok()
-                    .header(
-                            HttpHeaders.AUTHORIZATION,
-                            jwtUtil.generateToken(user)
-                    )
-                    .body(usersDTO);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(userRegistrationDTO);
-        }
+        return ResponseEntity.ok(usersDTO);
     }
 
     @Nullable
