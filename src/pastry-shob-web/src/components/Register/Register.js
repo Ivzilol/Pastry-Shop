@@ -7,6 +7,7 @@ import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
 import baseURL from "../BaseURL/BaseURL";
 import Loading from "../Loading/Loading";
+import ajax from "../../Services/FetchService";
 
 
 const Register = () => {
@@ -28,6 +29,7 @@ const Register = () => {
     const [unsuccessfulRegistrationDialog, setUnsuccessfulRegistrationDialog] = useState(false)
     const [unsuccessfulRegistration, setUnsuccessfulRegistration] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [regError, setRegError] = useState(false)
 
     useEffect(() => {
         if (user.jwt) navigate("/");
@@ -46,29 +48,32 @@ const Register = () => {
             phoneNumber: phoneNumber
         }
 
-        fetch(`${baseURL}api/users/register`, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(requestBody),
-        })
+        ajax(`${baseURL}api/users/register`, "POST", null, requestBody)
             .then((response) => {
                 setIsLoading(false)
-                if (response.status === 200)
-                    return Promise.all([response.json(), response.headers]);
-                else return Promise.reject("Invalid attempt");
-            })
-            .then(() => {
-                alert("You have registered successfully, please check your email for activation");
-                navigate("/login");
-
-            })
-            .catch((message) => {
-                setUnsuccessfulRegistrationDialog(true);
-                setUnsuccessfulRegistration(message);
+                console.log(response)
+                if (!isNaN(response.id)) {
+                    alert("You have registered successfully, please check your email for activation");
+                    navigate("/login");
+                } else {
+                    setUnsuccessfulRegistrationDialog(true);
+                    setUnsuccessfulRegistration("Unsuccessfully registration");
+                    setRegisterError(response)
+                    setRegError(true);
+                }
             });
     }
+
+    const [registerError, setRegisterError] = useState({
+        usernameError: '',
+        passwordError: '',
+        emailError: '',
+        firstNameError: '',
+        lastNameError: '',
+        addressError: '',
+        phoneNumberError: '',
+        confirmPasswordError: ''
+    });
 
     const [error, setError] = useState({
         username: '',
@@ -215,6 +220,10 @@ const Register = () => {
                             <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.username}</span>
                         }
 
+                        {regError && registerError.usernameError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.usernameError}</span>
+                        }
+
                         <label form="password">{t('register.password')}</label>
                         <input
                             type={showPassword ? "text" : "password"}
@@ -231,6 +240,10 @@ const Register = () => {
                         </a>
                         {error.password &&
                             <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.password}</span>
+                        }
+
+                        {regError && registerError.passwordError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.passwordError}</span>
                         }
                         <label form="confirmPassword">{t('register.confirm-password')}</label>
                         <input
@@ -250,6 +263,9 @@ const Register = () => {
                             <span id="validate-username"><FontAwesomeIcon
                                 icon={faInfoCircle}/> {error.confirmPassword}</span>
                         }
+                        {regError && registerError.confirmPasswordError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.confirmPasswordError}</span>
+                        }
                         <label form="firstName">{t('register.name')}</label>
                         <input
                             type="text"
@@ -262,6 +278,10 @@ const Register = () => {
                         />
                         {error.firstName &&
                             <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.firstName}</span>
+                        }
+
+                        {regError && registerError.firstNameError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.firstNameError}</span>
                         }
                         <label form="lastName">{t('register.last-name')}</label>
                         <input
@@ -276,6 +296,9 @@ const Register = () => {
                         {error.lastName &&
                             <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.lastName}</span>
                         }
+                        {regError && registerError.lastNameError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.lastNameError}</span>
+                        }
                         <label form="email">{t('register.email')}</label>
                         <input
                             type="email"
@@ -288,6 +311,9 @@ const Register = () => {
                         />
                         {error.email &&
                             <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.email}</span>
+                        }
+                        {regError && registerError.emailError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.emailError}</span>
                         }
                         <label form="address">{t('register.address')}</label>
                         <input
@@ -302,6 +328,9 @@ const Register = () => {
                         {error.address &&
                             <span id="validate-username"><FontAwesomeIcon icon={faInfoCircle}/> {error.address}</span>
                         }
+                        {regError && registerError.addressError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.addressError}</span>
+                        }
                         <label form="phoneNumber">{t('register.phone-number')}</label>
                         <input
                             type="text"
@@ -315,6 +344,9 @@ const Register = () => {
                         {error.phoneNumber &&
                             <span id="validate-username"><FontAwesomeIcon
                                 icon={faInfoCircle}/> {error.phoneNumber}</span>
+                        }
+                        {regError && registerError.phoneNumberError !== null &&
+                            <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {registerError.phoneNumberError}</span>
                         }
                         {successfulRegistrationDialog &&
                             <h5 className="registration-message-successful">{successfulRegistration}

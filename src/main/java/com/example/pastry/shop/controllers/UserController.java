@@ -8,19 +8,23 @@ import com.example.pastry.shop.util.JwtUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -44,7 +48,7 @@ public class UserController {
         Users user = this.userService.validateUser(verification);
         if (!user.getEmail().isEmpty()) {
             CustomResponse customResponse = new CustomResponse();
-                customResponse.setCustom("Successful activate your profile");
+            customResponse.setCustom("Successful activate your profile");
             return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -52,10 +56,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) throws MessagingException, UnsupportedEncodingException {
+    private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO,
+                                        BindingResult result) throws MessagingException, UnsupportedEncodingException {
+        ResponseEntity<ErrorsRegistrationDTO> errorsRegistrationDTO = errorRegistration(userRegistrationDTO, result);
+        if (errorsRegistrationDTO != null) return errorsRegistrationDTO;
         userService.createUser(userRegistrationDTO);
         userService.sendVerificationEmail(userRegistrationDTO);
-        UsersDTO  usersDTO = this.userService.findCurrentUser(userRegistrationDTO.getUsername());
+        UsersDTO usersDTO = this.userService.findCurrentUser(userRegistrationDTO.getUsername());
         try {
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
@@ -70,11 +77,27 @@ public class UserController {
                             jwtUtil.generateToken(user)
                     )
                     .body(usersDTO);
-        } catch (BadCredentialsException exception) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(userRegistrationDTO);
         }
     }
 
+    @Nullable
+    private ResponseEntity<ErrorsRegistrationDTO> errorRegistration(UserRegistrationDTO userRegistrationDTO, BindingResult result) {
+        ErrorsRegistrationDTO errorsRegistrationDTO = new ErrorsRegistrationDTO();
+        if (result.hasErrors()) {
+            List<String> errors = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            this.userService.setErrors(errors, errorsRegistrationDTO);
+            return ResponseEntity.ok().body(errorsRegistrationDTO);
+        }
+        if (!userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
+            errorsRegistrationDTO.setConfirmPasswordError("Passwords must match");
+            return ResponseEntity.ok().body(errorsRegistrationDTO);
+        }
+        return null;
+    }
 
 
     @GetMapping("/admin")
@@ -87,7 +110,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
         this.userService.deleteUser(id, user);
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/admin/promote/{id}")
@@ -110,14 +133,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id){
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<UsersDTO> user = this.userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
-                                        @RequestBody UpdateUserDTO updateUserDTO){
+                                        @RequestBody UpdateUserDTO updateUserDTO) {
         boolean updateUser = this.userService.updateUser(updateUserDTO, id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom(updateUser ? "Successful update user!" : "Unsuccessful update user!");
@@ -136,6 +159,7 @@ public class UserController {
             return ResponseEntity.ok(null);
         }
     }
+
     @PostMapping("/register/forgotten-password")
     public ResponseEntity<?> forgottenPasswordEmail(@RequestBody ForgottenPasswordEmailDto forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
         Optional<Users> user = this.userService.findCurrentUserByEmail(forgottenPasswordDto.getEmail());

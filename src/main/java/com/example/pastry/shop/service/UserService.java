@@ -269,4 +269,26 @@ public class UserService {
     public Optional<Users> validate(String username) {
         return this.usersRepository.findByUsernameAndIsValidate(username);
     }
+
+    public void setErrors(List<String> errors, ErrorsRegistrationDTO errorsRegistrationDTO) {
+        for (String error : errors) {
+            switch (error) {
+                case "Username length must be between 3 and 20 characters" ->
+                        errorsRegistrationDTO.setUsernameError("Username length must be between 3 and 20 characters");
+                case "Password length must be between 3 and 20 characters" ->
+                        errorsRegistrationDTO.setPasswordError("Password length must be between 3 and 20 characters");
+                case "Email cannot be empty" -> errorsRegistrationDTO.setEmailError("Email cannot be empty");
+                case "First Name cannot be empty" ->
+                        errorsRegistrationDTO.setFirstNameError("First Name cannot be empty");
+                case "Last Name cannot be empty" -> errorsRegistrationDTO.setLastNameError("Last Name cannot be empty");
+                case "Address cannot be empty" -> errorsRegistrationDTO.setAddressError("Address cannot be empty");
+                case "Phone Number cannot be empty" ->
+                        errorsRegistrationDTO.setPhoneNumberError("Phone Number cannot be empty");
+                case "Email already exist" ->
+                        errorsRegistrationDTO.setEmailError("Email already exist");
+                case "Username already exist" ->
+                        errorsRegistrationDTO.setUsernameError("Username already exist");
+            }
+        }
+    }
 }

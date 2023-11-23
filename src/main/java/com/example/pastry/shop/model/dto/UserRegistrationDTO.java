@@ -27,16 +27,16 @@ public class UserRegistrationDTO {
     @NotBlank(message = "Email cannot be empty")
     private String email;
 
-    @NotNull
+    @NotBlank(message = "First Name cannot be empty")
     private String firstName;
 
-    @NotNull
+    @NotBlank(message = "Last Name cannot be empty")
     private String lastName;
 
-    @NotNull
+    @NotBlank(message = "Address cannot be empty")
     private String address;
 
-    @NotNull
+    @NotBlank(message = "Phone Number cannot be empty")
     private String phoneNumber;
 
 
