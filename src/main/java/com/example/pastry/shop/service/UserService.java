@@ -1,5 +1,6 @@
 package com.example.pastry.shop.service;
 
+import com.example.pastry.shop.common.ExceptionMessages;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
@@ -21,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import static com.example.pastry.shop.common.ExceptionMessages.*;
 
 @Service
 public class UserService {
@@ -44,6 +47,7 @@ public class UserService {
 
     @Value("${auth_u}")
     private String auth_u;
+
 
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
@@ -273,26 +277,26 @@ public class UserService {
     public void setErrors(List<String> errors, ErrorsRegistrationDTO errorsRegistrationDTO) {
         for (String error : errors) {
             switch (error) {
-                case "Username length must be between 3 and 20 characters" ->
-                        errorsRegistrationDTO.setUsernameError("Username length must be between 3 and 20 characters");
-                case "Password length must be between 3 and 20 characters" ->
-                        errorsRegistrationDTO.setPasswordError("Password length must be between 3 and 20 characters");
-                case "Email cannot be empty" ->
-                        errorsRegistrationDTO.setEmailError("Email cannot be empty");
-                case "First Name cannot be empty" ->
-                        errorsRegistrationDTO.setFirstNameError("First Name cannot be empty");
-                case "Last Name cannot be empty" ->
-                        errorsRegistrationDTO.setLastNameError("Last Name cannot be empty");
-                case "Address cannot be empty" ->
-                        errorsRegistrationDTO.setAddressError("Address cannot be empty");
-                case "Phone Number cannot be empty" ->
-                        errorsRegistrationDTO.setPhoneNumberError("Phone Number cannot be empty");
-                case "Email already exist" ->
-                        errorsRegistrationDTO.setEmailError("Email already exist");
-                case "Username already exist" ->
-                        errorsRegistrationDTO.setUsernameError("Username already exist");
-                case "Please enter a valid email" ->
-                        errorsRegistrationDTO.setEmailError("Please enter a valid email");
+                case USERNAME_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setUsernameError(USERNAME_REGISTRATION_ERROR);
+                case PASSWORD_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setPasswordError(PASSWORD_REGISTRATION_ERROR);
+                case EMAIL_EMPTY_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setEmailError(EMAIL_EMPTY_REGISTRATION_ERROR);
+                case FIRST_NAME_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setFirstNameError(FIRST_NAME_REGISTRATION_ERROR);
+                case LAST_NAME_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setLastNameError(LAST_NAME_REGISTRATION_ERROR);
+                case ADDRESS_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setAddressError(ADDRESS_REGISTRATION_ERROR);
+                case PHONE_NUMBER_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setPhoneNumberError(PHONE_NUMBER_REGISTRATION_ERROR);
+                case EMAIL_EXIST_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setEmailError(EMAIL_EXIST_REGISTRATION_ERROR);
+                case USERNAME_EXIST_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setUsernameError(USERNAME_EXIST_REGISTRATION_ERROR);
+                case EMAIL_VALID_REGISTRATION_ERROR ->
+                        errorsRegistrationDTO.setEmailError(EMAIL_VALID_REGISTRATION_ERROR);
             }
         }
     }
