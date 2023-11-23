@@ -1,6 +1,5 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.common.ExceptionMessages;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Authority;
 import com.example.pastry.shop.model.entity.Users;
