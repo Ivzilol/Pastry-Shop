@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+import static com.example.pastry.shop.common.ExceptionMessages.UNSUCCESSFUL_MAKE_CHAT_ENDED;
+
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Chat")
@@ -94,7 +96,7 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Invalid message");
+            customResponse.setCustom(UNSUCCESSFUL_MAKE_CHAT_ENDED);
             return ResponseEntity.ok(customResponse);
         }
     }

@@ -19,5 +19,6 @@ public class ExceptionMessages {
     public static final String EMPTY_CATEGORY = "Product category can not be empty!";
     public static final String EMPTY_DESCRIPTION = "Product description can not be empty!";
     public static final String EMPTY_SHOP_NAME = "Shop name can not be empty!";
+    public static final String UNSUCCESSFUL_MAKE_CHAT_ENDED = "Invalid message";
 
 }
