@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_START_PROCESSING_ORDER;
+
 @RestController
 @RequestMapping("/api/orders-processing")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -41,7 +43,7 @@ public class OrdersProcessingController {
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id) {
         Set<Orders> currentOrders = this.orderService.findByUsersId(id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Successful start processing order");
+        customResponse.setCustom(SUCCESSFUL_START_PROCESSING_ORDER);
         return ResponseEntity.ok(customResponse);
     }
 }
