@@ -16,4 +16,10 @@ public class ConstantMessages {
     public static final String SUCCESSFUL_DISLIKE_PRODUCT = "Not Like";
     public static final String SUCCESSFUL_UPDATE_SHOP = "Successful update shop";
     public static final String UNSUCCESSFUL_UPDATE_SHOP = "Unsuccessful update shop";
+    public static final String SUCCESSFUL_ACTIVATE_PROFILE = "Successful activate your profile";
+    public static final String SUCCESSFUL_PROMOTE_USER = "Successful Promote";
+    public static final String SUCCESSFUL_UPDATE_USER = "Successful update user!";
+    public static final String UNSUCCESSFUL_UPDATE_USER = "Unsuccessful update user!";
+    public static final String SUCCESSFUL_CHANGE_PASSWORD = "Successful change your password";
+
 }

@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.pastry.shop.common.ExceptionMessages.PASSWORD_NOT_MATCH_REGISTRATION_ERROR;
+import static com.example.pastry.shop.common.ConstantMessages.*;
+import static com.example.pastry.shop.common.ExceptionMessages.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -54,7 +55,7 @@ public class UserController {
         Users user = this.userService.validateUser(verification);
         if (!user.getEmail().isEmpty()) {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Successful activate your profile");
+            customResponse.setCustom(SUCCESSFUL_ACTIVATE_PROFILE);
             return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -145,7 +146,7 @@ public class UserController {
         boolean isPromote = this.userService.makeUserAdmin(id, user);
         if (isPromote) {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Successful Promote");
+            customResponse.setCustom(SUCCESSFUL_PROMOTE_USER);
             return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -197,7 +198,7 @@ public class UserController {
                                         @RequestBody UpdateUserDTO updateUserDTO) {
         boolean updateUser = this.userService.updateUser(updateUserDTO, id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom(updateUser ? "Successful update user!" : "Unsuccessful update user!");
+        customResponse.setCustom(updateUser ? SUCCESSFUL_UPDATE_USER : UNSUCCESSFUL_UPDATE_USER);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -215,7 +216,7 @@ public class UserController {
         boolean userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
         if (userChangePass) {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Successful change your password");
+            customResponse.setCustom(SUCCESSFUL_CHANGE_PASSWORD);
             return ResponseEntity.ok(customResponse);
         } else {
             return ResponseEntity.ok(null);
@@ -238,7 +239,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Invalid Email");
+            customResponse.setCustom(INVALID_EMAIL);
             return ResponseEntity.ok(customResponse);
         }
     }
@@ -258,7 +259,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         } else {
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Invalid Password");
+            customResponse.setCustom(INVALID_PASSWORD);
             return ResponseEntity.ok(customResponse);
         }
     }
