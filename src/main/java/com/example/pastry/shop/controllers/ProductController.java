@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.Nullable;
@@ -128,13 +129,30 @@ public class ProductController {
         }
     }
 
+    @Operation(summary = "Get products", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful get products",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductsDTO.class))})
+            }
+    )
     @GetMapping("")
     public ResponseEntity<?> getProduct(@AuthenticationPrincipal Users user) {
         List<ProductsDTO> productsDTOS = this.productsService.getProductsForDTO(user);
         return ResponseEntity.ok(productsDTOS);
     }
 
-
+    @Operation(summary = "Like product", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful like product",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))})
+            }
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<?> likeProduct(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
@@ -144,6 +162,15 @@ public class ProductController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Dislike product", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful dislike product",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))})
+            }
+    )
     @DeleteMapping("/dislike/{id}")
     public ResponseEntity<?> dislikeProduct(@PathVariable Long id,
                                             @AuthenticationPrincipal Users user) {
@@ -153,30 +180,65 @@ public class ProductController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Get pie category")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful response pie category products",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @GetMapping("/pies")
     public ResponseEntity<?> getPies() {
         Set<GetProductsDTO> pies = this.productsService.findAllPies();
         return ResponseEntity.ok(pies);
     }
 
+    @Operation(summary = "Get buns category")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful response buns category products",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @GetMapping("/buns")
     public ResponseEntity<?> getBuns() {
         Set<GetProductsDTO> buns = this.productsService.findAllBuns();
         return ResponseEntity.ok(buns);
     }
 
+    @Operation(summary = "Get sweet category")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful response sweet category products",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @GetMapping("/sweets")
     public ResponseEntity<?> getSweets() {
         Set<GetProductsDTO> sweets = this.productsService.findAllSweets();
         return ResponseEntity.ok(sweets);
     }
 
+    @Operation(summary = "Get cake category")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful response cake category products",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @GetMapping("/cakes")
     public ResponseEntity<?> getCakes() {
         Set<GetProductsDTO> cakes = this.productsService.findAllCakes();
         return ResponseEntity.ok(cakes);
     }
 
+    @Operation(summary = "Response products by category")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Response products by category",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @PostMapping("/search")
     public ResponseEntity<?> getSearchProducts(@RequestBody CategoryProductDto categoryProductDto) {
         Set<GetProductsDTO> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
