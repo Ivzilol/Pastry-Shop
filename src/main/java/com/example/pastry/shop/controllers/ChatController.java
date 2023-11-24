@@ -64,9 +64,9 @@ public class ChatController {
         return ResponseEntity.ok(unansweredMessagesDTO);
     }
 
-    @Operation(summary = "Get messaage from user")
+    @Operation(summary = "Get message from user")
     @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Get messaage from user",
+            value = {@ApiResponse(responseCode = "200", description = "Get message from user",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ChatMessageDTO.class)))}
     )
