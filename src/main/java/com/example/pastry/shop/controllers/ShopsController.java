@@ -2,10 +2,17 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.ShopDTO;
 import com.example.pastry.shop.model.dto.ShopsDTO;
+import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ShopsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +36,13 @@ public class ShopsController {
         this.shopsService = productService;
     }
 
+    @Operation(summary = "Create Shop", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful create shop")
+            }
+    )
     @PostMapping("")
     public ResponseEntity<?> createShop(@AuthenticationPrincipal Users user) {
         shopsService.createShop(user);
@@ -50,8 +64,8 @@ public class ShopsController {
     @PatchMapping("/{shopId}")
     public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user,
                                         @PathVariable Long shopId,
-                                        @RequestBody  Shops shop) {
-        boolean isUpdate =  this.shopsService.updateShop(shop, shopId, user);
+                                        @RequestBody Shops shop) {
+        boolean isUpdate = this.shopsService.updateShop(shop, shopId, user);
         CustomResponse customResponse = new CustomResponse();
         if (isUpdate) {
             customResponse.setCustom("Successful update shop");
