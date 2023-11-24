@@ -2,8 +2,6 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
-import com.example.pastry.shop.model.dto.ErrorsRegistrationDTO;
-import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
