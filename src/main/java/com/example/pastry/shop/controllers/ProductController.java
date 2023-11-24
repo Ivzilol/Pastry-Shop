@@ -6,9 +6,12 @@ import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
@@ -32,10 +36,27 @@ public class ProductController {
     @PostMapping(value = "/create/admin", consumes = {"multipart/form-data"})
     public ResponseEntity<?> createProduct(
             @RequestPart(value = "imageUrl", required = false) MultipartFile file,
-            @RequestPart(value = "dto") @Valid CreateProductDTO createProductDTO
+            @RequestPart(value = "dto") @Valid CreateProductDTO createProductDTO, BindingResult result
     ) throws IOException {
+        ResponseEntity<ErrorProductDTO> errorProductDTO = errosCreateProduct(result);
+        if (errorProductDTO != null) return errorProductDTO;
         this.productsService.createProduct(createProductDTO, file);
-        return ResponseEntity.ok().build();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful create product");
+        return ResponseEntity.ok(customResponse);
+    }
+
+    @Nullable
+    private ResponseEntity<ErrorProductDTO> errosCreateProduct(BindingResult result) {
+        ErrorProductDTO errorProductDTO = new ErrorProductDTO();
+        if (result.hasErrors()) {
+            List<String> errors = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            this.productsService.setErrors(errors, errorProductDTO);
+            return ResponseEntity.ok().body(errorProductDTO);
+        }
+        return null;
     }
 
 

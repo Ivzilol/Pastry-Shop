@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.example.pastry.shop.common.ExceptionMessages.*;
+
 @Service
 public class ProductsService {
 
@@ -193,7 +195,7 @@ public class ProductsService {
     }
 
     public List<ProductsDTO> getProductsForDTO(Users user) {
-       return getProductsDTOS(user);
+        return getProductsDTOS(user);
     }
 
     @NotNull
@@ -221,5 +223,18 @@ public class ProductsService {
             returnDTO.add(productsDTO);
         }
         return returnDTO;
+    }
+
+    public void setErrors(List<String> errors, ErrorProductDTO errorProductDTO) {
+        for (String error : errors) {
+            switch (error) {
+                case EMPTY_PRODUCT -> errorProductDTO.setNameError(EMPTY_PRODUCT);
+                case PRODUCT_EXIST -> errorProductDTO.setNameError(PRODUCT_EXIST);
+                case NEGATIVE_NUMBER_PRICE -> errorProductDTO.setPriceError(NEGATIVE_NUMBER_PRICE);
+                case EMPTY_CATEGORY -> errorProductDTO.setCategoriesError(EMPTY_CATEGORY);
+                case EMPTY_DESCRIPTION -> errorProductDTO.setDescriptionError(EMPTY_DESCRIPTION);
+                case EMPTY_SHOP_NAME -> errorProductDTO.setShopError(EMPTY_SHOP_NAME);
+            }
+        }
     }
 }

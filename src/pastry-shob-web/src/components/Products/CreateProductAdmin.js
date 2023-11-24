@@ -1,8 +1,10 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useState} from "react";
+import React, {useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import {useNavigate} from "react-router-dom";
 import baseURL from "../BaseURL/BaseURL";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const CreateProductAdmin = () => {
     useUser();
@@ -13,6 +15,7 @@ const CreateProductAdmin = () => {
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [shopName, setShopName] = useState("");
+    const [errorCreateProduct, setErrorCreateProduct] = useState(false);
 
     const imageSubmit = (e) => {
         if (e.target.files[0] && e.target.files[0].name !== "") {
@@ -41,18 +44,26 @@ const CreateProductAdmin = () => {
             method: "POST",
             body: formData,
         })
-            .then((response) => {
-                if (response.status === 200)
-                    return Promise.all([response.json(), response.headers]);
-                else return Promise.reject("Invalid product");
-            })
-            .catch((message) => {
-                alert(message)
-            })
-            .then(() => {
-                navigate("/products")
+            .then((response) => response.json())
+            .then(data => {
+                console.log(data)
+                if (data.custom !== "Successful create product") {
+                    setErrorProduct(data)
+                    setErrorCreateProduct(true)
+                } else {
+                    alert("Successful create product")
+                    navigate('/products')
+                }
             });
     }
+
+    const [errorProduct, setErrorProduct] = useState({
+        nameError: '',
+        priceError: '',
+        categoriesError: '',
+        descriptionError: '',
+        shopError: ''
+    })
 
 
     return (
@@ -70,6 +81,11 @@ const CreateProductAdmin = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
+
+                    {errorCreateProduct && errorProduct.nameError !== null &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.nameError}</span>
+                    }
+
                     <label
                         htmlFor="price"
                     > Price
@@ -83,6 +99,11 @@ const CreateProductAdmin = () => {
                         value={price}
                         onChange={(e) => setPrice(e.target.valueAsNumber)}
                     />
+
+                    {errorCreateProduct && errorProduct.priceError !== null &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.priceError}</span>
+                    }
+
                     <label form="categories">Categories</label>
                     <select
                         id="categories"
@@ -97,6 +118,11 @@ const CreateProductAdmin = () => {
                         <option value="buns">buns</option>
                         <option value="cake">cake</option>
                     </select>
+
+                    {errorCreateProduct && errorProduct.categoriesError !== null &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.categoriesError}</span>
+                    }
+
                     <label className="description">Description</label>
                     <input
                         type="text"
@@ -106,6 +132,11 @@ const CreateProductAdmin = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+
+                    {errorCreateProduct && errorProduct.descriptionError !== null &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.descriptionError}</span>
+                    }
+
                     <label className="imageUrl">Image</label>
                     <input
                         className="input-image"
@@ -126,6 +157,11 @@ const CreateProductAdmin = () => {
                         value={shopName}
                         onChange={(e) => setShopName(e.target.value)}
                     />
+
+                    {errorCreateProduct && errorProduct.shopError !== null &&
+                        <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.shopError}</span>
+                    }
+
                     <button
                         id="submit-product"
                         type="button"

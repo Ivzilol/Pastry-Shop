@@ -4,14 +4,11 @@ import com.example.pastry.shop.validation.annotation.UniqueProductName;
 import com.unboundid.util.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import static com.example.pastry.shop.common.ExceptionMessages.*;
 
-@Getter
-@Setter
+
 public class CreateProductDTO {
 
     @NotBlank(message = EMPTY_PRODUCT)
@@ -19,7 +16,7 @@ public class CreateProductDTO {
     private String name;
 
     @Positive(message = NEGATIVE_NUMBER_PRICE)
-    @NotBlank(message = EMPTY_PRICE)
+    @NotNull
     private Double price;
 
     @NotBlank(message = EMPTY_CATEGORY)
@@ -35,5 +32,53 @@ public class CreateProductDTO {
     private String shopName;
 
     public CreateProductDTO() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getCategories() {
+        return Categories;
+    }
+
+    public void setCategories(String categories) {
+        Categories = categories;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public MultipartFile getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(MultipartFile imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }
