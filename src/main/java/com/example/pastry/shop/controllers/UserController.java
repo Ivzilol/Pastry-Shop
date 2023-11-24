@@ -4,6 +4,11 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -47,6 +52,16 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Register")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful registration",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserRegistrationDTO.class))}),
+                    @ApiResponse(description = "Incorrect field",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorsRegistrationDTO.class))}),
+            }
+    )
     @PostMapping("/register")
     private ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO,
                                         BindingResult result) throws MessagingException, UnsupportedEncodingException {
