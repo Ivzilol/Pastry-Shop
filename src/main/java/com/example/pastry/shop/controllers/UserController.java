@@ -101,10 +101,12 @@ public class UserController {
     }
 
     @Operation(summary = "Get All Users", security = {
-            @SecurityRequirement(name = "Bearer")
+            @SecurityRequirement(name = "Authorization")
     })
     @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Admin view all users"),
+            value = {@ApiResponse(responseCode = "200", description = "Admin view all users",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsersDTO.class))),
                     @ApiResponse(responseCode = "401", description = "Not Authorise")}
     )
     @GetMapping("/admin")
@@ -113,6 +115,13 @@ public class UserController {
         return ResponseEntity.ok(allUsers);
     }
 
+    @Operation(summary = "Delete user", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "User was delete"),
+                    @ApiResponse(responseCode = "401", description = "Not Authorise")}
+    )
     @DeleteMapping("/admin/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
