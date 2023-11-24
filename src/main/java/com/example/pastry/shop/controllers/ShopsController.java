@@ -1,8 +1,6 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.ShopDTO;
-import com.example.pastry.shop.model.dto.ShopsDTO;
-import com.example.pastry.shop.model.dto.UsersDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
@@ -49,18 +47,44 @@ public class ShopsController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Get Shop")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get Shop",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ShopsDTO.class))),
+                    }
+    )
     @GetMapping("")
     public ResponseEntity<?> getShop() {
         List<ShopsDTO> shopsDTO = shopsService.findAll();
         return ResponseEntity.ok(shopsDTO);
     }
 
+    @Operation(summary = "Get Shop by ID")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get Shop by ID",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ShopsDTO.class))),
+            }
+    )
     @GetMapping("/{shopId}")
     public ResponseEntity<?> getShop(@PathVariable Long shopId) {
         Optional<ShopDTO> shopOpt = shopsService.findById(shopId);
         return ResponseEntity.ok(shopOpt);
     }
 
+    @Operation(summary = "Update Shop", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful update shop",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(description = "Incorrect field",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = CustomResponse.class))}),
+            }
+    )
     @PatchMapping("/{shopId}")
     public ResponseEntity<?> updateShop(@AuthenticationPrincipal Users user,
                                         @PathVariable Long shopId,
@@ -75,6 +99,13 @@ public class ShopsController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Delete Shop", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful delete shop")
+            }
+    )
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteShop(@PathVariable Long id,
                                         @AuthenticationPrincipal Users user) {
