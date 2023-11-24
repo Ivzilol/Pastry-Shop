@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
@@ -99,7 +100,13 @@ public class UserController {
         return null;
     }
 
-
+    @Operation(summary = "Get All Users", security = {
+            @SecurityRequirement(name = "Bearer")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Admin view all users"),
+                    @ApiResponse(responseCode = "401", description = "Not Authorise")}
+    )
     @GetMapping("/admin")
     public ResponseEntity<?> getAllUsers(@AuthenticationPrincipal Users user) {
         List<UsersDTO> allUsers = this.userService.findAllUser(user);
