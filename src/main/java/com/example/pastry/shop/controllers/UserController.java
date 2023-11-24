@@ -129,6 +129,16 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Make user Admin", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Admin make user Admin",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))),
+                    @ApiResponse(responseCode = "401", description = "Not Authorise"),
+                    @ApiResponse(responseCode = "400", description = "Bad Request")}
+    )
     @PatchMapping("/admin/promote/{id}")
     public ResponseEntity<?> promoteUser(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
