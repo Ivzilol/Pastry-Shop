@@ -2,6 +2,7 @@ package com.example.pastry.shop.model.dto;
 
 import com.example.pastry.shop.validation.annotation.UniqueProductName;
 import com.unboundid.util.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,18 +10,18 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class CreateProductDTO {
 
-    @NotNull
-    @UniqueProductName
+    @NotBlank(message = "Product name can not be empty!")
+    @UniqueProductName(message = "Product with this name already exist")
     private String name;
-    @NotNull
+    @NotBlank(message = "Product price can not be empty!")
     private Double price;
-    @NotNull
+    @NotBlank(message = "Product category can not be empty!")
     private String Categories;
-    @NotNull
+    @NotBlank(message = "Product description can not be empty!")
     private String description;
     @NotNull
     private MultipartFile imageUrl;
-    @NotNull
+    @NotBlank(message = "Shop name can not be empty!")
     private String shopName;
 
     public CreateProductDTO() {

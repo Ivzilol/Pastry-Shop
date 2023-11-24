@@ -7,36 +7,38 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import static com.example.pastry.shop.common.ExceptionMessages.*;
+
 public class UserRegistrationDTO {
 
     @UniqueUsername
-    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters")
+    @Size(min = 3, max = 20, message = USERNAME_REGISTRATION_ERROR)
     @NotNull
     private String Username;
 
-    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
+    @Size(min = 3, max = 20, message = PASSWORD_REGISTRATION_ERROR)
     @NotNull
     private String password;
 
-    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
+    @Size(min = 3, max = 20, message = PASSWORD_REGISTRATION_ERROR)
     @NotNull
     private String confirmPassword;
 
     @UniqueEmail
-    @Email(message = "Please enter a valid email")
-    @NotBlank(message = "Email cannot be empty")
+    @Email(message = EMAIL_VALID_REGISTRATION_ERROR)
+    @NotBlank(message = EMAIL_EMPTY_REGISTRATION_ERROR)
     private String email;
 
-    @NotBlank(message = "First Name cannot be empty")
+    @NotBlank(message = FIRST_NAME_REGISTRATION_ERROR)
     private String firstName;
 
-    @NotBlank(message = "Last Name cannot be empty")
+    @NotBlank(message = LAST_NAME_REGISTRATION_ERROR)
     private String lastName;
 
-    @NotBlank(message = "Address cannot be empty")
+    @NotBlank(message = ADDRESS_REGISTRATION_ERROR)
     private String address;
 
-    @NotBlank(message = "Phone Number cannot be empty")
+    @NotBlank(message = PHONE_NUMBER_REGISTRATION_ERROR)
     private String phoneNumber;
 
 
