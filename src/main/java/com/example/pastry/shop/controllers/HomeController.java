@@ -1,7 +1,14 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
+import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.service.HomeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,12 +30,24 @@ public class HomeController {
         this.homeService = homeService;
     }
 
+    @Operation(summary = "Get most ordered products")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get most ordered products",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MostOrderedProductsDTO.class)))}
+    )
     @GetMapping("")
     public ResponseEntity<?> getMostOrderedProducts() {
         List<MostOrderedProductsDTO> mostOrderedProductsDTOS = this.homeService.findMostOrderedProducts();
         return ResponseEntity.ok(mostOrderedProductsDTOS);
     }
 
+    @Operation(summary = "Get most recommended products")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get most recommended products",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MostOrderedProductsDTO.class)))}
+    )
     @GetMapping("/home")
     public ResponseEntity<?> getRecommendedProducts() {
         List<MostOrderedProductsDTO> recommendedProducts = this.homeService.findRecommendedProducts();
