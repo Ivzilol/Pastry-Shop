@@ -152,18 +152,46 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Get info for current user", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get user",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsersDTO.class))),
+                    @ApiResponse(responseCode = "401", description = "Not Authorise")}
+    )
     @GetMapping("")
     public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal Users user) {
         Optional<UsersDTO> currentUser = this.userService.getCurrentUser(user);
         return ResponseEntity.ok(currentUser);
     }
 
+
+    @Operation(summary = "Get user by ID", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get user by ID",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UsersDTO.class)))}
+    )
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         Optional<UsersDTO> user = this.userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
+    @Operation(summary = "Update user profile")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "User successful update profile",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(description = "Incorrect field",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = CustomResponse.class))}),
+            }
+    )
     @PatchMapping("/edit/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id,
                                         @RequestBody UpdateUserDTO updateUserDTO) {
@@ -173,6 +201,14 @@ public class UserController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "User change password")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "User successful change password",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(description = "Incorrect field")
+            }
+    )
     @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto,
                                             @AuthenticationPrincipal Users user) {
@@ -186,6 +222,14 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Forgotten password")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "202", description = "Send Email for new password"),
+                    @ApiResponse(description = "Invalid Email",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = CustomResponse.class))})
+            }
+    )
     @PostMapping("/register/forgotten-password")
     public ResponseEntity<?> forgottenPasswordEmail(@RequestBody ForgottenPasswordEmailDto forgottenPasswordDto) throws MessagingException, UnsupportedEncodingException {
         Optional<Users> user = this.userService.findCurrentUserByEmail(forgottenPasswordDto.getEmail());
@@ -199,6 +243,14 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Create new password")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "202", description = "Send Email for new password"),
+                    @ApiResponse(description = "Invalid Password",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = CustomResponse.class))})
+            }
+    )
     @PatchMapping("/register/forgotten-password/new-password")
     public ResponseEntity<?> forgottenPasswordNewPassword(@RequestBody ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto) {
         boolean newPassword = this.userService.forgottenPasswordSetNew(forgottenPasswordNewPasswordDto);
