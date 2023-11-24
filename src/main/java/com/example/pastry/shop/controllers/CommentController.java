@@ -2,10 +2,18 @@ package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.CommentAllDTO;
 import com.example.pastry.shop.model.dto.CommentDto;
+import com.example.pastry.shop.model.dto.ErrorsRegistrationDTO;
+import com.example.pastry.shop.model.dto.UserRegistrationDTO;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -27,6 +35,15 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    @Operation(summary = "Create new comment", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Create new comment",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CommentAllDTO.class))})
+            }
+    )
     @PostMapping("")
     public ResponseEntity<?> createComment(@RequestBody CommentDto commentDto,
                                            @AuthenticationPrincipal Users user) {
@@ -34,7 +51,15 @@ public class CommentController {
         return ResponseEntity.ok(commentsDTO);
     }
 
-
+    @Operation(summary = "Edit comment", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Edit comment",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CommentAllDTO.class))})
+            }
+    )
     @PutMapping("{commentId}")
     public ResponseEntity<?> updateComment(@RequestBody CommentDto commentDto,
                                            @AuthenticationPrincipal Users user) {
@@ -52,13 +77,25 @@ public class CommentController {
         return commentsDTO;
     }
 
+    @Operation(summary = "Get all comments")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all comments",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CommentAllDTO.class))})
+            }
+    )
     @GetMapping("")
     public ResponseEntity<Set<?>> getCommentsByShop(@RequestParam Long shopId) {
         Set<CommentAllDTO> comments = commentService.getCommentsByShopId(shopId);
         return ResponseEntity.ok(comments);
     }
 
-
+    @Operation(summary = "User delete his comment")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all comments"),
+                    @ApiResponse(responseCode = "500", description = "Unsuccessful delete comment")
+            }
+    )
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         try {
@@ -70,12 +107,18 @@ public class CommentController {
         }
     }
 
+    @Operation(summary = "Admin delete user comment")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Admin delete user comment",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class)))
+            }
+    )
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserComment(@PathVariable Long id) {
         commentService.deleteComment(id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom("Successful delete message");
         return ResponseEntity.ok().body(customResponse);
-
     }
 }
