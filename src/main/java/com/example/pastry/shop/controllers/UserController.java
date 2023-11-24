@@ -40,6 +40,14 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Confirm Registration")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful activate your profile",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(responseCode = "400"),
+            }
+    )
     @PostMapping("/register/verify/{verification}")
     private ResponseEntity<?> verificationUser(@PathVariable String verification) {
         Users user = this.userService.validateUser(verification);
