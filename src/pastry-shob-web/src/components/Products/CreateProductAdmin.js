@@ -46,7 +46,6 @@ const CreateProductAdmin = () => {
         })
             .then((response) => response.json())
             .then(data => {
-                console.log(data)
                 if (data.custom !== "Successful create product") {
                     setErrorProduct(data)
                     setErrorCreateProduct(true)

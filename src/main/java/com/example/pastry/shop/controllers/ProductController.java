@@ -4,6 +4,11 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.ProductsService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.Nullable;
@@ -33,12 +38,22 @@ public class ProductController {
         this.productsService = productsService;
     }
 
+    @Operation(summary = "Create product")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Product was created",
+                    content = {@Content(mediaType = "multipart/form-data",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(description = "Incorrect field",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorProductDTO.class))})
+            }
+    )
     @PostMapping(value = "/create/admin", consumes = {"multipart/form-data"})
     public ResponseEntity<?> createProduct(
             @RequestPart(value = "imageUrl", required = false) MultipartFile file,
             @RequestPart(value = "dto") @Valid CreateProductDTO createProductDTO, BindingResult result
     ) throws IOException {
-        ResponseEntity<ErrorProductDTO> errorProductDTO = errosCreateProduct(result);
+        ResponseEntity<ErrorProductDTO> errorProductDTO = errorsCreateProduct(result);
         if (errorProductDTO != null) return errorProductDTO;
         this.productsService.createProduct(createProductDTO, file);
         CustomResponse customResponse = new CustomResponse();
@@ -47,7 +62,7 @@ public class ProductController {
     }
 
     @Nullable
-    private ResponseEntity<ErrorProductDTO> errosCreateProduct(BindingResult result) {
+    private ResponseEntity<ErrorProductDTO> errorsCreateProduct(BindingResult result) {
         ErrorProductDTO errorProductDTO = new ErrorProductDTO();
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors().stream()
@@ -59,7 +74,13 @@ public class ProductController {
         return null;
     }
 
-
+    @Operation(summary = "Get product by ID")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get product by ID",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GetProductsDTO.class))})
+            }
+    )
     @GetMapping("/{productId}")
     public ResponseEntity<?> getProduct(@PathVariable Long productId) {
         Optional<GetProductsDTO> productOpt = productsService.findById(productId);

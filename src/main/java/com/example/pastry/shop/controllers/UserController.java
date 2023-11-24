@@ -68,7 +68,7 @@ public class UserController {
                             schema = @Schema(implementation = UserRegistrationDTO.class))}),
                     @ApiResponse(description = "Incorrect field",
                             content = {@Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ErrorsRegistrationDTO.class))}),
+                                    schema = @Schema(implementation = ErrorsRegistrationDTO.class))})
             }
     )
     @PostMapping("/register")
