@@ -87,6 +87,16 @@ public class ProductController {
         return ResponseEntity.ok(productOpt);
     }
 
+    @Operation(summary = "Update product")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful update product",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(responseCode = "200", description = "Unsuccessful update product!",
+                            content = {@Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = CustomResponse.class))})
+            }
+    )
     @PatchMapping("/edit/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable Long productId,
                                            @RequestPart(value = "imageUrl", required = false) MultipartFile file,
@@ -97,6 +107,14 @@ public class ProductController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Delete product")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Successful delete product",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class))}),
+                    @ApiResponse(responseCode = "500", description = "Unsuccessful delete product!")
+            }
+    )
     @DeleteMapping("/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         try {
