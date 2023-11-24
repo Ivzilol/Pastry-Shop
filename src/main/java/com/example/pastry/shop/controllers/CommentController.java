@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_DELETE_MESSAGE;
+
 @RestController
 @RequestMapping("/api/comments")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -116,7 +118,7 @@ public class CommentController {
     public ResponseEntity<?> deleteUserComment(@PathVariable Long id) {
         commentService.deleteComment(id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Successful delete message");
+        customResponse.setCustom(SUCCESSFUL_DELETE_MESSAGE);
         return ResponseEntity.ok().body(customResponse);
     }
 }
