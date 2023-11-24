@@ -27,6 +27,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.pastry.shop.common.ConstantMessages.*;
+
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -58,7 +60,7 @@ public class ProductController {
         if (errorProductDTO != null) return errorProductDTO;
         this.productsService.createProduct(createProductDTO, file);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Successful create product");
+        customResponse.setCustom(SUCCESSFUL_CREATE_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -104,7 +106,7 @@ public class ProductController {
                                            @RequestPart(value = "dto") UpdateProductDTO updateProductDTO) throws IOException {
         boolean updateProduct = this.productsService.saveProduct(updateProductDTO, productId, file);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom(updateProduct ? "Successful update product!" : "Unsuccessful update product!");
+        customResponse.setCustom(updateProduct ? SUCCESSFUL_UPDATE_PRODUCT : UNSUCCESSFUL_UPDATE_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -121,7 +123,7 @@ public class ProductController {
         try {
             productsService.delete(productId);
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Product Delete");
+            customResponse.setCustom(SUCCESSFUL_DELETE_PRODUCT_ADMIN);
             return ResponseEntity.ok(customResponse);
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +160,7 @@ public class ProductController {
                                          @AuthenticationPrincipal Users user) {
         this.productsService.likeProduct(id, user);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Like");
+        customResponse.setCustom(SUCCESSFUL_LIKE_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -176,7 +178,7 @@ public class ProductController {
                                             @AuthenticationPrincipal Users user) {
         this.productsService.deleteFromProductsLikes(id, user);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Not Like");
+            customResponse.setCustom(SUCCESSFUL_DISLIKE_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
