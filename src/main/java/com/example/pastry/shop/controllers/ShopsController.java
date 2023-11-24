@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_UPDATE_SHOP;
+import static com.example.pastry.shop.common.ConstantMessages.UNSUCCESSFUL_UPDATE_SHOP;
+
 
 @RestController
 @RequestMapping("/api/shops")
@@ -92,9 +95,9 @@ public class ShopsController {
         boolean isUpdate = this.shopsService.updateShop(shop, shopId, user);
         CustomResponse customResponse = new CustomResponse();
         if (isUpdate) {
-            customResponse.setCustom("Successful update shop");
+            customResponse.setCustom(SUCCESSFUL_UPDATE_SHOP);
         } else {
-            customResponse.setCustom("Unsuccessful update shop");
+            customResponse.setCustom(UNSUCCESSFUL_UPDATE_SHOP);
         }
         return ResponseEntity.ok(customResponse);
     }

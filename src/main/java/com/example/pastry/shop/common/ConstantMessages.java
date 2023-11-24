@@ -14,4 +14,6 @@ public class ConstantMessages {
     public static final String SUCCESSFUL_DELETE_PRODUCT_ADMIN = "Product Delete";
     public static final String SUCCESSFUL_LIKE_PRODUCT = "Like";
     public static final String SUCCESSFUL_DISLIKE_PRODUCT = "Not Like";
+    public static final String SUCCESSFUL_UPDATE_SHOP = "Successful update shop";
+    public static final String UNSUCCESSFUL_UPDATE_SHOP = "Unsuccessful update shop";
 }
