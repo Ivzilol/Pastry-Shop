@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.Set;
 
+import static com.example.pastry.shop.common.ConstantMessages.*;
+
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -82,7 +84,7 @@ public class OrdersController {
     public ResponseEntity<?> deleteProductFromOrders(@PathVariable Long id) {
         this.orderService.removeProduct(id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Delete product");
+        customResponse.setCustom(SUCCESSFUL_DELETE_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -100,7 +102,7 @@ public class OrdersController {
                                                @AuthenticationPrincipal Users user) {
         this.orderService.updateStatus(ordersStatusDTO, user);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Confirm order");
+        customResponse.setCustom(SUCCESSFUL_CONFIRM_PRODUCT);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -149,7 +151,7 @@ public class OrdersController {
                                                    @PathVariable Long id) throws ParseException {
         this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Order send");
+        customResponse.setCustom(SUCCESSFUL_UPDATE_ORDER_SEND);
         return ResponseEntity.ok(customResponse);
     }
 
@@ -167,7 +169,7 @@ public class OrdersController {
                                                    @PathVariable Long id) {
         this.orderService.updateStatusDelivery(orderStatusDeliveryAdmin, id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom("Order delivery");
+        customResponse.setCustom(SUCCESSFUL_UPDATE_ORDER_DELIVERY);
         return ResponseEntity.ok(customResponse);
     }
 
