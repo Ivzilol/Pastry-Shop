@@ -6,6 +6,12 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderProcessingService;
 import com.example.pastry.shop.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,6 +37,15 @@ public class OrdersController {
     }
 
 
+    @Operation(summary = "Create order", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Create order",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @PostMapping("/{id}")
     public ResponseEntity<?> createOrder(@PathVariable Long id,
                                          @AuthenticationPrincipal Users user) {
@@ -41,12 +56,28 @@ public class OrdersController {
         return ResponseEntity.ok(ordersDTO);
     }
 
+    @Operation(summary = "Get Order By User", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get Order By User",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("")
     public ResponseEntity<?> getOrdersByUser(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> ordersById = orderService.findByUser(user);
         return ResponseEntity.ok(ordersById);
     }
 
+    @Operation(summary = "Delete product from Order")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Delete product from Order",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class)))
+            }
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProductFromOrders(@PathVariable Long id) {
         this.orderService.removeProduct(id);
@@ -55,15 +86,33 @@ public class OrdersController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Update status on Order", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Update status on Order",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class)))
+            }
+    )
     @PatchMapping("")
     public ResponseEntity<?> updateStatusOrder(@RequestBody OrdersStatusDTO ordersStatusDTO,
                                                @AuthenticationPrincipal Users user) {
         this.orderService.updateStatus(ordersStatusDTO, user);
         CustomResponse customResponse = new CustomResponse();
-            customResponse.setCustom("Confirm order");
+        customResponse.setCustom("Confirm order");
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Get all confirmed orders", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all confirmed orders",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("/admin")
     public ResponseEntity<?> getAllConfirmedOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> confirmedOrders = this.orderService.findByStatus(user);
@@ -71,12 +120,30 @@ public class OrdersController {
     }
 
 
+    @Operation(summary = "Get all send orders", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all send orders",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersProcessingDTO.class)))
+            }
+    )
     @GetMapping("/admin/send")
     public ResponseEntity<?> getAllSendOrders(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> sendOrders = this.orderProcessingService.findByStatus(user);
         return ResponseEntity.ok(sendOrders);
     }
 
+    @Operation(summary = "Update status on order to send", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Update status on order to send",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class)))
+            }
+    )
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                    @PathVariable Long id) throws ParseException {
@@ -86,6 +153,15 @@ public class OrdersController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "Update status on order to delivery", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Update status on order to delivery",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CustomResponse.class)))
+            }
+    )
     @PatchMapping("/admin/delivery/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusDeliveryAdmin orderStatusDeliveryAdmin,
                                                    @PathVariable Long id) {
@@ -95,12 +171,30 @@ public class OrdersController {
         return ResponseEntity.ok(customResponse);
     }
 
+    @Operation(summary = "User tracking order", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "User tracking order",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("/tracking")
     public ResponseEntity<?> getConfirmedOrder(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> confirmedOrder = this.orderService.trackingByStatus(user);
         return ResponseEntity.ok(confirmedOrder);
     }
 
+    @Operation(summary = "User orders history", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "User orders history",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersProcessingDTO.class)))
+            }
+    )
     @GetMapping("/history/user")
     public ResponseEntity<?> getOrdersByCurrentUser(@AuthenticationPrincipal Users user) {
         Set<OrdersProcessingDTO> userOrders = this.orderProcessingService.findOrdersCurrentUser(user);
@@ -108,24 +202,59 @@ public class OrdersController {
     }
 
 
+    @Operation(summary = "Admin get all users orders")
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Admin get all users orders",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersProcessingDTO.class)))
+            }
+    )
     @GetMapping("/history/admin")
     public ResponseEntity<?> getAllOrders() {
         Set<OrdersProcessingDTO> allOrders = this.orderProcessingService.getAllOrders();
         return ResponseEntity.ok(allOrders);
     }
 
+
+    @Operation(summary = "Get orders by status", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get orders by status",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("/status")
     public ResponseEntity<?> getOrdersStatus(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> userOrder = this.orderService.findOrdersWhichNotDelivered(user);
         return ResponseEntity.ok(userOrder);
     }
 
+    @Operation(summary = "Get orders with status confirmed", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get orders with status confirmed",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("status/confirmed")
     public ResponseEntity<?> getOrderStatusConfirmed(@AuthenticationPrincipal Users user) {
         Set<OrdersDTO> userOrders = this.orderService.findOrdersWhichConfirmed(user);
         return ResponseEntity.ok(userOrders);
     }
 
+    @Operation(summary = "Get orders which not send", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get orders which not send",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersDTO.class)))
+            }
+    )
     @GetMapping("status/confirmed/admin")
     public ResponseEntity<?> getNotSendOrders() {
         Set<OrdersDTO> allNotSendOrders = this.orderService.findAllNotSendOrders();
