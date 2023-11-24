@@ -112,9 +112,7 @@ https://sladkarnicata-na-mama.azurewebsites.net/
 
 After start App can see documentation on this link: http://localhost:8080/swagger-ui/index.html#/
 
-![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/4d93e812565eb778079f3a946f30cc83e9dad345/src/main/resources/static/img/Picture12.png)
-![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/5c414de86361647c90a5ac800d3e2fb3841a4b96/src/main/resources/static/img/picture13.png)
-![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/37f6bea23e2f8ea91a7636640ac994e56d6e7611/src/main/resources/static/img/picture14.png)
+
 
 <h3>More pictures</h3>
 <hr>
