@@ -43,7 +43,9 @@ public class OrdersProcessingController {
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id) {
         boolean isStart = this.orderService.findByUsersId(id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom(SUCCESSFUL_START_PROCESSING_ORDER);
+        if (isStart) {
+            customResponse.setCustom(SUCCESSFUL_START_PROCESSING_ORDER);
+        }
         return ResponseEntity.ok(customResponse);
     }
 }
