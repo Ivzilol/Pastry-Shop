@@ -20,20 +20,25 @@ public class ShopsService {
 
     private final ShopsRepository shopsRepository;
 
+    private static final String SHOP_NAME = "Sladcarnicata na Mama";
+
+    private static final String SHOP_TOWN = "Sofia";
+
+    private static final String SHOP_ADDRESS = "str. AlaBala";
+
     public ShopsService(ShopsRepository shopsRepository) {
         this.shopsRepository = shopsRepository;
     }
 
-    public Shops createShop(Users user) {
+    public void createShop(Users user) {
         Shops shop = new Shops();
-        shop.setName("Sladcarnicata na Mama");
+        shop.setName(SHOP_NAME);
         shop.setStatus(ShopStatusEnum.WORKING.getStatus());
         shop.setNumber(findNextShopToSubmit(user));
-        shop.setTown("Sofia");
-        shop.setAddress("str. AlaBala");
+        shop.setTown(SHOP_TOWN);
+        shop.setAddress(SHOP_ADDRESS);
         shop.setUsers(user);
-
-        return shopsRepository.save(shop);
+        shopsRepository.save(shop);
     }
 
     private Integer findNextShopToSubmit(Users user) {
