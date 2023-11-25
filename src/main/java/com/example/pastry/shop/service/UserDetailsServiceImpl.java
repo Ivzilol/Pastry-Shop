@@ -15,6 +15,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UsersRepository usersRepository;
 
+    private static final String INVALID_CREDENTIAL_ERROR = "Invalid Credential";
+
     public UserDetailsServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
@@ -24,6 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Users> userOpt = usersRepository.findByUsername(username);
-        return userOpt.orElseThrow(() -> new UsernameNotFoundException("Invalid Credential"));
+        return userOpt.orElseThrow(() -> new UsernameNotFoundException(INVALID_CREDENTIAL_ERROR));
     }
 }
