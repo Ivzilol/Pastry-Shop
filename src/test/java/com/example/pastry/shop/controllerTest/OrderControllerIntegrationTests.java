@@ -227,8 +227,8 @@ public class OrderControllerIntegrationTests {
         Long orderId = 1L;
         OrderStatusSendAdmin orderStatusSendAdmin = new OrderStatusSendAdmin();
         orderStatusSendAdmin.setStatus("sent");
-        orderStatusSendAdmin.setDateDelivery("2023-11-09");
-        orderStatusSendAdmin.setTimeDelivery("16:00");
+        orderStatusSendAdmin.setDateDelivery("2025-12-31");
+        orderStatusSendAdmin.setTimeDelivery("23:59");
         String jsonRequest = new ObjectMapper().writeValueAsString(orderStatusSendAdmin);
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/{id}", orderId)
                         .content(jsonRequest)
