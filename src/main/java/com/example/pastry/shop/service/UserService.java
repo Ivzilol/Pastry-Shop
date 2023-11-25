@@ -47,6 +47,10 @@ public class UserService {
     @Value("${auth_u}")
     private String auth_u;
 
+    private static final String AUTHORITY_USER = "user";
+
+    private static final String AUTHORITY_ADMIN = "admin";
+
 
 
     public UserService(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
@@ -82,13 +86,13 @@ public class UserService {
                 && userRegistrationDTO.getPassword().equals(adminPass)) {
             Users newUser = createUserOrAdmin(userRegistrationDTO);
             Authority authority = new Authority();
-            authority.setAuthority("admin");
+            authority.setAuthority(AUTHORITY_ADMIN);
             authority.setUsers(newUser);
             authorityRepository.save(authority);
         } else if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
             Users newUser = createUserOrAdmin(userRegistrationDTO);
             Authority authority = new Authority();
-            authority.setAuthority("user");
+            authority.setAuthority(AUTHORITY_USER);
             authority.setUsers(newUser);
             authorityRepository.save(authority);
         }
