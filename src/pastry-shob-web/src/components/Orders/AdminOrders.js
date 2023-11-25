@@ -1,9 +1,11 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import baseURL from "../BaseURL/BaseURL";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const AdminOrders = () => {
     const user = useUser();
@@ -13,6 +15,7 @@ const AdminOrders = () => {
     const [sentOrders, setSendOrders] = useState(null);
     const [dateDelivery, setDateDelivery] = useState("");
     const [timeDelivery, setTimeDelivery] = useState("");
+    const [errorDataTime, setErrorDataTime] = useState(false);
 
     useEffect(() => {
         ajax(`${baseURL}api/orders/admin`, "GET", user.jwt)
@@ -65,11 +68,20 @@ const AdminOrders = () => {
             body: JSON.stringify(requestBody)
 
         })
-            .then((response) => {
-                console.log(response)
-                startProcessingOrder(id)
-            });
+            .then((response) => response.json())
+            .then(data => {
+                if (data.custom === 'Order send') {
+                    startProcessingOrder(id)
+                } else {
+                    setError(data)
+                    setErrorDataTime(true);
+                }
+            })
     }
+
+    const [error, setError] = useState({
+        custom: ''
+    })
 
     function confirmOrderDelivery(id) {
         ajax(`${baseURL}api/orders/admin/delivery/${id}`, "PATCH", user.jwt, {
@@ -147,6 +159,9 @@ const AdminOrders = () => {
                                                         }}
                                                 >Изпрати поръчката
                                                 </button>
+                                                {errorDataTime && error.custom !== null &&
+                                                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.custom}</span>
+                                                }
                                             </div>
                                             <hr className="orders-admin-line"/>
                                         </div>

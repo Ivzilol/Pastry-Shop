@@ -41,7 +41,7 @@ public class OrdersProcessingController {
     )
     @PostMapping("/admin/{id}")
     public ResponseEntity<?> startProcessingOrder(@PathVariable Long id) {
-        Set<Orders> currentOrders = this.orderService.findByUsersId(id);
+        boolean isStart = this.orderService.findByUsersId(id);
         CustomResponse customResponse = new CustomResponse();
         customResponse.setCustom(SUCCESSFUL_START_PROCESSING_ORDER);
         return ResponseEntity.ok(customResponse);

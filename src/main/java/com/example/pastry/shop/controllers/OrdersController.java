@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.Set;
 
 import static com.example.pastry.shop.common.ConstantMessages.*;
+import static com.example.pastry.shop.common.ExceptionMessages.DATA_TIME_FEATURE;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -149,9 +150,13 @@ public class OrdersController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateStatusOrderSend(@RequestBody OrderStatusSendAdmin orderStatusSendAdmin,
                                                    @PathVariable Long id) throws ParseException {
-        this.orderService.updateStatusSend(orderStatusSendAdmin, id);
+        boolean isUpdated = this.orderService.updateStatusSend(orderStatusSendAdmin, id);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom(SUCCESSFUL_UPDATE_ORDER_SEND);
+        if (isUpdated) {
+            customResponse.setCustom(SUCCESSFUL_UPDATE_ORDER_SEND);
+        } else {
+            customResponse.setCustom(DATA_TIME_FEATURE);
+        }
         return ResponseEntity.ok(customResponse);
     }
 

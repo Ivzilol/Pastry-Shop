@@ -19,12 +19,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Optional;
@@ -159,12 +162,14 @@ public class OrderService {
                 .stream().anyMatch(auth -> AuthorityEnum.admin.name().equals(auth.getAuthority()));
     }
 
-    public Set<Orders> findByUsersId(Long id) {
+    public boolean findByUsersId(Long id) {
         OrdersProcessing ordersProcessing = new OrdersProcessing();
         synchronized (this) {
             Set<Orders> byOrderKey = new HashSet<>(ordersInProcessing);
+            if (byOrderKey.stream().allMatch(order -> order.getDateOfDelivery() == null)) {
+                return false;
+            }
             double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
-
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
             String hour = currentDateTime.format(formatter);
@@ -179,7 +184,7 @@ public class OrderService {
             ordersProcessing.setDateOfDispatch(LocalDate.now());
             ordersProcessing.setKeyOrder(id);
             this.ordersProcessingRepository.save(ordersProcessing);
-            return byOrderKey;
+            return true;
         }
     }
 
@@ -191,15 +196,21 @@ public class OrderService {
     }
 
 
-    public void updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
+    public boolean updateStatusSend(OrderStatusSendAdmin orderStatusSendAdmin, Long id) throws ParseException {
         synchronized (this) {
             Set<Orders> orders = getOrdersByKey(id);
             LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
+            Date date = Date.valueOf(LocalDate.now());
             DateFormat formatter = new SimpleDateFormat("HH:mm");
             java.sql.Time timeDelivery = new java.sql.Time(formatter
                     .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
+            java.sql.Time timeNow = Time.valueOf(LocalTime.now());
+            if (localDate.isBefore(LocalDate.now()) || timeDelivery.before(timeNow)) {
+                return false;
+            }
             setStatusTimeAndDate(orderStatusSendAdmin, orders, localDate, timeDelivery);
         }
+        return true;
     }
 
     private void setStatusTimeAndDate(OrderStatusSendAdmin orderStatusSendAdmin, Set<Orders> orders, LocalDate localDate, Time timeDelivery) {
