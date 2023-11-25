@@ -164,7 +164,7 @@ public class UserService {
         boolean isAdmin = isAdmin(user);
         if (isAdmin) {
             Authority authority = this.authorityRepository.findByUsersId(id);
-            authority.setAuthority("admin");
+            authority.setAuthority(AUTHORITY_ADMIN);
             this.authorityRepository.save(authority);
             return true;
         } else {
