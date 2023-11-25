@@ -132,11 +132,11 @@ public class ProductsService {
         return null;
     }
 
-    public Products deleteFromProductsLikes(Long id, Users user) {
+    public void deleteFromProductsLikes(Long id, Users user) {
         Products product = this.productRepository.findProductById(id);
         Products product1 = getProductsNotLike(user, product);
-        if (product1 != null) return product1;
-        return product;
+        if (product1 != null) {
+        }
     }
 
     @Nullable
