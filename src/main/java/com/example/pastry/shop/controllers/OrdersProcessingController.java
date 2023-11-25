@@ -1,7 +1,5 @@
 package com.example.pastry.shop.controllers;
 
-import com.example.pastry.shop.model.dto.OrdersDTO;
-import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,8 +11,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_START_PROCESSING_ORDER;
 
