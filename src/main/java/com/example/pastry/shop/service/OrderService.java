@@ -200,7 +200,6 @@ public class OrderService {
         synchronized (this) {
             Set<Orders> orders = getOrdersByKey(id);
             LocalDate localDate = LocalDate.parse(orderStatusSendAdmin.getDateDelivery());
-            Date date = Date.valueOf(LocalDate.now());
             DateFormat formatter = new SimpleDateFormat("HH:mm");
             java.sql.Time timeDelivery = new java.sql.Time(formatter
                     .parse(String.valueOf(orderStatusSendAdmin.getTimeDelivery())).getTime());
