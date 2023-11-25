@@ -12,11 +12,13 @@ public class ScheduledService {
 
     private final ChatMessagesRepository chatMessagesRepository;
 
+    private static final String HOUR = "0 0 0 * * ?";
+
     public ScheduledService(ChatMessagesRepository chatMessagesRepository) {
         this.chatMessagesRepository = chatMessagesRepository;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = HOUR)
     public void deleteFinishedChat() {
         Set<ChatMessages> chatMessages = this.chatMessagesRepository.deleteFinishedChat();
         this.chatMessagesRepository.deleteAll(chatMessages);
