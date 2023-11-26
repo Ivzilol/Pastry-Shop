@@ -2218,7 +2218,7 @@ iframe {
     }
 
     .chat-box {
-        height: 100%;
+        max-height: 90%;
     }
 
     .chat-content{
@@ -2226,7 +2226,7 @@ iframe {
     }
 
     .chat-message {
-        height: 100%;
+        height: 10%;
     }
 
     .send-message {
