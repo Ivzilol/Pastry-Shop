@@ -19,12 +19,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -280,7 +278,8 @@ public class OrderService {
 
 
     public Set<OrdersDTO> trackingByStatus(Users user) {
-        Set<OrdersDTO> orders = this.ordersRepository.findConfirmedOrder(user.getId(), statusConf, statusSend);
+        Set<OrdersDTO> orders = this.ordersRepository.findConfirmedOrder(user.getId(), statusConf,
+                statusSend);
         Map<Long, Double> totalPrice = new HashMap<>();
         for (OrdersDTO currentOrder : orders) {
             if (!totalPrice.containsKey(currentOrder.getKeyOrderProduct())) {
