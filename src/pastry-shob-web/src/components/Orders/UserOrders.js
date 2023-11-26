@@ -113,7 +113,7 @@ const UserOrders = () => {
                                     <p className="getAllPrice">{
                                         promotion
                                             ?
-                                            allPrice += product.price - (product.price * 0.20)
+                                            allPrice += product.price
                                             :
                                             allPrice += product.price
                                     }
@@ -121,7 +121,7 @@ const UserOrders = () => {
                                     <p className="getAllPrice">{
                                         promotion
                                             ?
-                                            discount += product.price * 0.20
+                                            discount += product.price - (product.price * 0.75)
                                             :
                                             discount += product.price
                                     }
