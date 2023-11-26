@@ -11,14 +11,6 @@ const UserOrderTracking = () => {
     const [order, setOrder] = useState(null);
     const [status, setStatus] = useState(null)
     let currentKeyOrder;
-    const now = new Date();
-    const hours = now.getHours();
-    let promotion = false;
-    if (hours >= 14 && hours < 21) {
-        promotion = true;
-    }
-    let allPriceProcessing = 0;
-    let allPriceSend = 0;
     const {t} = useTranslation();
 
     useEffect(() => {
@@ -74,24 +66,16 @@ const UserOrderTracking = () => {
                                         <p>
                                             <strong>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</strong>
                                         </p>
-                                        {/*<p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>*/}
-                                        <p className="getAllPrice">{
-                                            promotion
-                                                ?
-                                                allPriceProcessing += currentOrder.price - (currentOrder.price * 0.20)
-                                                :
-                                                allPriceProcessing += currentOrder.price
-                                        }</p>
                                     </div>
                                     :
                                     <></>
                             ))}
-                            {/*{order.length > 0 && status === 'confirmed'*/}
-                            {/*    ?*/}
-                            {/*    <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>*/}
-                            {/*    :*/}
-                            {/*    <h4>Вие нямате поръчки в процес на приготвяне</h4>*/}
-                            {/*}*/}
+                            {status === 'confirmed'
+                                ?
+                                <></>
+                                :
+                                <h4>Вие нямате поръчка в процес нa приготвяне</h4>
+                            }
                         </article>
                     ) : (
                         <div></div>
@@ -129,7 +113,9 @@ const UserOrderTracking = () => {
                                         ) : <></>}
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
                                         <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
-                                        <p><strong>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</strong></p>
+                                        <p>
+                                            <strong>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</strong>
+                                        </p>
                                     </div>
                                     :
                                     <></>
