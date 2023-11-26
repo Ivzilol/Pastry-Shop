@@ -129,7 +129,7 @@ const UserOrderTracking = () => {
                                         ) : <></>}
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
                                         <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
-                                        <p>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</p>
+                                        <p><strong>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</strong></p>
                                     </div>
                                     :
                                     <></>
