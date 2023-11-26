@@ -2180,10 +2180,6 @@ iframe {
         margin-top: 170px;
     }
 
-    .chat-container {
-        display: none;
-    }
-
     .chat-closed {
         width: 70px;
         height: 70px;
@@ -2198,7 +2194,7 @@ iframe {
     .chat {
         position: fixed;
         left: 0;
-        width: 100%;
+        width: 97%;
         height: 92%;
         background-color: white;
         z-index: 9999;
@@ -2215,10 +2211,29 @@ iframe {
         margin: 0 0 0 100px;
     }
 
+    .chat-container {
+        width: auto;
+        margin-top: 10px;
+        height: 100%;
+    }
+
+    .chat-box {
+        height: 100%;
+    }
+
+    .chat-content{
+        height: 100%;
+    }
+
+    .chat-message {
+        height: 100%;
+    }
+
     .send-message {
         position: fixed;
         bottom: 0;
         width: 90%;
         margin-bottom: 10px;
+
     }
 }
