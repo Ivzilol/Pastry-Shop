@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../NavBar/NavBar";
 import ajax from "../../Services/FetchService";
 import {useTranslation} from "react-i18next";
@@ -10,6 +10,7 @@ const UserOrderTracking = () => {
     const user = useUser();
     const [order, setOrder] = useState(null);
     const [status, setStatus] = useState(null)
+    let currentKeyOrder;
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
@@ -44,15 +45,35 @@ const UserOrderTracking = () => {
                             className="tracking-in-processing-order">
                             <h4>{t('tracking-main-section.process-order')}</h4>
                             {order.map((currentOrder) => (
-                                currentOrder.status === 'confirmed'
+                                currentOrder.status === 'confirmed' && currentKeyOrder !== currentOrder.keyOrderProduct
                                     ?
                                     <div
                                         className="tracking-in-processing-order-items"
                                         key={currentOrder.id}
                                         id={currentOrder.keyOrderProduct}
                                     >
+                                        <div className="orderKey">
+                                            {currentKeyOrder = currentOrder.keyOrderProduct}
+                                        </div>
+                                        {order ? (
+                                            <div key={order.id}>
+                                                {order.map((orderDetails) =>
+                                                    currentOrder.keyOrderProduct === orderDetails.keyOrderProduct && currentOrder.id !== orderDetails.id
+                                                        ?
+                                                        <div key={orderDetails.keyOrderProduct}>
+                                                            <p>{orderDetails.productName}</p>
+                                                            <p>{orderDetails.price.toFixed(2)} {t('products-users.currency')}</p>
+                                                        </div>
+                                                        :
+                                                        <></>
+                                                )}
+                                            </div>
+                                        ) : <></>}
                                         <p>{currentOrder.productName}</p>
-                                        <p>{currentOrder.price} {t('products-users.currency')}</p>
+                                        <p>{currentOrder.price.toFixed(2)} {t('products-users.currency')}</p>
+                                        <p>
+                                            <strong>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</strong>
+                                        </p>
                                         {/*<p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>*/}
                                         <p className="getAllPrice">{
                                             promotion
@@ -65,12 +86,12 @@ const UserOrderTracking = () => {
                                     :
                                     <></>
                             ))}
-                            {order.length > 0 && status === 'confirmed'
-                                ?
-                                <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>
-                                :
-                                <h4>Вие нямате поръчки в процес на приготвяне</h4>
-                            }
+                            {/*{order.length > 0 && status === 'confirmed'*/}
+                            {/*    ?*/}
+                            {/*    <h4>{t('tracking-main-section.all-price')} {allPriceProcessing.toFixed(2)} {t('products-users.currency')}</h4>*/}
+                            {/*    :*/}
+                            {/*    <h4>Вие нямате поръчки в процес на приготвяне</h4>*/}
+                            {/*}*/}
                         </article>
                     ) : (
                         <div></div>
@@ -83,30 +104,39 @@ const UserOrderTracking = () => {
                             className="tracking-in-send-order">
                             <h4>{t('tracking-main-section.process-delivery')}</h4>
                             {order.map((currentOrder) => (
-                                currentOrder.status === 'sent'
+                                currentOrder.status === 'sent' && currentKeyOrder !== currentOrder.keyOrderProduct
                                     ?
                                     <div className="tracking-in-send-order-items"
                                          key={currentOrder.id}
                                          id={currentOrder.keyOrderProduct}
                                     >
-                                        <p>{currentOrder.productName}</p>
-                                        <p>{currentOrder.price} {t('products-users.currency')}</p>
+                                        <div className="orderKey">
+                                            {currentKeyOrder = currentOrder.keyOrderProduct}
+                                        </div>
+                                        {order ? (
+                                            <div key={order.id}>
+                                                {order.map((orderSend) =>
+                                                    currentOrder.keyOrderProduct === orderSend.keyOrderProduct
+                                                        ?
+                                                        <div>
+                                                            <p>{orderSend.productName}</p>
+                                                            <p> {orderSend.price.toFixed(2)} {t('products-users.currency')}</p>
+                                                        </div>
+                                                        :
+                                                        <></>
+                                                )}
+                                            </div>
+                                        ) : <></>}
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
                                         <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
-                                        <p className="getAllPrice">{
-                                            promotion
-                                                ?
-                                                allPriceSend += currentOrder.price - (currentOrder.price * 0.20)
-                                                :
-                                                allPriceSend += currentOrder.price
-                                        }</p>
+                                        <p>{t('tracking-main-section.all-price')} {currentOrder.totalPrice.toFixed(2)} {t('products-users.currency')}</p>
                                     </div>
                                     :
                                     <></>
                             ))}
                             {status === 'sent'
                                 ?
-                                <h4>{t('tracking-main-section.all-price')} {allPriceSend.toFixed(2)} {t('products-users.currency')}</h4>
+                                <></>
                                 :
                                 <h4>Вие нямате поръчка в процес на доставка</h4>
                             }

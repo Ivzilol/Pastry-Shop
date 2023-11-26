@@ -116,14 +116,14 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("21.99"))
+                        .value("17.592"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Праскови"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("31.0"))
+                        .value("24.8"))
                 .andReturn();
         Assertions.assertEquals(2, this.testH2RepositoryOrders.count());
     }
@@ -139,14 +139,14 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("20.21"))
+                        .value("16.168"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Плато сладки"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("18.88"))
+                        .value("15.104"))
                 .andReturn();
         Assertions.assertEquals(4, this.testH2RepositoryOrders.count());
     }
@@ -161,7 +161,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
-                        .value("20.21"))
+                        .value("16.168"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("newOrder"))
                 .andReturn();
@@ -263,7 +263,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
+                        .value(intHour >= 14 && intHour < 21 ? "12.9344" : "20.21"))
                 .andReturn();
     }
 

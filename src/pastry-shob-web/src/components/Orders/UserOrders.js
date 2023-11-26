@@ -98,7 +98,7 @@ const UserOrders = () => {
                                         {t('orders-user.name')} {product.productName}
                                     </p>
                                     <p className="orders-container-items-name">
-                                        {t('products-users.price')} {product.price} {t('products-users.currency')}
+                                        {t('products-users.price')} {product.price.toFixed(2)} {t('products-users.currency')}
                                     </p>
                                     {product.status === 'newOrder'
                                         ?

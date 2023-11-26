@@ -874,11 +874,11 @@ footer {
     align-items: center;
 }
 
-/*.tracking-in-processing-order-items {*/
-/*    border: 2px solid #ef7d00;*/
-/*    margin-top: 5px;*/
-/*    border-radius: 10px;*/
-/*}*/
+.tracking-in-processing-order-items {
+    border: 2px solid #ef7d00;
+    margin-top: 5px;
+    border-radius: 10px;
+}
 
 .order-user-tracker {
     display: flex;
@@ -940,7 +940,7 @@ footer {
 .tracking-in-processing-order {
     margin: 10px 0;
     border: #ef7d00;
-    border-bottom: 2px solid #ef7d00;
+    /*border-bottom: 2px solid #ef7d00;*/
     border-radius: 20px;
     text-align: center;
     font-size: 17px;
@@ -955,12 +955,17 @@ footer {
 .tracking-in-send-order {
     margin: 10px 0;
     border: #ef7d00;
-    border-bottom: 2px solid #ef7d00;
     border-radius: 20px;
     text-align: center;
     font-size: 17px;
     font-style: italic;
     color: #ef7d00;
+}
+
+.tracking-in-send-order-items {
+    border: 2px solid #ef7d00;
+    border-radius: 10px;
+    margin-top: 5px;
 }
 
 .author-container {

@@ -58,4 +58,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
             " from Orders as o" +
             " where o.status = :new_order and o.users.id = :id")
     Set<OrdersDTO> findByUsersId(Long id, @Param("new_order") String new_order);
+
+
 }

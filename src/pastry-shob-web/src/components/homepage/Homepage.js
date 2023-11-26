@@ -107,7 +107,7 @@ const Homepage = () => {
                 .then(productData => {
                     setProduct(productData);
                     setOrderDialogProductName(productData.productName)
-                    setOrderDialogProductDescription(productData.price)
+                    setOrderDialogProductDescription(productData.price.toFixed(2))
                     setOrderDialog(true);
                     timerOrderWindow();
                     setOrderWindow(true);
@@ -327,7 +327,7 @@ const Homepage = () => {
                                         <img className="search-result-container-img"
                                              src={product.imageUrl} alt="new"/>
                                         <h5>{product.name}</h5>
-                                        <p className="search-result-container-price">{t('homepage-price')} {product.price} {t('homepage-currency')}</p>
+                                        <p className="search-result-container-price">{t('homepage-price')} {product.price.toFixed(2)} {t('homepage-currency')}</p>
                                         <p className="search-result-container-description">{product.description}</p>
                                         <button
                                             className="product-details-selected-product-button"
@@ -440,7 +440,7 @@ const Homepage = () => {
                                                     <img className="product-details-selected-product-img"
                                                          src={currentProduct.imageUrl} alt="new"/>
                                                     <h4>{currentProduct.name}</h4>
-                                                    <p>Цена: {currentProduct.price} лв.</p>
+                                                    <p>Цена: {currentProduct.price.toFixed(2)} лв.</p>
                                                     <p>{currentProduct.description}</p>
                                                     <button
                                                         className="product-details-selected-product-button"
@@ -460,7 +460,7 @@ const Homepage = () => {
                                 <p className="home-page-container-item"
                                 >{product.name}</p>
                                 <p className="home-page-container-item"
-                                >{t('homepage-price')} {product.price} {t('homepage-currency')}</p>
+                                >{t('homepage-price')} {product.price.toFixed(2)} {t('homepage-currency')}</p>
                             </div>
                         ))}
                     </article>
@@ -508,7 +508,7 @@ const Homepage = () => {
                                                     <img className="product-details-selected-product-img"
                                                          src={currentProduct.imageUrl} alt="new"/>
                                                     <h4>{currentProduct.name}</h4>
-                                                    <p>Цена: {currentProduct.price} лв.</p>
+                                                    <p>Цена: {currentProduct.price.toFixed(2)} лв.</p>
                                                     <p>{currentProduct.description}</p>
                                                     <button
                                                         className="product-details-selected-product-button"
@@ -527,7 +527,7 @@ const Homepage = () => {
                                 <p className="home-page-container-item"
                                 >{recommendedProduct.name}</p>
                                 <p className="home-page-container-item"
-                                >{t('homepage-price')} {recommendedProduct.price} {t('homepage-currency')}</p>
+                                >{t('homepage-price')} {recommendedProduct.price.toFixed(2)} {t('homepage-currency')}</p>
                             </div>
                         ))}
                     </article>

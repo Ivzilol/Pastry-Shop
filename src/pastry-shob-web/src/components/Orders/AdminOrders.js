@@ -127,7 +127,7 @@ const AdminOrders = () => {
                                                                 ?
                                                                 <div id={order.keyOrderProduct}>
                                                                     <p>Продукт: {orderDetails.productName}</p>
-                                                                    <p>Цена: {orderDetails.price} лв.</p>
+                                                                    <p>Цена: {orderDetails.price.toFixed(2)} лв.</p>
                                                                 </div>
                                                                 :
                                                                 <></>

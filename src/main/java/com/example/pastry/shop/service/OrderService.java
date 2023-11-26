@@ -29,9 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -80,7 +78,15 @@ public class OrderService {
         Products productIncreaseNumberOrders = this.productRepository.findProductById(id);
         productIncreaseNumberOrders.setNumberOrders(productIncreaseNumberOrders.getNumberOrders() + 1);
         newOrder.setStatus(statusNewOrder);
-        newOrder.setPrice(product.get().getPrice());
+        double price = product.get().getPrice();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
+        if (intHour >= 14 && intHour < 21) {
+            price = price - price * 0.20;
+        }
+        newOrder.setPrice(price);
         newOrder.setProductName(product.get().getName());
         ordersRepository.save(newOrder);
         productRepository.save(productIncreaseNumberOrders);
@@ -274,7 +280,24 @@ public class OrderService {
 
 
     public Set<OrdersDTO> trackingByStatus(Users user) {
-        return this.ordersRepository.findConfirmedOrder(user.getId(), statusConf, statusSend);
+        Set<OrdersDTO> orders = this.ordersRepository.findConfirmedOrder(user.getId(), statusConf, statusSend);
+        Map<Long, Double> totalPrice = new HashMap<>();
+        for (OrdersDTO currentOrder : orders) {
+            if (!totalPrice.containsKey(currentOrder.getKeyOrderProduct())) {
+                totalPrice.put(currentOrder.getKeyOrderProduct(), currentOrder.getPrice());
+            } else {
+                totalPrice.put(currentOrder.getKeyOrderProduct(),
+                        totalPrice.get(currentOrder.getKeyOrderProduct()) + currentOrder.getPrice());
+            }
+        }
+        for (OrdersDTO current : orders) {
+            for (Long key : totalPrice.keySet()) {
+                if (Objects.equals(current.getKeyOrderProduct(), key)) {
+                    current.setTotalPrice(totalPrice.get(current.getKeyOrderProduct()));
+                }
+            }
+        }
+        return orders;
     }
 
     public Set<OrdersDTO> findOrdersWhichNotDelivered(Users user) {

@@ -26,6 +26,8 @@ public class OrdersDTO {
 
     private Users users;
 
+    private Double totalPrice;
+
 
     public OrdersDTO(Long id, LocalDate dateCreated, LocalDate dateOfDelivery, Time timeOfDelivery, String status, Double price, String productName, Long keyOrderProduct, Users users) {
         this.id = id;
@@ -123,5 +125,13 @@ public class OrdersDTO {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
