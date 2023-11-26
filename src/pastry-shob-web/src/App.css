@@ -874,6 +874,12 @@ footer {
     align-items: center;
 }
 
+/*.tracking-in-processing-order-items {*/
+/*    border: 2px solid #ef7d00;*/
+/*    margin-top: 5px;*/
+/*    border-radius: 10px;*/
+/*}*/
+
 .order-user-tracker {
     display: flex;
     flex-direction: column;

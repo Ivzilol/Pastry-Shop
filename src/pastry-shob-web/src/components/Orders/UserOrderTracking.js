@@ -53,7 +53,7 @@ const UserOrderTracking = () => {
                                     >
                                         <p>{currentOrder.productName}</p>
                                         <p>{currentOrder.price} {t('products-users.currency')}</p>
-                                        <p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>
+                                        {/*<p>{t('tracking-main-section.data')} {currentOrder.dateCreated}</p>*/}
                                         <p className="getAllPrice">{
                                             promotion
                                                 ?
