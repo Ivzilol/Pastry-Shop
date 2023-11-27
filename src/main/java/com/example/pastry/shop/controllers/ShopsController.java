@@ -4,7 +4,7 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.ShopsService;
+import com.example.pastry.shop.service.impl.ShopsServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +30,9 @@ import static com.example.pastry.shop.common.ConstantMessages.UNSUCCESSFUL_UPDAT
 public class ShopsController {
 
 
-    private final ShopsService shopsService;
+    private final ShopsServiceImpl shopsService;
 
-    public ShopsController(ShopsService productService) {
+    public ShopsController(ShopsServiceImpl productService) {
         this.shopsService = productService;
     }
 
