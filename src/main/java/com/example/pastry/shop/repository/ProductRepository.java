@@ -50,12 +50,6 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " where p.categories = :category_c")
     Set<GetProductsDTO> findAllCakes(@Param("category_c") String category_c);
 
-    @Query("select new com.example.pastry.shop.model.dto.GetProductsDTO(" +
-            " p.id, p.name, p.price, p.categories, p.description, p.imageUrl as imageUrl, p.shops.id)" +
-            " from Products as p" +
-            " where p.categories = :category")
-    Set<GetProductsDTO> findByCategories(String category);
-
     @Query("select new com.example.pastry.shop.model.dto.MostOrderedProductsDTO(" +
             " p.id, p.name, p.imageUrl, p.price, p.description as description)" +
             " from Products as p" +

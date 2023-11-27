@@ -210,7 +210,13 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Set<GetProductsDTO> findSearchedProducts(CategoryProductDto categoryProductDto) {
-        return this.productRepository.findByCategories(categoryProductDto.getSelectOptions());
+        return switch (categoryProductDto.getSelectOptions()) {
+            case "pie" -> findAllPies();
+            case "buns" -> findAllBuns();
+            case "sweets" -> findAllSweets();
+            case "cake" -> findAllCakes();
+            default -> null;
+        };
     }
 
     @Override
