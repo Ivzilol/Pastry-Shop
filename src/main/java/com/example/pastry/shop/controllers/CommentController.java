@@ -5,7 +5,7 @@ import com.example.pastry.shop.model.dto.CommentDto;
 import com.example.pastry.shop.model.entity.Comment;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.CommentService;
+import com.example.pastry.shop.service.impl.CommentServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,9 +29,9 @@ import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_DELETE_
 @Tag(name = "Comments")
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentServiceImpl commentService;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentServiceImpl commentService) {
         this.commentService = commentService;
     }
 
