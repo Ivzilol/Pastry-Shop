@@ -1,6 +1,6 @@
 package com.example.pastry.shop.validation;
 
-import com.example.pastry.shop.service.UserService;
+import com.example.pastry.shop.service.impl.UserServiceImpl;
 import com.example.pastry.shop.validation.annotation.UniqueEmail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -8,9 +8,9 @@ import jakarta.validation.ConstraintValidatorContext;
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
 
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UniqueEmailValidator(UserService userService) {
+    public UniqueEmailValidator(UserServiceImpl userService) {
         this.userService = userService;
     }
 

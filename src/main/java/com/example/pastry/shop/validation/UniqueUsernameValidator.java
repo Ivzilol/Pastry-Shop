@@ -1,15 +1,15 @@
 package com.example.pastry.shop.validation;
 
-import com.example.pastry.shop.service.UserService;
+import com.example.pastry.shop.service.impl.UserServiceImpl;
 import com.example.pastry.shop.validation.annotation.UniqueUsername;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UniqueUsernameValidator(UserService userService) {
+    public UniqueUsernameValidator(UserServiceImpl userService) {
         this.userService = userService;
     }
 

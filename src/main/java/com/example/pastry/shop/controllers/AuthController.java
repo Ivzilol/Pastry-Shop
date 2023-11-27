@@ -3,7 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.AuthCredentialRequest;
 import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Users;
-import com.example.pastry.shop.service.UserService;
+import com.example.pastry.shop.service.impl.UserServiceImpl;
 import com.example.pastry.shop.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,9 +35,9 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserServiceImpl userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userService = userService;

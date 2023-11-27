@@ -3,7 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.UserService;
+import com.example.pastry.shop.service.impl.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,10 +35,10 @@ import static com.example.pastry.shop.common.ExceptionMessages.*;
 @Tag(name = "Users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
