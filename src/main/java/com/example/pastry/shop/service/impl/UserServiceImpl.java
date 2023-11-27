@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService {
     private static final String AUTHORITY_ADMIN = "admin";
 
 
-
     public UserServiceImpl(UsersRepository usersRepository, CustomPasswordEncoder customPasswordEncoder, AuthorityRepository authorityRepository, JavaMailSender javaMailSender, AuthenticationManager authenticationManager) {
         this.usersRepository = usersRepository;
         this.customPasswordEncoder = customPasswordEncoder;
@@ -296,18 +295,15 @@ public class UserServiceImpl implements UserService {
     public void setErrors(List<String> errors, ErrorsRegistrationDTO errorsRegistrationDTO) {
         for (String error : errors) {
             switch (error) {
-                case USERNAME_REGISTRATION_ERROR ->
-                        errorsRegistrationDTO.setUsernameError(USERNAME_REGISTRATION_ERROR);
-                case PASSWORD_REGISTRATION_ERROR ->
-                        errorsRegistrationDTO.setPasswordError(PASSWORD_REGISTRATION_ERROR);
+                case USERNAME_REGISTRATION_ERROR -> errorsRegistrationDTO.setUsernameError(USERNAME_REGISTRATION_ERROR);
+                case PASSWORD_REGISTRATION_ERROR -> errorsRegistrationDTO.setPasswordError(PASSWORD_REGISTRATION_ERROR);
                 case EMAIL_EMPTY_REGISTRATION_ERROR ->
                         errorsRegistrationDTO.setEmailError(EMAIL_EMPTY_REGISTRATION_ERROR);
                 case FIRST_NAME_REGISTRATION_ERROR ->
                         errorsRegistrationDTO.setFirstNameError(FIRST_NAME_REGISTRATION_ERROR);
                 case LAST_NAME_REGISTRATION_ERROR ->
                         errorsRegistrationDTO.setLastNameError(LAST_NAME_REGISTRATION_ERROR);
-                case ADDRESS_REGISTRATION_ERROR ->
-                        errorsRegistrationDTO.setAddressError(ADDRESS_REGISTRATION_ERROR);
+                case ADDRESS_REGISTRATION_ERROR -> errorsRegistrationDTO.setAddressError(ADDRESS_REGISTRATION_ERROR);
                 case PHONE_NUMBER_REGISTRATION_ERROR ->
                         errorsRegistrationDTO.setPhoneNumberError(PHONE_NUMBER_REGISTRATION_ERROR);
                 case EMAIL_EXIST_REGISTRATION_ERROR ->
