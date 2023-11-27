@@ -1,4 +1,4 @@
-package com.example.pastry.shop.service;
+package com.example.pastry.shop.service.impl;
 
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.UsersRepository;
@@ -24,7 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Optional<Users> userOpt = usersRepository.findByUsername(username);
         return userOpt.orElseThrow(() -> new UsernameNotFoundException(INVALID_CREDENTIAL_ERROR));
     }
