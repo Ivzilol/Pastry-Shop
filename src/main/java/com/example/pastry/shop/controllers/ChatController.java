@@ -3,10 +3,9 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.ChatMessageDTO;
 import com.example.pastry.shop.model.dto.Message;
 import com.example.pastry.shop.model.dto.UnansweredMessagesDTO;
-import com.example.pastry.shop.model.dto.UsersDTO;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.MessageService;
+import com.example.pastry.shop.service.impl.MessageServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,11 +31,11 @@ import static com.example.pastry.shop.common.ExceptionMessages.UNSUCCESSFUL_MAKE
 @Tag(name = "Chat")
 public class ChatController {
 
-    private final MessageService messageService;
+    private final MessageServiceImpl messageService;
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public ChatController(MessageService messageService, SimpMessagingTemplate simpMessagingTemplate) {
+    public ChatController(MessageServiceImpl messageService, SimpMessagingTemplate simpMessagingTemplate) {
         this.messageService = messageService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }

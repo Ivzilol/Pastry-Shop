@@ -7,7 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.ChatMessagesRepository;
 import com.example.pastry.shop.repository.UsersRepository;
-import com.example.pastry.shop.service.MessageService;
+import com.example.pastry.shop.service.impl.MessageServiceImpl;
 import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ public class MessageServiceTest {
     private static Authority testAuthority;
     private static Users testUserAdmin;
     private static Authority testAuthorityAdmin;
-    private static MessageService testMessageService;
+    private static MessageServiceImpl testMessageService;
 
 
     @Captor
@@ -51,7 +51,7 @@ public class MessageServiceTest {
         mockUserRepository = mock(UsersRepository.class);
         mockChatMessageRepository = mock(ChatMessagesRepository.class);
         mockAuthorityRepository = mock(AuthorityRepository.class);
-        testMessageService = new MessageService(mockChatMessageRepository, mockUserRepository);
+        testMessageService = new MessageServiceImpl(mockChatMessageRepository, mockUserRepository);
 
         testUsers = new Users();
         testUsers.setId(1L);
