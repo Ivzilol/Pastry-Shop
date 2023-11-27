@@ -1,7 +1,7 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.OrderService;
+import com.example.pastry.shop.service.impl.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,9 +20,9 @@ import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_START_P
 @Tag(name = "Orders Processing")
 public class OrdersProcessingController {
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
 
-    public OrdersProcessingController(OrderService orderService) {
+    public OrdersProcessingController(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 

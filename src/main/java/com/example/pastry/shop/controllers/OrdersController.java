@@ -5,7 +5,7 @@ import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.impl.OrderProcessingServiceImpl;
-import com.example.pastry.shop.service.OrderService;
+import com.example.pastry.shop.service.impl.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,11 +30,11 @@ import static com.example.pastry.shop.common.ExceptionMessages.DATA_TIME_FEATURE
 public class OrdersController {
 
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
     private final OrderProcessingServiceImpl orderProcessingService;
 
 
-    public OrdersController(OrderService orderService, OrderProcessingServiceImpl orderProcessingService) {
+    public OrdersController(OrderServiceImpl orderService, OrderProcessingServiceImpl orderProcessingService) {
         this.orderService = orderService;
         this.orderProcessingService = orderProcessingService;
     }

@@ -1,6 +1,6 @@
 package com.example.pastry.shop.aop;
 
-import com.example.pastry.shop.service.OrderService;
+import com.example.pastry.shop.service.impl.OrderServiceImpl;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderProcessingAspect {
 
-   private final OrderService orderService;
+   private final OrderServiceImpl orderService;
 
-    public OrderProcessingAspect(OrderService orderService) {
+    public OrderProcessingAspect(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 
