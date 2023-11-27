@@ -1,4 +1,4 @@
-package com.example.pastry.shop.controllers;
+package com.example.pastry.shop.controllers.impl;
 
 import com.example.pastry.shop.model.dto.ChatMessageDTO;
 import com.example.pastry.shop.model.dto.Message;
@@ -29,13 +29,13 @@ import static com.example.pastry.shop.common.ExceptionMessages.UNSUCCESSFUL_MAKE
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Chat")
-public class ChatController {
+public class ChatControllerImpl {
 
     private final MessageServiceImpl messageService;
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public ChatController(MessageServiceImpl messageService, SimpMessagingTemplate simpMessagingTemplate) {
+    public ChatControllerImpl(MessageServiceImpl messageService, SimpMessagingTemplate simpMessagingTemplate) {
         this.messageService = messageService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
