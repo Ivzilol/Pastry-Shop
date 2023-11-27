@@ -3,7 +3,7 @@ package com.example.pastry.shop.controllers;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.ProductsService;
+import com.example.pastry.shop.service.impl.ProductsServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,9 +35,9 @@ import static com.example.pastry.shop.common.ConstantMessages.*;
 @Tag(name = "Products")
 public class ProductController {
 
-    private final ProductsService productsService;
+    private final ProductsServiceImpl productsService;
 
-    public ProductController(ProductsService productsService) {
+    public ProductController(ProductsServiceImpl productsService) {
         this.productsService = productsService;
     }
 
