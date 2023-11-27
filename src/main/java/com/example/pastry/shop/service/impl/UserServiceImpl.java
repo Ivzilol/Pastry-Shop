@@ -7,7 +7,6 @@ import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.UsersRepository;
 import com.example.pastry.shop.service.UserService;
-import com.example.pastry.shop.service.UserTopClientService;
 import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -259,7 +258,7 @@ public class UserServiceImpl implements UserService {
         mailContent += "<p>Please click on the \" NEW PASSWORD\" link to generate new password.<p/>";
         mailContent += "<h3><a href=\"" + verifyUrl + "\">NEW PASSWORD</a></h3>";
         mailContent += "<p>Mom's sweet shop team<p/>";
-        UserTopClientService.sendMail(email, subject, senderName, mailContent, javaMailSender);
+        UserTopClientServiceImpl.sendMail(email, subject, senderName, mailContent, javaMailSender);
     }
 
     @Override
