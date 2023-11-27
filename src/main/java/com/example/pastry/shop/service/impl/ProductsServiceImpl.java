@@ -8,10 +8,10 @@ import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
 import com.example.pastry.shop.service.ProductsService;
-import com.example.pastry.shop.service.impl.CloudinaryServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -185,21 +185,25 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
+    @Cacheable("pie")
     public Set<GetProductsDTO> findAllPies() {
         return this.productRepository.findAllPies(category_p);
     }
 
     @Override
+    @Cacheable("buns")
     public Set<GetProductsDTO> findAllBuns() {
         return this.productRepository.findAllBuns(category_b);
     }
 
     @Override
+    @Cacheable("sweets")
     public Set<GetProductsDTO> findAllSweets() {
         return this.productRepository.findAllSweets(category_s);
     }
 
     @Override
+    @Cacheable("cakes")
     public Set<GetProductsDTO> findAllCakes() {
         return this.productRepository.findAllCakes(category_c);
     }
@@ -215,7 +219,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @NotNull
-    private List<ProductsDTO> getProductsDTOS(Users user) {
+    public List<ProductsDTO> getProductsDTOS(Users user) {
         Set<Products> products = this.productRepository.findByUser(user);
         List<ProductsDTO> returnDTO = new ArrayList<>();
         for (Products product : products) {
