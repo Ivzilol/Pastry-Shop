@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 
-@Service
+
 public interface UserTopClientService {
     @EventListener(UserTopClientEvent.class)
     void UserTopClient(UserTopClientEvent event) throws MessagingException, UnsupportedEncodingException;

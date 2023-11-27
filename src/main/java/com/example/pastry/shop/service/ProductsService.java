@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@Service
+
 public interface ProductsService {
 
     Products createProduct(CreateProductDTO productDTO, MultipartFile file) throws IOException;

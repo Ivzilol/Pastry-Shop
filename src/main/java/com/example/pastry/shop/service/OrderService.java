@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.Set;
-@Service
+
 public interface OrderService {
 
     Orders createOrder(Long id, Users user);

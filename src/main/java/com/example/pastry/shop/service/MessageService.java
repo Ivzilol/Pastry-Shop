@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
+
 public interface MessageService {
 
     boolean finishChat(Users user, String userUsername);

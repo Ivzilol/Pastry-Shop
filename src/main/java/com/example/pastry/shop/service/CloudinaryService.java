@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@Service
+
 public interface CloudinaryService {
 
     String uploadPicture(MultipartFile multipartFile) throws IOException;

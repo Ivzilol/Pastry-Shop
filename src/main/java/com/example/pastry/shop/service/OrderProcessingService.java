@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
+
 public interface OrderProcessingService {
 
     Set<OrdersProcessingDTO> findByStatus(Users user);
