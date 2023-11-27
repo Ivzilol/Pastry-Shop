@@ -111,19 +111,23 @@ public class OrderControllerIntegrationTests {
     public void testCreateOrder() throws Exception {
         Long productId1 = 1L;
         Long productId2 = 2L;
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId1))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("17.592"))
+                        .value(intHour >= 14 && intHour < 21 ? "17.592" : "21.99"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Праскови"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("24.8"))
+                        .value(intHour >= 14 && intHour < 21 ? "24.8" : "31.0"))
                 .andReturn();
         Assertions.assertEquals(2, this.testH2RepositoryOrders.count());
     }
@@ -134,19 +138,23 @@ public class OrderControllerIntegrationTests {
     public void testCreateOrderSecondUser() throws Exception {
         Long productId1 = 3L;
         Long productId2 = 4L;
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId1))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("16.168"))
+                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Плато сладки"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value("15.104"))
+                        .value(intHour >= 14 && intHour < 21 ? "15.104" : "18.88"))
                 .andReturn();
         Assertions.assertEquals(4, this.testH2RepositoryOrders.count());
     }
@@ -156,12 +164,16 @@ public class OrderControllerIntegrationTests {
     @WithUserDetails("Ivo")
     @Order(4)
     public void testGetOrderByUser() throws Exception {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
+        String hour = currentDateTime.format(formatter);
+        int intHour = Integer.parseInt(hour);
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
-                        .value("16.168"))
+                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("newOrder"))
                 .andReturn();

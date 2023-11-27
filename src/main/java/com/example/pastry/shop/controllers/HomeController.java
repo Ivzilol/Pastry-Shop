@@ -1,14 +1,12 @@
 package com.example.pastry.shop.controllers;
 
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
-import com.example.pastry.shop.model.dto.UsersDTO;
-import com.example.pastry.shop.service.HomeService;
+import com.example.pastry.shop.service.impl.HomeServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,9 +22,9 @@ import java.util.List;
 @Tag(name = "Home")
 public class HomeController {
 
-    private final HomeService homeService;
+    private final HomeServiceImpl homeService;
 
-    public HomeController(HomeService homeService) {
+    public HomeController(HomeServiceImpl homeService) {
         this.homeService = homeService;
     }
 
