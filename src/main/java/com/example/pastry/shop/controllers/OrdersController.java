@@ -4,7 +4,7 @@ import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
-import com.example.pastry.shop.service.OrderProcessingService;
+import com.example.pastry.shop.service.impl.OrderProcessingServiceImpl;
 import com.example.pastry.shop.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,10 +31,10 @@ public class OrdersController {
 
 
     private final OrderService orderService;
-    private final OrderProcessingService orderProcessingService;
+    private final OrderProcessingServiceImpl orderProcessingService;
 
 
-    public OrdersController(OrderService orderService, OrderProcessingService orderProcessingService) {
+    public OrdersController(OrderService orderService, OrderProcessingServiceImpl orderProcessingService) {
         this.orderService = orderService;
         this.orderProcessingService = orderProcessingService;
     }
