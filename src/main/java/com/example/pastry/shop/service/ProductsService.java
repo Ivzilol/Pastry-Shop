@@ -7,6 +7,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.ProductRepository;
 import com.example.pastry.shop.repository.ShopsRepository;
+import com.example.pastry.shop.service.impl.CloudinaryServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,7 @@ public class ProductsService {
 
     private final ShopsRepository shopsRepository;
 
-    private final CloudinaryService cloudinaryService;
+    private final CloudinaryServiceImpl cloudinaryService;
 
     @Value("${category_p}")
     String category_p;
@@ -40,7 +41,7 @@ public class ProductsService {
     @Value("${category_c}")
     String category_c;
 
-    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryService cloudinaryService) {
+    public ProductsService(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryServiceImpl cloudinaryService) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
         this.cloudinaryService = cloudinaryService;
