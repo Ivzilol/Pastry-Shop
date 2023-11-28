@@ -32,7 +32,7 @@ const ChatRoomsAdmin = () => {
                                     window.location.href = `/chat-room/${message.username}`
                                 }}
                             >
-                                {message.message}
+                                {message.username}
                             </button>
                         ))}
                     </section>
