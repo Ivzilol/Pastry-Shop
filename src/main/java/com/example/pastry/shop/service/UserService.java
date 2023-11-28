@@ -3,7 +3,6 @@ package com.example.pastry.shop.service;
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
 import jakarta.mail.MessagingException;
-import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
