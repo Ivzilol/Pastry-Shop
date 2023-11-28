@@ -37,6 +37,7 @@ import ForgottenPasswordNewPassword from "./components/Login/ForgottenPasswordNe
 import ChatRoomsAdmin from "./components/ChatRoom/ChatRoomsAdmin";
 import ChatRoomCurrentUser from "./components/ChatRoom/ChatRoomCurrentUser";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import Monitoring from "./components/Monitoring/Monitoring";
 
 function App() {
     const user = useUser();
@@ -181,6 +182,7 @@ function App() {
             <Route path="/products/sweets" element={<ProductSweets/>}></Route>
             <Route path="/products/cake" element={<ProductCake/>}></Route>
             <Route path="*" element={<NotFoundPage/>}></Route>
+            <Route path="/monitoring" element={<Monitoring/>}></Route>
         </Routes>
     );
 }

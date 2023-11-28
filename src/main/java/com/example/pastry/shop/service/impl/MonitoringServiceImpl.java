@@ -21,4 +21,9 @@ public class MonitoringServiceImpl implements MonitoringService {
     public void logProductSearch() {
         productSearch.increment();
     }
+
+    @Override
+    public double getProductSearchCount() {
+        return productSearch.count();
+    }
 }
