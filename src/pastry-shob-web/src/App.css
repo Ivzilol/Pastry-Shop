@@ -2247,4 +2247,35 @@ iframe {
         margin-bottom: 10px;
 
     }
+
+    .orders-admin {
+        margin-top: 320px;
+
+    }
+
+    .admin-bord-section {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .unconfirmed-orders {
+        width: 100vw;
+    }
+
+    .confirmed-orders {
+        width: 100vw;
+    }
+
+    .admin-users-container{
+        margin-top: 400px;
+    }
+
+    .message-admin-container {
+        margin-top: 400px;
+    }
+
+    .search-result-close-button-chat {
+        margin: 0 0 0 200px;
+    }
 }
