@@ -2205,7 +2205,7 @@ iframe {
     .chat {
         position: fixed;
         left: 0;
-        width: 97%;
+        width: 100vw;
         height: 92%;
         background-color: white;
         z-index: 9999;
@@ -2216,10 +2216,6 @@ iframe {
         margin-right: 50px;
         border: 2px solid #ef7d00;
         overflow-x: hidden;
-    }
-
-    .search-result-close-button-chat {
-        margin: 0 0 0 100px;
     }
 
     .chat-container {
@@ -2276,6 +2272,6 @@ iframe {
     }
 
     .search-result-close-button-chat {
-        margin: 0 0 0 200px;
+        margin: 0 0 0 230px;
     }
 }
