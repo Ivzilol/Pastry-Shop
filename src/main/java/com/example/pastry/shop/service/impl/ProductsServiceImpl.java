@@ -30,6 +30,8 @@ public class ProductsServiceImpl implements ProductsService {
 
     private final CloudinaryServiceImpl cloudinaryService;
 
+    private final MonitoringServiceImpl monitoringService;
+
     @Value("${category_p}")
     String category_p;
 
@@ -42,10 +44,11 @@ public class ProductsServiceImpl implements ProductsService {
     @Value("${category_c}")
     String category_c;
 
-    public ProductsServiceImpl(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryServiceImpl cloudinaryService) {
+    public ProductsServiceImpl(ProductRepository productRepository, ShopsRepository shopsRepository, CloudinaryServiceImpl cloudinaryService, MonitoringServiceImpl monitoringService) {
         this.productRepository = productRepository;
         this.shopsRepository = shopsRepository;
         this.cloudinaryService = cloudinaryService;
+        this.monitoringService = monitoringService;
     }
 
     @Override
@@ -210,6 +213,7 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public Set<GetProductsDTO> findSearchedProducts(CategoryProductDto categoryProductDto) {
+        monitoringService.logProductSearch();
         return switch (categoryProductDto.getSelectOptions()) {
             case "pie" -> findAllPies();
             case "buns" -> findAllBuns();
