@@ -176,12 +176,13 @@ const Homepage = () => {
         }
         ajax(`${baseURL}api/products/search`, "POST", user.jwt, requestBody)
             .then(productsData => {
-                setSearchResult(productsData);
-                setDialogVisible(true);
-            })
-            .catch(() => {
-                setGlobalError(true)
-            })
+                if (productsData.custom === "Please select category") {
+                    setDialogVisible(true);
+                } else {
+                    setSearchResult(productsData);
+                    setDialogVisible(true);
+                }
+            });
     }
 
     const closeDialog = () => {
@@ -318,7 +319,7 @@ const Homepage = () => {
                     <div className="search-result">
                         <button className="search-result-close-button"
                                 onClick={closeDialog}>{t('search-result-close-button')}</button>
-                        {searchResult.length > 0 ? (
+                        {searchResult !== null ? (
                             <div className="search-result-container">
                                 {searchResult.map((product) => (
                                     <div id={product.id}

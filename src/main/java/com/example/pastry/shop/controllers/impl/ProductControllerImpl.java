@@ -28,6 +28,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.pastry.shop.common.ConstantMessages.*;
+import static com.example.pastry.shop.common.ExceptionMessages.SELECT_CATEGORY;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -242,6 +243,12 @@ public class ProductControllerImpl implements ProductController {
     @Override
     public ResponseEntity<?> getSearchProducts(@RequestBody CategoryProductDto categoryProductDto) {
         Set<GetProductsDTO> searchedProducts = this.productsService.findSearchedProducts(categoryProductDto);
-        return ResponseEntity.ok(searchedProducts);
+        if (searchedProducts != null) {
+            return ResponseEntity.ok(searchedProducts);
+        } else {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom(SELECT_CATEGORY);
+            return ResponseEntity.ok(customResponse);
+        }
     }
 }
