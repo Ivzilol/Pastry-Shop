@@ -47,7 +47,7 @@ const ShopsViewAdmin = () => {
                         // <Col>
                         <Card
                             key={shops.id}
-                            style={{width: '18rem', marginRight: '10px', marginTop: '10px'}}>
+                            style={{width: '18rem', marginRight: '10px', marginTop: '50px'}}>
                             <Card.Body className="d-flex flex-direction row justify-content-space-between"
                             >
                                 <Card.Title>Number: {shops.number}</Card.Title>
