@@ -160,11 +160,11 @@ const ShopEditAdmin = () => {
                 <></>
             )}
             <section className="comments-admin">
-                <input className="comments-admin-input"
-                       onChange={(e) => updateComment(e.target.value)}
-                       value={comment.text}
-                >
-                </input>
+                {/*<input className="comments-admin-input"*/}
+                {/*       onChange={(e) => updateComment(e.target.value)}*/}
+                {/*       value={comment.text}*/}
+                {/*>*/}
+                {/*</input>*/}
                 <div className="admin-comments-view">
                     {allComments.map(currentComment => (
                         <section className="admin-comments-container"
