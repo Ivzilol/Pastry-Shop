@@ -1,9 +1,11 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import {useState} from "react";
+import React, {useState} from "react";
 import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
 import baseURL from "../BaseURL/BaseURL";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const UserChangePassword = () => {
     const user = useUser();
@@ -11,7 +13,13 @@ const UserChangePassword = () => {
     const [newPassword, setNewPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false);
+    const [errorChangePassword, setErrorChangePassword] = useState(false);
     const {t} = useTranslation();
+
+    const [changeError] = useState({
+        oldPasswordError: null,
+        newPasswordError: null
+    })
 
     function changePassword() {
         const requestBody = {
@@ -27,6 +35,13 @@ const UserChangePassword = () => {
                         window.location.href = "/login"
                 } else {
                     handleSubmit()
+                    if (response.custom === 'Old password not match!') {
+                        changeError.oldPasswordError = 'Old password not match!'
+                    } else {
+                        changeError.newPasswordError = 'Passwords not match!'
+                    }
+                    setErrorChangePassword(true);
+
                 }
             })
     }
@@ -45,9 +60,9 @@ const UserChangePassword = () => {
         <main className="user-change-pass">
             <NavBar/>
             <section className="user-change-pass-container">
-            <h1 className="change-password">{t('user-change-pass.title')}</h1>
+                <h1 className="change-password">{t('user-change-pass.title')}</h1>
                 <label
-                        htmlFor="oldPassword"
+                    htmlFor="oldPassword"
                 >
                     {t('user-change-pass.label1')}
                 </label>
@@ -59,6 +74,9 @@ const UserChangePassword = () => {
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
                 />
+                {errorChangePassword && changeError.oldPasswordError !== null &&
+                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {changeError.oldPasswordError}</span>
+                }
                 <a className="forgotten-password-send-show-password"
                    onClick={togglePasswordVisibility}>
                     {showPassword ? t('login.hide-password') : t('login.show-password')}
@@ -93,6 +111,9 @@ const UserChangePassword = () => {
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
                 />
+                {errorChangePassword && changeError.newPasswordError !== null &&
+                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {changeError.newPasswordError}</span>
+                }
                 <a className="forgotten-password-send-show-password"
                    onClick={togglePasswordVisibility}>
                     {showPassword ? t('login.hide-password') : t('login.show-password')}
