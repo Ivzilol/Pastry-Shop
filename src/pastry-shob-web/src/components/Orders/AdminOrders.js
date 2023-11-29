@@ -198,7 +198,7 @@ const AdminOrders = () => {
                                                     ?
                                                     <p className="confirmed-orders-list-container-details-paid-no">NO</p>
                                                     :
-                                                    <p>YES</p>
+                                                    <p className="confirmed-orders-list-container-details-paid-yes">YES</p>
                                             }
                                         </div>
                                         <button className="orders-admin-button"

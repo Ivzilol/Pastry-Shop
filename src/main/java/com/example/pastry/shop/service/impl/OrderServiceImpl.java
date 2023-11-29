@@ -196,6 +196,9 @@ public class OrderServiceImpl implements OrderService {
             ordersProcessing.setStatusOrder(statusSend);
             ordersProcessing.setDateOfDispatch(LocalDate.now());
             ordersProcessing.setKeyOrder(id);
+            if (byOrderKey.stream().findFirst().get().isPaid()) {
+                ordersProcessing.setPaid(true);
+            }
             this.ordersProcessingRepository.save(ordersProcessing);
             return true;
         }
