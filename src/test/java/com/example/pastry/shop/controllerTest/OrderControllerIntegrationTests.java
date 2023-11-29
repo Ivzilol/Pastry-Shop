@@ -197,6 +197,7 @@ public class OrderControllerIntegrationTests {
     public void testUpdateStatusOrder() throws Exception {
         OrdersStatusDTO ordersStatusDTO = new OrdersStatusDTO();
         ordersStatusDTO.setStatus("confirmed");
+        ordersStatusDTO.setPayment("");
         String jsonRequest = new ObjectMapper().writeValueAsString(ordersStatusDTO);
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl)
                         .content(jsonRequest)

@@ -31,6 +31,19 @@ public class OrdersProcessingDTO {
     public OrdersProcessingDTO() {
     }
 
+    public OrdersProcessingDTO(Long id, Double totalPrice, String statusOrder, LocalDate dateOfReceipt, LocalDate dateOfDispatch, Long keyOrder, String username, String firstName, String lastName, String address) {
+        this.id = id;
+        this.totalPrice = totalPrice;
+        this.statusOrder = statusOrder;
+        this.dateOfReceipt = dateOfReceipt;
+        this.dateOfDispatch = dateOfDispatch;
+        this.keyOrder = keyOrder;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
+
     public OrdersProcessingDTO(Long id, Double totalPrice, String statusOrder, LocalDate dateOfReceipt, LocalDate dateOfDispatch, Long keyOrder, String username, String firstName, String lastName, String address, boolean paid) {
         this.id = id;
         this.totalPrice = totalPrice;
