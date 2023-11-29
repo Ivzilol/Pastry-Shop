@@ -172,5 +172,7 @@
   },
   "search-result-close-button-chat": "Close",
   "empty-chat": "Hi, if you need any assistance, please write to us!",
-  "chat-closed": "Write us"
+  "chat-closed": "Write us",
+  "no-orders-processing": "You do not have an order in progress",
+  "no-orders-delivery": "You do not have an order in the process of delivery"
 }

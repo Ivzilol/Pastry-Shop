@@ -958,6 +958,10 @@ footer {
     width: 50%;
 }
 
+.tracking-in-processing-title {
+    text-decoration: underline;
+}
+
 .tracking-in-processing-order {
     margin: 10px 0;
     border: #ef7d00;
@@ -1866,7 +1870,6 @@ footer {
 iframe {
     display: none;
 }
-
 
 @media screen and (max-width: 600px) {
 

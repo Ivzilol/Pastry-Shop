@@ -172,5 +172,7 @@
   },
   "search-result-close-button-chat": "Затвори",
   "empty-chat": "Здравейет, ако имате нужда от съдействие, моля пишете ни!",
-  "chat-closed": "Пишете ни"
+  "chat-closed": "Пишете ни",
+  "no-orders-processing": "Вие нямате поръчка в процес нa приготвяне",
+  "no-orders-delivery": "Вие нямате поръчка в процес на доставка"
 }

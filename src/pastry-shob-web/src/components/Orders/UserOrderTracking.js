@@ -35,7 +35,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-processing-order">
-                            <h4>{t('tracking-main-section.process-order')}</h4>
+                            <h4 className="tracking-in-processing-title">{t('tracking-main-section.process-order')}</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'confirmed' && currentKeyOrder !== currentOrder.keyOrderProduct
                                     ?
@@ -74,7 +74,7 @@ const UserOrderTracking = () => {
                                 ?
                                 <></>
                                 :
-                                <h4>Вие нямате поръчка в процес нa приготвяне</h4>
+                                <h4 className="no-orders-processing">{t('no-orders-processing')}</h4>
                             }
                         </article>
                     ) : (
@@ -86,7 +86,7 @@ const UserOrderTracking = () => {
                         <article
                             id={order.keyOrderProduct}
                             className="tracking-in-send-order">
-                            <h4>{t('tracking-main-section.process-delivery')}</h4>
+                            <h4 className="tracking-in-processing-title">{t('tracking-main-section.process-delivery')}</h4>
                             {order.map((currentOrder) => (
                                 currentOrder.status === 'sent' && currentKeyOrder !== currentOrder.keyOrderProduct
                                     ?
@@ -124,7 +124,7 @@ const UserOrderTracking = () => {
                                 ?
                                 <></>
                                 :
-                                <h4>Вие нямате поръчка в процес на доставка</h4>
+                                <h4 className="no-orders-delivery">{t('no-orders-delivery')}</h4>
                             }
                         </article>
                     ) : (
