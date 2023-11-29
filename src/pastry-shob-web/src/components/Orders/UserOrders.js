@@ -44,6 +44,16 @@ const UserOrders = () => {
         window.location.reload();
     }
 
+    function confirmPayment() {
+        if (creditCardData.cardHolderName === '' || creditCardData.cardNumber === '' ) {
+            alert("Please fill in Name and Card number")
+        }
+        ajax(`${baseURL}api/orders/pay-with-card`, "PATCH", user.jwt)
+            .then((response) => {
+
+            })
+    }
+
     function confirmOrder() {
         setIsLoading(true);
         ajax(`${baseURL}api/orders`, "PATCH", user.jwt, {
@@ -189,7 +199,10 @@ const UserOrders = () => {
                                                 onChange={handleCreditCardChange}
                                                 value={creditCardData.cardHolderName}
                                             />
-                                            <button>{t('orders-user.pay-confirm')}</button>
+                                            <button
+                                                type="submit"
+                                                onClick={() => confirmPayment()}
+                                            >{t('orders-user.pay-confirm')}</button>
                                         </div>
                                     )}
                                 </div>
