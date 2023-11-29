@@ -36,9 +36,9 @@ const UserChangePassword = () => {
                 } else {
                     handleSubmit()
                     if (response.custom === 'Old password not match!') {
-                        changeError.oldPasswordError = 'Old password not match!'
+                        changeError.oldPasswordError = response.custom
                     } else {
-                        changeError.newPasswordError = 'Passwords not match!'
+                        changeError.newPasswordError = response.custom
                     }
                     setErrorChangePassword(true);
 
