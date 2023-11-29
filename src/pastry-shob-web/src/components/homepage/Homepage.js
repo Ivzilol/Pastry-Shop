@@ -516,7 +516,7 @@ const Homepage = () => {
                                                         id="submit"
                                                         type="button"
                                                         onClick={() => orderProducts(currentProduct.id)}
-                                                    >Order
+                                                    >{t('product-details-selected-product-button')}
                                                     </button>
                                                 </div>
                                             ) : (
