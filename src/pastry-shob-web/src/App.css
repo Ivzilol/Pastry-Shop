@@ -1867,6 +1867,7 @@ iframe {
     display: none;
 }
 
+
 @media screen and (max-width: 600px) {
 
     .body {
@@ -2143,7 +2144,7 @@ iframe {
     }
 
     .products-all {
-        margin-top: 350px;
+        margin-top: 400px;
     }
 
     .products {
