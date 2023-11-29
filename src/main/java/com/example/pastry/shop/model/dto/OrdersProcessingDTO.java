@@ -1,6 +1,5 @@
 package com.example.pastry.shop.model.dto;
 
-import com.example.pastry.shop.model.entity.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
