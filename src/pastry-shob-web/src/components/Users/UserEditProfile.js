@@ -82,8 +82,8 @@ const UserEditProfile = () => {
                     alert("Successful update your personal info, please login again in your profile")
                     user.setJwt(null);
                 } else {
-                    updateError.usernameError = 'Username ot Email already exists!'
-                    updateError.emailError = 'Username ot Email already exists!'
+                    updateError.usernameError = 'Username or Email already exists!'
+                    updateError.emailError = 'Username or Email already exists!'
                     setErrorUpdateProfile(true);
                 }
             });
