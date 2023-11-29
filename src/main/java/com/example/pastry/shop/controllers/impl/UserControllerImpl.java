@@ -73,7 +73,7 @@ public class UserControllerImpl implements UserController {
             }
     )
     @Override
-    public ResponseEntity<?> createUse(UserRegistrationDTO userRegistrationDTO,
+    public ResponseEntity<?> createUser(UserRegistrationDTO userRegistrationDTO,
                                         BindingResult result) throws MessagingException, UnsupportedEncodingException {
         ResponseEntity<ErrorsRegistrationDTO> errorsRegistrationDTO =
                 errorRegistration(userRegistrationDTO, result);

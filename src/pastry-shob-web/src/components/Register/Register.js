@@ -24,10 +24,10 @@ const Register = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const {t} = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
-    const [successfulRegistrationDialog, setSuccessfulRegistrationDialog] = useState(false);
-    const [successfulRegistration, setSuccessfulRegistration] = useState("");
-    const [unsuccessfulRegistrationDialog, setUnsuccessfulRegistrationDialog] = useState(false)
-    const [unsuccessfulRegistration, setUnsuccessfulRegistration] = useState("");
+    const [successfulRegistrationDialog] = useState(false);
+    const [successfulRegistration] = useState("");
+    const [unsuccessfulRegistrationDialog] = useState(false)
+    const [unsuccessfulRegistration] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [regError, setRegError] = useState(false)
 

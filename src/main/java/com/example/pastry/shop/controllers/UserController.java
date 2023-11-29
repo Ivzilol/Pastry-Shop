@@ -18,8 +18,8 @@ public interface UserController {
     ResponseEntity<?> verificationUser(@PathVariable String verification);
 
     @PostMapping("/register")
-    ResponseEntity<?> createUse(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO,
-                                BindingResult result) throws MessagingException, UnsupportedEncodingException;
+    ResponseEntity<?> createUser(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO,
+                                 BindingResult result) throws MessagingException, UnsupportedEncodingException;
 
     @GetMapping("/admin")
     ResponseEntity<?> getAllUsers(@AuthenticationPrincipal Users user);

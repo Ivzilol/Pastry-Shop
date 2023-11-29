@@ -5,11 +5,15 @@ import ajax from "../../Services/FetchService";
 import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
 import baseURL from "../BaseURL/BaseURL";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const UserEditProfile = () => {
     const user = useUser();
     const userId = window.location.href.split("/users/")[1];
     let navigate = useNavigate();
+    const [errorUpdateProfile, setErrorUpdateProfile] = useState(false);
+    let error = false;
     const {t} = useTranslation();
     const [currentUser, setCurrentUser] = useState({
         username: "",
@@ -34,16 +38,42 @@ const UserEditProfile = () => {
         setCurrentUser(newUser);
     }
 
+    const [updateError] = useState({
+        usernameError: null,
+        firstNameError: null,
+        lastNameError: null,
+        emailError: null,
+        addressError: null,
+        phoneError: null
+    })
+
     function editProfile() {
-        if (
-            currentUser.username.trim() === '' ||
-            currentUser.firstName.trim() === '' ||
-            currentUser.lastName.trim() === '' ||
-            currentUser.email.trim() === '' ||
-            currentUser.address.trim() === '' ||
-            currentUser.phoneNumber.trim() === ''
-        ) {
-            alert("Format cannot contain empty fields");
+        if (currentUser.username.trim().length < 3 || currentUser.username.trim().length > 20) {
+            updateError.usernameError = "Username length must be between 3 and 20 characters";
+            error = true;
+        }
+        if (currentUser.firstName.trim() === '') {
+            updateError.firstNameError = "First Name cannot be empty";
+            error = true;
+        }
+        if (currentUser.lastName.trim() === '') {
+            updateError.lastNameError = "Last Name cannot be empty";
+            error = true;
+        }
+        if (currentUser.email.trim() === '') {
+            updateError.emailError = "Email cannot be empty";
+            error = true;
+        }
+        if (currentUser.address.trim() === '') {
+            updateError.addressError = "Address number cannot be empty";
+            error = true;
+        }
+        if (currentUser.phoneNumber.trim() === '') {
+            updateError.phoneError = "Phone number number cannot be empty";
+            error = true;
+        }
+        if (error) {
+            setErrorUpdateProfile(true);
             return;
         }
         ajax(`${baseURL}api/users/edit/${userId}`, "PATCH", user.jwt, currentUser)
@@ -52,8 +82,9 @@ const UserEditProfile = () => {
                     alert("Successful update your personal info, please login again in your profile")
                     user.setJwt(null);
                 } else {
-                    alert(userData.custom);
-                    navigate("/users");
+                    updateError.usernameError = 'Username ot Email already exists!'
+                    updateError.emailError = 'Username ot Email already exists!'
+                    setErrorUpdateProfile(true);
                 }
             });
     }
@@ -74,6 +105,9 @@ const UserEditProfile = () => {
                                     name="username"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.usernameError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.usernameError}</span>
+                            }
                             <article className="user-edit-profile-item">
                                 <h6>{t('user-profile.first-name')}</h6>
                                 <input
@@ -83,6 +117,9 @@ const UserEditProfile = () => {
                                     name="firstName"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.firstNameError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.firstNameError}</span>
+                            }
                             <article className="user-edit-profile-item">
                                 <h6>{t('user-profile.last-name')}</h6>
                                 <input
@@ -92,6 +129,9 @@ const UserEditProfile = () => {
                                     name="lastName"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.lastNameError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.lastNameError}</span>
+                            }
                             <article className="user-edit-profile-item">
                                 <h6>{t('user-profile.email')}</h6>
                                 <input
@@ -101,6 +141,9 @@ const UserEditProfile = () => {
                                     name="email"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.emailError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.emailError}</span>
+                            }
                             <article className="user-edit-profile-item">
                                 <h6>{t('user-profile.address')}</h6>
                                 <input
@@ -110,6 +153,9 @@ const UserEditProfile = () => {
                                     name="address"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.addressError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.addressError}</span>
+                            }
                             <article className="user-edit-profile-item">
                                 <h6>{t('user-profile.phone-number')}</h6>
                                 <input
@@ -119,6 +165,9 @@ const UserEditProfile = () => {
                                     name="phoneNumber"
                                 />
                             </article>
+                            {errorUpdateProfile && updateError.phoneError !== null &&
+                                <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {updateError.phoneError}</span>
+                            }
                             <section className="user-edit-profile-button">
                                 <button
                                     type="submit"
