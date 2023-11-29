@@ -55,7 +55,8 @@ const UserOrders = () => {
             alert("Please fill in Name and Card number")
             return;
         }
-        statusAndPayment.payment = "yes"
+        statusAndPayment.payment = "payment_confirm";
+        alert("Payment and order confirm")
         confirmOrder()
     }
 
