@@ -27,10 +27,12 @@ public class OrdersProcessingDTO {
 
     private String address;
 
+    private boolean paid;
+
     public OrdersProcessingDTO() {
     }
 
-    public OrdersProcessingDTO(Long id, Double totalPrice, String statusOrder, LocalDate dateOfReceipt, LocalDate dateOfDispatch, Long keyOrder, String username, String firstName, String lastName, String address) {
+    public OrdersProcessingDTO(Long id, Double totalPrice, String statusOrder, LocalDate dateOfReceipt, LocalDate dateOfDispatch, Long keyOrder, String username, String firstName, String lastName, String address, boolean paid) {
         this.id = id;
         this.totalPrice = totalPrice;
         this.statusOrder = statusOrder;
@@ -41,6 +43,7 @@ public class OrdersProcessingDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+        this.paid = paid;
     }
 
     public Long getId() {
@@ -121,5 +124,13 @@ public class OrdersProcessingDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }

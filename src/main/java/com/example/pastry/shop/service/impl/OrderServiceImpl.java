@@ -253,6 +253,7 @@ public class OrderServiceImpl implements OrderService {
     private void setDateRecipe(Set<OrdersProcessing> orders, LocalDate dateRecipe) {
         for (OrdersProcessing order : orders) {
             order.setDateOfReceipt(dateRecipe);
+            order.setPaid(true);
             this.ordersProcessingRepository.save(order);
         }
     }
@@ -262,6 +263,7 @@ public class OrderServiceImpl implements OrderService {
         LocalDate dateRecipe = null;
         for (Orders currentOrder : ordersForChangeStatus) {
             currentOrder.setStatus(statusDelivery);
+            currentOrder.setPaid(true);
             this.ordersRepository.save(currentOrder);
             dateRecipe = currentOrder.getDateOfDelivery();
         }

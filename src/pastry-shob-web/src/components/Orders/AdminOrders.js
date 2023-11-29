@@ -160,7 +160,8 @@ const AdminOrders = () => {
                                                 >Изпрати поръчката
                                                 </button>
                                                 {errorDataTime && error.custom !== null &&
-                                                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {error.custom}</span>
+                                                    <span id="validate-username"> <FontAwesomeIcon
+                                                        icon={faInfoCircle}/> {error.custom}</span>
                                                 }
                                             </div>
                                             <hr className="orders-admin-line"/>
@@ -188,6 +189,18 @@ const AdminOrders = () => {
                                         <h5>Получател: {sendOrders.firstName} {sendOrders.lastName}</h5>
                                         <p>Адрес: {sendOrders.address}</p>
                                         <p>Обща цена: {Number(sendOrders.totalPrice).toFixed(2)} лв.</p>
+                                        <div className="confirmed-orders-list-container-details-paid">
+                                            <p >
+                                                Платена:
+                                            </p>
+                                            {
+                                                sendOrders.paid === false
+                                                    ?
+                                                    <p className="confirmed-orders-list-container-details-paid-no">NO</p>
+                                                    :
+                                                    <p>YES</p>
+                                            }
+                                        </div>
                                         <button className="orders-admin-button"
                                                 onClick={() => confirmOrderDelivery(sendOrders.id)}
                                         > Потвърди доставката

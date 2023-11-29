@@ -29,6 +29,9 @@ public class OrdersProcessing {
     @Column(name = "key_order")
     private Long keyOrder;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean paid;
+
     @ManyToOne
     private Users user;
 
@@ -90,5 +93,13 @@ public class OrdersProcessing {
 
     public void setKeyOrder(Long keyOrder) {
         this.keyOrder = keyOrder;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }

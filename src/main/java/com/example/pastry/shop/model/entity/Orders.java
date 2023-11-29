@@ -31,6 +31,10 @@ public class Orders {
 
     @Column(name = "key_order_product")
     private Long keyOrderProduct;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean paid;
+
     @ManyToOne
     private Users users;
 
@@ -109,5 +113,13 @@ public class Orders {
 
     public void setTimeOfDelivery(Time timeOfDelivery) {
         this.timeOfDelivery = timeOfDelivery;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }

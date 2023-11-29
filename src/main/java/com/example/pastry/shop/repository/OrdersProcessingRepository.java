@@ -15,7 +15,7 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
             " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
-            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address, op.paid)" +
             " from OrdersProcessing op" +
             " join Users as u on op.user.id = u.id" +
             " where op.statusOrder = :status_send")
