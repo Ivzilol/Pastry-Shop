@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.AuthorityRepository;
 import com.example.pastry.shop.repository.UsersRepository;
+import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.UserService;
 import com.example.pastry.shop.util.CustomPasswordEncoder;
 import jakarta.mail.MessagingException;
@@ -16,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -223,8 +225,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changeUserPassword(ChangePasswordDto changePasswordDto, Users user) {
-        boolean passwordMatch = ifPasswordMatch(changePasswordDto, user);
+    public boolean changeUserPassword(ChangePasswordDto changePasswordDto, Users user, CustomResponse customResponse) {
+        boolean passwordMatch = ifPasswordMatch(changePasswordDto, user, customResponse);
         if (passwordMatch) {
             String encodedPassword = customPasswordEncoder
                     .getPasswordEncoder().encode(changePasswordDto.getNewPassword());
@@ -236,13 +238,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private boolean ifPasswordMatch(ChangePasswordDto changePasswordDto, Users user) {
-        boolean matchesOldPassword = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(
-                        user.getUsername(), changePasswordDto.getOldPassword()
-                )).isAuthenticated();
+    private boolean ifPasswordMatch(ChangePasswordDto changePasswordDto, Users user, CustomResponse customResponse) {
+        boolean matchesOldPassword = false;
+        try {
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(
+                            user.getUsername(), changePasswordDto.getOldPassword()
+                    ));
+            matchesOldPassword = true;
+        }catch (Exception ignored) {
+        }
+        if (!matchesOldPassword) {
+            customResponse.setCustom("Old password not match!");
+        }
         boolean matchesNewPassword = changePasswordDto.getNewPassword()
                 .equals(changePasswordDto.getConfirmNewPassword());
+        if (matchesOldPassword && !matchesNewPassword) {
+            customResponse.setCustom("Passwords not match!");
+        }
         return matchesOldPassword && matchesNewPassword;
     }
 

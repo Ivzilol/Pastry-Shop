@@ -27,8 +27,6 @@ const UserChangePassword = () => {
                         window.location.href = "/login"
                 } else {
                     handleSubmit()
-                    return alert("Password change failed")
-
                 }
             })
     }

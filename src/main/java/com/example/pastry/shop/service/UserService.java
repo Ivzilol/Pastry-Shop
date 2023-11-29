@@ -2,6 +2,7 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.response.CustomResponse;
 import jakarta.mail.MessagingException;
 
 import java.io.UnsupportedEncodingException;
@@ -33,7 +34,7 @@ public interface UserService {
 
     Users validateUser(String verification);
 
-    boolean changeUserPassword(ChangePasswordDto changePasswordDto, Users user);
+    boolean changeUserPassword(ChangePasswordDto changePasswordDto, Users user, CustomResponse customResponse);
 
     void sendEmailNewPassword(Optional<Users> email) throws MessagingException, UnsupportedEncodingException;
 

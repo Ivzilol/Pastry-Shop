@@ -210,14 +210,12 @@ public class UserControllerImpl implements UserController {
     @Override
     public ResponseEntity<?> changePassword(ChangePasswordDto changePasswordDto,
                                             Users user) {
-        boolean userChangePass = this.userService.changeUserPassword(changePasswordDto, user);
+        CustomResponse customResponse = new CustomResponse();
+        boolean userChangePass = this.userService.changeUserPassword(changePasswordDto, user, customResponse);
         if (userChangePass) {
-            CustomResponse customResponse = new CustomResponse();
             customResponse.setCustom(SUCCESSFUL_CHANGE_PASSWORD);
-            return ResponseEntity.ok(customResponse);
-        } else {
-            return ResponseEntity.ok(null);
         }
+        return ResponseEntity.ok(customResponse);
     }
 
     @Operation(summary = "Forgotten password")
