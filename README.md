@@ -129,4 +129,5 @@ After start App can see documentation on this link: http://localhost:8080/swagge
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/c8d573fc547679720354eeebff92b8f4b62d2580/src/main/resources/static/img/Picture9.png)
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/df32b1fec14a885bc4ebc5536d63a1baa550fdb7/src/main/resources/static/img/Picture10.png)
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/85cfa53de4e0fd3584030336576d8ef5799192f3/src/main/resources/static/img/picture11.png)
+![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/14cdfae3c65854e8e922297efe0cd328582628ec/src/main/resources/static/img/Picture12.png)
 
