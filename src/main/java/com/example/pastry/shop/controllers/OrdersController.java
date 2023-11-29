@@ -54,4 +54,7 @@ public interface OrdersController {
 
     @GetMapping("status/confirmed/admin")
     ResponseEntity<?> getNotSendOrders();
+
+    @PatchMapping("pay-with-card")
+    ResponseEntity<?> payOrderWithCard(@AuthenticationPrincipal Users user);
 }

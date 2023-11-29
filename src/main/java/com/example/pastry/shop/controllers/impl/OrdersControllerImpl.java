@@ -265,4 +265,9 @@ public class OrdersControllerImpl implements OrdersController {
         Set<OrdersDTO> allNotSendOrders = this.orderService.findAllNotSendOrders();
         return ResponseEntity.ok(allNotSendOrders);
     }
+
+    @Override
+    public ResponseEntity<?> payOrderWithCard(Users user) {
+        return null;
+    }
 }

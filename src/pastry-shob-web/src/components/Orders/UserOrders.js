@@ -44,21 +44,24 @@ const UserOrders = () => {
         window.location.reload();
     }
 
+    const statusAndPayment = {
+        status: "confirmed",
+        payment: ""
+
+    }
+
     function confirmPayment() {
         if (creditCardData.cardHolderName === '' || creditCardData.cardNumber === '' ) {
             alert("Please fill in Name and Card number")
+            return;
         }
-        ajax(`${baseURL}api/orders/pay-with-card`, "PATCH", user.jwt)
-            .then((response) => {
-
-            })
+        statusAndPayment.payment = "yes"
+        confirmOrder()
     }
 
     function confirmOrder() {
         setIsLoading(true);
-        ajax(`${baseURL}api/orders`, "PATCH", user.jwt, {
-            status: "confirmed"
-        })
+        ajax(`${baseURL}api/orders`, "PATCH", user.jwt, statusAndPayment)
             .then(() => {
                 setIsLoading(false);
                 refreshPage()

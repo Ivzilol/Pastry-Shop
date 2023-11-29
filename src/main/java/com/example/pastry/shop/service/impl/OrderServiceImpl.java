@@ -132,6 +132,9 @@ public class OrderServiceImpl implements OrderService {
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
             currentOrder.setKeyOrderProduct(mostBigKey + 1);
+            if (ordersStatusDTO.getPayment().equals("yes")) {
+                currentOrder.setPaid(true);
+            }
             this.ordersRepository.save(currentOrder);
         }
     }
