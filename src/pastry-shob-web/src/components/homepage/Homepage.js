@@ -48,13 +48,13 @@ const Homepage = () => {
         ajax(`${baseURL}api/`, "GET", user.jwt)
             .then(productsData => {
                 setProducts(productsData);
-            }).catch(error => {
+            }).catch(() => {
             setGlobalError(true);
         })
         ajax(`${baseURL}api/home`, "GET", user.jwt)
             .then(recommendedData => {
                 setRecommendedProducts(recommendedData);
-            }).catch(error => {
+            }).catch(() => {
             setGlobalError(true);
         })
         if (user.jwt) {
@@ -63,7 +63,7 @@ const Homepage = () => {
                     if (result.length > 0) {
                         setOrderWindow(true);
                     }
-                }).catch(error => {
+                }).catch(() => {
                 setGlobalError(true);
             })
             ajax(`${baseURL}api/orders/status/confirmed`, "GET", user.jwt)
@@ -71,7 +71,7 @@ const Homepage = () => {
                     if (result.length > 0) {
                         setOrderWindow(true);
                     }
-                }).catch(error => {
+                }).catch(() => {
                 setGlobalError(true)
             })
         }
@@ -92,7 +92,7 @@ const Homepage = () => {
             .then(productData => {
                 setCurrentProduct(productData);
             })
-            .catch(error => {
+            .catch(() => {
                 setGlobalError(true);
             })
     }
@@ -112,7 +112,7 @@ const Homepage = () => {
                     timerOrderWindow();
                     setOrderWindow(true);
                 })
-                .catch(error => {
+                .catch(() => {
                     setGlobalError(true)
                 })
         } else {
@@ -342,7 +342,7 @@ const Homepage = () => {
                                 ))}
                             </div>
                         ) : (
-                            <div className="search-no-result">Моля изберете категория</div>
+                            <div className="search-no-result">{t('home-page-search.search-no-result')}</div>
                         )}
                     </div>
                 )}

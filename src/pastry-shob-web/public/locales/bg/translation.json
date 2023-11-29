@@ -17,7 +17,8 @@
     "option3": "Сладки",
     "option4": "Кифлички",
     "option5": "Торти",
-    "button": "Търсене"
+    "button": "Търсене",
+    "search-no-result": "Моля изберете категория"
   },
   "home-page-most-ordered": {
     "home-page-most-ordered-title": "НАЙ ПРОДАВАНИ ПРОДУКТИ!",

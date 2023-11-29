@@ -17,7 +17,8 @@
     "option3": "Sweets",
     "option4": "Buns",
     "option5": "Cakes",
-    "button": "Search"
+    "button": "Search",
+    "search-no-result": "Please select a category"
   },
   "home-page-most-ordered": {
     "home-page-most-ordered-title": "BEST SELLING PRODUCTS!",
