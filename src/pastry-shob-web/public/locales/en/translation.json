@@ -169,5 +169,8 @@
     "p": "Hello, if you need assistance please write to us!",
     "button": "Send",
     "placeholder": "Write a message"
-  }
+  },
+  "search-result-close-button-chat": "Close",
+  "empty-chat": "Hi, if you need any assistance, please write to us!",
+  "chat-closed": "Write us"
 }

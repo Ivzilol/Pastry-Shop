@@ -5,6 +5,7 @@ import baseURL from "../BaseURL/BaseURL";
 import {useEffect, useRef, useState} from "react";
 import jwt_decode from "jwt-decode";
 import ajax from "../../Services/FetchService";
+import {useTranslation} from "react-i18next";
 
 let stompClient = null;
 
@@ -16,6 +17,7 @@ const ChatRoom = () => {
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
     const [chatVisible, setChatVisible] = useState(false);
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({
         username: '',
         receiverName: '',
@@ -122,7 +124,7 @@ const ChatRoom = () => {
                     <button className="search-result-close-button-chat"
                             type="button"
                             onClick={() => setChatVisible(false)}
-                    >Затвори
+                    >{t('search-result-close-button-chat')}
                     </button>
                     <div className="chat-container">
                         {userData.connected ?
@@ -151,8 +153,7 @@ const ChatRoom = () => {
                                                     </div>
                                                 </div>
                                             )) : (
-                                                <div className="empty-chat">Здравейет, ако имате нужда от съдействие,
-                                                    моля пишете ни!</div>
+                                                <div className="empty-chat">{t('empty-chat')}</div>
                                             )}
                                         {publicChats.map((chat, index) => (
                                             chat.message !== null
@@ -199,7 +200,7 @@ const ChatRoom = () => {
                 <button className="chat-closed"
                         onClick={() => setChatVisible(true)}
                 >
-                    <div>Пишете ни</div>
+                    <div>{t('chat-closed')}</div>
                 </button>
             )}
         </main>

@@ -7,6 +7,7 @@ import {over} from "stompjs";
 import ajax from "../../Services/FetchService";
 import ChatRoomsAdmin from "./ChatRoomsAdmin";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 let stompClient = null;
 
@@ -20,7 +21,7 @@ const ChatRoomCurrentUser = () => {
     const [publicChats, setPublicChats] = useState([]);
     const [oldMessages, setOldMessages] = useState(null);
     const [chatVisible, setChatVisible] = useState(true);
-
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({
         username: '',
         receiverName: '',
@@ -132,7 +133,7 @@ const ChatRoomCurrentUser = () => {
                     <button className="search-result-close-button-chat"
                             type="button"
                             onClick={() => setChatVisible(false)}
-                    >Затвори
+                    >{t('search-result-close-button-chat')}
                     </button>
                     <div className="chat-container">
                         {userData.connected ?
