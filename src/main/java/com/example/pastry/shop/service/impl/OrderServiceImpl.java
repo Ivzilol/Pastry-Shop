@@ -5,10 +5,7 @@ import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
 import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
 import com.example.pastry.shop.model.dto.OrdersDTO;
 import com.example.pastry.shop.model.dto.OrdersStatusDTO;
-import com.example.pastry.shop.model.entity.Orders;
-import com.example.pastry.shop.model.entity.OrdersProcessing;
-import com.example.pastry.shop.model.entity.Products;
-import com.example.pastry.shop.model.entity.Users;
+import com.example.pastry.shop.model.entity.*;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.*;
 import com.example.pastry.shop.service.OrderService;
@@ -131,8 +128,12 @@ public class OrderServiceImpl implements OrderService {
     private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey, Users user) {
         boolean isCodeValid = false;
         if (ordersStatusDTO.getPayment() != null) {
-            String promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
+            PromoCodes promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
             isCodeValid = promoCode != null;
+            if (isCodeValid) {
+                promoCode.setUsed(true);
+                this.promoCodesRepository.save(promoCode);
+            }
         }
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
@@ -147,7 +148,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private String validateCode(String promoCode, Users user) {
+    private PromoCodes validateCode(String promoCode, Users user) {
         return this.productRepository.findPromoCodeByUser(promoCode, user.getId());
     }
 

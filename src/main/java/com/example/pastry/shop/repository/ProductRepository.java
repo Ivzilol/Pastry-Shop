@@ -4,6 +4,7 @@ import com.example.pastry.shop.model.dto.GetProductsDTO;
 import com.example.pastry.shop.model.dto.MostOrderedProductsDTO;
 import com.example.pastry.shop.model.dto.ProductsDTO;
 import com.example.pastry.shop.model.entity.Products;
+import com.example.pastry.shop.model.entity.PromoCodes;
 import com.example.pastry.shop.model.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -67,7 +68,7 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " where p.id = :productId")
     Optional<GetProductsDTO> findOrderProductById(Long productId);
 
-    @Query("select pc.promoCode from PromoCodes as pc" +
-            " where pc.promoCode = :promoCode and pc.user.id = :userId")
-    String findPromoCodeByUser(String promoCode, Long userId);
+    @Query("select pc from PromoCodes as pc" +
+            " where pc.promoCode = :promoCode and pc.user.id = :userId and pc.isUsed = false")
+    PromoCodes findPromoCodeByUser(String promoCode, Long userId);
 }
