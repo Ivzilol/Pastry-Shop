@@ -51,7 +51,7 @@ const UserOrders = () => {
     const statusAndPayment = {
         status: "confirmed",
         payment: "",
-        promoCode: promoCode
+        promoCode: promoCode.trim()
     }
 
     function confirmPayment() {
@@ -72,14 +72,11 @@ const UserOrders = () => {
         setIsLoading(true);
         ajax(`${baseURL}api/orders`, "PATCH", user.jwt, statusAndPayment)
             .then((response) => {
-                console.log(response);
                 if (response.custom === 'Confirm order') {
                     setIsLoading(false);
                     refreshPage()
-                    setConfirmOrderMessage("Successful confirm your order");
                     setDialogVisible(true);
-                }
-                if (response.custom === 'Promo code is invalid') {
+                } else {
                     setIsLoading(false);
                     setErrorCode(response.custom)
                     setErrorPromoCode(true);
