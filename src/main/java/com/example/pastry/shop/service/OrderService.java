@@ -19,7 +19,7 @@ public interface OrderService {
 
     void removeProduct(Long id);
 
-    void updateStatus(OrdersStatusDTO ordersStatusDTO, Users user);
+    boolean updateStatus(OrdersStatusDTO ordersStatusDTO, Users user);
 
     Set<OrdersDTO> findByStatus(Users user);
 

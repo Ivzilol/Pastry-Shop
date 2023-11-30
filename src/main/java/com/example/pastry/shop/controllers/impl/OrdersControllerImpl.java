@@ -99,9 +99,13 @@ public class OrdersControllerImpl implements OrdersController {
     )
     @Override
     public ResponseEntity<?> updateStatusOrder(OrdersStatusDTO ordersStatusDTO, Users user) {
-        this.orderService.updateStatus(ordersStatusDTO, user);
+        boolean isSuccessful = this.orderService.updateStatus(ordersStatusDTO, user);
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setCustom(SUCCESSFUL_CONFIRM_PRODUCT);
+        if (isSuccessful) {
+            customResponse.setCustom(SUCCESSFUL_CONFIRM_PRODUCT);
+        } else {
+            customResponse.setCustom("Promo code is invalid");
+        }
         return ResponseEntity.ok(customResponse);
     }
 

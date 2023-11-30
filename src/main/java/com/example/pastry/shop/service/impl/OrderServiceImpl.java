@@ -53,6 +53,8 @@ public class OrderServiceImpl implements OrderService {
 
     private Set<Orders> ordersInProcessing;
 
+    private boolean isCodeValid = false;
+
 
     public OrderServiceImpl(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, PromoCodesRepository promoCodesRepository, ApplicationEventPublisher appEventPublisher, Set<Orders> orders) {
         this.ordersRepository = ordersRepository;
@@ -112,7 +114,21 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
+    public boolean updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
+        if (ordersStatusDTO.getPayment() != null) {
+            PromoCodes promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
+            isCodeValid = promoCode != null;
+            if (isCodeValid) {
+                promoCode.setUsed(true);
+                this.promoCodesRepository.save(promoCode);
+                confirmOrder(ordersStatusDTO, user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void confirmOrder(OrdersStatusDTO ordersStatusDTO, Users user) {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), statusNewOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
@@ -126,15 +142,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey, Users user) {
-        boolean isCodeValid = false;
-        if (ordersStatusDTO.getPayment() != null) {
-            PromoCodes promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
-            isCodeValid = promoCode != null;
-            if (isCodeValid) {
-                promoCode.setUsed(true);
-                this.promoCodesRepository.save(promoCode);
-            }
-        }
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
             currentOrder.setKeyOrderProduct(mostBigKey + 1);
