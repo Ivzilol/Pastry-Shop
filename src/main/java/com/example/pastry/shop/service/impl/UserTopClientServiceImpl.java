@@ -22,7 +22,6 @@ public class UserTopClientServiceImpl implements UserTopClientService {
 
     private final JavaMailSender javaMailSender;
     private final UsersRepository usersRepository;
-
     private final PromoCodesRepository promoCodesRepository;
 
     public UserTopClientServiceImpl(JavaMailSender javaMailSender, UsersRepository usersRepository, PromoCodesRepository promoCodesRepository) {
