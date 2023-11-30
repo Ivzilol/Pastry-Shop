@@ -136,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), statusNewOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
-        setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey, user);
+        setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);
         double allPrice = byUsers.stream().mapToDouble(Orders::getPrice).sum();
         if (allPrice >= 100) {
             appEventPublisher.publishEvent(new UserTopClientEvent(
@@ -145,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey, Users user) {
+    private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey) {
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
             currentOrder.setKeyOrderProduct(mostBigKey + 1);
@@ -207,13 +207,6 @@ public class OrderServiceImpl implements OrderService {
                 return false;
             }
             double totalPrice = byOrderKey.stream().mapToDouble(Orders::getPrice).sum();
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
-            String hour = currentDateTime.format(formatter);
-            int intHour = Integer.parseInt(hour);
-            if (intHour >= 14 && intHour < 21) {
-                totalPrice = totalPrice - (totalPrice * 0.20);
-            }
             ordersProcessing.setTotalPrice(totalPrice);
             Optional<Users> currentUser = this.usersRepository.findUserBayKey(id);
             ordersProcessing.setUser(currentUser.get());
