@@ -895,6 +895,12 @@ footer {
     align-items: center;
 }
 
+.orders-user-input-promo-code-input {
+    border: 2px solid #ef7d00;
+    border-radius: 10px;
+    width: 25vw;
+}
+
 .tracking-in-processing-order-items {
     border: 2px solid #ef7d00;
     margin-top: 5px;

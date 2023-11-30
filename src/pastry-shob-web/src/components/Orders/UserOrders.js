@@ -51,7 +51,7 @@ const UserOrders = () => {
     }
 
     function confirmPayment() {
-        if (creditCardData.cardHolderName === '' || creditCardData.cardNumber === '' ) {
+        if (creditCardData.cardHolderName === '' || creditCardData.cardNumber === '') {
             alert("Please fill in Name and Card number")
             return;
         }
@@ -147,8 +147,14 @@ const UserOrders = () => {
                         <></>
                     )}
                     <section>
+
                         {allPrice > 0 ? (
                             <div className="orders-user-price">
+                                <input
+                                    className="orders-user-input-promo-code-input"
+                                    type="text"
+                                    placeholder="  Enter promo code"
+                                />
                                 {promotion
                                     ?
                                     <h5 className="orders-user-title"
@@ -199,7 +205,7 @@ const UserOrders = () => {
                                             <input
                                                 type="text"
                                                 name="cardHolderName"
-                                                placeholder="  Name of holder"
+                                                placeholder="Name of holder"
                                                 onChange={handleCreditCardChange}
                                                 value={creditCardData.cardHolderName}
                                             />
