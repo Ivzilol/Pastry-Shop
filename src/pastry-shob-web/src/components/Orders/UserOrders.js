@@ -6,6 +6,8 @@ import NavBar from "../NavBar/NavBar";
 import {useTranslation} from "react-i18next";
 import baseURL from "../BaseURL/BaseURL";
 import Loading from "../Loading/Loading";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 const UserOrders = () => {
     const user = useUser();
@@ -13,7 +15,8 @@ const UserOrders = () => {
     const [products, setProducts] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [confirmOrderMessage, setConfirmOrderMessage] = useState("");
-    const [promoCode, setPromoCode] = useState(null);
+    const [promoCode, setPromoCode] = useState("");
+    const [errorPromoCode, setErrorPromoCode] = useState(false);
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
@@ -61,14 +64,26 @@ const UserOrders = () => {
         confirmOrder()
     }
 
+    const [errorCode, setErrorCode] = useState({
+        custom: null
+    })
+
     function confirmOrder() {
         setIsLoading(true);
         ajax(`${baseURL}api/orders`, "PATCH", user.jwt, statusAndPayment)
-            .then(() => {
-                setIsLoading(false);
-                refreshPage()
-                setConfirmOrderMessage("Successful confirm your order");
-                setDialogVisible(true);
+            .then((response) => {
+                console.log(response);
+                if (response.custom === 'Confirm order') {
+                    setIsLoading(false);
+                    refreshPage()
+                    setConfirmOrderMessage("Successful confirm your order");
+                    setDialogVisible(true);
+                }
+                if (response.custom === 'Promo code is invalid') {
+                    setIsLoading(false);
+                    setErrorCode(response.custom)
+                    setErrorPromoCode(true);
+                }
             })
     }
 
@@ -160,6 +175,9 @@ const UserOrders = () => {
                                     value={promoCode}
                                     onChange={(e) => setPromoCode(e.target.value)}
                                 />
+                                {errorPromoCode && errorCode.custom !== null &&
+                                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorCode}</span>
+                                }
                                 {promotion
                                     ?
                                     <h5 className="orders-user-title"

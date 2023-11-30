@@ -115,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-        if (ordersStatusDTO.getPayment() != null) {
+        if (!Objects.equals(ordersStatusDTO.getPromoCode(), "")) {
             PromoCodes promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
             isCodeValid = promoCode != null;
             if (isCodeValid) {
@@ -123,9 +123,13 @@ public class OrderServiceImpl implements OrderService {
                 this.promoCodesRepository.save(promoCode);
                 confirmOrder(ordersStatusDTO, user);
                 return true;
+            } else {
+                return false;
             }
+        } else {
+            confirmOrder(ordersStatusDTO, user);
+            return true;
         }
-        return false;
     }
 
     private void confirmOrder(OrdersStatusDTO ordersStatusDTO, Users user) {
