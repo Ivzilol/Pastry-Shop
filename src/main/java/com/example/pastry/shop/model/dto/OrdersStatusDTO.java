@@ -6,6 +6,8 @@ public class OrdersStatusDTO {
 
     private String payment;
 
+    private String promoCode;
+
     public OrdersStatusDTO() {
     }
 
@@ -23,5 +25,13 @@ public class OrdersStatusDTO {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
     }
 }

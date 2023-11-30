@@ -13,6 +13,7 @@ const UserOrders = () => {
     const [products, setProducts] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [confirmOrderMessage, setConfirmOrderMessage] = useState("");
+    const [promoCode, setPromoCode] = useState(null);
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
@@ -46,8 +47,8 @@ const UserOrders = () => {
 
     const statusAndPayment = {
         status: "confirmed",
-        payment: ""
-
+        payment: "",
+        promoCode: promoCode
     }
 
     function confirmPayment() {
@@ -153,7 +154,11 @@ const UserOrders = () => {
                                 <input
                                     className="orders-user-input-promo-code-input"
                                     type="text"
+                                    autoComplete="off"
+                                    name="promoCode"
                                     placeholder="  Enter promo code"
+                                    value={promoCode}
+                                    onChange={(e) => setPromoCode(e.target.value)}
                                 />
                                 {promotion
                                     ?

@@ -10,10 +10,7 @@ import com.example.pastry.shop.model.entity.OrdersProcessing;
 import com.example.pastry.shop.model.entity.Products;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
-import com.example.pastry.shop.repository.OrdersProcessingRepository;
-import com.example.pastry.shop.repository.OrdersRepository;
-import com.example.pastry.shop.repository.ProductRepository;
-import com.example.pastry.shop.repository.UsersRepository;
+import com.example.pastry.shop.repository.*;
 import com.example.pastry.shop.service.OrderService;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrdersProcessingRepository ordersProcessingRepository;
 
+    private final PromoCodesRepository promoCodesRepository;
+
     private final ApplicationEventPublisher appEventPublisher;
 
     @Value("${status_confirmed}")
@@ -58,11 +57,12 @@ public class OrderServiceImpl implements OrderService {
     private Set<Orders> ordersInProcessing;
 
 
-    public OrderServiceImpl(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, ApplicationEventPublisher appEventPublisher, Set<Orders> orders) {
+    public OrderServiceImpl(OrdersRepository ordersRepository, UsersRepository usersRepository, ProductRepository productRepository, OrdersProcessingRepository ordersProcessingRepository, PromoCodesRepository promoCodesRepository, ApplicationEventPublisher appEventPublisher, Set<Orders> orders) {
         this.ordersRepository = ordersRepository;
         this.usersRepository = usersRepository;
         this.productRepository = productRepository;
         this.ordersProcessingRepository = ordersProcessingRepository;
+        this.promoCodesRepository = promoCodesRepository;
         this.appEventPublisher = appEventPublisher;
         this.ordersInProcessing = orders;
     }
@@ -119,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
         Set<Orders> byUsers = this.ordersRepository.findByUsers(user.getId(), statusNewOrder);
         Set<Orders> lastKey = this.ordersRepository.findAllOrders();
         Long mostBigKey = getKey(lastKey);
-        setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey);
+        setStatusAndKey(ordersStatusDTO, byUsers, mostBigKey, user);
         double allPrice = byUsers.stream().mapToDouble(Orders::getPrice).sum();
         if (allPrice >= 100) {
             appEventPublisher.publishEvent(new UserTopClientEvent(
@@ -128,15 +128,27 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey) {
+    private void setStatusAndKey(OrdersStatusDTO ordersStatusDTO, Set<Orders> byUsers, Long mostBigKey, Users user) {
+        boolean isCodeValid = false;
+        if (ordersStatusDTO.getPayment() != null) {
+            String promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
+            isCodeValid = promoCode != null;
+        }
         for (Orders currentOrder : byUsers) {
             currentOrder.setStatus(ordersStatusDTO.getStatus());
             currentOrder.setKeyOrderProduct(mostBigKey + 1);
             if (ordersStatusDTO.getPayment().equals("payment_confirm")) {
                 currentOrder.setPaid(true);
             }
+            if (isCodeValid) {
+                currentOrder.setPrice(currentOrder.getPrice() - currentOrder.getPrice() * 0.10);
+            }
             this.ordersRepository.save(currentOrder);
         }
+    }
+
+    private String validateCode(String promoCode, Users user) {
+        return this.productRepository.findPromoCodeByUser(promoCode, user.getId());
     }
 
     private static Long getKey(Set<Orders> lastKey) {

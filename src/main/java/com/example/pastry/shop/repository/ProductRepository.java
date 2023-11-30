@@ -67,5 +67,7 @@ public interface ProductRepository extends JpaRepository<Products, Long> {
             " where p.id = :productId")
     Optional<GetProductsDTO> findOrderProductById(Long productId);
 
-
+    @Query("select pc.promoCode from PromoCodes as pc" +
+            " where pc.promoCode = :promoCode and pc.user.id = :userId")
+    String findPromoCodeByUser(String promoCode, Long userId);
 }
