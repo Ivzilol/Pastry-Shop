@@ -12,6 +12,9 @@ public class PromoCodes {
     @Column
     private String promoCode;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isUsed;
+
     @ManyToOne
     private Users user;
 
@@ -40,5 +43,13 @@ public class PromoCodes {
 
     public void setUser(Users user) {
         this.user = user;
+    }
+
+    public boolean isUsed() {
+        return isUsed;
+    }
+
+    public void setUsed(boolean used) {
+        isUsed = used;
     }
 }
