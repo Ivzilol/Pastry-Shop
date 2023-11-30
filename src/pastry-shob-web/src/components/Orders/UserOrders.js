@@ -14,7 +14,7 @@ const UserOrders = () => {
     let navigate = useNavigate();
     const [products, setProducts] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
-    const [confirmOrderMessage, setConfirmOrderMessage] = useState("");
+    const [confirmOrderMessage] = useState("");
     const [promoCode, setPromoCode] = useState("");
     const [errorPromoCode, setErrorPromoCode] = useState(false);
     const now = new Date();

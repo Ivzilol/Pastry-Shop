@@ -41,9 +41,9 @@ public class UserTopClientServiceImpl implements UserTopClientService {
         String mailContent = "<h4>Dear " + user.get().getFirstName()
                 + " " + user.get().getLastName() + ",</h4>";
         mailContent += "<p>You purchased products for over 100 BGN</p>";
-        mailContent += "<h3>You get an additional 10 percent off your next order</h3>";
-        mailContent += "<h3>Your promo code: </h3>" + promoCode;
-        mailContent += "<h4>We are expecting you!</h4>";
+        mailContent += "<p>You get an additional 10 percent off your next order</p>";
+        mailContent += "<h3>Your promo code: " + promoCode + " " + "</h3>";
+        mailContent += "<h4>We welcome your next order</h4>";
         mailContent += "<p>Mom's sweet shop team<p/>";
         sendMail(user, subject, senderName, mailContent);
     }
