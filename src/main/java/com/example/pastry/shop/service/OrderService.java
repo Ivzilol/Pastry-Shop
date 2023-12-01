@@ -1,12 +1,8 @@
 package com.example.pastry.shop.service;
 
-import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
-import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
-import com.example.pastry.shop.model.dto.OrdersDTO;
-import com.example.pastry.shop.model.dto.OrdersStatusDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.Orders;
 import com.example.pastry.shop.model.entity.Users;
-import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.Set;
@@ -38,4 +34,6 @@ public interface OrderService {
     Set<OrdersDTO> findOrdersWhichConfirmed(Users user);
 
     Set<OrdersDTO> findAllNotSendOrders();
+
+    Set<PromoCodesDTO> findUserPromoCodes(Users user);
 }

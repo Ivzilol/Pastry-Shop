@@ -17,6 +17,7 @@ const UserOrders = () => {
     const [confirmOrderMessage] = useState("");
     const [promoCode, setPromoCode] = useState("");
     const [errorPromoCode, setErrorPromoCode] = useState(false);
+    const [isHavePromoCodes, setIsHavePromoCodes] = useState(false);
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
@@ -35,6 +36,13 @@ const UserOrders = () => {
                 setProducts(productsData);
             });
         if (!user.jwt) navigate('/login')
+        ajax(`${baseURL}api/orders/user-promo-codes`, "GET", user.jwt)
+            .then((response) => {
+                if (response.length > 0) {
+                    setIsHavePromoCodes(true)
+                }
+            })
+
     }, [navigate, user.jwt]);
 
     function removeProductFromOrder(id) {
@@ -163,17 +171,22 @@ const UserOrders = () => {
 
                         {allPrice > 0 ? (
                             <div className="orders-user-price">
-                                <input
-                                    className="orders-user-input-promo-code-input"
-                                    type="text"
-                                    autoComplete="off"
-                                    name="promoCode"
-                                    placeholder="  Enter promo code"
-                                    value={promoCode}
-                                    onChange={(e) => setPromoCode(e.target.value)}
-                                />
+                                {isHavePromoCodes ?
+                                    <input
+                                        className="orders-user-input-promo-code-input"
+                                        type="text"
+                                        autoComplete="off"
+                                        name="promoCode"
+                                        placeholder="  Enter promo code"
+                                        value={promoCode}
+                                        onChange={(e) => setPromoCode(e.target.value)}
+                                    />
+                                    :
+                                    <></>
+                                }
                                 {errorPromoCode && errorCode.custom !== null &&
-                                    <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorCode}</span>
+                                    <span id="validate-username"> <FontAwesomeIcon
+                                        icon={faInfoCircle}/> {errorCode}</span>
                                 }
                                 {promotion
                                     ?

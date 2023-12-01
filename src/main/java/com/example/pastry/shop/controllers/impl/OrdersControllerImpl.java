@@ -274,4 +274,10 @@ public class OrdersControllerImpl implements OrdersController {
     public ResponseEntity<?> payOrderWithCard(Users user) {
         return null;
     }
+
+    @Override
+    public ResponseEntity<?> userPromoCodes(Users user) {
+        Set<PromoCodesDTO> promoCodesDTO = this.orderService.findUserPromoCodes(user);
+        return ResponseEntity.ok(promoCodesDTO);
+    }
 }

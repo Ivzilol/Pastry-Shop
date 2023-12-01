@@ -1,10 +1,7 @@
 package com.example.pastry.shop.service.impl;
 
 import com.example.pastry.shop.events.UserTopClientEvent;
-import com.example.pastry.shop.model.dto.OrderStatusDeliveryAdmin;
-import com.example.pastry.shop.model.dto.OrderStatusSendAdmin;
-import com.example.pastry.shop.model.dto.OrdersDTO;
-import com.example.pastry.shop.model.dto.OrdersStatusDTO;
+import com.example.pastry.shop.model.dto.*;
 import com.example.pastry.shop.model.entity.*;
 import com.example.pastry.shop.model.enums.AuthorityEnum;
 import com.example.pastry.shop.repository.*;
@@ -346,5 +343,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Set<OrdersDTO> findAllNotSendOrders() {
         return this.ordersRepository.findAllNotSendOrders(statusConf, statusSend);
+    }
+
+    @Override
+    public Set<PromoCodesDTO> findUserPromoCodes(Users user) {
+        return this.promoCodesRepository.findUserPromoCodes(user.getId());
     }
 }

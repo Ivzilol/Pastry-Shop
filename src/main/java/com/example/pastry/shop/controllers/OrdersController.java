@@ -57,4 +57,7 @@ public interface OrdersController {
 
     @PatchMapping("pay-with-card")
     ResponseEntity<?> payOrderWithCard(@AuthenticationPrincipal Users user);
+
+    @GetMapping("user-promo-codes")
+    ResponseEntity<?> userPromoCodes(@AuthenticationPrincipal Users user);
 }
