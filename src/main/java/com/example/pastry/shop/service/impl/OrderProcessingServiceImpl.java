@@ -52,7 +52,11 @@ public class OrderProcessingServiceImpl implements OrderProcessingService {
     }
 
     @Override
-    public Set<OrdersProcessingDTO> findOrdersByDate(LocalDate startDate, LocalDate endDate) {
-        return this.ordersProcessingRepository.findByDate(startDate, endDate);
+    public Set<OrdersProcessingDTO> findOrdersByDate(Users user ,LocalDate startDate, LocalDate endDate) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            return this.ordersProcessingRepository.findByDate(startDate, endDate);
+        }
+        return null;
     }
 }

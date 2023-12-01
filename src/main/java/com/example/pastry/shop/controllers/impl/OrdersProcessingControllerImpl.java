@@ -2,6 +2,7 @@ package com.example.pastry.shop.controllers.impl;
 
 import com.example.pastry.shop.controllers.OrdersProcessingController;
 import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
+import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.impl.OrderProcessingServiceImpl;
 import com.example.pastry.shop.service.impl.OrderServiceImpl;
@@ -55,9 +56,9 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
     }
 
     @Override
-    public ResponseEntity<?> getOrdersByDate(LocalDate startDate, LocalDate endDate) {
+    public ResponseEntity<?> getOrdersByDate(Users user , LocalDate startDate, LocalDate endDate) {
         Set<OrdersProcessingDTO> ordersProcessingDTO =
-                this.orderProcessingService.findOrdersByDate(startDate, endDate);
+                this.orderProcessingService.findOrdersByDate(user ,startDate, endDate);
         return ResponseEntity.ok(ordersProcessingDTO);
     }
 }

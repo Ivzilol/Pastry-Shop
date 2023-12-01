@@ -1,7 +1,9 @@
 package com.example.pastry.shop.controllers;
 
+import com.example.pastry.shop.model.entity.Users;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,6 +16,6 @@ public interface OrdersProcessingController {
     ResponseEntity<?> startProcessingOrder(@PathVariable Long id);
 
     @GetMapping("/admin/date")
-    ResponseEntity<?> getOrdersByDate(@RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+    ResponseEntity<?> getOrdersByDate(@AuthenticationPrincipal Users user, @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                       @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate);
 }

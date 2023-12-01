@@ -15,5 +15,5 @@ public interface OrderProcessingService {
 
     Set<OrdersProcessingDTO> getAllOrders();
 
-    Set<OrdersProcessingDTO> findOrdersByDate(LocalDate startDate, LocalDate endDate);
+    Set<OrdersProcessingDTO> findOrdersByDate(Users user ,LocalDate startDate, LocalDate endDate);
 }
