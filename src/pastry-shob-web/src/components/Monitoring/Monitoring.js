@@ -17,12 +17,11 @@ const Monitoring = () => {
         const interval = setInterval(() => {
             ajax(`${baseURL}api/monitoring`, "GET", user.jwt)
                 .then((response) => {
-                    console.log(response)
                     setNumberSearch(response)
                 });
         }, 10000)
         return () => clearInterval(interval);
-    },[]);
+    }, []);
 
     function getOrdersByDate() {
         ajax(`${baseURL}api/orders-processing/admin/date?startDate=${startDate}&endDate=${endDate}`, "GET", user.jwt)
@@ -30,7 +29,6 @@ const Monitoring = () => {
                 setOrders(ordersData);
             })
     }
-
 
 
     return (
@@ -81,7 +79,7 @@ const Monitoring = () => {
                             <th>User</th>
                         </tr>
                         {orders ? (
-                            <>
+                            <tbody>
                                 {orders.map(order => (
                                     <tr id={order.id}>
                                         <td>{order.dateOfDispatch}</td>
@@ -91,7 +89,7 @@ const Monitoring = () => {
                                         <td>{order.username}</td>
                                     </tr>
                                 ))}
-                            </>
+                            </tbody>
                         ) : (
                             <></>
                         )}

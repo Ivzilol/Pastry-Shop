@@ -112,6 +112,7 @@ const UserOrders = () => {
     };
 
 
+
     return (
         <>
             <NavBar/>
@@ -191,7 +192,11 @@ const UserOrders = () => {
                                         <div className="promo-codes-user">
                                             <h5>Вашите промо кодове!</h5>
                                             {promoCodes.map((codes) => (
-                                                <p>{codes.promoCode}</p>
+                                                <div key={codes.promoCode}>
+                                                    <p
+                                                       key={codes.promoCode}>{codes.promoCode}
+                                                    </p>
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
