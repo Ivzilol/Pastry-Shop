@@ -102,7 +102,7 @@ const AdminOrders = () => {
             </button>
             <section className="admin-bord-section">
                 <article className="unconfirmed-orders">
-                    <h2>Проъчки в процес на приготвяне</h2>
+                    <h2>Поръчки в процес на приготвяне</h2>
                     <ul className="unconfirmed-orders-list">
                         {orders ? (
                             <div className="keyOrder"
