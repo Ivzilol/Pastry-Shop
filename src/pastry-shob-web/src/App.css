@@ -1132,6 +1132,8 @@ footer {
     margin-top: 100px;
 }
 
+
+
 .order-users-tracker-button {
     margin-top: 80px;
     padding: 10px;
@@ -1900,6 +1902,23 @@ footer {
 
 iframe {
     display: none;
+}
+
+.monitoring {
+    margin-top: 80px;
+}
+
+.monitoring-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.monitoring-date-button {
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 4px;
+    border: none;
 }
 
 @media screen and (max-width: 600px) {

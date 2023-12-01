@@ -100,6 +100,11 @@ const AdminOrders = () => {
                 onClick={() => window.location.href = "/orders/history/user"}
             >История на поръчките
             </button>
+            <button
+                className="order-users-tracker-button"
+                onClick={() => window.location.href = "/monitoring"}
+            >Мониторинг
+            </button>
             <section className="admin-bord-section">
                 <article className="unconfirmed-orders">
                     <h2>Поръчки в процес на приготвяне</h2>

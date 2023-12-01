@@ -8,6 +8,8 @@ import com.example.pastry.shop.service.OrderProcessingService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Service
@@ -47,5 +49,10 @@ public class OrderProcessingServiceImpl implements OrderProcessingService {
     @Override
     public Set<OrdersProcessingDTO> getAllOrders() {
         return this.ordersProcessingRepository.findAllOrders();
+    }
+
+    @Override
+    public Set<OrdersProcessingDTO> findOrdersByDate(LocalDate startDate, LocalDate endDate) {
+        return this.ordersProcessingRepository.findByDate(startDate, endDate);
     }
 }

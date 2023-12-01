@@ -1,7 +1,9 @@
 package com.example.pastry.shop.controllers.impl;
 
 import com.example.pastry.shop.controllers.OrdersProcessingController;
+import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
 import com.example.pastry.shop.response.CustomResponse;
+import com.example.pastry.shop.service.impl.OrderProcessingServiceImpl;
 import com.example.pastry.shop.service.impl.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,6 +15,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Set;
+
 import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_START_PROCESSING_ORDER;
 
 @RestController
@@ -22,8 +28,11 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
 
     private final OrderServiceImpl orderService;
 
-    public OrdersProcessingControllerImpl(OrderServiceImpl orderService) {
+    private final OrderProcessingServiceImpl orderProcessingService;
+
+    public OrdersProcessingControllerImpl(OrderServiceImpl orderService, OrderProcessingServiceImpl orderProcessingService) {
         this.orderService = orderService;
+        this.orderProcessingService = orderProcessingService;
     }
 
     @Operation(summary = "Start processing order", security = {
@@ -43,5 +52,12 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
             customResponse.setCustom(SUCCESSFUL_START_PROCESSING_ORDER);
         }
         return ResponseEntity.ok(customResponse);
+    }
+
+    @Override
+    public ResponseEntity<?> getOrdersByDate(LocalDate startDate, LocalDate endDate) {
+        Set<OrdersProcessingDTO> ordersProcessingDTO =
+                this.orderProcessingService.findOrdersByDate(startDate, endDate);
+        return ResponseEntity.ok(ordersProcessingDTO);
     }
 }

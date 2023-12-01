@@ -2,8 +2,8 @@ package com.example.pastry.shop.service;
 
 import com.example.pastry.shop.model.dto.OrdersProcessingDTO;
 import com.example.pastry.shop.model.entity.Users;
-import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 
@@ -15,5 +15,5 @@ public interface OrderProcessingService {
 
     Set<OrdersProcessingDTO> getAllOrders();
 
-
+    Set<OrdersProcessingDTO> findOrdersByDate(LocalDate startDate, LocalDate endDate);
 }
