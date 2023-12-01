@@ -1,7 +1,7 @@
 import {useUser} from "../../UserProvider/UserProvider";
 import ajax from "../../Services/FetchService";
 import baseURL from "../BaseURL/BaseURL";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 
 
@@ -11,6 +11,18 @@ const Monitoring = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [orders, setOrders] = useState(null);
+    const [numberSearch, setNumberSearch] = useState(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            ajax(`${baseURL}api/monitoring`, "GET", user.jwt)
+                .then((response) => {
+                    console.log(response)
+                    setNumberSearch(response)
+                });
+        }, 10000)
+        return () => clearInterval(interval);
+    },[]);
 
     function getOrdersByDate() {
         ajax(`${baseURL}api/orders-processing/admin/date?startDate=${startDate}&endDate=${endDate}`, "GET", user.jwt)
@@ -19,16 +31,12 @@ const Monitoring = () => {
             })
     }
 
-    // function getMonitoring() {
-    //     ajax(`${baseURL}api/monitoring`, "GET", user.jwt)
-    //         .then((response) => {
-    //             console.log(response);
-    //         })
-    // }
+
 
     return (
         <main className="monitoring">
             <NavBarAdmin/>
+            <h3 className="admin-users-container-title">Брой на търсения на продукти: {numberSearch}</h3>
             <h3 className="admin-users-container-title">История на поръчките</h3>
             <section className="monitoring-date">
                 <article className="monitoring-date-start-date">
