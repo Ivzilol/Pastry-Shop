@@ -29,6 +29,9 @@ const UserOrders = () => {
 
     const {t} = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
+    const [promoCodes, setPromoCodes] = useState({
+        promoCode: ""
+    })
 
     useEffect(() => {
         ajax(`${baseURL}api/orders`, "GET", user.jwt)
@@ -39,6 +42,7 @@ const UserOrders = () => {
         ajax(`${baseURL}api/orders/user-promo-codes`, "GET", user.jwt)
             .then((response) => {
                 if (response.length > 0) {
+                    setPromoCodes(response)
                     setIsHavePromoCodes(true)
                 }
             })
@@ -172,15 +176,25 @@ const UserOrders = () => {
                         {allPrice > 0 ? (
                             <div className="orders-user-price">
                                 {isHavePromoCodes ?
-                                    <input
-                                        className="orders-user-input-promo-code-input"
-                                        type="text"
-                                        autoComplete="off"
-                                        name="promoCode"
-                                        placeholder="  Enter promo code"
-                                        value={promoCode}
-                                        onChange={(e) => setPromoCode(e.target.value)}
-                                    />
+                                    <div className="orders-user-price">
+                                        <p className="orders-user-price-promo-code-description">Вие имате неизползвани
+                                            кодове за 10 % отстъпка, можете да ги използвате, като гo въведете сега!</p>
+                                        <input
+                                            className="orders-user-input-promo-code-input"
+                                            type="text"
+                                            autoComplete="off"
+                                            name="promoCode"
+                                            placeholder="  Enter promo code"
+                                            value={promoCode}
+                                            onChange={(e) => setPromoCode(e.target.value)}
+                                        />
+                                        <div className="promo-codes-user">
+                                            <h5>Вашите промо кодове!</h5>
+                                            {promoCodes.map((codes) => (
+                                                <p>{codes.promoCode}</p>
+                                            ))}
+                                        </div>
+                                    </div>
                                     :
                                     <></>
                                 }

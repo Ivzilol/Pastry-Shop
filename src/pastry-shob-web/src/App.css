@@ -895,6 +895,31 @@ footer {
     align-items: center;
 }
 
+.orders-user-price-promo-code-description {
+    width: 25vw;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    margin: 0 0 7px 0;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.promo-codes-user {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 70px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.promo-codes-user h5{
+    font-style: italic;
+}
+
 .orders-user-input-promo-code-input {
     border: 2px solid #ef7d00;
     border-radius: 10px;
