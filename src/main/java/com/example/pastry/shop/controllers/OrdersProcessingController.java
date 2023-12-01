@@ -7,7 +7,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @RequestMapping("/api/orders-processing")
 public interface OrdersProcessingController {
@@ -16,6 +15,9 @@ public interface OrdersProcessingController {
     ResponseEntity<?> startProcessingOrder(@PathVariable Long id);
 
     @GetMapping("/admin/date")
-    ResponseEntity<?> getOrdersByDate(@AuthenticationPrincipal Users user, @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                      @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate);
+    ResponseEntity<?> getOrdersByDate(@AuthenticationPrincipal Users user,
+                                      @RequestParam("startDate")
+                                      @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                      @RequestParam("endDate")
+                                      @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate);
 }
