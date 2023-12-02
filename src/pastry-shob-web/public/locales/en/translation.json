@@ -93,7 +93,8 @@
     "card-*": "* This is a portfolio purpose app does not process real payments!",
     "pay-confirm": "Confirm payment",
     "description": "You have unused 10% discount codes, you can use them by entering it now!",
-    "promo-codes": "Your Promo Codes!"
+    "promo-codes": "Your Promo Codes!",
+    "clipboard": "Copied to clipboard!"
   },
   "tracking-main-section": {
     "data": "Date of delivery:",

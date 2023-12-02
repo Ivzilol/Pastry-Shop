@@ -217,7 +217,7 @@ const UserOrders = () => {
                                                     </p>
                                                 </div>
                                             ))}
-                                            {copied && <p className="copied">Copied to clipboard!</p>}
+                                            {copied && <p className="copied">{t('orders-user.clipboard')}</p>}
                                         </div>
                                     </div>
                                     :
