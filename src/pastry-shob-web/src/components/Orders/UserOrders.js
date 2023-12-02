@@ -1,5 +1,5 @@
 import {useUser} from "../../UserProvider/UserProvider";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ajax from "../../Services/FetchService";
 import {useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
@@ -29,9 +29,8 @@ const UserOrders = () => {
 
     const {t} = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
-    const [promoCodes, setPromoCodes] = useState({
-        promoCode: ""
-    })
+    const [promoCodes, setPromoCodes] = useState([]);
+    const promoCodesRef = useRef([])
 
     useEffect(() => {
         ajax(`${baseURL}api/orders`, "GET", user.jwt)
@@ -44,10 +43,21 @@ const UserOrders = () => {
                 if (response.length > 0) {
                     setPromoCodes(response)
                     setIsHavePromoCodes(true)
+                    promoCodesRef.current = response.map(() => React.createRef());
                 }
             })
 
     }, [navigate, user.jwt]);
+
+    const copyPromoCode = (index) => {
+        if (promoCodesRef.current[index]) {
+            const textCopy = promoCodesRef.current[index].innerText;
+            navigator.clipboard.writeText(textCopy)
+                .then(() => {
+                    alert('Текстът е копиран успешно!');
+                })
+        }
+    };
 
     function removeProductFromOrder(id) {
         ajax(`${baseURL}api/orders/${id}`, "DELETE", user.jwt)
@@ -110,7 +120,6 @@ const UserOrders = () => {
         const {name, value} = e.target;
         setCreditCardData({...creditCardData, [name]: value});
     };
-
 
 
     return (
@@ -191,11 +200,15 @@ const UserOrders = () => {
                                         />
                                         <div className="promo-codes-user">
                                             <h5>Вашите промо кодове!</h5>
-                                            {promoCodes.map((codes) => (
+                                            {promoCodes.map((codes, index) => (
                                                 <div key={codes.promoCode}>
                                                     <p
-                                                       key={codes.promoCode}>{codes.promoCode}
+                                                        key={codes.promoCode}
+                                                        ref={(element) => (promoCodesRef.current[index] = element)}
+                                                    >
+                                                        {codes.promoCode}
                                                     </p>
+                                                    <button onClick={() => copyPromoCode(index)}>copy</button>
                                                 </div>
                                             ))}
                                         </div>
