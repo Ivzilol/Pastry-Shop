@@ -59,7 +59,7 @@ const UserOrders = () => {
                     setTimeout(() => {
                         promoCodesRef.current[index].classList.remove('copied');
                         promoCodesRef.current[index].textContent = textCopy;
-                    }, 2000);
+                    }, 1000);
                 })
         }
     };
