@@ -12,6 +12,7 @@ const Monitoring = () => {
     const [endDate, setEndDate] = useState("");
     const [orders, setOrders] = useState(null);
     const [numberSearch, setNumberSearch] = useState(null);
+    const [emptyDate, setEmptyDate] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -23,10 +24,16 @@ const Monitoring = () => {
         return () => clearInterval(interval);
     }, []);
 
+
     function getOrdersByDate() {
+        if (startDate === '' || endDate === '' || startDate > endDate) {
+            setEmptyDate(true)
+            return
+        }
         ajax(`${baseURL}api/orders-processing/admin/date?startDate=${startDate}&endDate=${endDate}`, "GET", user.jwt)
             .then((ordersData) => {
                 setOrders(ordersData);
+                setEmptyDate(false)
             })
     }
 
@@ -34,7 +41,7 @@ const Monitoring = () => {
     return (
         <main className="monitoring">
             <NavBarAdmin/>
-            <h3 className="admin-users-container-title">Брой на търсения на продукти: {numberSearch}</h3>
+            <h3 className="admin-users-container-title">Използвания на търсачката: {numberSearch}</h3>
             <h3 className="admin-users-container-title">История на поръчките</h3>
             <section className="monitoring-date">
                 <article className="monitoring-date-start-date">
@@ -65,6 +72,7 @@ const Monitoring = () => {
                 >
                     Покажи поръчките
                 </button>
+                {emptyDate && <p className="copied">Please put correct date!</p>}
             </section>
             <section className="ordersUser-date">
                 <NavBarAdmin/>
