@@ -49,17 +49,17 @@ const UserOrders = () => {
 
     }, [navigate, user.jwt]);
 
+    const [copied, setCopied] = useState(false);
+
     const copyPromoCode = (index) => {
         if (promoCodesRef.current[index]) {
             const textCopy = promoCodesRef.current[index].innerText;
             navigator.clipboard.writeText(textCopy)
                 .then(() => {
-                    promoCodesRef.current[index].classList.add('copied');
-                    promoCodesRef.current[index].textContent = 'Copied to clipboard!';
+                    setCopied(true)
                     setTimeout(() => {
-                        promoCodesRef.current[index].classList.remove('copied');
-                        promoCodesRef.current[index].textContent = textCopy;
-                    }, 1000);
+                        setCopied(false)
+                    }, 2000);
                 })
         }
     };
@@ -219,6 +219,7 @@ const UserOrders = () => {
                                                     </p>
                                                 </div>
                                             ))}
+                                            {copied && <p className="copied">Copied to clipboard!</p>}
                                         </div>
                                     </div>
                                     :
