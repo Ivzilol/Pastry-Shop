@@ -52,16 +52,15 @@ const UserOrders = () => {
     const [copied, setCopied] = useState(false);
 
     const copyPromoCode = (index) => {
-        if (promoCodesRef.current[index]) {
-            const textCopy = promoCodesRef.current[index].innerText;
-            navigator.clipboard.writeText(textCopy)
-                .then(() => {
-                    setCopied(true)
-                    setTimeout(() => {
-                        setCopied(false)
-                    }, 2000);
-                })
-        }
+        const textCopy = promoCodesRef.current[index].textContent;
+        navigator.clipboard.writeText(textCopy)
+            .then(() => {
+                console.log(textCopy)
+                setCopied(true)
+                setTimeout(() => {
+                    setCopied(false)
+                }, 2000);
+            })
     };
 
     function removeProductFromOrder(id) {
@@ -212,8 +211,8 @@ const UserOrders = () => {
                                                         onClick={() => copyPromoCode(index)}>copy
                                                     </button>
                                                     <p className="promo-code"
-                                                        key={codes.promoCode}
-                                                        ref={(element) => (promoCodesRef.current[index] = element)}
+                                                       key={codes.promoCode}
+                                                       ref={(element) => (promoCodesRef.current[index] = element)}
                                                     >
                                                         {codes.promoCode}
                                                     </p>
