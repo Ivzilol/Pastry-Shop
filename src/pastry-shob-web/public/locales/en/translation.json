@@ -91,7 +91,9 @@
     "pay-card": "Payment by credit card",
     "card-information": "Credit card information",
     "card-*": "* This is a portfolio purpose app does not process real payments!",
-    "pay-confirm": "Confirm payment"
+    "pay-confirm": "Confirm payment",
+    "description": "You have unused 10% discount codes, you can use them by entering it now!",
+    "promo-codes": "Your Promo Codes!"
   },
   "tracking-main-section": {
     "data": "Date of delivery:",

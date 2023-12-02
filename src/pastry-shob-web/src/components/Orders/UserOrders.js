@@ -191,8 +191,7 @@ const UserOrders = () => {
                             <div className="orders-user-price">
                                 {isHavePromoCodes ?
                                     <div className="orders-user-price">
-                                        <p className="orders-user-price-promo-code-description">Вие имате неизползвани
-                                            кодове за 10 % отстъпка, можете да ги използвате, като гo въведете сега!</p>
+                                        <p className="orders-user-price-promo-code-description">{t('orders-user.description')}</p>
                                         <input
                                             className="orders-user-input-promo-code-input"
                                             type="text"
@@ -203,7 +202,7 @@ const UserOrders = () => {
                                             onChange={(e) => setPromoCode(e.target.value)}
                                         />
                                         <div className="promo-codes-user">
-                                            <h5>Вашите промо кодове!</h5>
+                                            <h5>{t('orders-user.promo-codes')}</h5>
                                             {promoCodes.map((codes, index) => (
                                                 <div key={codes.promoCode}>
                                                     <button
