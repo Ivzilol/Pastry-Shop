@@ -1132,11 +1132,23 @@ footer {
     margin-top: 100px;
 }
 
-.promo-codes-user-button {
+.promo-codes-user-copy-button {
+    /*margin-left: 30px;*/
+    padding: 0 5px;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 10px;
     border: none;
-    margin: 0;
+}
+
+.promo-code {
     padding: 0;
-    align-items: end;
+    margin: 0;
+}
+
+.copied {
+    color: red;
+    font-weight: bold;
 }
 
 .order-users-tracker-button {

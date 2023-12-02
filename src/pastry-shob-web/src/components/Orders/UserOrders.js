@@ -54,7 +54,12 @@ const UserOrders = () => {
             const textCopy = promoCodesRef.current[index].innerText;
             navigator.clipboard.writeText(textCopy)
                 .then(() => {
-                    alert('Текстът е копиран успешно!');
+                    promoCodesRef.current[index].classList.add('copied');
+                    promoCodesRef.current[index].textContent = 'Copied to clipboard!';
+                    setTimeout(() => {
+                        promoCodesRef.current[index].classList.remove('copied');
+                        promoCodesRef.current[index].textContent = textCopy;
+                    }, 2000);
                 })
         }
     };
@@ -202,13 +207,16 @@ const UserOrders = () => {
                                             <h5>Вашите промо кодове!</h5>
                                             {promoCodes.map((codes, index) => (
                                                 <div key={codes.promoCode}>
-                                                    <p
+                                                    <button
+                                                        className="promo-codes-user-copy-button"
+                                                        onClick={() => copyPromoCode(index)}>copy
+                                                    </button>
+                                                    <p className="promo-code"
                                                         key={codes.promoCode}
                                                         ref={(element) => (promoCodesRef.current[index] = element)}
                                                     >
                                                         {codes.promoCode}
                                                     </p>
-                                                    <button onClick={() => copyPromoCode(index)}>copy</button>
                                                 </div>
                                             ))}
                                         </div>
