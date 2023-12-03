@@ -14,10 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_START_PROCESSING_ORDER;
@@ -56,9 +56,9 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
     }
 
     @Override
-    public ResponseEntity<?> getOrdersByDate(Users user , LocalDate startDate, LocalDate endDate) {
+    public ResponseEntity<?> getOrdersByDate(Users user, LocalDate startDate, LocalDate endDate) {
         Set<OrdersProcessingDTO> ordersProcessingDTO =
-                this.orderProcessingService.findOrdersByDate(user ,startDate, endDate);
+                this.orderProcessingService.findOrdersByDate(user, startDate, endDate);
         return ResponseEntity.ok(ordersProcessingDTO);
     }
 }
