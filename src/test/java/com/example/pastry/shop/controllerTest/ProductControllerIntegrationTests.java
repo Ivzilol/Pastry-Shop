@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static com.example.pastry.shop.common.ExceptionMessages.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -219,5 +220,42 @@ public class ProductControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name")
                         .value("Плато сладки"))
                 .andReturn();
+    }
+
+    @Test
+    @Order(11)
+    public void testUnsuccessfulCreateProduct() throws Exception {
+        MockMultipartFile product = new MockMultipartFile("dto",
+                "",
+                "application/json",
+                "{\"name\": \"\", \"description\": \"\", \"categories\": \"\", \"shopName\": \"\", \"price\": \"-1.0\"}".getBytes());
+        mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
+                        .file(product))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nameError")
+                        .value(EMPTY_PRODUCT))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.priceError")
+                        .value(NEGATIVE_NUMBER_PRICE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.categoriesError")
+                        .value(EMPTY_CATEGORY))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.descriptionError")
+                        .value(EMPTY_DESCRIPTION))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.shopError")
+                        .value(EMPTY_SHOP_NAME))
+                .andReturn();
+    }
+
+    @Test
+    @Order(12)
+    public void testEmptyCategorySearch() throws Exception {
+        CategoryProductDto categoryProductDto = new CategoryProductDto();
+        categoryProductDto.setSelectOptions("");
+        String jsonRequest = new ObjectMapper().writeValueAsString(categoryProductDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/search")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value(SELECT_CATEGORY));
     }
 }
