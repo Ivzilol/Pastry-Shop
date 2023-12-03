@@ -14,6 +14,7 @@ const Monitoring = () => {
     const [numberSearch, setNumberSearch] = useState(null);
     const [emptyDate, setEmptyDate] = useState(false);
     const [currentUser, setCurrentUser] = useState("");
+    const [emptyUsername, setEmptyUsername] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -41,6 +42,7 @@ const Monitoring = () => {
 
     function getOrdersByUser() {
         if (currentUser === '') {
+            setEmptyUsername(true)
             return
         }
         setOrders(null)
@@ -105,6 +107,7 @@ const Monitoring = () => {
                         onChange={(e) => setCurrentUser(e.target.value)}
                         onKeyDown={(e) => sendWithEnter(e)}
                     />
+                    {emptyUsername && <p className="copied">Please put correct username</p>}
                 </section>
             </div>
             <section className="ordersUser-date">
