@@ -13,6 +13,7 @@ const Monitoring = () => {
     const [orders, setOrders] = useState(null);
     const [numberSearch, setNumberSearch] = useState(null);
     const [emptyDate, setEmptyDate] = useState(false);
+    const [currentUser, setCurrentUser] = useState("");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -30,11 +31,29 @@ const Monitoring = () => {
             setEmptyDate(true)
             return
         }
+        setOrders(null)
         ajax(`${baseURL}api/orders-processing/admin/date?startDate=${startDate}&endDate=${endDate}`, "GET", user.jwt)
             .then((ordersData) => {
                 setOrders(ordersData);
                 setEmptyDate(false)
             })
+    }
+
+    function getOrdersByUser() {
+        if (currentUser === '') {
+            return
+        }
+        setOrders(null)
+        ajax(`${baseURL}api/orders-processing/admin/user?currentUser=${currentUser}`, "GET", user.jwt)
+            .then((response) => {
+                setOrders(response);
+            })
+    }
+
+    const sendWithEnter = (e) => {
+        if (e.keyCode === 13) {
+            getOrdersByUser()
+        }
     }
 
 
@@ -81,7 +100,10 @@ const Monitoring = () => {
                         type="text"
                         id="username"
                         name="username"
-
+                        placeholder="  Username"
+                        value={currentUser}
+                        onChange={(e) => setCurrentUser(e.target.value)}
+                        onKeyDown={(e) => sendWithEnter(e)}
                     />
                 </section>
             </div>

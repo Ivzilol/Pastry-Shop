@@ -61,4 +61,11 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
                 this.orderProcessingService.findOrdersByDate(user, startDate, endDate);
         return ResponseEntity.ok(ordersProcessingDTO);
     }
+
+    @Override
+    public ResponseEntity<?> getOrdersByUser(Users user, String currentUser) {
+        Set<OrdersProcessingDTO> ordersProcessingDTO =
+                this.orderProcessingService.findOrdersByUser(user, currentUser);
+        return ResponseEntity.ok(ordersProcessingDTO);
+    }
 }

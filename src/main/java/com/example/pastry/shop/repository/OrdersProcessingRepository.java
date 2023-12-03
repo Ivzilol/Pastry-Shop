@@ -48,4 +48,13 @@ public interface OrdersProcessingRepository extends JpaRepository<OrdersProcessi
             " where op.dateOfReceipt between :startDate and :endDate" +
             " order by op.dateOfDispatch desc")
     Set<OrdersProcessingDTO> findByDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Query("select new com.example.pastry.shop.model.dto.OrdersProcessingDTO(" +
+            " op.id, op.totalPrice, op.statusOrder, op.dateOfReceipt, " +
+            " op.dateOfDispatch, op.keyOrder as keyOrder, u.username, u.firstName, u.lastName, u.address)" +
+            " from OrdersProcessing op" +
+            " join Users as u on op.user.id = u.id" +
+            " where u.username = :currentUser" +
+            " order by op.dateOfDispatch desc")
+    Set<OrdersProcessingDTO> findByUser(String currentUser);
 }

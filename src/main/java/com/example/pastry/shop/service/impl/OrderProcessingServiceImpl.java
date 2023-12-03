@@ -58,4 +58,12 @@ public class OrderProcessingServiceImpl implements OrderProcessingService {
         }
         return null;
     }
+
+    public Set<OrdersProcessingDTO> findOrdersByUser(Users user, String currentUser) {
+        boolean isAdmin = isAdmin(user);
+        if (isAdmin) {
+            return this.ordersProcessingRepository.findByUser(currentUser);
+        }
+        return null;
+    }
 }

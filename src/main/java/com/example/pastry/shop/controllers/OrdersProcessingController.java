@@ -20,4 +20,8 @@ public interface OrdersProcessingController {
                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                       @RequestParam("endDate")
                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate);
+
+    @GetMapping("/admin/user")
+    ResponseEntity<?> getOrdersByUser(@AuthenticationPrincipal Users user,
+                                      @RequestParam("currentUser") String currentUser);
 }
