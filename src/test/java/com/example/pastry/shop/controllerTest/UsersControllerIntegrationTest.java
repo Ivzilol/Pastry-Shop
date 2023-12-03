@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
+import static com.example.pastry.shop.common.ExceptionMessages.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -283,8 +284,8 @@ public class UsersControllerIntegrationTest {
         forgottenPasswordEmailDto.setEmail("victor@abv.bg");
         String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordEmailDto);
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register/forgotten-password")
-                .content(jsonRequest)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
     }
 
@@ -332,8 +333,8 @@ public class UsersControllerIntegrationTest {
         authCredentialRequest.setPassword("asdasd");
         String jsonRequest = new ObjectMapper().writeValueAsString(authCredentialRequest);
         mockMvc.perform(MockMvcRequestBuilders.post(authBaseURL + "/login")
-                .content(jsonRequest)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username")
                         .value("Pesho"))
@@ -350,8 +351,8 @@ public class UsersControllerIntegrationTest {
         forgottenPasswordNewPasswordDto.setConfirmPassword("asdasd");
         String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordNewPasswordDto);
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/register/forgotten-password/new-password")
-                .content(jsonRequest)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
     }
 
@@ -374,5 +375,39 @@ public class UsersControllerIntegrationTest {
         Long userId = 4L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/admin/{id}", userId))
                 .andExpect(status().isOk());
+    }
+
+
+    @Test
+    @Order(17)
+    public void testUnsuccessfulRegistration() throws Exception {
+        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+        registrationDto.setUsername("");
+        registrationDto.setFirstName("");
+        registrationDto.setLastName("");
+        registrationDto.setEmail("");
+        registrationDto.setPassword("");
+        registrationDto.setAddress("");
+        registrationDto.setPhoneNumber("");
+        String jsonRequest = new ObjectMapper().writeValueAsString(registrationDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.usernameError")
+                        .value(USERNAME_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.passwordError")
+                        .value(PASSWORD_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.emailError")
+                        .value(EMAIL_EMPTY_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstNameError")
+                        .value(FIRST_NAME_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastNameError")
+                        .value(LAST_NAME_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.addressError")
+                        .value(ADDRESS_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumberError")
+                        .value(PHONE_NUMBER_REGISTRATION_ERROR))
+                .andReturn();
     }
 }
