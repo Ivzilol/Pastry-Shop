@@ -15,6 +15,7 @@ const Monitoring = () => {
     const [emptyDate, setEmptyDate] = useState(false);
     const [currentUser, setCurrentUser] = useState("");
     const [emptyUsername, setEmptyUsername] = useState(false);
+    const [invalidUsername, setInvalidUsername] = useState(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -48,6 +49,10 @@ const Monitoring = () => {
         setOrders(null)
         ajax(`${baseURL}api/orders-processing/admin/user?currentUser=${currentUser}`, "GET", user.jwt)
             .then((response) => {
+                if (response.length === 0) {
+                    setInvalidUsername(true)
+                    return
+                }
                 setOrders(response);
             })
     }
@@ -108,6 +113,7 @@ const Monitoring = () => {
                         onKeyDown={(e) => sendWithEnter(e)}
                     />
                     {emptyUsername && <p className="copied">Please put correct username</p>}
+                    {invalidUsername && <p className="copied">User with this username does not exist</p>}
                 </section>
             </div>
             <section className="ordersUser-date">
