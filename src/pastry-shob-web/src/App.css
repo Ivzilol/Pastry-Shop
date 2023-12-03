@@ -1925,10 +1925,27 @@ iframe {
     margin-top: 80px;
 }
 
+.monitoring-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .monitoring-date {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.monitoring-date-start-date {
+    display: flex;
+    flex-direction: column;
+}
+
+.monitoring-date-end-date {
+    display: flex;
+    flex-direction: column;
 }
 
 .monitoring-date-button {
@@ -1936,6 +1953,21 @@ iframe {
     border-radius: 10px;
     padding: 4px;
     border: none;
+}
+
+.monitoring-date-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.monitoring-date-user label {
+    margin-bottom: 5px;
+}
+
+.monitoring-date-user input {
+    border-radius: 10px;
+    border: 2px solid #04AA6D;
 }
 
 @media screen and (max-width: 600px) {

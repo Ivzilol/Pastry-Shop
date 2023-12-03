@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -345,6 +346,18 @@ public class OrderControllerIntegrationTests {
     @Order(17)
     public void testNotSendOrdersAdmin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/status/confirmed/admin"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithUserDetails("Tosho")
+    @Order(18)
+    public void testFindOrdersByDate() throws Exception {
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        mockMvc.perform(MockMvcRequestBuilders.get(ordersProcessingUrl + "/admin/date")
+                .param("startDate", startDate.toString())
+                .param("endDate", endDate.toString()))
                 .andExpect(status().isOk());
     }
 }

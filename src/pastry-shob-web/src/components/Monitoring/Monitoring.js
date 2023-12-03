@@ -43,37 +43,48 @@ const Monitoring = () => {
             <NavBarAdmin/>
             <h3 className="admin-users-container-title">Използвания на търсачката: {numberSearch}</h3>
             <h3 className="admin-users-container-title">История на поръчките</h3>
-            <section className="monitoring-date">
-                <article className="monitoring-date-start-date">
-                    <label form="date-delivery">Начална дата:</label>
+            <div className="monitoring-container">
+                <section className="monitoring-date">
+                    <article className="monitoring-date-start-date">
+                        <label form="date-delivery">Начална дата:</label>
+                        <input
+                            type="date"
+                            id="date-start"
+                            name="date-start"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                    </article>
+                    <article className="monitoring-date-end-date">
+                        <label form="date-delivery">Крайна дата:</label>
+                        <input
+                            type="date"
+                            id="date-end"
+                            name="date-end"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                    </article>
+                    <button
+                        className="monitoring-date-button"
+                        type="submit"
+                        id="button"
+                        onClick={() => getOrdersByDate()}
+                    >
+                        Покажи поръчките
+                    </button>
+                    {emptyDate && <p className="copied">Please put correct date!</p>}
+                </section>
+                <section className="monitoring-date-user">
+                    <label form="username">Username</label>
                     <input
-                        type="date"
-                        id="date-start"
-                        name="date-start"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
+                        type="text"
+                        id="username"
+                        name="username"
+
                     />
-                </article>
-                <article className="monitoring-date-end-date">
-                    <label form="date-delivery">Крайна дата:</label>
-                    <input
-                        type="date"
-                        id="date-end"
-                        name="date-end"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                    />
-                </article>
-                <button
-                    className="monitoring-date-button"
-                    type="submit"
-                    id="button"
-                    onClick={() => getOrdersByDate()}
-                >
-                    Покажи поръчките
-                </button>
-                {emptyDate && <p className="copied">Please put correct date!</p>}
-            </section>
+                </section>
+            </div>
             <section className="ordersUser-date">
                 <NavBarAdmin/>
                 <hr/>
@@ -88,15 +99,15 @@ const Monitoring = () => {
                         </tr>
                         {orders ? (
                             <tbody>
-                                {orders.map(order => (
-                                    <tr id={order.id}>
-                                        <td>{order.dateOfDispatch}</td>
-                                        <td>{order.dateOfReceipt}</td>
-                                        <td>{Number(order.totalPrice).toFixed(2)}</td>
-                                        <td>{order.statusOrder}</td>
-                                        <td>{order.username}</td>
-                                    </tr>
-                                ))}
+                            {orders.map(order => (
+                                <tr id={order.id}>
+                                    <td>{order.dateOfDispatch}</td>
+                                    <td>{order.dateOfReceipt}</td>
+                                    <td>{Number(order.totalPrice).toFixed(2)}</td>
+                                    <td>{order.statusOrder}</td>
+                                    <td>{order.username}</td>
+                                </tr>
+                            ))}
                             </tbody>
                         ) : (
                             <></>
