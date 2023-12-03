@@ -454,7 +454,40 @@ public class UsersControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.usernameError")
                         .value(USERNAME_EXIST_REGISTRATION_ERROR))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.emailError")
-                .value(EMAIL_EXIST_REGISTRATION_ERROR))
+                        .value(EMAIL_EXIST_REGISTRATION_ERROR))
+                .andReturn();
+    }
+
+    @Test
+    @Order(20)
+    public void testSendInvalidEmailForForgottenPassword() throws Exception {
+        ForgottenPasswordEmailDto forgottenPasswordEmailDto = new ForgottenPasswordEmailDto();
+        forgottenPasswordEmailDto.setEmail("invalidEmail@abv.bg");
+        String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordEmailDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register/forgotten-password")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value(INVALID_EMAIL))
+                .andReturn();
+    }
+
+    @Test
+    @Order(21)
+    public void testUnsuccessfulChangePassword_NotMatch() throws Exception {
+        ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto = new ForgottenPasswordNewPasswordDto();
+        Users user = this.testH2RepositoryUsers.findByUsername("Victor");
+        forgottenPasswordNewPasswordDto.setVerificationCode(user.getVerificationCode());
+        forgottenPasswordNewPasswordDto.setPassword("asd");
+        forgottenPasswordNewPasswordDto.setConfirmPassword("123");
+        String jsonRequest = new ObjectMapper().writeValueAsString(forgottenPasswordNewPasswordDto);
+        mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl + "/register/forgotten-password/new-password")
+                .content(jsonRequest)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
+                        .value(INVALID_PASSWORD))
                 .andReturn();
     }
 }
