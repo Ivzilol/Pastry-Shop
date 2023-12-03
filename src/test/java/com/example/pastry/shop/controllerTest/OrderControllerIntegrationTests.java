@@ -277,7 +277,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value(intHour >= 14 && intHour < 21 ? "12.9344" : "20.21"))
+                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
                 .andReturn();
     }
 

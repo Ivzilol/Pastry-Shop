@@ -46,7 +46,6 @@ const UserOrders = () => {
                     promoCodesRef.current = response.map(() => React.createRef());
                 }
             })
-
     }, [navigate, user.jwt]);
 
     const [copied, setCopied] = useState(false);
@@ -55,7 +54,6 @@ const UserOrders = () => {
         const textCopy = promoCodesRef.current[index].textContent;
         navigator.clipboard.writeText(textCopy)
             .then(() => {
-                console.log(textCopy)
                 setCopied(true)
                 setTimeout(() => {
                     setCopied(false)
