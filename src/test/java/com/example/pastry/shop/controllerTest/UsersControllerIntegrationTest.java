@@ -6,6 +6,7 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -408,6 +409,52 @@ public class UsersControllerIntegrationTest {
                         .value(ADDRESS_REGISTRATION_ERROR))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.phoneNumberError")
                         .value(PHONE_NUMBER_REGISTRATION_ERROR))
+                .andReturn();
+    }
+
+    @Test
+    @Order(18)
+    public void testUnsuccessfulRegistration_PasswordsNotMatch() throws Exception {
+        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+        registrationDto.setUsername("Spiro");
+        registrationDto.setFirstName("Spiro");
+        registrationDto.setLastName("Spirov");
+        registrationDto.setEmail("spiro@abv.bg");
+        registrationDto.setPassword("asd");
+        registrationDto.setConfirmPassword("123");
+        registrationDto.setAddress("Sofiq");
+        registrationDto.setPhoneNumber("0878998877");
+        String jsonRequest = new ObjectMapper().writeValueAsString(registrationDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.confirmPasswordError")
+                        .value(PASSWORD_NOT_MATCH_REGISTRATION_ERROR))
+                .andReturn();
+    }
+
+    @Test
+    @Order(19)
+    public void testUnsuccessfulRegistration_UsernameAndEmailExist() throws Exception {
+        UserRegistrationDTO registrationDto = new UserRegistrationDTO();
+        registrationDto.setUsername("Victor");
+        registrationDto.setFirstName("Spiro");
+        registrationDto.setLastName("Spirov");
+        registrationDto.setEmail("victor@abv.bg");
+        registrationDto.setPassword("asd");
+        registrationDto.setConfirmPassword("123");
+        registrationDto.setAddress("Sofiq");
+        registrationDto.setPhoneNumber("0878998877");
+        String jsonRequest = new ObjectMapper().writeValueAsString(registrationDto);
+        mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/register")
+                        .content(jsonRequest)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.usernameError")
+                        .value(USERNAME_EXIST_REGISTRATION_ERROR))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.emailError")
+                .value(EMAIL_EXIST_REGISTRATION_ERROR))
                 .andReturn();
     }
 }
