@@ -2413,4 +2413,8 @@ iframe {
     .nav-button-user {
         width: auto;
     }
+
+    .home-page-first-right {
+        margin-left: 90px;
+    }
 }
