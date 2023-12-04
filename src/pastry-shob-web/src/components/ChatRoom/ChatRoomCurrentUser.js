@@ -41,7 +41,6 @@ const ChatRoomCurrentUser = () => {
     }
 
     function onConnected() {
-        console.log('Свързване успешно установено.')
         setUserData({...userData, "connected": true})
         stompClient.subscribe(`/chat-rooms/${roomCode}`, onMessageReceived);
         userJoin();
