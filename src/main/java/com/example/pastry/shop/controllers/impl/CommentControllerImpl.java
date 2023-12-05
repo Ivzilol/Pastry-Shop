@@ -88,9 +88,9 @@ public class CommentControllerImpl implements CommentController {
         return ResponseEntity.ok(comments);
     }
 
-    @Operation(summary = "User delete his comment")
+    @Operation(summary = "Admin delete user comments")
     @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Get all comments"),
+            value = {@ApiResponse(responseCode = "200", description = "Admin delete user comments"),
                     @ApiResponse(responseCode = "500", description = "Unsuccessful delete comment")
             }
     )
@@ -98,7 +98,9 @@ public class CommentControllerImpl implements CommentController {
     public ResponseEntity<?> deleteComment(Long id) {
         try {
             commentService.deleteComment(id);
-            return ResponseEntity.ok().build();
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setCustom(SUCCESSFUL_DELETE_MESSAGE);
+            return ResponseEntity.ok(customResponse);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

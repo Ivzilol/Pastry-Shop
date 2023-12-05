@@ -77,8 +77,10 @@ const ShopEditAdmin = () => {
 
     function DeleteComment(id) {
         ajax(`${baseURL}api/comments/${id}`, "DELETE", user.jwt)
-            .then(() => {
-                refreshPage();
+            .then((response) => {
+                if (response.custom === 'Successful delete message') {
+                    refreshPage();
+                }
             });
     }
 
