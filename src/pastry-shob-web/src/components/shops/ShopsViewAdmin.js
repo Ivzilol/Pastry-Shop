@@ -21,8 +21,11 @@ const ShopsViewAdmin = () => {
     }, [navigate, user.jwt])
 
     function createShop() {
-        ajax(`${baseURL}api/shops`, "POST", user.jwt).then((shop) => {
-            window.location.href = `/shops/${shop.id}`
+        ajax(`${baseURL}api/shops`, "POST", user.jwt)
+            .then((response) => {
+                if (response.custom === 'Successful create shop') {
+                    refreshPage()
+                }
         });
     }
 
@@ -32,8 +35,11 @@ const ShopsViewAdmin = () => {
 
     function deleteShop(id) {
         ajax(`${baseURL}api/shops/delete/${id}`, "DELETE", user.jwt)
-            .then(() => {
-                refreshPage()
+            .then((response) => {
+                console.log(response)
+                if (response.custom === 'Successful delete shop') {
+                    refreshPage()
+                }
             })
     }
 
@@ -64,7 +70,7 @@ const ShopsViewAdmin = () => {
                                         onClick={() => {
                                             window.location.href = `/shops/${shops.id}`;
                                         }}
-                                    > Edit
+                                    > Редактирай
                                     </Button>
                                     <Button
                                         id="submit"
@@ -72,7 +78,7 @@ const ShopsViewAdmin = () => {
                                         onClick={() => {
                                             deleteShop(shops.id);
                                         }}
-                                    > Delete
+                                    > Изтрий
                                     </Button>
                                 </Card.Text>
                             </Card.Body>
@@ -88,7 +94,7 @@ const ShopsViewAdmin = () => {
                 style={{
                     marginTop: '10px'
                 }}
-                onClick={() => createShop()}>Submit New Shop</Button>
+                onClick={() => createShop()}>Създай нов магазин</Button>
         </div>
     );
 };

@@ -47,7 +47,9 @@ public class ShopsControllerImpl implements ShopsController {
     @Override
     public ResponseEntity<?> createShop(Users user) {
         shopsService.createShop(user);
-        return ResponseEntity.ok().build();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful create shop");
+        return ResponseEntity.ok(customResponse);
     }
 
     @Operation(summary = "Get Shop")
@@ -110,6 +112,8 @@ public class ShopsControllerImpl implements ShopsController {
     @Override
     public ResponseEntity<?> deleteShop(Long id, Users user) {
         this.shopsService.deleteShop(id, user);
-        return ResponseEntity.ok().build();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setCustom("Successful delete shop");
+        return ResponseEntity.ok(customResponse);
     }
 }
