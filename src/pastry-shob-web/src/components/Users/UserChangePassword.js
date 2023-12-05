@@ -56,6 +56,10 @@ const UserChangePassword = () => {
         setShowPassword(!showPassword);
     };
 
+    function closeDialog() {
+        setErrorChangePassword(false)
+    }
+
     return (
         <main className="user-change-pass">
             <NavBar/>
@@ -73,6 +77,7 @@ const UserChangePassword = () => {
                     placeholder="Old Password"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 {errorChangePassword && changeError.oldPasswordError !== null &&
                     <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {changeError.oldPasswordError}</span>
@@ -93,6 +98,7 @@ const UserChangePassword = () => {
                     placeholder="New Password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 <a className="forgotten-password-send-show-password"
                    onClick={togglePasswordVisibility}>
@@ -110,6 +116,7 @@ const UserChangePassword = () => {
                     placeholder="Confirm New Password"
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    onFocus={closeDialog}
                 />
                 {errorChangePassword && changeError.newPasswordError !== null &&
                     <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {changeError.newPasswordError}</span>
