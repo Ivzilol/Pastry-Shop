@@ -10,6 +10,7 @@ const UserOrderTracking = () => {
     const user = useUser();
     const [order, setOrder] = useState(null);
     const [status, setStatus] = useState(null)
+    const [sendStatus, setSendStatus] = useState(null);
     let currentKeyOrder;
     const {t} = useTranslation();
 
@@ -21,6 +22,9 @@ const UserOrderTracking = () => {
                     // eslint-disable-next-line array-callback-return
                     orderData.map((order) => {
                         setStatus(order.status)
+                        if (order.status === 'sent') {
+                            setSendStatus(order.status)
+                        }
                     })
                 }
             });
@@ -98,19 +102,21 @@ const UserOrderTracking = () => {
                                             {currentKeyOrder = currentOrder.keyOrderProduct}
                                         </div>
                                         {order ? (
-                                            <div key={order.id}>
-                                                {order.map((orderSend) =>
-                                                    currentOrder.keyOrderProduct === orderSend.keyOrderProduct
-                                                        ?
-                                                        <div>
-                                                            <p>{orderSend.productName}</p>
-                                                            <p> {orderSend.price.toFixed(2)} {t('products-users.currency')}</p>
-                                                        </div>
-                                                        :
-                                                        <></>
-                                                )}
-                                            </div>
-                                        ) : <></>}
+                                                <div key={order.id}>
+                                                    {order.map((orderSend) =>
+                                                        currentOrder.keyOrderProduct === orderSend.keyOrderProduct
+                                                            ?
+                                                            <div>
+                                                                <p>{orderSend.productName}</p>
+                                                                <p> {orderSend.price.toFixed(2)} {t('products-users.currency')}</p>
+                                                            </div>
+                                                            :
+                                                            <></>
+                                                    )}
+                                                </div>
+                                            ) :
+                                            <></>
+                                        }
                                         <p>{t('tracking-main-section.data')} {currentOrder.dateOfDelivery}</p>
                                         <p>{t('tracking-main-section.time')} {currentOrder.timeOfDelivery} {t('tracking-main-section.hour')}</p>
                                         <p>
@@ -120,7 +126,7 @@ const UserOrderTracking = () => {
                                     :
                                     <></>
                             ))}
-                            {status === 'sent'
+                            {sendStatus === 'sent'
                                 ?
                                 <></>
                                 :
