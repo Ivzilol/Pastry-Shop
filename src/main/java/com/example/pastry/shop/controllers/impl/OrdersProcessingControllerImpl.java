@@ -70,11 +70,11 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
         return ResponseEntity.ok(ordersProcessingDTO);
     }
 
-    @Operation(summary = "Get all orders by user", security = {
+    @Operation(summary = "Get orders by user", security = {
             @SecurityRequirement(name = "Authorization")
     })
     @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Get all orders by user",
+            value = {@ApiResponse(responseCode = "200", description = "Get orders by user",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = OrdersProcessingDTO.class)))
             }
