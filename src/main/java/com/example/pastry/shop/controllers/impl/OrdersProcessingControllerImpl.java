@@ -54,7 +54,15 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
         }
         return ResponseEntity.ok(customResponse);
     }
-
+    @Operation(summary = "Get all orders by Date", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all orders by Date",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersProcessingDTO.class)))
+            }
+    )
     @Override
     public ResponseEntity<?> getOrdersByDate(Users user, LocalDate startDate, LocalDate endDate) {
         Set<OrdersProcessingDTO> ordersProcessingDTO =
