@@ -91,7 +91,7 @@ const EditProductsAdmin = () => {
                 {product ? (
                     <>
                         <article className="products-edit-container">
-                            <h5 className="products-edit-item">Name Product</h5>
+                            <h5 className="products-edit-item">Име на продукта</h5>
                             <input
                                 onChange={(e) => updateProduct("name", e.target.value)}
                                 value={product.name}
@@ -99,7 +99,7 @@ const EditProductsAdmin = () => {
                                 id="name"
                                 type="text"
                             />
-                            <h5 className="products-edit-item">Price</h5>
+                            <h5 className="products-edit-item">Цена</h5>
                             <input
                                 onChange={(e) => updateProduct("price", e.target.value)}
                                 value={product.price}
@@ -107,7 +107,7 @@ const EditProductsAdmin = () => {
                                 id="price"
                                 type="number"
                             />
-                            <h5 className="products-edit-item">Categories</h5>
+                            <h5 className="products-edit-item">Категория</h5>
                             <input
                                 onChange={(e) => updateProduct("categories", e.target.value)}
                                 value={product.categories}
@@ -115,7 +115,7 @@ const EditProductsAdmin = () => {
                                 id="categories"
                                 type="text"
                             />
-                            <h5 className="products-edit-item">Description</h5>
+                            <h5 className="products-edit-item">Описание</h5>
                             <input
                                 onChange={(e) => updateProduct("description", e.target.value)}
                                 value={product.description}
@@ -123,9 +123,9 @@ const EditProductsAdmin = () => {
                                 id="description"
                                 type="text"
                             />
-                            <h5 className="products-edit-item">Old Picture</h5>
+                            <h5 className="products-edit-item">Настояща снимка</h5>
                             <img className="products-edit-item-img" src={product.imageUrl} alt="new"/>
-                            <h5 className="products-edit-item">NEW PICTURE</h5>
+                            <h5 className="products-edit-item">НОВА СНИМКА</h5>
                             <input
                                 className="input-image"
                                 type="file"
@@ -141,14 +141,14 @@ const EditProductsAdmin = () => {
                                     <button
                                         type="submit"
                                         onClick={() => saveProduct()}
-                                    >Edit Product
+                                    >Редактирай
                                     </button>
                                 </div>
                                 <div className="products-edit-button">
                                     <button
                                         type="submit"
                                         onClick={() => navigate("/products")}>
-                                        Products
+                                        Продукти
                                     </button>
                                 </div>
                                 <div className="products-edit-button">
@@ -157,7 +157,7 @@ const EditProductsAdmin = () => {
                                         type="button"
                                         onClick={DeleteProducts}
                                     >
-                                        Delete
+                                        Изтрий
                                     </button>
                                 </div>
                             </div>
