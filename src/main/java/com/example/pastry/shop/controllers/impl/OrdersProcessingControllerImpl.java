@@ -70,6 +70,15 @@ public class OrdersProcessingControllerImpl implements OrdersProcessingControlle
         return ResponseEntity.ok(ordersProcessingDTO);
     }
 
+    @Operation(summary = "Get all orders by user", security = {
+            @SecurityRequirement(name = "Authorization")
+    })
+    @ApiResponses(
+            value = {@ApiResponse(responseCode = "200", description = "Get all orders by user",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrdersProcessingDTO.class)))
+            }
+    )
     @Override
     public ResponseEntity<?> getOrdersByUser(Users user, String currentUser) {
         Set<OrdersProcessingDTO> ordersProcessingDTO =
