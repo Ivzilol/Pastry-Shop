@@ -71,7 +71,7 @@ const CreateProductAdmin = () => {
             <section className="products">
                 <article className="products-form">
                     <h1>Add Product</h1>
-                    <label form="name">Name Product</label>
+                    <label form="name">Име на продукта</label>
                     <input
                         type="text"
                         id="name"
@@ -87,7 +87,7 @@ const CreateProductAdmin = () => {
 
                     <label
                         htmlFor="price"
-                    > Price
+                    > Цена
                     </label>
                     <input
                         type="number"
@@ -103,7 +103,7 @@ const CreateProductAdmin = () => {
                         <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.priceError}</span>
                     }
 
-                    <label form="categories">Categories</label>
+                    <label form="categories">Категория</label>
                     <select
                         id="categories"
                         name="categories"
@@ -122,7 +122,7 @@ const CreateProductAdmin = () => {
                         <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.categoriesError}</span>
                     }
 
-                    <label className="description">Description</label>
+                    <label className="description">Описание</label>
                     <input
                         type="text"
                         id="description"
@@ -136,7 +136,7 @@ const CreateProductAdmin = () => {
                         <span id="validate-username"> <FontAwesomeIcon icon={faInfoCircle}/> {errorProduct.descriptionError}</span>
                     }
 
-                    <label className="imageUrl">Image</label>
+                    <label className="imageUrl">Снимка</label>
                     <input
                         className="input-image"
                         type="file"
@@ -147,7 +147,7 @@ const CreateProductAdmin = () => {
                         placeholder="Image"
                         onChange={imageSubmit}
                     />
-                    <label className="shopName">Shop Name</label>
+                    <label className="shopName">Име на магазина</label>
                     <input
                         type="text"
                         id="ShopId"
@@ -166,7 +166,7 @@ const CreateProductAdmin = () => {
                         type="button"
                         onClick={() => createProduct()}
                     >
-                        Create Product
+                        Създай продукт
                     </button>
                 </article>
             </section>
