@@ -66,10 +66,10 @@ const AdminUsers = () => {
                                     <td className="admin-users-table-buttons">
                                         <button className="delete-button"
                                         onClick={() => deleteUser(user.id)}
-                                        >Delete</button>
+                                        >Изтрий</button>
                                         <button className="promote-button"
                                         onClick={() => promoteUser(user.id)}
-                                        >Promote</button>
+                                        >Направи админ</button>
                                     </td>
                                 </tr>
                             ))}
