@@ -29,17 +29,17 @@ const ProductsAdmin = () => {
                         onClick={() => {
                             window.location.href = `/products/create`
                         }}
-                    >Create New Product
+                    >Създай нов продукт
                     </button>
                     {products.map((product) => (
                         <div
                             className="products-container-items"
                             key={product.id}
                         >
-                            <p className="products-container-item">Product name: {product.name}</p>
-                            <p className="products-container-item">Product price: {product.price}</p>
-                            <p className="products-container-item">Product categories: {product.categories}</p>
-                            <p className="products-container-item">Product description: {product.description}</p>
+                            <p className="products-container-item">Име на продукта: {product.name}</p>
+                            <p className="products-container-item">Цена на продукта: {product.price}</p>
+                            <p className="products-container-item">Категория: {product.categories}</p>
+                            <p className="products-container-item">Описание: {product.description}</p>
                             <img className="product-img" src={product.imageUrl} alt="new"/>
                             {/*<p className="products-container-item">Product shopName: {product.shops.name}</p>*/}
                             <div className="products-container-item-button">
@@ -50,7 +50,7 @@ const ProductsAdmin = () => {
                                         window.location.href = `/products/${product.id}`
                                     }}
                                 >
-                                    Edit
+                                    Редакция
                                 </button>
                             </div>
                         </div>
