@@ -36,7 +36,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
             "o.id, o.dateCreated, o.dateOfDelivery, o.timeOfDelivery, o.status, o.price, o.productName, o.keyOrderProduct as keyOrderProduct)" +
             " from Orders as o" +
-            " where o.users.id = :id and o.status = :status_conf or o.status = :status_send")
+            " where o.users.id = :id and (o.status = :status_conf or o.status = :status_send)")
     Set<OrdersDTO> findConfirmedOrder(Long id, @Param("status_conf") String status_conf, @Param("status_send") String status_send);
 
     @Query("select new com.example.pastry.shop.model.dto.OrdersDTO(" +
