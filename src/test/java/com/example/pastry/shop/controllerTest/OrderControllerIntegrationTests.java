@@ -103,6 +103,7 @@ public class OrderControllerIntegrationTests {
             mockMvc.perform(MockMvcRequestBuilders.multipart(productsBaseUrl + "/create/admin")
                             .file(product5))
                     .andExpect(status().isOk());
+            Assertions.assertEquals(5, testH2RepositoryProducts.count());
         }
     }
 

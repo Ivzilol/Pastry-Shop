@@ -6,7 +6,6 @@ import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.testRepository.TestH2RepositoryAuthority;
 import com.example.pastry.shop.testRepository.TestH2RepositoryUsers;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -376,6 +375,7 @@ public class UsersControllerIntegrationTest {
         Long userId = 4L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/admin/{id}", userId))
                 .andExpect(status().isOk());
+        Assertions.assertEquals(3, testH2RepositoryUsers.count());
     }
 
 
@@ -475,7 +475,7 @@ public class UsersControllerIntegrationTest {
 
     @Test
     @Order(21)
-    public void testUnsuccessfulChangePassword_NotMatch() throws Exception {
+    public void testUnsuccessfulChangePassword_PasswordsNotMatch() throws Exception {
         ForgottenPasswordNewPasswordDto forgottenPasswordNewPasswordDto = new ForgottenPasswordNewPasswordDto();
         Users user = this.testH2RepositoryUsers.findByUsername("Victor");
         forgottenPasswordNewPasswordDto.setVerificationCode(user.getVerificationCode());

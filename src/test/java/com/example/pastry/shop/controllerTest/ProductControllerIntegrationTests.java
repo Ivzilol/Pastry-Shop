@@ -93,6 +93,7 @@ public class ProductControllerIntegrationTests {
             mockMvc.perform(MockMvcRequestBuilders.multipart(baseUrl + "/create/admin")
                             .file(product5))
                     .andExpect(status().isOk());
+            Assertions.assertEquals(5, testH2RepositoryProducts.count());
         }
     }
 
@@ -188,6 +189,7 @@ public class ProductControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.custom")
                         .value("Product Delete"))
                 .andReturn();
+        Assertions.assertEquals(4, testH2RepositoryProducts.count());
     }
 
     @Test
