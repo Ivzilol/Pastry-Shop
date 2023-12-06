@@ -21,4 +21,7 @@ public interface ShopsService {
     Shops saveShop(Shops shop, Users user);
 
     boolean updateShop(Shops shop, Long shopId, Users user);
+
+
+    Shops findByName(String name);
 }

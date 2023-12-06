@@ -119,4 +119,9 @@ public class ShopsServiceImpl implements ShopsService {
         this.shopsRepository.save(currentShop.get());
         return true;
     }
+
+    @Override
+    public Shops findByName(String name) {
+        return this.shopsRepository.findByName(name);
+    }
 }

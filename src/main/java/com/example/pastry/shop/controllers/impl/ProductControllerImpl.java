@@ -2,9 +2,11 @@ package com.example.pastry.shop.controllers.impl;
 
 import com.example.pastry.shop.controllers.ProductController;
 import com.example.pastry.shop.model.dto.*;
+import com.example.pastry.shop.model.entity.Shops;
 import com.example.pastry.shop.model.entity.Users;
 import com.example.pastry.shop.response.CustomResponse;
 import com.example.pastry.shop.service.impl.ProductsServiceImpl;
+import com.example.pastry.shop.service.impl.ShopsServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static com.example.pastry.shop.common.ConstantMessages.*;
 import static com.example.pastry.shop.common.ExceptionMessages.SELECT_CATEGORY;
+import static com.example.pastry.shop.common.ExceptionMessages.SHOP_DOES_NOT_EXIST;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -37,8 +40,11 @@ public class ProductControllerImpl implements ProductController {
 
     private final ProductsServiceImpl productsService;
 
-    public ProductControllerImpl(ProductsServiceImpl productsService) {
+    private final ShopsServiceImpl shopsService;
+
+    public ProductControllerImpl(ProductsServiceImpl productsService, ShopsServiceImpl shopsService) {
         this.productsService = productsService;
+        this.shopsService = shopsService;
     }
 
     @Operation(summary = "Create product")
@@ -56,7 +62,7 @@ public class ProductControllerImpl implements ProductController {
             @RequestPart(value = "imageUrl", required = false) MultipartFile file,
             @RequestPart(value = "dto") CreateProductDTO createProductDTO, BindingResult result
     ) throws IOException {
-        ResponseEntity<ErrorProductDTO> errorProductDTO = errorsCreateProduct(result);
+        ResponseEntity<ErrorProductDTO> errorProductDTO = errorsCreateProduct(result, createProductDTO);
         if (errorProductDTO != null) return errorProductDTO;
         this.productsService.createProduct(createProductDTO, file);
         CustomResponse customResponse = new CustomResponse();
@@ -65,13 +71,18 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Nullable
-    private ResponseEntity<ErrorProductDTO> errorsCreateProduct(BindingResult result) {
+    private ResponseEntity<ErrorProductDTO> errorsCreateProduct(BindingResult result, CreateProductDTO createProductDTO) {
         ErrorProductDTO errorProductDTO = new ErrorProductDTO();
         if (result.hasErrors()) {
             List<String> errors = result.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
             this.productsService.setErrors(errors, errorProductDTO);
+            return ResponseEntity.ok().body(errorProductDTO);
+        }
+        Shops shop = this.shopsService.findByName(createProductDTO.getName());
+        if (shop == null) {
+            errorProductDTO.setShopError(SHOP_DOES_NOT_EXIST);
             return ResponseEntity.ok().body(errorProductDTO);
         }
         return null;

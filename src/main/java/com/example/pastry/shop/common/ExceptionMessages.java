@@ -23,7 +23,8 @@ public class ExceptionMessages {
     public static final String INVALID_EMAIL = "Invalid Email";
     public static final String INVALID_PASSWORD = "Invalid Password";
     public static final String DATA_TIME_FEATURE = "Data and time must be in the feature";
-
     public static final String SELECT_CATEGORY = "Please select category";
+
+    public static final String SHOP_DOES_NOT_EXIST = "Shop with this name does not exist";
 
 }

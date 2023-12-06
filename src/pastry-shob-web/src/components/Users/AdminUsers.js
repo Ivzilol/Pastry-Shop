@@ -17,9 +17,9 @@ const AdminUsers = () => {
 
     }, [user.jwt])
 
-        function refreshPage() {
-            window.location.reload();
-        }
+    function refreshPage() {
+        window.location.reload();
+    }
 
     function deleteUser(id) {
         ajax(`${baseURL}api/users/admin/${id}`, "DELETE", user.jwt)
@@ -65,11 +65,13 @@ const AdminUsers = () => {
                                     <td>{user.address}</td>
                                     <td className="admin-users-table-buttons">
                                         <button className="delete-button"
-                                        onClick={() => deleteUser(user.id)}
-                                        >Изтрий</button>
+                                                onClick={() => deleteUser(user.id)}
+                                        >Изтрий
+                                        </button>
                                         <button className="promote-button"
-                                        onClick={() => promoteUser(user.id)}
-                                        >Направи админ</button>
+                                                onClick={() => promoteUser(user.id)}
+                                        >Направи админ
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
