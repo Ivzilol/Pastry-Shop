@@ -66,6 +66,7 @@ public class CommentsControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.text")
                         .value("Пробен коментар"))
                 .andReturn();
+        Assertions.assertEquals(1, testH2RepositoryComments.count());
     }
 
     @Test

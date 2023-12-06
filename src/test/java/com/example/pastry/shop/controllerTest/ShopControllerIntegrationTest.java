@@ -112,6 +112,7 @@ public class ShopControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        Assertions.assertEquals(2, testH2RepositoryShops.count());
     }
 
     @Test
@@ -131,6 +132,7 @@ public class ShopControllerIntegrationTest {
         Long shopId = 2L;
         mockMvc.perform(MockMvcRequestBuilders.delete(baseUrl + "/delete/{id}", shopId))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        Assertions.assertEquals(1, testH2RepositoryShops.count());
     }
 
     @Test
