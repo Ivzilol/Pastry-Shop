@@ -2399,6 +2399,10 @@ iframe {
     .search-result-close-button-chat {
         margin: 0 0 0 135px;
     }
+
+    .orders-user-title {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 1024px) and (min-width: 600px) {
