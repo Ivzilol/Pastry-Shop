@@ -916,7 +916,7 @@ footer {
     text-align: center;
 }
 
-.promo-codes-user h5{
+.promo-codes-user h5 {
     font-style: italic;
 }
 
@@ -2321,6 +2321,7 @@ iframe {
         margin-right: 20px;
         margin-bottom: 20px;
     }
+
     .chat-closed div {
         font-size: 8px;
         width: 50px;
@@ -2352,7 +2353,7 @@ iframe {
         max-height: 90%;
     }
 
-    .chat-content{
+    .chat-content {
         height: 100%;
     }
 
@@ -2387,7 +2388,7 @@ iframe {
         width: 100vw;
     }
 
-    .admin-users-container{
+    .admin-users-container {
         margin-top: 400px;
     }
 
@@ -2396,11 +2397,11 @@ iframe {
     }
 
     .search-result-close-button-chat {
-        margin: 0 0 0 230px;
+        margin: 0 0 0 135px;
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) and (min-width: 600px) {
 
     .nav {
         font-size: 10px;

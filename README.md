@@ -47,9 +47,9 @@ Created by me application is intended to serve as a portfolio for me, as althoug
 1. Clone the repository to your local machine.
 
 2. Configure your MySQL database by updating the application.properties file.
-  
+
 3. Configure environment variables by updating the application.properties file.
-   
+
 4. Build and run the project pastry-shop using maven
 
 5. Build and run the project pastry-shop-web using npm. Follow these step first: 1) npm install 2) go to \pastry-shop-web 3) npm start.
@@ -93,7 +93,7 @@ Enjoy
 
 - Spring Boot Mail for sending emails
 
-- Swagger springdoc-openapi v2.2.0 
+- Swagger springdoc-openapi v2.2.0
 
 - And more...
 
@@ -131,5 +131,3 @@ After start App can see documentation on this link: http://localhost:8080/swagge
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/183d91dc7241e45925710c600c56288e6b74c59a/src/main/resources/static/img/Picture11.png)
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/1a452d6cd95be9b1cf61c44757792904c07b3301/src/main/resources/static/img/Picture12.png)
 ![Примерна снимка](https://github.com/Ivzilol/pastry-shop/blob/fc4f32ab1286435b2ae6edeae722ba798acdc02e/src/main/resources/static/img/Picture13.png)
-
-
