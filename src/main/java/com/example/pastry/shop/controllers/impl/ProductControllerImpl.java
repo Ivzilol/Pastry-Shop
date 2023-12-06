@@ -80,7 +80,7 @@ public class ProductControllerImpl implements ProductController {
             this.productsService.setErrors(errors, errorProductDTO);
             return ResponseEntity.ok().body(errorProductDTO);
         }
-        Shops shop = this.shopsService.findByName(createProductDTO.getName());
+        Shops shop = this.shopsService.findByName(createProductDTO.getShopName());
         if (shop == null) {
             errorProductDTO.setShopError(SHOP_DOES_NOT_EXIST);
             return ResponseEntity.ok().body(errorProductDTO);
