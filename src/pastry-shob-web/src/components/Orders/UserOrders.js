@@ -15,7 +15,7 @@ const UserOrders = () => {
     const [products, setProducts] = useState(null);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [confirmOrderMessage] = useState("");
-    const [promoCode, setPromoCode] = useState("");
+    const [promoCode, setPromoCode] = useState(null);
     const [errorPromoCode, setErrorPromoCode] = useState(false);
     const [isHavePromoCodes, setIsHavePromoCodes] = useState(false);
     const now = new Date();
@@ -75,7 +75,7 @@ const UserOrders = () => {
     const statusAndPayment = {
         status: "confirmed",
         payment: "",
-        promoCode: promoCode.trim()
+        promoCode: promoCode
     }
 
     function confirmPayment() {

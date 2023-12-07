@@ -112,7 +112,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean updateStatus(OrdersStatusDTO ordersStatusDTO, Users user) {
-        if (!Objects.equals(ordersStatusDTO.getPromoCode(), "")) {
+        isCodeValid = false;
+        if (!Objects.equals(ordersStatusDTO.getPromoCode(), null)) {
             PromoCodes promoCode = validateCode(ordersStatusDTO.getPromoCode(), user);
             isCodeValid = promoCode != null;
             if (isCodeValid) {
