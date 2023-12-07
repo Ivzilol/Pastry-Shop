@@ -23,6 +23,7 @@ import java.util.Set;
 
 import static com.example.pastry.shop.common.ConstantMessages.*;
 import static com.example.pastry.shop.common.ExceptionMessages.DATA_TIME_FEATURE;
+import static com.example.pastry.shop.common.ExceptionMessages.INVALID_PROMO_CODE;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
@@ -104,7 +105,7 @@ public class OrdersControllerImpl implements OrdersController {
         if (isSuccessful) {
             customResponse.setCustom(SUCCESSFUL_CONFIRM_PRODUCT);
         } else {
-            customResponse.setCustom("Promo code is invalid");
+            customResponse.setCustom(INVALID_PROMO_CODE);
         }
         return ResponseEntity.ok(customResponse);
     }

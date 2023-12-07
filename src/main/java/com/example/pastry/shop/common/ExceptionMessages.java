@@ -26,4 +26,6 @@ public class ExceptionMessages {
     public static final String SELECT_CATEGORY = "Please select category";
     public static final String SHOP_DOES_NOT_EXIST = "Shop with this name does not exist";
 
+    public static final String INVALID_PROMO_CODE = "Promo code is invalid";
+
 }
