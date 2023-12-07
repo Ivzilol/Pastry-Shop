@@ -395,6 +395,8 @@ const Homepage = () => {
                         <h1>{t('description.h1')}</h1>
                         <p>{t('description.p1')}</p>
                         <p>{t('description.p2')}</p>
+                        <p>{t('description.p3')}</p>
+                        <p>{t('description.p4')}</p>
                     </div>
                 </section>
                 <section className="home-page-most-ordered">

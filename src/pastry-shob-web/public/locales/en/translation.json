@@ -3,7 +3,9 @@
   "description": {
     "h1": "FOR EVERY TASTE",
     "p1": "choose from your favorite homemade treats",
-    "p2": "order online with delivery to your home"
+    "p2": "order online with delivery to your home",
+    "p3": "Promo code for 10% off",
+    "p4": "for every order over 100 BGN"
   },
   "search-result": {
     "home-page-event": "Order all our products with a 20 percent discount!",

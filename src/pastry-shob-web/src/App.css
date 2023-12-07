@@ -2054,6 +2054,7 @@ iframe {
 
     .home-page-first-right p {
         color: black;
+
     }
 
     .home-page-most-ordered {
@@ -2062,6 +2063,7 @@ iframe {
 
     .home-page-most-ordered-title {
         font-size: 35px;
+        padding-top: 20px;
     }
 
     .not-login-user {
