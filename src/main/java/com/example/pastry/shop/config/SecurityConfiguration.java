@@ -79,8 +79,8 @@ public class SecurityConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"));
         corsConfiguration.setAllowedMethods(List.of("PUT", "DELETE", "POST", "GET", "PATCH"));
-        corsConfiguration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
-        corsConfiguration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
+        corsConfiguration.setAllowedHeaders(List.of("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
+        corsConfiguration.setExposedHeaders(List.of("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
