@@ -200,7 +200,7 @@ public class OrderControllerIntegrationTests {
         OrdersStatusDTO ordersStatusDTO = new OrdersStatusDTO();
         ordersStatusDTO.setStatus("confirmed");
         ordersStatusDTO.setPayment("");
-        ordersStatusDTO.setPromoCode("");
+        ordersStatusDTO.setPromoCode(null);
         String jsonRequest = new ObjectMapper().writeValueAsString(ordersStatusDTO);
         mockMvc.perform(MockMvcRequestBuilders.patch(baseUrl)
                         .content(jsonRequest)
