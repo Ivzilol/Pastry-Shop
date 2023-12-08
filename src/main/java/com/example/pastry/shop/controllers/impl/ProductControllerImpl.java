@@ -34,7 +34,6 @@ import static com.example.pastry.shop.common.ExceptionMessages.SELECT_CATEGORY;
 import static com.example.pastry.shop.common.ExceptionMessages.SHOP_DOES_NOT_EXIST;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Products")
 public class ProductControllerImpl implements ProductController {
 

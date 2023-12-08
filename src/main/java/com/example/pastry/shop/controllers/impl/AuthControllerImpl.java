@@ -27,7 +27,6 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Authorization")
 public class AuthControllerImpl implements AuthController {
 

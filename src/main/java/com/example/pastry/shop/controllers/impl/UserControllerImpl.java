@@ -31,7 +31,6 @@ import static com.example.pastry.shop.common.ConstantMessages.*;
 import static com.example.pastry.shop.common.ExceptionMessages.*;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000/", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "false", allowedHeaders = "true")
 @Tag(name = "Users")
 public class UserControllerImpl implements UserController {
 

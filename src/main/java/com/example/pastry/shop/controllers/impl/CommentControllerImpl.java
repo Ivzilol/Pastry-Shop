@@ -25,7 +25,6 @@ import java.util.Set;
 import static com.example.pastry.shop.common.ConstantMessages.SUCCESSFUL_DELETE_MESSAGE;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Comments")
 public class CommentControllerImpl implements CommentController {
 

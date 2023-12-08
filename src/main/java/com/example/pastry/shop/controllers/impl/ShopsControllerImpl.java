@@ -26,7 +26,6 @@ import static com.example.pastry.shop.common.ConstantMessages.UNSUCCESSFUL_UPDAT
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Shops")
 public class ShopsControllerImpl implements ShopsController {
 

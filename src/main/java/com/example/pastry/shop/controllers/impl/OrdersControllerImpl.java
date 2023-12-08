@@ -26,7 +26,6 @@ import static com.example.pastry.shop.common.ExceptionMessages.DATA_TIME_FEATURE
 import static com.example.pastry.shop.common.ExceptionMessages.INVALID_PROMO_CODE;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net/"}, allowCredentials = "true", allowedHeaders = "true")
 @Tag(name = "Orders")
 public class OrdersControllerImpl implements OrdersController {
 

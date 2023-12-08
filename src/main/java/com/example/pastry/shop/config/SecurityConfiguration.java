@@ -15,6 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -66,5 +72,19 @@ public class SecurityConfiguration {
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"));
+        corsConfiguration.setAllowedMethods(List.of("PUT", "DELETE", "POST", "GET", "PATCH"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
     }
 }
