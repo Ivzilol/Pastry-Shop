@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH");
         String hour = currentDateTime.format(formatter);
         int intHour = Integer.parseInt(hour);
-        if (intHour >= 14 && intHour < 21) {
+        if (intHour >= 8 && intHour < 21) {
             price = price - price * 0.20;
         }
         newOrder.setPrice(price);

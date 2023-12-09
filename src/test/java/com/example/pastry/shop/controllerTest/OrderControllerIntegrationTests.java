@@ -122,14 +122,14 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Баница"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value(intHour >= 14 && intHour < 21 ? "17.592" : "21.99"))
+                        .value(intHour >= 8 && intHour < 21 ? "17.592" : "21.99"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Праскови"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value(intHour >= 14 && intHour < 21 ? "24.8" : "31.0"))
+                        .value(intHour >= 8 && intHour < 21 ? "24.8" : "31.0"))
                 .andReturn();
         Assertions.assertEquals(2, this.testH2RepositoryOrders.count());
     }
@@ -149,14 +149,14 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
+                        .value(intHour >= 8 && intHour < 21 ? "16.168" : "20.21"))
                 .andReturn();
         mockMvc.perform(MockMvcRequestBuilders.post(baseUrl + "/{id}", productId2))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.productName")
                         .value("Плато сладки"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price")
-                        .value(intHour >= 14 && intHour < 21 ? "15.104" : "18.88"))
+                        .value(intHour >= 8 && intHour < 21 ? "15.104" : "18.88"))
                 .andReturn();
         Assertions.assertEquals(4, this.testH2RepositoryOrders.count());
     }
@@ -175,7 +175,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].productName")
                         .value("Козунак"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].price")
-                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
+                        .value(intHour >= 8 && intHour < 21 ? "16.168" : "20.21"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].status")
                         .value("newOrder"))
                 .andReturn();
@@ -279,7 +279,7 @@ public class OrderControllerIntegrationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder")
                         .value("sent"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].totalPrice")
-                        .value(intHour >= 14 && intHour < 21 ? "16.168" : "20.21"))
+                        .value(intHour >= 8 && intHour < 21 ? "16.168" : "20.21"))
                 .andReturn();
     }
 

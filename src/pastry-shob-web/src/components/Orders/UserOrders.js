@@ -21,7 +21,7 @@ const UserOrders = () => {
     const now = new Date();
     const hours = now.getHours();
     let promotion = false;
-    if (hours >= 14 && hours < 21) {
+    if (hours >= 8 && hours < 21) {
         promotion = true;
     }
     let allPrice = 0;
