@@ -33,7 +33,6 @@ public class UsersControllerIntegrationTest {
 
     @LocalServerPort
     private int port;
-
     @Autowired
     private MockMvc mockMvc;
 
