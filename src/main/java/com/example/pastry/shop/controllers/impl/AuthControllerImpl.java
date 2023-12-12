@@ -31,7 +31,6 @@ public class AuthControllerImpl implements AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-
     private final UserServiceImpl userService;
 
     public AuthControllerImpl(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserServiceImpl userService) {
