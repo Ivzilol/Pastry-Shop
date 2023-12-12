@@ -30,7 +30,6 @@ import java.util.Optional;
 public class AuthControllerImpl implements AuthController {
 
     private final AuthenticationManager authenticationManager;
-
     private final JwtUtil jwtUtil;
 
     private final UserServiceImpl userService;
