@@ -11,6 +11,7 @@ public class UserTopClientEvent extends ApplicationEvent {
         this.userEmail = userEmail;
     }
 
+
     public String getUserEmail() {
         return userEmail;
     }
