@@ -14,6 +14,7 @@ import ChatRoom from "../ChatRoom/ChatRoom";
 import NavBarAdmin from "../NavBarAdmin/NavBarAdmin";
 import baseURL from "../BaseURL/BaseURL";
 import GlobalError from "../GlobalError/GlobalError";
+import Maintenance from "../Maintenance/Maintenance";
 
 
 const Homepage = () => {
@@ -249,7 +250,7 @@ const Homepage = () => {
                     <NavBar/>
                 }
                 {roles.find((role) => role === 'user') && orderWindow ? <OrderWindow/> : <></>}
-                {/*<Maintenance/>*/}
+                <Maintenance/>
                 {user.jwt !== null ? <ChatRoom/> : <></>}
                 {orderDialog &&
                     <div className="home-page-order-dialog">
