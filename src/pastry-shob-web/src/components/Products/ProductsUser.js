@@ -36,6 +36,7 @@ const ProductsUser = () => {
     useEffect(() => {
         ajax(`${baseURL}api/products`, "GET", user.jwt)
             .then(productsData => {
+                console.log(productsData);
                 setProducts(productsData);
             });
         if (user.jwt) {
