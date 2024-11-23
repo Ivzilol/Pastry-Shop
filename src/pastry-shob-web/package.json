@@ -10,7 +10,7 @@
     "@mui/material": "^5.12.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.4.0",
+    "axios": "^1.7.4",
     "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
     "custom-react-step-progress-bar": "^1.0.8",
