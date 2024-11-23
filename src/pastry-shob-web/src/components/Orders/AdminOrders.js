@@ -195,7 +195,7 @@ const AdminOrders = () => {
                                         <p>Адрес: {sendOrders.address}</p>
                                         <p>Обща цена: {Number(sendOrders.totalPrice).toFixed(2)} лв.</p>
                                         <div className="confirmed-orders-list-container-details-paid">
-                                            <p >
+                                            <p>
                                                 Платена:
                                             </p>
                                             {

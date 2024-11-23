@@ -76,7 +76,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "https://sladkarnicata-na-mama.azurewebsites.net"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000"));
         corsConfiguration.setAllowedMethods(List.of("PUT", "DELETE", "POST", "GET", "PATCH"));
         corsConfiguration.setAllowedHeaders(List.of("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
         corsConfiguration.setExposedHeaders(List.of("Access-Control-Allow-Origin", "Content-Type", "Accept", "Authorization"));
