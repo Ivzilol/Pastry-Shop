@@ -250,7 +250,7 @@ const Homepage = () => {
                     <NavBar/>
                 }
                 {roles.find((role) => role === 'user') && orderWindow ? <OrderWindow/> : <></>}
-                <Maintenance/>
+                {/*<Maintenance/>*/}
                 {user.jwt !== null ? <ChatRoom/> : <></>}
                 {orderDialog &&
                     <div className="home-page-order-dialog">
